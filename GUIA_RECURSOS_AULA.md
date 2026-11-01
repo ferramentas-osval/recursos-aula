@@ -64,7 +64,7 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 
 Carpetas que redirigen a la página del curso con `?alumnado` (sin enlace a «Todos los recursos»):
 
-- `…/recursos-aula/eso` · `/bach` · `/fpb` · `/pdc`
+- `…/recursos-aula/1eso` · `/1bach` · `/2bach` (los dos van a la misma página de Bachillerato) · `/1fpb` · `/3pdc`
 - `/ludicas` · `/personajes` · `/proyectos` · `/talleres`
 
 No se borran ni se renombran: son los enlaces que se reparten.
