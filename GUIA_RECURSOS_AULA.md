@@ -1,6 +1,6 @@
 # Guía de la web «Recursos de aula»
 
-Repositorio: **osvalgs/recursos-aula** (GitHub Pages: `https://osvalgs.github.io/recursos-aula/`)
+Repositorio: **ferramentas-osval/recursos-aula** (GitHub Pages: `https://ferramentas-osval.github.io/recursos-aula/`)
 
 Esta guía resume cómo está construida la web y cómo se mantiene. Cualquier chat con acceso al repositorio debe leerla antes de tocar nada.
 
@@ -55,7 +55,7 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 
 ## 4. Enlaces de cada curso
 
-- 1.º ESO: `https://osvalgs.github.io/recursos-aula/01_ESO/`
+- 1.º ESO: `https://ferramentas-osval.github.io/recursos-aula/01_ESO/`
 - Bachillerato: `…/02_BACH/` · FP Básica: `…/03_FPB/` · PDC: `…/04_PDC/`
 - Actividades lúdicas: `…/ACTIVIDADES_LUDICAS/` · Personajes históricos: `…/ACTIVIDADES_PERSONAJES_HISTORICOS/`
 - Proyectos competenciales: `…/PROYECTOS_COMPETENCIALES/` · Talleres: `…/TALLERES_Y_TECNICAS_DE_ESTUDIO/`
