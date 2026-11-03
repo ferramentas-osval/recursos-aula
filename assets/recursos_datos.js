@@ -268,6 +268,14 @@ window.RECURSOS=[
      {
       "t": "Reto substantivo: xénero, número e clasificación semántica",
       "h": "04_PDC/ACTIVIDADES/reto_substantivo_xenero_numero_clasificacion_semantica.html"
+     },
+     {
+      "t": "Retos de repaso: historia e galego",
+      "h": "04_PDC/ACTIVIDADES/retos_repaso_historia_galego.html"
+     },
+     {
+      "t": "Fichas de repaso: historia e galego (con apuntes)",
+      "h": "04_PDC/ACTIVIDADES/fichas_repaso_historia_galego.html"
      }
     ]
    },

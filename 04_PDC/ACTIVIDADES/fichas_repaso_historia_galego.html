@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fichas_repaso_historia_galego</title>
+<style>
+@page{size:A4;margin:12mm}
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;font-size:11pt;color:#1d2333;margin:0;background:#e9e6df;text-align:justify}
+.page{background:#fff;width:210mm;min-height:297mm;margin:10mm auto;padding:12mm;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+@media print{body{background:#fff}.page{margin:0;box-shadow:none;width:auto;min-height:0;padding:0;page-break-after:always}.noprint{display:none}}
+header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--c);padding-bottom:2mm;margin-bottom:4mm}
+header h1{margin:0;font-size:18pt;color:var(--c)}
+header .who{font-size:10pt}
+.hist{--c:#c0562f}.gal{--c:#2a7f62}.sol{--c:#555}
+.ex{margin-bottom:3.5mm;break-inside:avoid}
+.ex h2{font-size:12pt;margin:0 0 1.5mm;color:var(--c)}
+.ex h2 span{display:inline-block;background:var(--c);color:#fff;border-radius:50%;width:6mm;height:6mm;text-align:center;line-height:6mm;margin-right:2mm;font-size:10pt}
+p{margin:0 0 1.5mm;width:100%}
+table{width:100%;border-collapse:collapse;font-size:10.5pt}
+td,th{border:1px solid #9aa;padding:1.2mm 2mm;vertical-align:top;text-align:left}
+th{background:#f1eee6}
+.line{border-bottom:1px solid #9aa;height:6.5mm}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 6mm}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5mm 5mm}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5mm 4mm}
+.g2>div,.g3>div,.g4>div{text-align:left}
+.b{display:inline-block;border-bottom:1px solid #555;min-width:22mm}
+.bx{display:inline-block;width:9mm;border:1px solid #555;height:5.5mm;vertical-align:middle;margin-right:1.5mm}
+.bank{border:1.5px dashed var(--c);padding:1.5mm 3mm;border-radius:2mm;margin-bottom:2mm;font-weight:bold;text-align:center}
+.sol p,.sol li{font-size:10pt}
+.sol h3{font-size:11.5pt;margin:3mm 0 1mm}
+.th{font-size:9pt;line-height:1.2}
+.th header{margin-bottom:2mm}
+.th header h1{font-size:15pt}
+.th .tw{display:grid;grid-template-columns:1fr 1fr;gap:2mm 4mm}
+.th .bx2{border:1.5px solid var(--c);border-radius:2mm;padding:1.4mm 2.5mm;break-inside:avoid}
+.th .bx2 h3{margin:0 0 .6mm;font-size:10pt;color:var(--c)}
+.th .bx2 p{margin:0 0 1mm}
+.th .full{grid-column:1/-1}
+.th table{font-size:8.8pt}
+.th td,.th th{padding:.5mm 1.6mm}
+.th .ollo{background:#fff4d6;border-left:4px solid #e0a800;padding:1mm 2.5mm;margin-top:1mm}
+.th .tip{font-size:8.8pt;color:#555;font-style:italic;margin-bottom:1.5mm}
+.solbtn{float:right;font-size:9.5pt;border:none;border-radius:2mm;padding:1mm 3mm;background:var(--c);color:#fff;cursor:pointer;font-weight:bold}
+.ans{display:none;color:#1f8a4c;font-weight:bold;font-family:"Comic Sans MS","Segoe Print",cursive}
+.ex.show .ans{display:inline}
+.bx .ans,.b .ans{text-align:center}
+.bx{text-align:center;font-size:10pt}
+.b{text-align:center}
+.line .ans{font-size:10pt;line-height:6.5mm}
+.solbox{display:none;margin-top:1.5mm;background:#eef8f2;border-left:4px solid #2e9e57;padding:1.5mm 3mm;font-size:10.5pt}
+.solbox.on{display:block}
+.solbox b:first-child{display:none}
+.allsol{position:fixed;right:5mm;bottom:5mm;font-size:11pt;padding:2.5mm 4mm;border:none;border-radius:2mm;background:#2e9e57;color:#fff;cursor:pointer;z-index:9}
+@media print{.solbtn,.solbox,.allsol,.ans{display:none!important}}
+.noprint{text-align:center;margin:6mm}
+.noprint button{font-size:13pt;padding:3mm 6mm;border-radius:2mm;border:none;background:#1d2b4a;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="noprint"><button onclick="print()">🖨️ Imprimir apuntes e fichas</button></div>
+
+<!-- TEORÍA HISTORIA -->
+<div class="page hist th">
+<header><h1>Apuntes de Historia · Busca aquí</h1><div class="who">Idade Moderna e humanismo</div></header>
+<p class="tip">Usa estes apuntes para resolver as fichas. Le o exercicio, busca o recadro que trata o tema e localiza a información.</p>
+<div class="tw">
+<div class="bx2 full"><h3>As etapas da historia</h3>
+<p>O pasado divídese en etapas. Cada unha remata cun feito tan importante que cambiou o mundo:</p>
+<table><tr><th>Etapa</th><th>Datas</th><th>Feito co que remata</th></tr>
+<tr><td>Prehistoria</td><td>ata o 3000 a. C.</td><td>A aparición da escritura</td></tr>
+<tr><td>Idade Antiga</td><td>3000 a. C. – 476</td><td>A caída do Imperio romano de Occidente</td></tr>
+<tr><td>Idade Media</td><td>476 – 1453</td><td>A caída de Constantinopla</td></tr>
+<tr><td>Idade Moderna</td><td>1453 – 1789</td><td>A Revolución francesa</td></tr>
+<tr><td>Idade Contemporánea</td><td>1789 – hoxe</td><td>É a etapa na que vivimos</td></tr></table></div>
+
+<div class="bx2"><h3>As fontes históricas</h3>
+<p>Os historiadores investigan a partir de <b>fontes</b>: todo o que nos deixaron as persoas do pasado.</p>
+<p><b>Escritas:</b> documentos, libros, cartas, leis, crónicas.<br><b>Materiais:</b> edificios, ferramentas, moedas, barcos.<br><b>Iconográficas:</b> pinturas, gravados e mapas.<br><b>Orais:</b> testemuños e relatos contados de palabra.</p></div>
+
+<div class="bx2"><h3>Que é a Idade Moderna?</h3>
+<p>É a etapa que comeza a mediados do <b>século XV</b> coa caída de Constantinopla (<b>1453</b>). En España úsase a chegada a América (<b>1492</b>). Remata a finais do <b>século XVIII</b> coa Revolución francesa (<b>1789</b>). Vai despois da Idade Media e antes da Idade Contemporánea. Desenvólvese sobre todo en <b>Europa occidental</b>, pero coas descubertas esténdese a América, África e Asia.</p></div>
+
+<div class="bx2 full"><h3>Da Idade Media á Idade Moderna: que cambiou?</h3>
+<table><tr><th style="width:15%"></th><th style="width:30%">Idade Media</th><th>Idade Moderna</th></tr>
+<tr><th>Poboación</th><td>Peste negra e crise.</td><td>Europa supera a crise e a <b>poboación medra</b>. Prodúcense as primeiras <b>migracións transoceánicas</b>.</td></tr>
+<tr><th>Sociedade</th><td>Rural e campesiña.</td><td>As <b>cidades medran</b> e hai <b>auxe dos burgueses</b>. Xorden novas ideas co <b>humanismo</b>.</td></tr>
+<tr><th>Economía</th><td>Agraria e de subsistencia.</td><td>Comercio e artesanía. Nace o <b>mercantilismo</b> e o capitalismo comercial e financeiro.</td></tr>
+<tr><th>Política</th><td>Monarquía feudal.</td><td><b>Monarquía autoritaria</b>: os reis, apoiados polos burgueses, teñen máis poder sobre os nobres.</td></tr></table></div>
+
+<div class="bx2"><h3>Vocabulario clave</h3>
+<p><b>Demografía:</b> estudo da poboación (cantas persoas hai, onde viven, como aumentan ou diminúen).</p>
+<p><b>Mercantilismo:</b> idea de que un país é máis rico canto máis ouro e prata acumula, vendendo máis do que compra.</p>
+<p><b>Burgueses:</b> habitantes das cidades (burgos) que vivían do comercio, da artesanía ou dos negocios.</p>
+<p><b>Monarca autoritario:</b> rei que concentra o poder, con exército, funcionarios e impostos propios. Exemplo: os Reis Católicos.</p></div>
+
+<div class="bx2"><h3>O humanismo</h3>
+<p>Movemento europeo (Italia, séculos XIV-XVI) que pon <b>o ser humano no centro</b> e se inspira na Antigüidade clásica: <b>Grecia e Roma</b>.</p>
+<p><b>Teocentrismo</b> (Idade Media): todo xira arredor de <b>Deus</b> e da Igrexa; a fe está por riba da razón.<br><b>Antropocentrismo</b> (humanismo): o <b>ser humano</b> é o centro; valóranse a liberdade e a razón.</p>
+<p><b>Características:</b> exaltación da <b>liberdade</b> e da <b>razón</b>; renacemento da cultura grecolatina; avance da técnica e da <b>ciencia</b>; uso das <b>linguas vernáculas</b> (italiano, castelán, galego…) fronte ao <b>latín</b>, para que a cultura chegue a máis xente.</p></div>
+
+<div class="bx2"><h3>Os tres grandes autores italianos</h3>
+<p><b>Dante Alighieri</b> (1265-1321): <i>Divina comedia</i> (Inferno, Purgatorio e Paraíso, da man de Virxilio e Beatriz). Sentou as bases do italiano. Desterrado de Florencia, morreu en Rávena.</p>
+<p><b>Francesco Petrarca</b> (1304-1374): <i>Cancioneiro</i>, poemas de amor por <b>Laura</b>. Rescatou antigos códices latinos.</p>
+<p><b>Giovanni Boccaccio</b> (1313-1375): <i>Decamerón</i>, cen contos en prosa inspirados na <b>peste de 1348</b>.</p></div>
+
+<div class="bx2"><h3>Como se espallou o humanismo?</h3>
+<p><b>Imprenta</b> (Gutenberg, arredor de 1450): difundiu as novas ideas moito máis rápido; antes cada libro copiábase a man.</p>
+<p><b>Academias:</b> reunían estudosos de todas as ramas (filólogos, poetas, científicos) en faladoiros.</p>
+<p><b>Mecenas</b>, como os Medici: pagaban os proxectos de artistas e científicos.</p>
+<p><b>Universidades:</b> renováronse e abríronse novas: Santiago, Alcalá, Valencia…</p></div>
+</div>
+</div>
+
+<!-- TEORÍA GALEGO -->
+<div class="page gal th">
+<header><h1>Apuntes de Galego · Busca aquí</h1><div class="who">A palabra, o substantivo e o adxectivo</div></header>
+<p class="tip">Usa estes apuntes para resolver as fichas. Le o exercicio, busca o recadro que trata o tema e localiza a regra ou o exemplo.</p>
+<div class="tw">
+<div class="bx2"><h3>Palabras variables e invariables</h3>
+<p><b>Variables:</b> cambian de forma con xénero e número (substantivos, adxectivos, algúns determinantes como <i>estas</i>) ou con persoa e tempo (verbos como <i>xogar</i>).</p>
+<p><b>Invariables:</b> sempre igual. Son os adverbios (<i>alí, xa</i>), as preposicións (<i>en, contra</i>) e as conxuncións (<i>e, pero</i>).</p></div>
+
+<div class="bx2"><h3>O xénero: os que «enganan»</h3>
+<p><b>Femininos:</b> os rematados en <b>-axe</b> (a viaxe, a linguaxe; agás <b>o traxe</b>, o garaxe); en -se (a análise); e <b>a orde, a ponte, a dor, a cor, a árbore</b>.</p>
+<p><b>Masculinos:</b> os rematados en <b>-ume</b> (o lume, o costume); e <b>o sal, o mel, o leite, o sangue, o nariz</b>.</p>
+<p class="ollo">En castelán moitos teñen o xénero ao revés: <i>la leche</i> → <b>o leite</b>.</p></div>
+
+<div class="bx2 full"><h3>Formación do feminino</h3>
+<table><tr><th>Se remata en…</th><th>Regra</th><th>Exemplos</th></tr>
+<tr><td>-o / -e átonos</td><td>cambia a vogal por -a</td><td>neto → neta · mestre → mestra</td></tr>
+<tr><td>-eu</td><td>-ea; pero algúns fan <b>-ía</b></td><td>europeu → europea · xudeu → xudía · sandeu → sandía</td></tr>
+<tr><td>vogal tónica</td><td>engade -a</td><td>nu → núa · bo → boa</td></tr>
+<tr><td>consoante</td><td>engade -a</td><td>señor → señora · deus → deusa</td></tr>
+<tr><td>-ón</td><td><b>-oa</b>; pero <b>-ona</b> se é aumentativo ou despectivo</td><td>campión → campioa · lambón → lambona</td></tr>
+<tr><td>-án</td><td><b>-á</b>; pero <b>-ana</b> se é aumentativo ou despectivo</td><td>aldeán → aldeá · lacazán → lacazana</td></tr></table></div>
+
+<div class="bx2 full"><h3>Formación do plural</h3>
+<table><tr><th>Regra</th><th>Cando?</th><th>Exemplos</th></tr>
+<tr><td><b>+ -s</b></td><td>vogal, ditongo ou consoante que non sexa -r, -z, -s, -l. <b>Tamén -n</b></td><td>cadro → cadros · rei → reis · balcón → balcóns</td></tr>
+<tr><td><b>+ -es</b></td><td>agudas en -s · rematadas en -r ou -z · en -l se son monosílabas ou graves</td><td>autobús → autobuses · cor → cores · luz → luces · fácil → fáciles</td></tr>
+<tr><td><b>-l → -is</b></td><td>agudas de máis dunha sílaba en -l</td><td>papel → papeis · funil → funís</td></tr>
+<tr><td><b>non cambian</b></td><td>graves ou esdrúxulas en -s e todas en -x</td><td>o luns → os luns · o fénix → os fénix</td></tr></table></div>
+
+<div class="bx2"><h3>Clasificación semántica do substantivo</h3>
+<p><b>Propios:</b> nomes de persoas e lugares (Xoel, Vigo). <b>Comúns:</b> o resto. Os comúns poden ser:</p>
+<p>· <b>Abstractos:</b> ideas e sentimentos que non se ven nin se tocan (paz, alegría).<br>· <b>Concretos:</b> poden ser <b>non contables</b> (non se contan: auga, area) ou <b>contables</b>.<br>· Os contables son <b>individuais</b> (un só ser: libro, ovella) ou <b>colectivos</b> (un grupo en singular: piñeiral, gando).</p></div>
+
+<div class="bx2"><h3>O adxectivo: concordancia e clases</h3>
+<p>Concorda en xénero e número co substantivo: <i>a casa vella → as casas vellas</i>.</p>
+<p><b>Explicativo:</b> di unha calidade que o substantivo xa ten (<i>herba verde</i>). <b>Especificativo:</b> distingue o substantivo dentro dun grupo (<i>porta vermella</i>).</p>
+<p class="ollo">Truco: «Todos os ___ son así?» Si → explicativo. Non → especificativo.</p></div>
+
+<div class="bx2"><h3>Os graos do adxectivo</h3>
+<p><b>Positivo:</b> un coche rápido.<br><b>Comparativo:</b> igualdade (<i>tan rápido coma</i>), superioridade (<i>máis rápido ca</i>), inferioridade (<i>menos rápido ca</i>).<br><b>Superlativo absoluto:</b> rapidísimo / moi rápido.<br><b>Superlativo relativo:</b> o máis rápido da carreira.</p></div>
+
+<div class="bx2"><h3>Ca, coma, como ou do que?</h3>
+<p>Ante <b>pronome</b> (min, ti, el, ela, eu…): <b>coma</b> (igualdade) / <b>ca</b> (máis, menos).</p>
+<p>Ante <b>verbo</b>: <b>como</b> (igualdade) / <b>do que</b> (máis, menos).</p>
+<p class="ollo">Nunca «máis alto que ti»: <b>máis alto ca ti</b>.</p></div>
+
+<div class="bx2 full"><h3>Superlativo con raíz culta (do latín)</h3>
+<p>Algúns adxectivos forman o superlativo sobre a súa raíz latina: <b>raíz culta + -ísimo</b> (amable → <i>amabil-</i>, fiel → <i>fidel-</i>, antigo → <i>antiqu-</i>) ou, os rematados en -re/-ro, <b>raíz culta + -érrimo</b> (áspero → <i>asp-</i>, acre → <i>ac-</i>, íntegro → <i>integ-</i>). Exemplo: pobre → paupérrimo; célebre → celebérrimo.</p></div>
+</div>
+</div>
+
+<!-- HISTORIA 1 -->
+<div class="page hist">
+<header><h1>Historia · A Idade Moderna</h1><div class="who">Nome: ______________________ Data: ________</div></header>
+
+<div class="ex"><h2><span>1</span>As etapas da historia</h2>
+<p>Ordena as etapas da 1 á 5 e escribe o feito que pecha cada unha.</p>
+<table><tr><th style="width:12%">Orde</th><th style="width:33%">Etapa</th><th>Feito que a pecha (e data)</th></tr>
+<tr><td></td><td>Idade Moderna</td><td></td></tr>
+<tr><td></td><td>Prehistoria</td><td></td></tr>
+<tr><td></td><td>Idade Contemporánea</td><td>— (é a etapa na que vivimos)</td></tr>
+<tr><td></td><td>Idade Media</td><td></td></tr>
+<tr><td></td><td>Idade Antiga</td><td></td></tr></table></div>
+
+<div class="ex"><h2><span>2</span>As fontes históricas</h2>
+<p>Escribe se cada fonte é <b>escrita (E)</b>, <b>material (M)</b>, <b>iconográfica (I)</b> ou <b>oral (O)</b>.</p>
+<div class="g4"><div><span class="bx"></span>unha moeda</div><div><span class="bx"></span>unha carta</div><div><span class="bx"></span>unha pintura</div><div><span class="bx"></span>o relato dun avó</div><div><span class="bx"></span>un barco</div><div><span class="bx"></span>unha lei</div><div><span class="bx"></span>un mapa antigo</div><div><span class="bx"></span>unha ferramenta</div></div></div>
+
+<div class="ex"><h2><span>3</span>Define a Idade Moderna</h2>
+<p>Ten en conta: cando comeza e cando remata, que etapa vai antes e cal despois, e onde sucede.</p>
+<div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+
+<div class="ex"><h2><span>4</span>Idade Media e Idade Moderna</h2>
+<p>Completa o esquema comparativo.</p>
+<table><tr><th style="width:18%"></th><th style="width:30%">Idade Media</th><th>Idade Moderna</th></tr>
+<tr><th>Poboación</th><td>Peste negra, crise</td><td style="height:10mm"></td></tr>
+<tr><th>Sociedade</th><td>Rural e campesiña</td><td style="height:10mm"></td></tr>
+<tr><th>Economía</th><td>Agraria e de subsistencia</td><td style="height:10mm"></td></tr>
+<tr><th>Política</th><td>Monarquía feudal</td><td style="height:10mm"></td></tr></table></div>
+
+<div class="ex"><h2><span>5</span>Palabras clave</h2>
+<div class="bank">mercantilismo · burgués · monarca autoritario · demografía</div>
+<p>a) Rei que concentra o poder, con exército, funcionarios e impostos propios: <span class="b" style="min-width:55mm"></span></p>
+<p>b) Estudo da poboación: cantas persoas hai, onde viven, como aumentan ou diminúen: <span class="b" style="min-width:40mm"></span></p>
+<p>c) Idea de que un país é máis rico canto máis ouro e prata acumula: <span class="b" style="min-width:55mm"></span></p>
+<p>d) Habitante das cidades que vivía do comercio, da artesanía ou dos negocios: <span class="b" style="min-width:45mm"></span></p></div>
+</div>
+
+<!-- HISTORIA 2 -->
+<div class="page hist">
+<header><h1>Historia · O humanismo</h1><div class="who">Nome: ______________________</div></header>
+
+<div class="ex"><h2><span>6</span>Do teocentrismo ao antropocentrismo</h2>
+<p>Explica que significa cada palabra e a que época corresponde.</p>
+<p><b>Teocentrismo:</b></p><div class="line"></div><div class="line"></div>
+<p style="margin-top:2mm"><b>Antropocentrismo:</b></p><div class="line"></div><div class="line"></div></div>
+
+<div class="ex"><h2><span>7</span>Características do humanismo</h2>
+<p>Completa cada característica.</p>
+<p>a) Exaltación do ser humano e dos seus valores, especialmente a <span class="b"></span> e a <span class="b"></span>.</p>
+<p>b) Gusto pola cultura da Antigüidade clásica: <span class="b"></span> e <span class="b"></span>.</p>
+<p>c) Avance da técnica e da <span class="b"></span> grazas aos novos inventos.</p>
+<p>d) Uso das linguas <span class="b"></span> fronte ao <span class="b"></span>, para que a cultura chegue a máis persoas.</p></div>
+
+<div class="ex"><h2><span>8</span>Os tres grandes do humanismo italiano</h2>
+<table><tr><th style="width:22%">Autor</th><th style="width:30%">Obra máis coñecida</th><th>Un dato sobre el ou a súa obra</th></tr>
+<tr><td>Dante Alighieri</td><td></td><td style="height:11mm"></td></tr>
+<tr><td>Francesco Petrarca</td><td></td><td style="height:11mm"></td></tr>
+<tr><td>Giovanni Boccaccio</td><td></td><td style="height:11mm"></td></tr></table></div>
+
+<div class="ex"><h2><span>9</span>Como se espallou o humanismo?</h2>
+<p>Explica en unha liña que achegou cada medio.</p>
+<p><b>Imprenta:</b> <span class="b" style="min-width:150mm"></span></p>
+<p><b>Academias:</b> <span class="b" style="min-width:146mm"></span></p>
+<p><b>Mecenas:</b> <span class="b" style="min-width:150mm"></span></p>
+<p><b>Universidades:</b> <span class="b" style="min-width:140mm"></span></p></div>
+
+<div class="ex"><h2><span>10</span>Verdadeiro ou falso</h2>
+<p>Escribe V ou F. Corrixe as falsas na liña.</p>
+<p><span class="bx"></span>A Idade Moderna remata coa caída de Constantinopla.</p>
+<p><span class="bx"></span>Na Idade Moderna as cidades medran e hai auxe dos burgueses.</p>
+<p><span class="bx"></span>Os humanistas rexeitaban a cultura de Grecia e Roma.</p>
+<p><span class="bx"></span>Os mecenas, como os Medici, pagaban os proxectos de artistas e científicos.</p>
+<div class="line"></div><div class="line"></div></div>
+</div>
+
+<!-- GALEGO 1 -->
+<div class="page gal">
+<header><h1>Galego · A palabra e o substantivo</h1><div class="who">Nome: ______________</div></header>
+
+<div class="ex"><h2><span>1</span>Variables e invariables</h2>
+<p>Clasifica as palabras na táboa.</p>
+<div class="bank">casa · alí · branca · en · xogar · e · xa · fillo · contra · pero · estas · rápido</div>
+<table><tr><th style="width:50%">Variables</th><th>Invariables</th></tr><tr><td style="height:12mm"></td><td></td></tr></table></div>
+
+<div class="ex"><h2><span>2</span>O ou A?</h2>
+<p>Escribe o artigo diante de cada substantivo. Ollo cos que «enganan»!</p>
+<div class="g4"><div><span class="b" style="min-width:9mm"></span> dor</div><div><span class="b" style="min-width:9mm"></span> ponte</div><div><span class="b" style="min-width:9mm"></span> leite</div><div><span class="b" style="min-width:9mm"></span> sangue</div><div><span class="b" style="min-width:9mm"></span> viaxe</div><div><span class="b" style="min-width:9mm"></span> traxe</div><div><span class="b" style="min-width:9mm"></span> lume</div><div><span class="b" style="min-width:9mm"></span> costume</div><div><span class="b" style="min-width:9mm"></span> orde</div><div><span class="b" style="min-width:9mm"></span> sal</div><div><span class="b" style="min-width:9mm"></span> árbore</div><div><span class="b" style="min-width:9mm"></span> nariz</div></div></div>
+
+<div class="ex"><h2><span>3</span>Forma o feminino</h2>
+<div class="g3"><div>fillo → <span class="b"></span></div><div>xudeu → <span class="b"></span></div><div>avó → <span class="b"></span></div><div>profesor → <span class="b"></span></div><div>león → <span class="b"></span></div><div>abusón → <span class="b"></span></div><div>alemán → <span class="b"></span></div><div>folgazán → <span class="b"></span></div><div>patrón → <span class="b"></span></div></div></div>
+
+<div class="ex"><h2><span>4</span>Forma o plural</h2>
+<div class="g3"><div>camión → <span class="b"></span></div><div>compás → <span class="b"></span></div><div>canal → <span class="b"></span></div><div>móbil → <span class="b"></span></div><div>o lapis → <span class="b"></span></div><div>raíz → <span class="b"></span></div><div>tren → <span class="b"></span></div><div>perfil → <span class="b"></span></div><div>o tórax → <span class="b"></span></div></div></div>
+
+<div class="ex"><h2><span>5</span>Clasificación semántica do substantivo</h2>
+<p>Escribe a clase máis concreta: <b>propio, abstracto, non contable, individual</b> ou <b>colectivo</b>.</p>
+<div class="g2"><div>Uxía → <span class="b" style="min-width:40mm"></span></div><div>xustiza → <span class="b" style="min-width:40mm"></span></div><div>leite → <span class="b" style="min-width:40mm"></span></div><div>rabaño → <span class="b" style="min-width:40mm"></span></div><div>prato → <span class="b" style="min-width:40mm"></span></div><div>arboredo → <span class="b" style="min-width:40mm"></span></div><div>vento → <span class="b" style="min-width:40mm"></span></div><div>solidariedade → <span class="b" style="min-width:34mm"></span></div></div></div>
+</div>
+
+<!-- GALEGO 2 -->
+<div class="page gal">
+<header><h1>Galego · O adxectivo</h1><div class="who">Nome: ______________________</div></header>
+
+<div class="ex"><h2><span>6</span>Concordancia</h2>
+<p>Pon en plural (e en feminino cando se poida) cada substantivo co seu adxectivo.</p>
+<div class="g2"><div>o can pequeno → <span class="b" style="min-width:45mm"></span></div><div>un edificio rehabilitado → <span class="b" style="min-width:35mm"></span></div></div></div>
+
+<div class="ex"><h2><span>7</span>Explicativo ou especificativo?</h2>
+<p>Lembra o truco: <i>todos os ___ son así?</i> Escribe <b>EX</b> ou <b>ES</b>.</p>
+<div class="g4"><div><span class="bx"></span>neve fría</div><div><span class="bx"></span>coche amarelo</div><div><span class="bx"></span>mel doce</div><div><span class="bx"></span>rapaz louro</div><div><span class="bx"></span>pedra dura</div><div><span class="bx"></span>can pequeno</div><div><span class="bx"></span>lume quente</div><div><span class="bx"></span>camisa azul</div></div></div>
+
+<div class="ex"><h2><span>8</span>Os graos do adxectivo</h2>
+<p>Escribe cada grao co adxectivo <b>lixeira</b> e a frase <i>unha bicicleta</i>.</p>
+<table><tr><th style="width:38%">Grao</th><th>Exemplo</th></tr>
+<tr><td>Positivo</td><td></td></tr><tr><td>Comparativo de igualdade</td><td></td></tr><tr><td>Comparativo de superioridade</td><td></td></tr><tr><td>Comparativo de inferioridade</td><td></td></tr><tr><td>Superlativo absoluto</td><td></td></tr><tr><td>Superlativo relativo</td><td></td></tr></table></div>
+
+<div class="ex"><h2><span>9</span>Ca, coma, como ou do que?</h2>
+<div class="g2"><div>a) Corre máis <span class="b"></span> ti.</div><div>b) É tan alto <span class="b"></span> min.</div><div>c) É menos complicado <span class="b"></span> cres.</div><div>d) Non é tan difícil <span class="b"></span> parece.</div><div>e) Canta mellor <span class="b"></span> eu.</div><div>f) Es tan rápida <span class="b"></span> ela.</div></div></div>
+
+<div class="ex"><h2><span>10</span>Superlativo con raíz culta</h2>
+<div class="g3"><div>amable → <span class="b"></span></div><div>fiel → <span class="b"></span></div><div>antigo → <span class="b"></span></div><div>áspero → <span class="b"></span></div><div>acre → <span class="b"></span></div><div>íntegro → <span class="b"></span></div></div></div>
+</div>
+
+<!-- SOLUCIONARIO -->
+<div class="page sol">
+<header><h1>Solucionario</h1><div class="who">Historia e Lingua galega</div></header>
+<h3>Historia</h3>
+<p><b>1.</b> 1 Prehistoria (aparición da escritura, 3000 a. C.) · 2 Idade Antiga (caída do Imperio romano de Occidente, 476) · 3 Idade Media (caída de Constantinopla, 1453) · 4 Idade Moderna (Revolución francesa, 1789) · 5 Idade Contemporánea.</p>
+<p><b>2.</b> moeda M · carta E · pintura I · relato O · barco M · lei E · mapa I · ferramenta M.</p>
+<p><b>3.</b> Período que comeza a mediados do século XV, coa caída de Constantinopla en 1453 (en España, coa chegada a América en 1492), e remata a finais do século XVIII, coa Revolución francesa en 1789. Vai entre a Idade Media e a Idade Contemporánea. Desenvólvese sobre todo en Europa occidental e esténdese a América, África e Asia.</p>
+<p><b>4.</b> Poboación: crecemento tras a crise e primeiras migracións transoceánicas. Sociedade: máis urbana, auxe dos burgueses e novas ideas co humanismo. Economía: comercial e artesanal, mercantilismo e capitalismo comercial e financeiro. Política: monarquía autoritaria; os reis, apoiados polos burgueses, teñen máis poder sobre os nobres.</p>
+<p><b>5.</b> a) monarca autoritario · b) demografía · c) mercantilismo · d) burgués.</p>
+<p><b>6.</b> Teocentrismo: todo xira arredor de Deus e da Igrexa; a fe está por riba da razón (Idade Media). Antropocentrismo: o ser humano é o centro; valóranse a liberdade e a razón (humanismo, Idade Moderna).</p>
+<p><b>7.</b> a) liberdade, razón · b) Grecia, Roma · c) ciencia · d) vernáculas, latín.</p>
+<p><b>8.</b> Dante: <i>Divina comedia</i>; sentou as bases do italiano. Petrarca: <i>Cancioneiro</i>; amor por Laura. Boccaccio: <i>Decamerón</i>, cen contos inspirados na peste de 1348.</p>
+<p><b>9.</b> Imprenta: difundiu as ideas máis rápido. Academias: reunían sabios de todas as ramas. Mecenas: pagaban os proxectos de artistas e científicos (os Medici). Universidades: renováronse e abríronse novas (Santiago, Alcalá…).</p>
+<p><b>10.</b> F (remata coa Revolución francesa, 1789) · V · F (inspirábanse nela) · V.</p>
+<h3>Lingua galega</h3>
+<p><b>1.</b> Variables: casa, branca, xogar, fillo, estas, rápido. Invariables: alí, en, e, xa, contra, pero.</p>
+<p><b>2.</b> a dor · a ponte · o leite · o sangue · a viaxe · o traxe · o lume · o costume · a orde · o sal · a árbore · o nariz.</p>
+<p><b>3.</b> filla · xudía · avoa · profesora · leoa · abusona · alemá · folgazana · patroa.</p>
+<p><b>4.</b> camións · compases · canais · móbiles · os lapis · raíces · trens · perfís · os tórax.</p>
+<p><b>5.</b> Uxía propio · xustiza abstracto · leite non contable · rabaño colectivo · prato individual · arboredo colectivo · vento non contable · solidariedade abstracto.</p>
+<p><b>6.</b> os cans pequenos / as cadelas pequenas · uns edificios rehabilitados.</p>
+<p><b>7.</b> EX neve fría · ES coche amarelo · EX mel doce · ES rapaz louro · EX pedra dura · ES can pequeno · EX lume quente · ES camisa azul.</p>
+<p><b>8.</b> unha bicicleta lixeira · tan lixeira coma a túa · máis lixeira ca a túa · menos lixeira ca a túa · lixeirísima / moi lixeira · a máis lixeira do mercado.</p>
+<p><b>9.</b> a) ca · b) coma · c) do que · d) como · e) ca · f) coma.</p>
+<p><b>10.</b> amabilísimo · fidelísimo · antiquísimo · aspérrimo · acérrimo · integérrimo.</p>
+</div>
+<button class="allsol" id="allsol">Mostrar todas</button>
+<script>
+var A=[
+ ['4','A Revolución francesa (1789)','1','A aparición da escritura (3000 a. C.)','5','3','A caída de Constantinopla (1453)','2','A caída do Imperio romano de Occidente (476)'],
+ ['M','E','I','O','M','E','I','M'],
+ ['Comeza a mediados do século XV, coa caída de Constantinopla (1453); en España, coa chegada a América (1492).','Remata a finais do século XVIII, coa Revolución francesa (1789).','Vai despois da Idade Media e antes da Idade Contemporánea.','Sucede sobre todo en Europa occidental e esténdese a América, África e Asia.'],
+ ['Crecemento tras superar a crise; primeiras migracións transoceánicas.','Máis urbana: as cidades medran, auxe dos burgueses e novas ideas co humanismo.','Comercial e artesanal: mercantilismo e capitalismo comercial e financeiro.','Monarquía autoritaria: os reis, apoiados polos burgueses, dominan os nobres.'],
+ ['monarca autoritario','demografía','mercantilismo','burgués'],
+ ['Todo xira arredor de Deus e da Igrexa; a fe está por riba da razón.','Corresponde á Idade Media.','O ser humano é o centro do Universo; valóranse a liberdade e a razón.','Corresponde ao humanismo (Idade Moderna).'],
+ ['liberdade','razón','Grecia','Roma','ciencia','vernáculas','latín'],
+ ['Divina comedia','Sentou as bases do italiano; morreu desterrado en Rávena.','Cancioneiro','Poemas de amor por Laura.','Decamerón','Cen contos inspirados na peste de 1348.'],
+ ['difundiu as novas ideas moito máis rápido (antes os libros copiábanse a man).','reunían sabios de todas as ramas en faladoiros.','pagaban os proxectos de artistas e científicos (os Medici).','renováronse e abríronse novas: Santiago, Alcalá, Valencia…'],
+ ['F','V','F','V','A Idade Moderna remata coa Revolución francesa (1789).','Os humanistas admiraban a cultura de Grecia e Roma.'],
+ ['casa, branca, xogar, fillo, estas, rápido','alí, en, e, xa, contra, pero'],
+ ['a','a','o','o','a','o','o','o','a','o','a','o'],
+ ['filla','xudía','avoa','profesora','leoa','abusona','alemá','folgazana','patroa'],
+ ['camións','compases','canais','móbiles','os lapis','raíces','trens','perfís','os tórax'],
+ ['propio','abstracto','non contable','colectivo','individual','colectivo','non contable','abstracto'],
+ ['os cans pequenos / as cadelas pequenas','uns edificios rehabilitados'],
+ ['EX','ES','EX','ES','EX','ES','EX','ES'],
+ ['unha bicicleta lixeira','tan lixeira coma a túa','máis lixeira ca a túa','menos lixeira ca a túa','lixeirísima / moi lixeira','a máis lixeira do mercado'],
+ ['ca','coma','do que','como','ca','coma'],
+ ['amabilísimo','fidelísimo','antiquísimo','aspérrimo','acérrimo','integérrimo']
+];
+(function(){
+  var exs=[].slice.call(document.querySelectorAll('.page:not(.th):not(.sol) .ex'));
+  exs.forEach(function(ex,i){
+    var t=[].slice.call(ex.querySelectorAll('td, .b, .bx, .line')).filter(function(e){return e.matches('.b,.bx,.line')||e.textContent.trim()===''});
+    (A[i]||[]).forEach(function(v,k){if(!t[k])return;var sp=document.createElement('span');sp.className='ans';sp.textContent=v;t[k].appendChild(sp)});
+    var bt=document.createElement('button');bt.className='solbtn';bt.textContent='Ver solución';
+    ex.querySelector('h2').appendChild(bt);
+    bt.onclick=function(){ex.classList.toggle('show');bt.textContent=ex.classList.contains('show')?'Ocultar':'Ver solución'};
+  });
+  var all=document.getElementById('allsol'),open=false;
+  all.onclick=function(){open=!open;exs.forEach(function(e){e.classList.toggle('show',open)});
+    document.querySelectorAll('.solbtn').forEach(function(b){b.textContent=open?'Ocultar':'Ver solución'});all.textContent=open?'Ocultar todas':'Mostrar todas'};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>retos_repaso_historia_galego</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1d2b4a; --panel:#fffaf0; --ink:#1d2333; --muted:#5b6478;
+  --hist:#c0562f; --gal:#2a7f62; --gold:#f2b632; --ok:#2e9e57; --ko:#d23c3c;
+  --t1:#e4572e; --t2:#2f80ed; --t3:#27ae60; --t4:#9b51e0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Nunito',sans-serif;color:var(--ink)}
+body{text-align:justify}
+/* barra superior: marcador */
+#bar{position:fixed;top:0;left:0;right:0;height:9vh;display:flex;align-items:center;gap:1vw;padding:0 1.2vw;background:#121c33;z-index:20}
+#bar .logo{font-family:'Fredoka';color:var(--gold);font-size:3.2vh;white-space:nowrap}
+#teams{display:flex;gap:.8vw;flex:1;justify-content:center}
+.team{display:flex;align-items:center;gap:.5vw;background:#fff;border-radius:1.2vh;padding:.6vh .8vw;border:.5vh solid var(--c)}
+.team .nm{font-family:'Fredoka';font-weight:600;font-size:2.6vh;color:var(--c);outline:none;min-width:3em;text-align:center}
+.team .pt{font-family:'Fredoka';font-weight:700;font-size:4vh;min-width:1.6em;text-align:center}
+.team button{width:4.4vh;height:4.4vh;border-radius:50%;border:none;background:var(--c);color:#fff;font-size:2.8vh;font-weight:800;cursor:pointer;line-height:1}
+.team button.m{background:#d9dce3;color:#444}
+#count{font-family:'Fredoka';color:#cfd6e6;font-size:2.6vh;white-space:nowrap}
+/* diapositivas */
+.slide{position:fixed;top:9vh;left:0;right:0;bottom:0;display:none;padding:2vh 6.5vw 2.5vh}
+.slide.on{display:flex;flex-direction:column}
+.card{flex:1;background:var(--panel);border-radius:2.4vh;display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.head{display:flex;align-items:center;gap:1.2vw;padding:1.4vh 1.6vw;color:#fff;background:var(--sub)}
+.head .tag{font-family:'Fredoka';font-size:2.4vh;background:rgba(255,255,255,.22);padding:.4vh 1vw;border-radius:99px;white-space:nowrap}
+.head h2{font-family:'Fredoka';font-weight:600;font-size:4.6vh;line-height:1.1;flex:1;text-align:left}
+.head .btns{display:flex;gap:.6vw}
+.head button{font-family:'Fredoka';font-size:2.5vh;border:none;border-radius:1vh;padding:.9vh 1.1vw;cursor:pointer;background:#fff;color:var(--sub);font-weight:600}
+.fit{flex:1;min-height:0;overflow:hidden;padding:1.6vh 1.6vw}
+.fit-in{height:100%;display:flex;flex-direction:column;gap:.5em}
+.ins{font-weight:700;color:var(--muted);font-size:.8em;text-align:justify;width:100%}
+.ins b{color:var(--ink)}
+.items{flex:1;display:grid;gap:.45em;grid-auto-rows:minmax(min-content,1fr)}
+.it{display:flex;align-items:center;gap:.6em;background:#fff;border:.12em solid #e3dccb;border-radius:.45em;padding:.25em .5em;cursor:pointer;user-select:none;transition:transform .1s}
+.it:active{transform:scale(.98)}
+.it .tx{flex:1;font-weight:700;line-height:1.15;text-align:left}
+.it .an{font-family:'Fredoka';font-weight:600;min-width:5.4em;text-align:center;padding:.12em .45em;border-radius:.4em;background:#eef0f4;color:#8a92a6;white-space:nowrap}
+.it.sel .an{background:var(--sub);color:#fff}
+.it.ok{border-color:var(--ok);background:#e9f7ee}
+.it.ko{border-color:var(--ko);background:#fdecec}
+.it.ok .an{background:var(--ok)} .it.ko .an{background:var(--ko)}
+.it .n{font-family:'Fredoka';font-weight:700;width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;background:#eef0f4;color:#aab}
+.it.sel .n{background:var(--sub);color:#fff}
+/* tarxetas que xiran */
+.flip{perspective:1000px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;min-height:3.2em}
+.flip.r .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:.45em;display:flex;align-items:center;justify-content:center;padding:.3em .6em;text-align:center;font-weight:700;line-height:1.15}
+.flip .f{background:#fff;border:.12em solid #e3dccb}
+.flip .b{background:var(--sub);color:#fff;transform:rotateY(180deg);font-family:'Fredoka';font-weight:600;font-size:1.15em}
+.flip .sz{visibility:hidden;padding:.55em .8em;font-weight:700;line-height:1.15;text-align:center}
+/* portada e final */
+.cover{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5vh;color:#fff;text-align:center}
+.cover h1{font-family:'Fredoka';font-size:10vh;line-height:1;color:var(--gold)}
+.cover p{font-size:3.4vh;max-width:none;width:100%;text-align:center}
+.cover .chips{display:flex;gap:1vw;flex-wrap:wrap;justify-content:center}
+.cover .chip{font-family:'Fredoka';font-size:3vh;padding:1vh 1.6vw;border-radius:99px;background:#fff;color:var(--ink);cursor:pointer;border:.4vh solid transparent}
+.cover .chip.on{border-color:var(--gold);background:var(--gold)}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;width:100%}
+.rules div{background:rgba(255,255,255,.1);border-radius:2vh;padding:2vh 1.4vw;font-size:3vh;text-align:justify}
+.rules b{display:block;font-family:'Fredoka';color:var(--gold);font-size:3.6vh;margin-bottom:.6vh}
+.sec{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;gap:2vh}
+.sec .big{font-size:20vh}
+.sec h1{font-family:'Fredoka';font-size:11vh;text-align:center}
+.sec p{font-size:3.6vh;text-align:center}
+#podium{display:flex;align-items:flex-end;justify-content:center;gap:2vw;height:55vh;width:100%}
+#podium .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:18vw}
+#podium .nm{font-family:'Fredoka';font-size:4vh;color:#fff;margin-bottom:1vh;text-align:center}
+#podium .blk{width:100%;border-radius:1.5vh 1.5vh 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:2vh;font-family:'Fredoka';color:#fff;font-size:6vh}
+#podium .blk small{font-size:3vh}
+/* frechas laterais */
+.nav{position:fixed;top:50%;transform:translateY(-30%);width:5vw;height:16vh;border:none;background:rgba(255,255,255,.08);color:#fff;font-size:7vh;cursor:pointer;z-index:15;border-radius:2vh;display:grid;place-items:center}
+.nav:hover{background:rgba(255,255,255,.2)}
+#prev{left:.6vw} #next{right:.6vw}
+/* ventá de solucións */
+#modal{position:fixed;inset:0;background:rgba(10,15,30,.75);display:none;align-items:center;justify-content:center;z-index:50}
+#modal.on{display:flex}
+#mbox{position:relative;width:88vw;height:84vh;background:#fff;border-radius:2.4vh;display:flex;flex-direction:column;overflow:hidden}
+#mbox h3{font-family:'Fredoka';font-size:4.4vh;padding:1.6vh 2vw;background:var(--gold);color:var(--ink)}
+#mclose{position:absolute;top:1vh;right:1vw;width:6vh;height:6vh;border:none;border-radius:50%;background:#fff;font-size:3.6vh;cursor:pointer}
+#mfit{flex:1;min-height:0;overflow:hidden;padding:2vh 2.4vw}
+#mlist{height:100%;display:grid;gap:.35em .9em;align-content:start}
+#mlist div{line-height:1.25;text-align:justify}
+#mlist b{color:var(--hist)}
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <div class="logo">🏆 Retos de repaso</div>
+  <div id="teams"></div>
+  <div id="count"></div>
+</div>
+
+<div id="deck"></div>
+
+<button class="nav" id="prev" aria-label="Anterior">‹</button>
+<button class="nav" id="next" aria-label="Seguinte">›</button>
+
+<div id="modal"><div id="mbox"><h3 id="mtitle">Solución</h3><button id="mclose" aria-label="Pechar">✕</button><div id="mfit"><div id="mlist"></div></div></div></div>
+
+<script>
+const H='Historia', G='Lingua galega';
+const ET=['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'];
+const R=[
+ {sec:H,icon:'🏰',title:'Historia',sub:'A Idade Moderna e o humanismo'},
+ {s:H,type:'order',title:'Ordena as etapas da historia',ins:'Toca as etapas <b>da máis antiga á máis recente</b>. Se te equivocas, tócaa outra vez para quitar o número.',
+  items:['Idade Moderna','Prehistoria','Idade Contemporánea','Idade Antiga','Idade Media'],
+  sol:['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'],cols:1},
+ {s:H,type:'cycle',title:'Que etapa remata con este feito?',ins:'Toca cada feito ata que apareza <b>a etapa que pecha</b>.',opts:ET,cols:1,
+  items:[['A aparición da escritura (3000 a. C.)','Prehistoria'],['A caída do Imperio romano de Occidente (476)','Idade Antiga'],['A caída de Constantinopla (1453)','Idade Media'],['A Revolución francesa (1789)','Idade Moderna']]},
+ {s:H,type:'cycle',title:'Que tipo de fonte histórica é?',ins:'Toca cada fonte ata que apareza o seu tipo: <b>escrita, material, iconográfica ou oral</b>.',opts:['Escrita','Material','Iconográfica','Oral'],cols:2,
+  items:[['Unha carta','Escrita'],['Unha moeda','Material'],['Un mapa antigo','Iconográfica'],['O relato da avoa','Oral'],['Unha lei','Escrita'],['Un barco','Material'],['Unha pintura','Iconográfica'],['Un testemuño contado de palabra','Oral'],['Unha crónica','Escrita'],['Un edificio','Material']]},
+ {s:H,type:'cycle',title:'Idade Media ou Idade Moderna?',ins:'Toca cada característica para levala á súa época.',opts:['Media','Moderna'],cols:2,
+  items:[['Peste negra e crise','Media'],['Crecemento da poboación','Moderna'],['Sociedade rural e campesiña','Media'],['Auxe dos burgueses','Moderna'],['Economía agraria e de subsistencia','Media'],['Mercantilismo','Moderna'],['Monarquía feudal','Media'],['Monarcas autoritarios','Moderna'],['Teocentrismo: Deus no centro','Media'],['Antropocentrismo: o ser humano no centro','Moderna'],['Primeiras migracións transoceánicas','Moderna'],['A fe por riba da razón','Media']]},
+ {s:H,type:'flip',title:'Palabra secreta',ins:'O equipo le a definición e di a palabra <b>antes de xirar a tarxeta</b>.',cols:3,
+  items:[['Idea de que un país é máis rico canto máis ouro e prata acumula','Mercantilismo'],['Habitante das cidades que vivía do comercio ou da artesanía','Burgués'],['Rei que concentra o poder, con exército, funcionarios e impostos propios','Monarca autoritario'],['Estudo da poboación: cantas persoas hai, onde viven, como aumentan','Demografía'],['Mentalidade que pon o ser humano no centro do Universo','Antropocentrismo'],['Mentalidade na que todo xira arredor de Deus','Teocentrismo'],['Persoa rica que paga os proxectos de artistas e científicos','Mecenas'],['Lingua que fala a xente, fronte ao latín','Lingua vernácula'],['Invento de Gutenberg que difundiu as ideas moito máis rápido','Imprenta']]},
+ {s:H,type:'cycle',title:'Verdadeiro ou falso?',ins:'Toca cada frase para marcar <b>V</b> ou <b>F</b>. Despois, corrixide as falsas en voz alta.',opts:['V','F'],cols:2,short:true,
+  items:[['A Idade Moderna vai de 1453 a 1789.','V'],['En España, o inicio da Idade Moderna sitúase en 1492.','V'],['A peste negra matou arredor da metade da poboación europea.','F'],['O humanismo inspírase na Grecia e na Roma antigas.','V'],['Os burgueses apoiaron os reis fronte aos nobres.','V'],['A imprenta inventouse arredor de 1650.','F'],['Na Idade Moderna as cidades perden poboación.','F'],['Os Reis Católicos son un exemplo de monarcas autoritarios.','V'],['Escribir en linguas vernáculas fixo que a cultura chegase a menos xente.','F'],['O humanismo valora a liberdade e a razón.','V']]},
+ {s:H,type:'cycle',title:'Dante, Petrarca ou Boccaccio?',ins:'Toca cada pista ata que apareza o autor.',opts:['Dante','Petrarca','Boccaccio'],cols:2,
+  items:[['Escribiu a Divina comedia','Dante'],['Escribiu o Cancioneiro','Petrarca'],['Escribiu o Decamerón','Boccaccio'],['Os seus versos falan do seu amor por Laura','Petrarca'],['Percorre o Inferno da man de Virxilio e Beatriz','Dante'],['A peste de 1348 inspirou a súa obra mestra','Boccaccio'],['Sentou as bases do italiano','Dante'],['Unha colección de cen contos en prosa','Boccaccio'],['Desterrado de Florencia, morreu en Rávena','Dante'],['Rescatou antigos códices latinos de Cicerón','Petrarca']]},
+ {s:H,type:'cycle',title:'Como se espallou o humanismo?',ins:'Toca cada descrición ata que apareza o medio correcto.',opts:['Imprenta','Academias','Mecenas','Universidades'],cols:1,
+  items:[['Difundiu as novas ideas a moita máis velocidade ca na Idade Media','Imprenta'],['Reunían filólogos, poetas e científicos en faladoiros','Academias'],['Os Medici pagaban os proxectos de artistas e científicos','Mecenas'],['Abríronse novos centros en Santiago, Alcalá ou Valencia','Universidades']]},
+ {sec:G,icon:'📚',title:'Lingua galega',sub:'A palabra, o substantivo e o adxectivo'},
+ {s:G,type:'cycle',title:'Variable ou invariable?',ins:'Toca cada palabra: <b>cambia</b> con xénero, número, persoa…? Entón é variable.',opts:['Variable','Invariable'],cols:2,short:true,
+  items:[['casa','Variable'],['alí','Invariable'],['branca','Variable'],['en','Invariable'],['xogar','Variable'],['e','Invariable'],['xa','Invariable'],['fillo','Variable'],['contra','Invariable'],['estas','Variable'],['pero','Invariable'],['rápido','Variable']]},
+ {s:G,type:'cycle',title:'O ou A?',ins:'Toca cada substantivo para poñerlle o artigo. <b>Ollo cos que enganan!</b>',opts:['o','a'],cols:2,short:true,
+  items:[['dor','a'],['ponte','a'],['leite','o'],['sangue','o'],['viaxe','a'],['traxe','o'],['lume','o'],['costume','o'],['orde','a'],['sal','o'],['mel','o'],['árbore','a'],['cor','a'],['nariz','o'],['linguaxe','a'],['análise','a']]},
+ {s:G,type:'cycle',title:'Cal é o feminino correcto?',ins:'Toca cada palabra ata que apareza o feminino ben formado.',cols:2,short:true,
+  items:[['león',['leoa','leona'],'leoa'],['abusón',['abusoa','abusona'],'abusona'],['alemán',['alemá','alemana'],'alemá'],['folgazán',['folgazá','folgazana'],'folgazana'],['xudeu',['xudea','xudía'],'xudía'],['avó',['avá','avoa'],'avoa'],['capitán',['capitá','capitana'],'capitá'],['solteirón',['solteiroa','solteirona'],'solteirona'],['patrón',['patroa','patrona'],'patroa'],['xefe',['xefa','xefe'],'xefa']]},
+ {s:G,type:'cycle',title:'Cal é o plural correcto?',ins:'Toca cada palabra ata que apareza o plural ben formado.',cols:2,short:true,
+  items:[['camión',['camiones','camións'],'camións'],['compás',['compás','compases'],'compases'],['canal',['canales','canais'],'canais'],['móbil',['móbiles','móbils'],'móbiles'],['o lapis',['os lapises','os lapis'],'os lapis'],['raíz',['raíces','raízs'],'raíces'],['tren',['trenes','trens'],'trens'],['xersei',['xerseis','xerseies'],'xerseis'],['perfil',['perfiles','perfís'],'perfís'],['o tórax',['os tóraxes','os tórax'],'os tórax']]},
+ {s:G,type:'cycle',title:'Clasifica o substantivo',ins:'Toca cada palabra ata que apareza a súa clase máis concreta.',opts:['Propio','Abstracto','Non contable','Individual','Colectivo'],cols:2,
+  items:[['Uxía','Propio'],['Miño','Propio'],['xustiza','Abstracto'],['solidariedade','Abstracto'],['leite','Non contable'],['vento','Non contable'],['prato','Individual'],['árbore','Individual'],['rabaño','Colectivo'],['arboredo','Colectivo']]},
+ {s:G,type:'cycle',title:'Explicativo ou especificativo?',ins:'Truco: <b>todos os ___ son así?</b> Se si → explicativo. Se non → especificativo.',opts:['Explicativo','Especificativo'],cols:2,
+  items:[['neve fría','Explicativo'],['coche amarelo','Especificativo'],['mel doce','Explicativo'],['can pequeno','Especificativo'],['pedra dura','Explicativo'],['rapaz louro','Especificativo'],['lume quente','Explicativo'],['camisa azul','Especificativo']]},
+ {s:G,type:'cycle',title:'Ca, coma, como ou do que?',ins:'Toca cada oco ata que apareza a conxunción correcta.',opts:['ca','coma','como','do que'],cols:1,
+  items:[['Corre máis ___ ti.','ca'],['É tan alto ___ min.','coma'],['É menos complicado ___ cres.','do que'],['Non é tan difícil ___ parece.','como'],['Canta mellor ___ eu.','ca'],['Es tan rápida ___ ela.','coma']]},
+ {s:G,type:'flip',title:'Superlativo culto',ins:'O equipo di o superlativo con <b>raíz culta</b> antes de xirar a tarxeta.',cols:3,
+  items:[['amable','amabilísimo'],['fiel','fidelísimo'],['antigo','antiquísimo'],['áspero','aspérrimo'],['acre','acérrimo'],['íntegro','integérrimo']]},
+ {final:true}
+];
+
+let NT=3, names=['Equipo 1','Equipo 2','Equipo 3','Equipo 4'], pts=[0,0,0,0], cur=0;
+const cols=['var(--t1)','var(--t2)','var(--t3)','var(--t4)'];
+const deck=document.getElementById('deck');
+
+function drawTeams(){
+  const t=document.getElementById('teams'); t.innerHTML='';
+  for(let i=0;i<NT;i++){
+    const d=document.createElement('div'); d.className='team'; d.style.setProperty('--c',cols[i]);
+    d.innerHTML=`<button class="m">−</button><span class="nm" contenteditable spellcheck="false">${names[i]}</span><span class="pt">${pts[i]}</span><button>+</button>`;
+    d.querySelector('.m').onclick=()=>{pts[i]=Math.max(0,pts[i]-1);drawTeams()};
+    d.querySelector('button:last-child').onclick=()=>{pts[i]++;drawTeams()};
+    d.querySelector('.nm').oninput=e=>names[i]=e.target.textContent;
+    t.appendChild(d);
+  }
+}
+
+function build(){
+  let n=0;
+  R.forEach((r,idx)=>{
+    const s=document.createElement('section'); s.className='slide';
+    if(idx===0){}
+    if(r.sec){
+      s.innerHTML=`<div class="sec"><div class="big">${r.icon}</div><h1>${r.title}</h1><p>${r.sub}</p></div>`;
+    } else if(r.final){
+      s.innerHTML=`<div class="sec"><h1>🏆 Podio final</h1><div id="podium"></div></div>`;
+      s.dataset.final=1;
+    } else {
+      n++;
+      const sub=r.s===H?'var(--hist)':'var(--gal)';
+      s.style.setProperty('--sub',sub);
+      const hasCheck=r.type!=='flip';
+      s.innerHTML=`<div class="card"><div class="head"><span class="tag">Reto ${n} · ${r.s}</span><h2>${r.title}</h2><div class="btns">${hasCheck?'<button class="chk">✔ Comprobar</button>':''}<button class="rst">↺</button><button class="sol">💡 Solución</button></div></div><div class="fit"><div class="fit-in"><p class="ins">${r.ins}</p><div class="items" style="grid-template-columns:repeat(${r.cols},1fr)"></div></div></div></div>`;
+      const box=s.querySelector('.items');
+      const render=()=>{
+        box.innerHTML='';
+        if(r.type==='order'){
+          let seq=[];
+          r.items.forEach(t=>{
+            const e=document.createElement('div'); e.className='it'; e.innerHTML=`<span class="n">?</span><span class="tx">${t}</span>`;
+            e.onclick=()=>{s.querySelectorAll('.it').forEach(x=>x.classList.remove('ok','ko'));
+              const p=seq.indexOf(t); if(p>-1) seq.splice(p,1); else seq.push(t);
+              box.querySelectorAll('.it').forEach(x=>{const k=seq.indexOf(x.querySelector('.tx').textContent);x.classList.toggle('sel',k>-1);x.querySelector('.n').textContent=k>-1?k+1:'?'});};
+            box.appendChild(e);
+          });
+          s.check=()=>box.querySelectorAll('.it').forEach(x=>{const t=x.querySelector('.tx').textContent;x.classList.add(seq.indexOf(t)===r.sol.indexOf(t)?'ok':'ko')});
+        } else if(r.type==='cycle'){
+          r.items.forEach(it=>{
+            const opts=it.length===3?it[1]:r.opts, ans=it.length===3?it[2]:it[1];
+            const e=document.createElement('div'); e.className='it'; let k=-1;
+            e.innerHTML=`<span class="tx">${it[0]}</span><span class="an" style="${r.short?'min-width:3.6em':''}">?</span>`;
+            e.onclick=()=>{e.classList.remove('ok','ko');k=(k+1)%opts.length;e.classList.add('sel');e.querySelector('.an').textContent=opts[k];e.dataset.v=opts[k]};
+            e.dataset.a=ans; box.appendChild(e);
+          });
+          s.check=()=>box.querySelectorAll('.it').forEach(x=>{x.classList.remove('ok','ko');x.classList.add(x.dataset.v===x.dataset.a?'ok':'ko')});
+        } else if(r.type==='flip'){
+          r.items.forEach(it=>{
+            const e=document.createElement('div'); e.className='flip';
+            e.innerHTML=`<div class="in"><div class="sz">${it[0]}</div><div class="f">${it[0]}</div><div class="b">${it[1]}</div></div>`;
+            e.onclick=()=>e.classList.toggle('r'); box.appendChild(e);
+          });
+        }
+      };
+      render();
+      s.querySelector('.rst').onclick=()=>{render();fit(s)};
+      if(hasCheck) s.querySelector('.chk').onclick=()=>s.check();
+      s.querySelector('.sol').onclick=()=>openSol(r);
+    }
+    deck.appendChild(s);
+  });
+  // portada
+  const c=document.createElement('section'); c.className='slide';
+  c.innerHTML=`<div class="cover"><h1>Retos de repaso</h1><p>Historia (Idade Moderna e humanismo) · Lingua galega (substantivo e adxectivo)</p>
+  <div class="chips">${[2,3,4].map(v=>`<span class="chip ${v===3?'on':''}" data-v="${v}">${v} equipos</span>`).join('')}</div>
+  <div class="rules"><div><b>1. Sae un equipo</b>En cada reto sae á pantalla un equipo distinto (ou unha persoa de cada equipo por quendas).</div><div><b>2. Toca e comproba</b>Tocade as respostas e premede «Comprobar». Os verdes suman; os vermellos poden roubalos os outros equipos.</div><div><b>3. Suma puntos</b>A persoa docente reparte os puntos co marcador de arriba. Tocade o nome do equipo para cambialo.</div></div></div>`;
+  deck.prepend(c);
+  c.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{NT=+ch.dataset.v;c.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===ch));drawTeams()});
+}
+
+function fitBox(outer,inner,max){
+  let lo=10,hi=max;
+  for(let i=0;i<14;i++){const m=(lo+hi)/2;inner.style.fontSize=m+'px';
+    if(inner.scrollHeight<=outer.clientHeight+1 && inner.scrollWidth<=outer.clientWidth+1) lo=m; else hi=m;}
+  inner.style.fontSize=lo+'px';
+}
+function maxFont(){return Math.min(innerWidth*0.024,innerHeight*0.05)}
+function fit(s){const o=s.querySelector('.fit');if(o) fitBox(o,s.querySelector('.fit-in'),maxFont())}
+
+function openSol(r){
+  document.getElementById('mtitle').textContent='Solución · '+r.title;
+  const L=document.getElementById('mlist'); let rows=[];
+  if(r.type==='order') rows=r.sol.map((t,i)=>`<b>${i+1}.</b> ${t}`);
+  else if(r.type==='flip') rows=r.items.map(it=>`${it[0]} → <b>${it[1]}</b>`);
+  else rows=r.items.map(it=>`${it[0]} → <b>${it.length===3?it[2]:it[1]}</b>`);
+  L.innerHTML=rows.map(x=>`<div>${x}</div>`).join('');
+  L.style.gridTemplateColumns=rows.length>6?'1fr 1fr':'1fr';
+  document.getElementById('modal').classList.add('on');
+  const o=document.getElementById('mfit'); fitBox(o,L,Math.min(innerWidth*0.03,innerHeight*0.06));
+}
+function closeSol(){document.getElementById('modal').classList.remove('on')}
+document.getElementById('mclose').onclick=closeSol;
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeSol()};
+
+function podium(){
+  const P=document.getElementById('podium'); if(!P)return;
+  const arr=[...Array(NT).keys()].map(i=>({n:names[i],p:pts[i],c:cols[i]})).sort((a,b)=>b.p-a.p);
+  const order=arr.length>=3?[arr[1],arr[0],arr[2],...arr.slice(3)]:[arr[1],arr[0]].filter(Boolean);
+  const mx=Math.max(1,arr[0].p), med=['🥇','🥈','🥉','4º'];
+  P.innerHTML=order.map(t=>{const rk=arr.indexOf(t);return `<div class="col"><div class="nm">${med[rk]} ${t.n}</div><div class="blk" style="background:${t.c};height:${Math.max(18,t.p/mx*100)}%">${t.p}<small>puntos</small></div></div>`}).join('');
+}
+
+function show(i){
+  const S=deck.querySelectorAll('.slide'); cur=Math.max(0,Math.min(S.length-1,i));
+  S.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  document.getElementById('count').textContent=(cur+1)+' / '+S.length;
+  if(S[cur].dataset.final) podium();
+  fit(S[cur]);
+}
+document.getElementById('prev').onclick=()=>show(cur-1);
+document.getElementById('next').onclick=()=>show(cur+1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')return closeSol();
+  if(document.activeElement && document.activeElement.isContentEditable)return;
+  if(e.key==='ArrowRight'||e.key==='PageDown')show(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')show(cur-1);
+});
+addEventListener('resize',()=>show(cur));
+build(); drawTeams();
+(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>show(0));
+show(0);
+</script>
+</body>
+</html>
