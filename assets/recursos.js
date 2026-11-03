@@ -25,7 +25,8 @@ const CATS={
      {h:'04_PDC/reparticion_ambito_linguistico_social_3eso_pdc.html',titulo:'Horario ámbito lingüístico y social',sub:'Materias por días y horas · 3.º ESO PDC',icon:'🗓️',tipo:'horario'},
      {carpeta:'Tutorías',titulo:'Tutoría',sub:'Vídeos, charlas, técnicas de estudio y juegos',icon:'💬',tipo:'tutoria'}],
     quitar:['Presentaciones'],
-    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Modelos exámenes':'📝','Actividades':'✏️'}}},
+    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Modelos exámenes':'📝','Apuntes exámenes':'📒'},
+    juntos:[['Modelos exámenes','Apuntes exámenes']]}},
  'ACTIVIDADES LÚDICAS':{name:'Actividades lúdicas',icon:'🎲',col:'--c5',desc:'Bingos, banderas, pasatiempos, ruletas y juegos de vocabulario para aprender jugando.'},
  'ACTIVIDADES PERSONAJES HISTÓRICOS':{name:'Personajes históricos',icon:'🕵️',col:'--c6',desc:'Expedientes interactivos para investigar la vida de grandes personajes de la historia.'},
  'PROYECTOS COMPETENCIALES':{name:'Proyectos competenciales',icon:'📻',col:'--c7',desc:'Proyectos para aprender haciendo: radio, entrevistas y mucho más.'},
@@ -103,7 +104,11 @@ if(PAGE.mode==='course'){
  html+=`<header class="coursehead"><div class="hero"><div>${ALUM?'':`<a class="back" href="${ROOT}index.html">← Todos los recursos</a><br>`}<span class="kicker">Recursos de aula · Lengua y Literatura</span><h1>${I.name}</h1><p class="lead">${I.desc}</p><div class="stats">${stat(count(cat),'recursos')}${stat(gs.length,gs.length===1?'apartado':'apartados')}</div></div>
  <div class="bigicon"><div class="disc"></div><div class="disc2"></div><span class="orb float" style="width:22px;height:22px;top:10%;right:16%"></span><span class="orb float2" style="width:14px;height:14px;bottom:14%;left:12%"></span><span class="orb float" style="width:10px;height:10px;top:30%;left:6%;background:#fff"></span><span class="emo float">${I.icon}</span></div></div>${WAVE}</header>`;
  html+=`<div class="toolbar"><div class="searchrow"><label class="search">🔎<input id="q" type="search" placeholder="Buscar en ${I.name}…" autocomplete="off"></label><span id="count"></span></div><nav class="chips">${topChips.join('')}${gs.map((g,i)=>`<a class="chip" style="--cc:var(${I.col})" href="#g${i}">${g.path.length?g.path[g.path.length-1]:'General'}</a>`).join('')}</nav></div>`;
- html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${gs.map((g,i)=>groupHTML(g,I.name,g.ic).replace('<div class="group">',`<div class="group" id="g${i}" style="scroll-margin-top:130px">`)).join('')}</section></main>`;
+ const gh=gs.map((g,i)=>groupHTML(g,I.name,g.ic).replace(/^<div class="group([^"]*)">/,`<div class="group$1" id="g${i}" style="scroll-margin-top:130px">`));
+ const last=g=>g.path[g.path.length-1];let body='';
+ for(let i=0;i<gs.length;i++){const par=(L.juntos||[]).find(p=>p[0]===last(gs[i]));
+  if(par&&gs[i+1]&&par[1]===last(gs[i+1])){body+=`<div class="pair">${gh[i]}${gh[i+1]}</div>`;i++}else body+=gh[i]}
+ html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${body}</section></main>`;
 }else{
  let total=DATA.reduce((a,c)=>a+count(c),0);
  html+=`<header><div class="hero"><div><span class="kicker">Lengua y Literatura · Materiales interactivos</span><h1>Recursos <span>de aula</span></h1><p class="lead">Presentaciones, actividades, unidades didácticas, talleres y juegos para trabajar en clase y repasar en casa. Elige tu curso o busca directamente lo que necesitas.</p><div class="stats">${stat(total,'recursos')}${stat(DATA.length,'apartados')}${stat('100&nbsp;%','interactivos')}</div></div>${HERO}</div>${WAVE}</header>`;
