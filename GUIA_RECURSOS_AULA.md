@@ -59,3 +59,7 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 - Bachillerato: `…/02_BACH/` · FP Básica: `…/03_FPB/` · PDC: `…/04_PDC/`
 - Actividades lúdicas: `…/ACTIVIDADES_LUDICAS/` · Personajes históricos: `…/ACTIVIDADES_PERSONAJES_HISTORICOS/`
 - Proyectos competenciales: `…/PROYECTOS_COMPETENCIALES/` · Talleres: `…/TALLERES_Y_TECNICAS_DE_ESTUDIO/`
+
+## Botón «⌂ Panel»
+
+Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) que vuelve a la página de su apartado (`../…/0X_APARTADO/index.html`). Si el recurso se abrió en pestaña nueva, cierra la pestaña y vuelve al panel. Copiar el bloque de cualquier recurso existente.
