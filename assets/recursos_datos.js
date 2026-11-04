@@ -248,16 +248,16 @@ window.RECURSOS=[
       "h": "03_FPB/ACTIVIDADES/ficha_tipos_de_texto.html"
      },
      {
-      "t": "Ficha comunicación",
-      "h": "03_FPB/ACTIVIDADES/ficha_comunicacion.html"
-     },
-     {
       "t": "Ficha rock y coches",
       "h": "03_FPB/ACTIVIDADES/rock_and_road_dream_cars.html"
      },
      {
       "t": "Ficha coherencia, cohesión y adecuación",
       "h": "03_FPB/ACTIVIDADES/ficha_coherencia_cohesion_adecuacion.html"
+     },
+     {
+      "t": "Ficha comunicación",
+      "h": "03_FPB/ACTIVIDADES/ficha_comunicacion.html"
      }
     ]
    }
