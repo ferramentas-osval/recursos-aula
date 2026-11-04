@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ficha_coherencia_cohesion_adecuacion</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:11mm 12mm}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Segoe UI',Arial,sans-serif;font-size:10.6pt;line-height:1.3;color:#1d1510;background:#ddd}
+.page{width:210mm;min-height:297mm;padding:11mm 12mm;margin:8mm auto;background:#fff;display:flex;flex-direction:column;gap:3.2mm}
+@media print{body{background:#fff}.page{margin:0;width:auto;min-height:auto;height:274mm;padding:0;page-break-after:always;overflow:hidden}.page:last-child{page-break-after:auto}}
+p,li{text-align:justify;hyphens:auto}
+header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2.5px solid #b5551f;padding-bottom:1.5mm}
+header h1{font-family:Georgia,serif;font-size:16pt;color:#7a3511}
+header .data{white-space:nowrap}
+header .data{font-size:9.5pt;line-height:1.7;text-align:right}
+.ex{border:1.3px solid #d9c3a5;border-radius:3mm;padding:2.2mm 3mm}
+.ex h2{font-size:10.8pt;color:#b5551f;margin-bottom:1mm;text-transform:uppercase;letter-spacing:.03em}
+.ex h2 span{color:#1d1510;text-transform:none;font-weight:600;letter-spacing:0}
+.frag{display:grid;grid-template-columns:1fr 1fr;gap:1mm 4mm;margin:1mm 0}
+.frag div{text-align:justify}
+b.l{display:inline-block;background:#1d1510;color:#fff;border-radius:1mm;padding:0 1.2mm;margin-right:1mm}
+.boxes{display:flex;gap:2mm;align-items:center;margin-top:1.2mm;flex-wrap:wrap}
+.boxes i{display:inline-block;width:9mm;height:8mm;border:1.3px solid #1d1510;border-radius:1mm}
+.line{height:6.6mm}
+.textbox{background:#f6efe3;border-radius:2mm;padding:1.6mm 2.5mm;margin:1mm 0;text-align:justify}
+.gap{display:inline-block;min-width:24mm;font-size:9pt;font-weight:700;color:#b5551f}
+.bank{display:flex;gap:2mm;flex-wrap:wrap;margin:1mm 0}
+.bank span{border:1.2px dashed #b5551f;border-radius:5mm;padding:0 2.6mm;font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:1mm}
+td,th{border:1px solid #c9b597;padding:1mm 1.8mm;text-align:left}
+th{background:#f6efe3;font-size:9pt}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.wa{background:#e3f4ea;border-radius:2mm;padding:1.2mm 2.5mm;font-style:italic;margin:1mm 0}
+.grow{flex:1;display:flex;flex-direction:column}
+.grow .lines{flex:1;display:flex;flex-direction:column;justify-content:space-evenly}
+.small{font-size:9pt;color:#5a4a3a}
+.toolbar{position:fixed;top:10px;right:10px}
+.toolbar button{font:700 14px sans-serif;padding:8px 14px;border-radius:20px;border:0;background:#b5551f;color:#fff;cursor:pointer}
+@media print{.toolbar{display:none}}
+:root{--blue:#1d4fa0;--hand:"Kalam","Segoe Print","Comic Sans MS",cursive}
+.v{visibility:hidden;font-family:var(--hand);color:var(--blue);font-weight:700}
+.ex.on .v{visibility:visible}
+.ans{visibility:hidden;font-family:var(--hand);color:var(--blue);font-size:10pt;line-height:6.6mm;text-align:justify;overflow:hidden}
+.ex.on .ans{visibility:visible}
+.ans b{font-weight:700;text-decoration:underline;text-underline-offset:.6mm}
+.boxes i{display:inline-flex!important;align-items:center;justify-content:center;font-style:normal}
+.boxes i .v{font-size:14pt}
+.gap .v{margin-left:1mm;font-size:10.5pt}
+td .v{font-size:11pt}
+.ex h2 .btn-sol{float:right;margin-left:2mm}
+.btn-sol{font:700 8.5pt 'Source Sans 3',Arial,sans-serif;padding:.8mm 3mm;border-radius:2mm;border:1px solid #8f3f14;background:#b5551f;color:#fff;cursor:pointer;white-space:nowrap;text-transform:none;letter-spacing:0}
+.btn-sol:hover{background:#8f3f14}
+.ex.on .btn-sol{background:#2f7d4f;border-color:#2f7d4f}
+.toolbar{display:flex;gap:8px;z-index:50}
+.toolbar button.or{background:#2f7d4f}
+@media print{.noprint{display:none!important}}
+@media screen and (max-width:820px){.page{width:100%;margin:0 0 8px;min-height:0;padding:10mm 6mm}.frag,.cols{grid-template-columns:1fr}.toolbar{position:static;padding:6px;justify-content:center}}
+</style>
+</head>
+<body>
+<div class="toolbar noprint"><button class="or" id="todas">💡 Mostrar todas las soluciones</button><button onclick="print()">🖨 Imprimir</button></div>
+
+<section class="page">
+  <header>
+    <h1>Ficha coherencia, cohesión y adecuación</h1>
+    <div class="data">Nombre:<span style='display:inline-block;width:62mm'></span><br>Fecha:<span style='display:inline-block;width:30mm'></span>Grupo: 1.º FPB</div>
+  </header>
+
+  <div class="ex">
+    <h2><button class="btn-sol noprint">💡 Solución</button>1 · Coherencia <span>— Ordena el mito de Faetón. Escribe las letras en orden.</span></h2>
+    <div class="frag">
+      <div><b class="l">A</b>Zeus, para salvar el mundo, lanzó un rayo contra el carro y Faetón cayó al río Erídano.</div>
+      <div><b class="l">B</b>Faetón era hijo de Helios, el dios que conducía el carro del Sol.</div>
+      <div><b class="l">C</b>Los caballos notaron que el conductor era novato y se desbocaron: quemaron la tierra y helaron el cielo.</div>
+      <div><b class="l">D</b>Herido en su orgullo, fue a ver a su padre y le pidió conducir el carro un día.</div>
+      <div><b class="l">E</b>Sus compañeros se burlaban de él y decían que mentía sobre su padre.</div>
+      <div><b class="l">F</b>Helios le advirtió del peligro, pero le había prometido concederle cualquier deseo y tuvo que aceptar.</div>
+    </div>
+    <div class="boxes">Orden: <i><span class="v">B</span></i>→<i><span class="v">E</span></i>→<i><span class="v">D</span></i>→<i><span class="v">F</span></i>→<i><span class="v">C</span></i>→<i><span class="v">A</span></i> &nbsp; Una palabra que te dio una pista: <span class="v">«Herido en su orgullo»</span></div>
+  </div>
+
+  <div class="ex">
+    <h2><button class="btn-sol noprint">💡 Solución</button>2 · Cohesión <span>— Reescribe el texto sin repetir palabras: usa pronombres (él, lo, las, que), sinónimos (el herrero divino, el taller) o quita palabras.</span></h2>
+    <div class="textbox">Hefesto era el dios del fuego. Hefesto trabajaba en una fragua. En la fragua Hefesto fabricaba armas para los dioses. Los dioses admiraban las armas de Hefesto. Hefesto también fabricó un gigante de bronce. El gigante de bronce se llamaba Talos. Talos vigilaba la isla de Creta.</div>
+    <div class="ans" style="height:26.4mm">Hefesto era el dios del fuego y trabajaba en una fragua. <b>Allí</b> fabricaba armas para los dioses, <b>que las</b> admiraban. <b>El herrero divino</b> también fabricó un gigante de bronce <b>llamado</b> Talos, <b>que</b> vigilaba la isla de Creta.</div>
+  </div>
+
+  <div class="ex">
+    <h2><button class="btn-sol noprint">💡 Solución</button>3 · Conectores <span>— Completa el mito de Ícaro con las palabras del recuadro.</span></h2>
+    <div class="bank"><span>porque</span><span>pero</span><span>para</span><span>entonces</span><span>sin embargo</span><span>al final</span></div>
+    <div class="textbox" style="line-height:1.9">Dédalo construyó unas alas <span class="gap">(1)<span class="v">para</span></span> escapar de Creta. Le explicó a Ícaro las normas, <span class="gap">(2)<span class="v">pero</span></span> el chico no le hizo caso. Subió muy alto <span class="gap">(3)<span class="v">porque</span></span> se sentía invencible. <span class="gap">(4)<span class="v">Entonces</span></span>, el sol derritió la cera de las alas. Dédalo gritó su nombre; <span class="gap">(5)<span class="v">sin embargo</span></span>, ya era tarde. <span class="gap">(6)<span class="v">Al final</span></span>, Ícaro cayó al mar, que hoy lleva su nombre: el mar Icario.</div>
+  </div>
+
+  <div class="ex grow">
+    <h2><button class="btn-sol noprint">💡 Solución</button>4 · Mitos en el taller <span>— ¿Qué mito se esconde en cada marca o palabra?</span></h2>
+    <div class="bank"><span>Neptuno</span><span>Faetón</span><span>Pegaso</span><span>Mercurio</span><span>Nike</span></div>
+    <table>
+      <tr><th>Marca o palabra</th><th>Mito</th><th>Marca o palabra</th><th>Mito</th></tr>
+      <tr><td>Maserati (tridente)</td><td><span class="v">Neptuno</span></td><td>Mercury</td><td><span class="v">Mercurio</span></td></tr>
+      <tr><td>VW Phaeton</td><td><span class="v">Faetón</span></td><td>Nike</td><td><span class="v">Nike</span></td></tr>
+      <tr><td>Camiones Pegaso</td><td><span class="v">Pegaso</span></td><td></td><td></td></tr>
+    </table>
+    <p style="margin-top:1.5mm">¿Por qué crees que las marcas eligen nombres de mitos?</p>
+    <div class="lines"><div class="ans" style="height:13.2mm">Porque los mitos transmiten en una sola palabra fuerza, velocidad, victoria o poder. El nombre se adapta al mensaje que quiere dar la marca: es adecuación.</div></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="ex">
+    <h2><button class="btn-sol noprint">💡 Solución</button>5 · Mapa de sentimientos <span>— Une cada sentimiento con su mito (escribe la letra).</span></h2>
+    <div class="cols">
+      <table>
+        <tr><td>1. Orgullo herido</td><td style="width:30mm"><span class="v">c · Hefesto</span></td></tr>
+        <tr><td>2. Soberbia (<i>hybris</i>)</td><td><span class="v">g · Aracne</span></td></tr>
+        <tr><td>3. Vanidad</td><td><span class="v">a · Narciso</span></td></tr>
+        <tr><td>4. Envidia</td><td><span class="v">e · Atenea</span></td></tr>
+        <tr><td>5. Imprudencia</td><td><span class="v">f · Ícaro</span></td></tr>
+        <tr><td>6. Moderación</td><td><span class="v">d · Dédalo</span></td></tr>
+        <tr><td>7. Ganas de demostrar</td><td><span class="v">b · Faetón</span></td></tr>
+        <tr><td>8. Creerse un dios</td><td><span class="v">h · Belerofonte</span></td></tr>
+      </table>
+      <div style="display:flex;flex-direction:column;justify-content:space-evenly">
+        <div><b class="l">a</b>Narciso &nbsp; <b class="l">b</b>Faetón</div>
+        <div><b class="l">c</b>Hefesto &nbsp; <b class="l">d</b>Dédalo</div>
+        <div><b class="l">e</b>Atenea &nbsp; <b class="l">f</b>Ícaro</div>
+        <div><b class="l">g</b>Aracne &nbsp; <b class="l">h</b>Belerofonte</div>
+      </div>
+    </div>
+    <p style="margin-top:2mm">Elige <b>dos</b> sentimientos y escribe un ejemplo de hoy (en la calle, en clase, en el taller o en redes).</p>
+    <div class="ans" style="height:19.8mm"><b>Respuesta libre.</b> Ejemplos: vanidad → hacer cien selfies con filtro hasta que salga «perfecto»; imprudencia → saltarse las normas de seguridad del taller; orgullo herido → te dicen que no vales para la mecánica y te esfuerzas el doble.</div>
+  </div>
+
+  <div class="ex">
+    <h2><button class="btn-sol noprint">💡 Solución</button>6 · Adecuación <span>— Mensajes desde el taller de Hefesto.</span></h2>
+    <p>Tras el accidente, el carro del Sol llega al taller de Hefesto, que tiene que contarlo a tres personas. Ningún mensaje dice el nombre: escribe a quién va cada uno, <b>Helios</b> (el dueño del carro), <b>Zeus</b> (el jefe de los dioses) o <b>un cíclope aprendiz</b> del taller, fijándote en el tono y las palabras.</p>
+    <table>
+      <tr><td><b class="l">A</b>Esto pinta mal: el eje está doblado y dos ruedas no valen. Tráeme el gato grande y ve aflojando tuercas mientras reviso lo demás.</td><td style="width:34mm"><span class="v">Cíclope aprendiz</span></td></tr>
+      <tr><td><b class="l">B</b>Le comunico que el vehículo presenta daños de consideración. Estimo que podrá volver a prestar servicio en un plazo breve. Quedo a su disposición para cualquier aclaración.</td><td><span class="v">Zeus (trato de usted)</span></td></tr>
+      <tr><td><b class="l">C</b>No te preocupes, que esto se arregla. Ya sé que lo necesitas mañana temprano, así que le doy prioridad. Cuando vengas a buscarlo te enseño lo que hemos cambiado.</td><td><span class="v">Helios (el Sol sale cada mañana)</span></td></tr>
+    </table>
+    <p style="margin-top:1.5mm">¿Qué pasaría si Hefesto mandara el mensaje A a Zeus?</p>
+    <div class="ans" style="height:13.2mm">Sería <b>inadecuado</b>: a Zeus no se le dan órdenes ni se le habla como a un aprendiz. Sería una falta de respeto; la información es la misma, pero cambian el trato y el tono.</div>
+    <p>Escribe el mensaje que Faetón manda a su padre para pedirle perdón (3 o 4 líneas).</p>
+    <div class="ans" style="height:26.4mm"><b>Modelo:</b> «Papá, lo siento mucho. Quería demostrar a los demás que era tu hijo y no te hice caso. Ahora sé que conducir el carruaje no es un juego. Te prometo que aprenderé antes de volver a intentarlo».</div>
+  </div>
+
+  <div class="ex grow">
+    <h2><button class="btn-sol noprint">💡 Solución</button>7 · Reflexiona <span>— Responde en 3 o 4 líneas.</span></h2>
+    <p>Lamborghini convirtió su orgullo herido en un superdeportivo; Ícaro y Faetón, en una caída. Cuenta una vez en que el orgullo te hizo <b>mejorar</b> o te hizo <b>meter la pata</b>. ¿Qué aprendiste?</p>
+    <div class="lines"><div class="ans" style="height:33mm"><b>Respuesta personal.</b> Modelo: «Un compañero me dijo que nunca sabría cambiar una rueda. Me picó tanto que practiqué en el taller hasta hacerlo el más rápido de clase. Aprendí que el orgullo herido puede ayudarte a mejorar si lo usas para esforzarte y no para presumir».</div></div>
+    <p class="small" style="text-align:center;margin-top:1.5mm">«El orgullo es como un motor: bien ajustado te lleva lejos; pasado de vueltas, revienta».</p>
+  </div>
+</section>
+<script>
+(function(){
+  const exs=[...document.querySelectorAll('.ex')];
+  const all=document.getElementById('todas');
+  function refresh(){const todas=exs.every(e=>e.classList.contains('on'));all.textContent=todas?'🙈 Ocultar todas las soluciones':'💡 Mostrar todas las soluciones';}
+  document.querySelectorAll('.btn-sol').forEach(b=>{
+    const ex=b.closest('.ex');
+    b.onclick=()=>{ex.classList.toggle('on');b.textContent=ex.classList.contains('on')?'🙈 Ocultar':'💡 Solución';refresh();};
+  });
+  all.onclick=()=>{const on=!exs.every(e=>e.classList.contains('on'));exs.forEach(e=>{e.classList.toggle('on',on);const b=e.querySelector('.btn-sol');if(b)b.textContent=on?'🙈 Ocultar':'💡 Solución';});refresh();};
+})();
+</script>
+<a id="volverPanel" href="../../03_FPB/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
