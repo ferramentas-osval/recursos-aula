@@ -84,7 +84,7 @@ const HERO=`<svg viewBox="0 0 420 320" aria-hidden="true">
       <g fill="#ffd75e"><path d="M30 200 l5 11 12 2 -9 8 2 12 -10 -6 -10 6 2 -12 -9 -8 12 -2 z" opacity=".9"/><path d="M392 120 l3 7 8 1 -6 5 2 8 -7 -4 -7 4 2 -8 -6 -5 8 -1 z"/><circle cx="240" cy="10" r="4"/><circle cx="20" cy="120" r="3"/></g>
     </svg>`;
 const WAVE='<svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 40 C240 80 480 0 720 30 C960 60 1200 10 1440 40 L1440 70 L0 70 Z" fill="#f6f2ea"/></svg>';
-function card(f,lab0,ctx){const [ic,lab]=kind(f.h);return `<a class="card" href="${ROOT+f.h}" target="_blank" data-t="${(f.t+' '+lab+' '+ctx).toLowerCase().replace(/"/g,'')}">${NEW.includes(f.h)?'<span class="new">NUEVO</span>':''}<div class="ticon">${ic}</div><div><small>${lab}</small><b>${f.t}</b></div><span class="go">→</span></a>`}
+function card(f,lab0,ctx){const [ic,lab]=kind(f.h);return `<a class="card" href="${ROOT+f.h}" target="_blank" rel="noopener" data-t="${(f.t+' '+lab+' '+ctx).toLowerCase().replace(/"/g,'')}">${NEW.includes(f.h)?'<span class="new">NUEVO</span>':''}<div class="ticon">${ic}</div><div><small>${lab}</small><b>${f.t}</b></div><span class="go">→</span></a>`}
 function groupHTML(g,ctx,ic){return `<div class="group${ic?' materia':''}"><h3>${ic?`<span class="mic">${ic}</span>`:''}${g.path.length?g.path.join(' › '):'General'}</h3><div class="grid">${g.files.map(f=>card(f,'',ctx+' '+g.path.join(' '))).join('')}</div></div>`}
 function stat(b,s){return `<div class="stat"><b>${b}</b><small>${s}</small></div>`}
 const app=document.getElementById('app');let html='';
@@ -94,7 +94,7 @@ if(PAGE.mode==='course'){
  // destacados: horario (un recurso) y tutoría (una carpeta) arriba del todo
  (L.destacados||[]).forEach((d,k)=>{
   if(d.h){let f=null;gs.forEach(g=>{const i=g.files.findIndex(x=>x.h===d.h);if(i>-1){f=g.files.splice(i,1)[0]}});gs=gs.filter(g=>g.files.length);
-   if(!f)return;top+=`<a class="feature f-${d.tipo}" id="d${k}" href="${ROOT+f.h}" target="_blank"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span><span class="fgo">Abrir →</span></a>`}
+   if(!f)return;top+=`<a class="feature f-${d.tipo}" id="d${k}" href="${ROOT+f.h}" target="_blank" rel="noopener"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span><span class="fgo">Abrir →</span></a>`}
   else{const sel=gs.filter(g=>g.path[0]===d.carpeta);gs=gs.filter(g=>g.path[0]!==d.carpeta);const fs=[].concat(...sel.map(g=>g.files));if(!fs.length)return;
    top+=`<div class="feature f-${d.tipo}" id="d${k}"><div class="fhead"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span></div><div class="grid">${fs.map(f=>card(f,'',I.name+' '+d.titulo)).join('')}</div></div>`}
   topChips.push(`<a class="chip" style="--cc:var(${I.col})" href="#d${k}">${d.titulo.split(' ')[0]}</a>`)});
