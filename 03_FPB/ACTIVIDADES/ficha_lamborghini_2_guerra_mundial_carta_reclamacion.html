@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>ficha_lamborghini_2_guerra_mundial_carta_reclamacion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:11mm 12mm}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow',Arial,sans-serif;font-size:10.6pt;line-height:1.32;color:#111;background:#888}
+p,li,.just{text-align:justify;hyphens:auto}
+h1,h2,.disp{font-family:'Anton',Impact,'Arial Narrow',sans-serif;font-weight:400;line-height:1.05}
+.page{width:210mm;min-height:297mm;padding:11mm 12mm;margin:8mm auto;background:#fff;page-break-after:always;display:flex;flex-direction:column;gap:2.6mm}
+.page:last-child{page-break-after:auto}
+@media print{body{background:#fff}.page{margin:0;width:auto;min-height:0;height:274mm;padding:0;overflow:hidden;box-shadow:none}.noprint{display:none!important}}
+:root{--hand:"Kalam","Segoe Print","Comic Sans MS",cursive;--blue:#1d4fa0}
+.page{box-shadow:0 2mm 6mm rgba(0,0,0,.25)}
+.ex{display:flex;flex-direction:column;gap:2.6mm}
+.ex.grow{flex:1}
+h2 .btn-sol{margin-left:2mm}
+.btn-sol{font:700 9pt 'Barlow',Arial,sans-serif;padding:.8mm 3.2mm;border-radius:2mm;border:1px solid #9c6800;background:#c98500;color:#fff;cursor:pointer;white-space:nowrap}
+.btn-sol:hover{background:#9c6800}
+.ex.on .btn-sol{background:#2f7d4f;border-color:#2f7d4f}
+.s{display:none}
+.ex.on .s{display:block;font-family:var(--hand);color:var(--blue);font-weight:700;font-size:10.4pt;line-height:1.35;text-align:justify}
+.ex.on span.s{display:inline}
+.ex.on .rq .line,.ex.on.rq0 .line{display:none}
+.ex.on .rq .s{margin:.6mm 0 2mm}
+.frag .ans .s{font-size:10.4pt}
+.toolbar{position:fixed;top:10px;right:10px;display:flex;gap:8px;z-index:50}
+.toolbar button{font:700 13px 'Barlow',sans-serif;padding:8px 14px;border-radius:20px;border:0;background:#111;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.toolbar button.or{background:#c98500}
+@media screen and (max-width:820px){.page{width:100%;margin:0 0 8px;min-height:0;padding:10mm 6mm}.frags{grid-template-columns:1fr}.toolbar{position:static;padding:6px;justify-content:center}}
+.top{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2.2pt solid #111;padding-bottom:1.6mm}
+.top h1{font-size:21pt}
+.top h1 span{color:#c98500}
+.top .sub{font-weight:800;font-size:8.5pt;letter-spacing:.15em;color:#555}
+.who{display:grid;grid-template-columns:3fr 1fr 1fr;gap:4mm;font-weight:600}
+.who div{border-bottom:.8pt solid #444;padding-bottom:.6mm}
+h2{font-size:12.5pt;display:flex;align-items:center;gap:2mm}
+h2 .n{background:#111;color:#fff;border-radius:50%;width:6.2mm;height:6.2mm;display:inline-grid;place-items:center;font-size:10pt}
+h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;color:#555}
+.line{border-bottom:.7pt solid #999;height:6.6mm}
+.qa{display:grid;grid-template-columns:auto 1fr;gap:.6mm 2mm;align-items:end}
+.qa .q{font-weight:600}
+.box{border:1pt solid #111;border-radius:2mm;padding:2.2mm 3mm}
+.read{background:#f4efe3;border:none}
+.read p+p{margin-top:1mm}
+.read{font-size:10.6pt;line-height:1.32}
+.frags{display:grid;grid-template-columns:1fr 1fr;gap:1.8mm 4mm}
+.frag{display:grid;grid-template-columns:5mm 1fr;gap:1.5mm;align-items:start}
+.frag b.L{font-family:'Anton',Impact,sans-serif;font-size:12pt;color:#c98500;line-height:1}
+.frag i{display:block}
+.frag .ans{border-bottom:.7pt solid #999;height:5.2mm;margin-top:.6mm;font-size:8pt;color:#888;display:flex;align-items:flex-end}
+.bank{display:flex;flex-wrap:wrap;gap:1.5mm;justify-content:center}
+.bank span{border:.8pt solid #111;border-radius:99px;padding:0 2.5mm;font-weight:600;font-size:9pt}
+.retos{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm}
+.reto{border:1pt solid #111;border-radius:2mm;padding:1.8mm 2.6mm;position:relative}
+.reto .tt{font-weight:800;font-size:10.8pt;display:flex;align-items:center;gap:1.6mm}
+.reto .ck{width:4mm;height:4mm;border:1.2pt solid #111;border-radius:.8mm;display:inline-block}
+.reto .st{font-style:italic;color:#7a5200;margin-top:.8mm}
+.reto small{display:block;font-size:8.8pt;margin-top:.6mm;color:#333}
+.write{flex:1;display:flex;flex-direction:column}
+.write .line{flex:1;max-height:7.4mm}
+.check{display:flex;gap:3mm;flex-wrap:wrap;font-size:9.2pt;font-weight:600}
+.check span::before{content:'☐ ';font-size:11pt}
+.tl{display:grid;grid-template-columns:repeat(6,1fr);gap:1.4mm}
+.tl div{background:#f4efe3;border-radius:1.5mm;padding:1.2mm 1.6mm;font-size:8.6pt;line-height:1.22;text-align:left}
+.tl div b{display:block;font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:10.5pt;color:#c98500}
+.tl div.hot{background:#fde3e6}
+.tl div.hot b{color:#c3122a}
+.rq{display:flex;flex-direction:column;gap:.4mm}
+.rq .q{font-weight:600}
+.rq .line{height:6.6mm}
+.deb{display:grid;grid-template-columns:5mm 1fr auto;gap:1mm 2mm;align-items:center}
+.deb b.L{font-family:'Anton',Impact,sans-serif;font-size:12pt;color:#c98500}
+.deb .opt{font-size:9pt;font-weight:600;white-space:nowrap}
+.deb .opt span::before{content:'☐ ';font-size:11pt}
+.deb .why{grid-column:2 / 4;display:flex;gap:2mm;align-items:flex-end;font-size:9pt;font-weight:600}
+.deb .why .line{flex:1;height:5.6mm}
+.ex.on .deb .why{display:block}
+.ex.on .deb .why .line{display:none}
+.ex.on .deb .why .s{display:block;font-size:9.6pt}
+.frags.compact .frag .ans{height:4.6mm}
+.frags.compact{gap:1.2mm 4mm}
+.frags.compact i{font-size:9.6pt;line-height:1.25}
+.steps{display:flex;flex-wrap:wrap;gap:1.5mm 3mm;margin-top:1.2mm;font-weight:600;font-size:9.6pt}
+.steps span b{background:#111;color:#fff;border-radius:50%;width:4.4mm;height:4.4mm;display:inline-grid;place-items:center;font-size:8pt;margin-right:.8mm}
+.st0{color:#7a5200;font-size:11pt;text-align:left}
+.write.blank{flex:1;min-height:40mm;border:1pt solid #999;border-radius:2mm}
+/* sin rayas ni recuadros en las zonas de escritura */
+.line,.frag .ans,.deb .why .line,.who div{border:none!important}
+.write.blank{border:none!important}
+</style>
+</head>
+<body>
+<div class="toolbar noprint"><button class="or" id="todas">💡 Mostrar todas las soluciones</button><button onclick="print()">🖨 Imprimir</button></div>
+
+<!-- ===================== CARILLA 1 ===================== -->
+<div class="page">
+  <div class="top">
+    <h1>Ficha · La venganza del <span>tractorista</span></h1>
+    <div class="sub">HISTORIA · LENGUA · VEHÍCULOS</div>
+  </div>
+  <div class="who"><div>Nombre:</div><div>Curso:</div><div>Fecha:</div></div>
+
+
+<div class="ex">
+  <h2><span class="n">1</span>Después del vídeo: piensa y responde<span class="t">luego lo hablamos</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <div class="rq">
+    <span class="q">a) Ferrari despreció a Ferruccio por ser «un tractorista». ¿Por qué crees que lo hizo? ¿Hoy se juzga a la gente por su trabajo o por de dónde viene?</span>
+    <div class="s">Ferrari se sentía superior: era famoso y veía los tractores como algo «del campo», inferior. Es un prejuicio por el oficio y el origen. Hoy pasa algo parecido: se juzga por estudiar FP, trabajar en un taller, la ropa, el acento o el barrio.</div>
+    <div class="line"></div><div class="line"></div><div class="line"></div>
+    <span class="q">b) Ferruccio no respondió con insultos, sino fabricando un coche mejor. ¿Qué habrías hecho tú en su lugar?</span>
+    <div class="s">Respuesta personal. Podía insultarlo, reclamar por escrito, dejar de comprar Ferrari o contarlo a todo el mundo. Él eligió lo más difícil y eficaz: demostrarlo con hechos.</div>
+    <div class="line"></div><div class="line"></div><div class="line"></div>
+    <span class="q">c) ¿Fue una venganza o una forma de superarse? ¿El orgullo herido puede ser bueno?</span>
+    <div class="s">Las dos cosas: el orgullo herido fue la chispa, pero luego hicieron falta años de trabajo. El orgullo es bueno si te empuja a mejorar y malo si solo buscas hacer daño.</div>
+    <div class="line"></div><div class="line"></div>
+  </div>
+  </div>
+
+<div class="ex">
+  <h2><span class="n">2</span>Lee el texto y reflexiona<span class="t">Italia después de la guerra</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <div class="box read">
+    <p>En 1940, Italia, gobernada por el dictador Mussolini, entró en la Segunda Guerra Mundial junto a Hitler. Desde 1943 el país fue campo de batalla.</p>
+    <p>En 1945 Italia estaba destrozada: carreteras y fábricas bombardeadas, sin comida ni trabajo. En el campo se araba con bueyes, pero por todas partes quedaban abandonados miles de vehículos militares.</p>
+    <p>En 1946 Italia se convirtió en república y, con la ayuda de Estados Unidos (el Plan Marshall), desde 1950 la economía creció muy deprisa: es el «milagro económico italiano». La gente compró coches y motos, y marcas como Fiat, Vespa o Ferrari se hicieron famosas.</p>
+  </div>
+  <div class="rq">
+    <span class="q">a) ¿Por qué crees que había tantos vehículos militares abandonados? ¿Qué nos dice eso de cómo fue la guerra?</span>
+    <div class="s">Fue una guerra de máquinas: se fabricaron millones de tanques, camiones y jeeps, y al acabar sobraban. Además, Italia fue campo de batalla, así que quedaron vehículos de los dos bandos por todo el país.</div>
+    <div class="line"></div><div class="line"></div><div class="line"></div>
+    <span class="q">b) Ferruccio convirtió máquinas de guerra en tractores para el campo. ¿Qué significa ese cambio?</span>
+    <div class="s">Pasar de destruir a construir: lo que servía para la guerra pasa a servir para trabajar la tierra y dar de comer. Simboliza la reconstrucción del país.</div>
+    <div class="line"></div>
+    <div class="line"></div><div class="line"></div>
+    <span class="q">c) Italia pasó de estar destrozada a ser rica en unos 15 años. Según el texto, ¿qué le ayudó? ¿Qué más crees que necesita un país para recuperarse?</span>
+    <div class="s">Según el texto: la ayuda de Estados Unidos (Plan Marshall) y el paso a la república. Además: paz, trabajo, ganas de levantar el país y empresas que creen empleo.</div>
+    <div class="line"></div><div class="line"></div><div class="line"></div>
+  </div>
+  </div>
+
+</div>
+
+<!-- ===================== CARILLA 2 ===================== -->
+<div class="page">
+<div class="ex">
+  <h2><span class="n">3</span>¿Qué tipo de texto es? Escríbelo debajo<span class="t">repaso</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <div class="bank"><span>narrativo</span><span>descriptivo</span><span>expositivo</span><span>argumentativo</span><span>instructivo</span><span>dialogado</span></div>
+  <div class="frags compact">
+    <div class="frag"><b class="L">A</b><div><i>Gire la llave de contacto, espere diez segundos y pise el embrague a fondo antes de arrancar.</i><div class="ans"><span class="s">Instructivo</span></div></div></div>
+    <div class="frag"><b class="L">D</b><div><i>Una mañana, Ferruccio aparcó frente a la fábrica de Maranello y subió las escaleras furioso.</i><div class="ans"><span class="s">Narrativo</span></div></div></div>
+    <div class="frag"><b class="L">B</b><div><i>El Miura era bajo, ancho y afilado como una flecha. Sus faros parecían dos ojos medio cerrados.</i><div class="ans"><span class="s">Descriptivo</span></div></div></div>
+    <div class="frag"><b class="L">E</b><div><i>Creo que Ferrari se equivocó, porque un buen vendedor nunca debe despreciar a un cliente.</i><div class="ans"><span class="s">Argumentativo</span></div></div></div>
+    <div class="frag"><b class="L">C</b><div><i>—Mis coches no tienen ningún problema. —Pues el embrague se me rompe cada semana.</i><div class="ans"><span class="s">Dialogado</span></div></div></div>
+    <div class="frag"><b class="L">F</b><div><i>El embrague es la pieza que conecta el motor con la caja de cambios y permite cambiar de marcha.</i><div class="ans"><span class="s">Expositivo</span></div></div></div>
+  </div>
+  </div>
+
+<div class="ex">
+  <h2><span class="n">4</span>Debate: ¿de qué lado estás?<span class="t">marca y da una razón</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <div class="deb">
+    <b class="L">A</b><span>«Con esfuerzo, cualquiera puede llegar a donde quiera.»</span><span class="opt"><span>De acuerdo</span> <span>En desacuerdo</span></span>
+    <div class="why">Porque<div class="line"></div><span class="s">Respuesta personal. Ej.: <b>De acuerdo</b>, porque Ferruccio era hijo de agricultores y llegó a lo más alto. / <b>En desacuerdo</b>, porque también influyen la suerte, el dinero y las oportunidades.</span></div>
+    <b class="L">B</b><span>«Ferruccio no se vengó: solo demostró lo que valía.»</span><span class="opt"><span>De acuerdo</span> <span>En desacuerdo</span></span>
+    <div class="why">Porque<div class="line"></div><span class="s">Respuesta personal. Ej.: <b>De acuerdo</b>, porque no hizo daño a nadie y creó coches mejores. / <b>En desacuerdo</b>, porque quería ganarle a Ferrari por orgullo herido.</span></div>
+    <b class="L">C</b><span>«De una guerra nunca puede salir nada bueno.»</span><span class="opt"><span>De acuerdo</span> <span>En desacuerdo</span></span>
+    <div class="why">Porque<div class="line"></div><span class="s">Respuesta personal. Ej.: <b>De acuerdo</b>, porque murieron más de 60 millones de personas. / <b>En desacuerdo</b>, porque después llegaron la reconstrucción y avances técnicos, aunque no compensen el sufrimiento.</span></div>
+  </div>
+  </div>
+
+<div class="ex grow">
+  <h2><span class="n">5</span>Reto de escritura: carta de reclamación (mínimo 6 líneas)<span class="t">12 min</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <div class="box"><p><b>Eres Ferruccio Lamborghini.</b> Escribe a Enzo Ferrari para reclamar por el embrague de tu coche. Usa los datos de la historia y sigue estos pasos:</p>
+    <div class="steps"><span><b>1</b> Lugar y fecha</span><span><b>2</b> Saludo</span><span><b>3</b> Cuerpo: qué pasó · pruebas · qué pides</span><span><b>4</b> Despedida</span><span><b>5</b> Firma</span></div>
+  </div>
+  <p class="st0"><i>Estimado señor Ferrari:<br>Le escribo porque en 1958…</i></p>
+  <div class="write blank"><div class="s"><span style="display:block;text-align:right">Cento (Italia), 15 de marzo de 1962</span>Estimado señor Ferrari:<br>Le escribo porque en 1958 compré un Ferrari 250 GT en su fábrica. Desde entonces, el embrague se ha estropeado cinco veces y he tenido que llevar el coche a su taller una y otra vez. Además, he desmontado la pieza y he comprobado que es casi igual que la de mis tractores, pero mucho más cara. Por todo ello, le pido que solucionen el problema y que me devuelvan el dinero de las reparaciones.<br>Espero su respuesta. Atentamente,<span style="display:block;text-align:right">Ferruccio Lamborghini</span></div></div>
+  </div>
+
+  <div class="box">
+    <div class="check"><b>Revisa:</b><span>Tiene todas las partes</span><span>Uso datos de la historia</span><span>Mayúsculas y puntos</span><span>Se entiende bien</span></div>
+  </div>
+
+<div class="ex rq0">
+  <h2><span class="n">6</span>Ticket de salida<span class="t">una sola frase</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <p>Si alguien te dijera «tú no sirves para esto», ¿qué harías? Empieza así: <i>«Si alguien me dijera eso, yo…»</i></p>
+  <div class="s">Respuesta personal. Ej.: «Si alguien me dijera eso, yo no le insultaría: trabajaría más y le demostraría con hechos que se equivoca».</div><div class="line"></div><div class="line"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const exs=[...document.querySelectorAll('.ex')];
+  const all=document.getElementById('todas');
+  function refresh(){const todas=exs.every(e=>e.classList.contains('on'));all.textContent=todas?'🙈 Ocultar todas las soluciones':'💡 Mostrar todas las soluciones';}
+  document.querySelectorAll('.btn-sol').forEach(b=>{
+    const ex=b.closest('.ex');b.dataset.t0=b.textContent;
+    b.onclick=()=>{ex.classList.toggle('on');b.textContent=ex.classList.contains('on')?'🙈 Ocultar':b.dataset.t0;refresh();};
+  });
+  all.onclick=()=>{const on=!exs.every(e=>e.classList.contains('on'));exs.forEach(e=>{e.classList.toggle('on',on);const b=e.querySelector('.btn-sol');if(b)b.textContent=on?'🙈 Ocultar':b.dataset.t0;});refresh();};
+})();
+</script>
+<a id="volverPanel" href="../../03_FPB/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
