@@ -28,7 +28,10 @@ button{font-family:var(--fd);cursor:pointer}
 .team button{width:38px;height:38px;border-radius:50%;border:none;background:var(--c);color:#fff;font-size:26px;font-weight:700;line-height:1}
 .team button.m{background:#d9dce3;color:#444}
 #count{font:500 24px var(--fd);color:#cfd6e6;white-space:nowrap}
-.nav{position:absolute;top:400px;width:58px;height:150px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:64px;border-radius:18px}
+.nav{position:absolute;top:330px;width:62px;height:260px;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:64px;border-radius:18px;z-index:35;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0}
+.nav small{font:600 17px/1.05 var(--fd);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.5px}
+#next.q{background:#fff;color:var(--sub,var(--ink))}
+#next.r{background:var(--gold);color:var(--ink)}
 .nav:hover{background:rgba(255,255,255,.22)} .nav:disabled{opacity:.25}
 #prev{left:6px} #next{right:6px}
 #view{position:absolute;left:72px;top:108px;width:1456px;height:776px}
@@ -147,6 +150,12 @@ button{font-family:var(--fd);cursor:pointer}
 .steal{width:1100px;border-radius:28px;background:#fff;padding:36px 40px;text-align:center;display:flex;flex-direction:column;gap:22px;align-items:center}
 .steal h3{font:700 64px var(--fd);color:var(--c)}
 .steal p{font:700 34px var(--fb)}
+.steal{border:14px solid var(--c)}
+.sae{display:flex;flex-direction:column;align-items:center;gap:4px;background:color-mix(in srgb,var(--c) 12%,#fff);border-radius:22px;padding:16px 60px}
+.sae span{font:600 30px var(--fd);color:var(--muted)}
+.sae b{font:700 110px/1 var(--fd);color:var(--c)}
+.qn{font:600 30px var(--fd);color:var(--muted)} .qn b{color:var(--sub);font-size:38px}
+.dots span{width:30px;height:30px}
 .toast{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) scale(.6);opacity:0;background:var(--ok);color:#fff;font:700 70px var(--fd);padding:22px 50px;border-radius:30px;z-index:40;pointer-events:none;transition:all .35s;white-space:nowrap}
 .toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .toast.bad{background:var(--ko)}
@@ -155,8 +164,8 @@ button{font-family:var(--fd);cursor:pointer}
 <body>
 <div id="wrap"><div id="stage">
   <div id="bar"><div class="logo">🏆 Retos de repaso</div><div id="teams"></div><div id="count"></div></div>
-  <button class="nav" id="prev" aria-label="Anterior">‹</button>
-  <button class="nav" id="next" aria-label="Seguinte">›</button>
+  <button class="nav" id="prev" aria-label="Anterior"><span>‹</span><small id="prevL"></small></button>
+  <button class="nav" id="next" aria-label="Seguinte"><span>›</span><small id="nextL"></small></button>
   <div id="view"></div>
   <div class="ov" id="solOv"><div class="ovbox"><h3 id="solT">Solución</h3><button class="x" id="solX" aria-label="Pechar">✕</button><div class="ovbody j" id="solB"></div></div></div>
   <div class="ov" id="stOv"><div class="steal" id="stBox"></div></div>
@@ -270,19 +279,29 @@ function closeSol(){$('#solOv').classList.remove('on')}
 $('#solX').onclick=closeSol;$('#solOv').onclick=e=>{if(e.target.id==='solOv')closeSol()};
 
 function go(i){cur=Math.max(0,Math.min(slides.length-1,i));render()}
-$('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
+function step(d){const s=slides[cur];
+  if(s.qs&&s.st){const st=s.st;
+    if(d>0&&st.qi<s.qs.length-1){if(st.res[st.qi]==null)advanceTurn();st.qi++;return render()}
+    if(d<0&&st.qi>0){st.qi--;return render()}
+    if(d>0&&st.res[st.qi]==null)advanceTurn();}
+  go(cur+d)}
+$('#prev').onclick=()=>step(-1);$('#next').onclick=()=>step(1);
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closeSol();return}
   if(document.activeElement&&document.activeElement.tagName==='INPUT')return;
   if($('#stOv').classList.contains('on'))return;
-  if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);
-  if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
+  if(e.key==='ArrowRight'||e.key==='PageDown')step(1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')step(-1);
 });
 
 let RC=0;
 function render(){
-  RC++;stopTimer();closeSol();$('#stOv').classList.remove('on');
+  RC++;stopTimer();if(slides[cur].qs&&!slides[cur].st)slides[cur].st={qi:0,res:[]};closeSol();$('#stOv').classList.remove('on');
   $('#count').textContent=(cur+1)+' / '+slides.length;$('#prev').disabled=cur===0;$('#next').disabled=cur===slides.length-1;
+  {const s=slides[cur],nx=$('#next');const inQ=s.qs&&s.st&&s.st.qi<s.qs.length-1;const nxt=slides[cur+1];
+   nx.className='nav '+(s.qs?(inQ?'q':'r'):'');nx.style.setProperty('--sub',s.s===H?'var(--hist)':'var(--gal)');
+   $('#nextL').textContent=s.qs?(inQ?'Seguinte pregunta':'Seguinte reto'):(nxt&&nxt.qs?'Empezar reto':'');
+   $('#prevL').textContent=s.qs&&s.st&&s.st.qi>0?'Pregunta anterior':'';}
   drawTeams();const v=$('#view');v.innerHTML='';const s=slides[cur];
   if(s.cover) return rCover(v);
   if(s.sec) return rSec(v,s);
@@ -324,13 +343,13 @@ function rGame(v,s){
    <div class="who" id="who"></div><button class="timer" id="tm" title="Reiniciar tempo">${s.secs||45}</button></div>
    <div class="body" id="body"></div>
    <div class="foot"><div class="dots">${s.qs.map((_,i)=>`<span></span>`).join('')}</div>
-   <button class="btn alt" id="solB2">💡 Solución</button><button class="btn" id="nx">${st.qi<s.qs.length-1?'Seguinte pregunta ›':'Reto seguinte ›'}</button></div></div>`;
+   <span class="qn">Pregunta <b>${st.qi+1}</b> de ${s.qs.length}</span><button class="btn alt" id="solB2">💡 Solución</button></div></div>`;
   const play={g:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
   const paintWho=()=>{const w=$('#who');w.style.setProperty('--c',G[play.g].c);w.innerHTML=`<i></i>Xoga <b>${G[play.g].name}</b> · ${who(play.g)}`;drawTeams(play.g)};
   const repaintDots=()=>v.querySelectorAll('.dots span').forEach((e,i)=>{e.className=(i===st.qi?'cur ':'')+(st.res[i]===true?'okd':st.res[i]===false?'kod':'')});
-  paintWho();repaintDots();startTimer($('#tm'),s.secs||45);
+  paintWho();repaintDots();$('#tm').textContent=s.secs||45;
+  if(!play.done) showTurn(play.g,()=>startTimer($('#tm'),s.secs||45)); else startTimer($('#tm'),s.secs||45);
   $('#solB2').onclick=()=>openSol('Solución · '+s.title,solOf(s,q));
-  $('#nx').onclick=()=>{ if(!play.done) advanceTurn(); if(st.qi<s.qs.length-1){st.qi++;render()} else go(cur+1)};
   const api={
     ok(p){ if(play.done)return; play.done=true; stopTimer(); const pts=play.att===1?(p||2):1; G[play.g].pts+=pts; st.res[st.qi]=true; toast('✔ +'+pts+' '+G[play.g].name); advanceTurn(); drawTeams(play.g); repaintDots(); if(s.t!=='box')later(()=>openSol('Moi ben!',solOf(s,q)),1100)},
     ko(){ if(play.done)return;
@@ -340,11 +359,16 @@ function rGame(v,s){
   function draw(retry){const b=$('#body');b.innerHTML='';T[s.t](s,q,b,api,retry)}
   draw(false);
 }
+function showTurn(g,go2){
+  const ov=$('#stOv'),b=$('#stBox');b.style.setProperty('--c',G[g].c);
+  b.innerHTML=`<p style="font:600 34px var(--fd);color:var(--muted)">É a quenda de</p><h3 style="font-size:96px;line-height:1">${G[g].name}</h3><div class="sae"><span>Sae á pantalla</span><b>${who(g)}</b></div><button class="btn gold" id="stGo" style="font-size:40px;padding:16px 40px">▶ Empezar</button>`;
+  ov.classList.add('on');$('#stGo').onclick=()=>{ov.classList.remove('on');go2()};
+}
 function advanceTurn(){G[turn].k++;turn=(turn+1)%NG}
 function showSteal(g,go2){
   const ov=$('#stOv'),b=$('#stBox');stopTimer();
   b.style.setProperty('--c',G[g].c);
-  b.innerHTML=`<h3>🔁 Rebote para ${G[g].name}!</h3><p>Responde <b style="color:${G[g].c}">${who(g)}</b>. Se acertades, levades <b>1 punto</b>.</p><button class="btn gold" id="stGo" disabled>Esperade…</button>`;
+  b.innerHTML=`<p style="font:600 34px var(--fd);color:var(--ko)">✘ Fallo · 🔁 Rebote para</p><h3 style="font-size:96px;line-height:1">${G[g].name}</h3><div class="sae"><span>Sae á pantalla</span><b>${who(g)}</b></div><p>Se acertades, levades <b>1 punto</b>.</p><button class="btn gold" id="stGo" disabled style="font-size:40px;padding:16px 40px">Esperade…</button>`;
   G[g].k++;ov.classList.add('on');
   setTimeout(()=>{const x=$('#stGo');if(!x)return;x.disabled=false;x.textContent='Responder ›';x.onclick=()=>{ov.classList.remove('on');go2()}},1800);
 }
