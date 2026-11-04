@@ -102,3 +102,9 @@ div.feature.f-tutoria{--tc:#d4a017;background:var(--paper);border:3px dashed var
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;align-items:start}
 .pair .grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
 @media (max-width:820px){.pair{grid-template-columns:1fr}}
+
+/* Evaluaciones: las secciones de cada curso van dentro de un recuadro con la evaluación */
+.eval{position:relative;margin:44px 0 10px;padding:18px 24px 26px;border:2px solid color-mix(in srgb,var(--cc) 40%,transparent);border-radius:26px;background:color-mix(in srgb,var(--cc) 5%,transparent)}
+.eval>.evaltag{position:absolute;top:0;left:24px;transform:translateY(-50%);margin:0;padding:7px 20px;border-radius:999px;background:var(--cc);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(16px,1.9vw,21px);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 4px 12px color-mix(in srgb,var(--cc) 30%,transparent)}
+.eval>.group:first-of-type,.eval>.pair:first-child{margin-top:14px}
+@media (max-width:820px){.eval{padding:16px 14px 20px}.eval>.evaltag{left:14px}}

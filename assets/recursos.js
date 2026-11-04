@@ -15,16 +15,17 @@ const CATS={
     {titulo:'Ortografía y vocabulario',icon:'🔤',archivos:['01_ESO/1_Y_2/PRESENTACIONES/vocabulario_1.html','01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html']},
     {titulo:'Apuntes y modelos de exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
     {titulo:'Obras de lectura',icon:'📚',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html']}],
-    quitar:['1º','Presentaciones','Tareas']}},
+    quitar:['1º','Presentaciones','Tareas'],evaluacion:'1ª evaluación'}},
  '02. BACH':{name:'Bachillerato',icon:'🎓',col:'--c2',desc:'Unidades didácticas, actividades y presentaciones de Lengua y Literatura para Bachillerato.'},
- '03. FPB':{name:'FP Básica',icon:'🔧',col:'--c3',desc:'Actividades y talleres para FP Básica.'},
+ '03. FPB':{name:'FP Básica',icon:'🔧',col:'--c3',desc:'Actividades y talleres para FP Básica.',layout:{evaluacion:'1ª evaluación'}},
  '04. PDC':{name:'PDC · Diversificación',icon:'🧭',col:'--c4',desc:'Materiales del Ámbito Lingüístico y Social de 3.º ESO PDC: presentaciones, actividades y tutorías.',
    layout:{
     destacados:[
      {h:'04_PDC/reparticion_ambito_linguistico_social_3eso_pdc.html',titulo:'Horario ámbito lingüístico y social',sub:'Materias por días y horas · 3.º ESO PDC',icon:'🗓️',tipo:'horario'},
      {carpeta:'Tutorías',titulo:'Tutoría',sub:'Vídeos, charlas, técnicas de estudio y juegos',icon:'💬',tipo:'tutoria'}],
     quitar:['Presentaciones'],
-    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒'}}},
+    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒'},
+    evaluacion:'1ª evaluación'}},
  'ACTIVIDADES LÚDICAS':{name:'Actividades lúdicas',icon:'🎲',col:'--c5',desc:'Bingos, banderas, pasatiempos, ruletas y juegos de vocabulario para aprender jugando.'},
  'ACTIVIDADES PERSONAJES HISTÓRICOS':{name:'Personajes históricos',icon:'🕵️',col:'--c6',desc:'Expedientes interactivos para investigar la vida de grandes personajes de la historia.'},
  'PROYECTOS COMPETENCIALES':{name:'Proyectos competenciales',icon:'📻',col:'--c7',desc:'Proyectos para aprender haciendo: radio, entrevistas y mucho más.'},
@@ -106,6 +107,7 @@ if(PAGE.mode==='course'){
  const last=g=>g.path[g.path.length-1];let body='';
  for(let i=0;i<gs.length;i++){const par=(L.juntos||[]).find(p=>p[0]===last(gs[i]));
   if(par&&gs[i+1]&&par[1]===last(gs[i+1])){body+=`<div class="pair">${gh[i]}${gh[i+1]}</div>`;i++}else body+=gh[i]}
+ if(L.evaluacion)body=`<div class="eval"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
  html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${body}</section></main>`;
 }else{
  let total=DATA.reduce((a,c)=>a+count(c),0);
