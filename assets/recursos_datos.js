@@ -296,17 +296,12 @@ window.RECURSOS=[
     ]
    },
    {
-    "n": "APUNTES EXÁMENES",
+    "n": "APUNTES Y MODELOS DE EXÁMENES",
     "c": [
      {
       "t": "Apuntes dos primeros parciales (1ª EV.)",
       "h": "04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html"
-     }
-    ]
-   },
-   {
-    "n": "MODELOS EXÁMENES",
-    "c": [
+     },
      {
       "t": "Modelo primer parcial lengua castellana y geografía (1ª EV.) resuelto",
       "h": "04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html"

@@ -24,8 +24,7 @@ const CATS={
      {h:'04_PDC/reparticion_ambito_linguistico_social_3eso_pdc.html',titulo:'Horario ámbito lingüístico y social',sub:'Materias por días y horas · 3.º ESO PDC',icon:'🗓️',tipo:'horario'},
      {carpeta:'Tutorías',titulo:'Tutoría',sub:'Vídeos, charlas, técnicas de estudio y juegos',icon:'💬',tipo:'tutoria'}],
     quitar:['Presentaciones'],
-    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes exámenes':'📒','Modelos exámenes':'📝'},
-    juntos:[['Apuntes exámenes','Modelos exámenes']]}},
+    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒'}}},
  'ACTIVIDADES LÚDICAS':{name:'Actividades lúdicas',icon:'🎲',col:'--c5',desc:'Bingos, banderas, pasatiempos, ruletas y juegos de vocabulario para aprender jugando.'},
  'ACTIVIDADES PERSONAJES HISTÓRICOS':{name:'Personajes históricos',icon:'🕵️',col:'--c6',desc:'Expedientes interactivos para investigar la vida de grandes personajes de la historia.'},
  'PROYECTOS COMPETENCIALES':{name:'Proyectos competenciales',icon:'📻',col:'--c7',desc:'Proyectos para aprender haciendo: radio, entrevistas y mucho más.'},
@@ -34,7 +33,7 @@ const KEEP={BACH:'Bach.',PDC:'PDC',ESO:'ESO',LCL:'LCL',FPB:'FPB'};
 const nice=s=>s.split(' ').map((w,i)=>KEEP[w]||(i===0?w.charAt(0)+w.slice(1).toLowerCase():w.toLowerCase())).join(' ').replace(/\bY\b/g,'y');
 const folderOf=c=>{let h=null;(function f(n){if(h)return;if(n.h)h=n.h;else n.c.forEach(f)})(c);return h.split('/')[0]};
 function kind(h){const f=h.split('/').pop().toLowerCase();
- if(/^apuntes/.test(f))return['📒','Apuntes'];if(/^modelo_examen/.test(f))return['📝','Modelo de examen'];if(/presentacion/.test(f))return['🎞️','Presentación'];if(/^unidad/.test(f))return['📘','Unidad didáctica'];
+ if(/^apuntes/.test(f))return['📒','Apuntes'];if(/^modelo_examen|^primer_parcial/.test(f))return['📝','Modelo de examen'];if(/presentacion/.test(f))return['🎞️','Presentación'];if(/^unidad/.test(f))return['📘','Unidad didáctica'];
  if(/taller|prompt|promts|epl2r/.test(f))return['🛠️','Taller'];if(/bingo|atlas|bandera|pasaporte|pasatiempo|ruleta|vocabulario/.test(f))return['🎲','Juego'];
  if(/expediente/.test(f))return['🕵️','Expediente'];if(/tutoria/.test(f))return['💬','Tutoría'];
  if(/actividad|ejercicio|reto|soluciones|sujeto/.test(f))return['✏️','Actividad'];return['📄','Recurso']}
