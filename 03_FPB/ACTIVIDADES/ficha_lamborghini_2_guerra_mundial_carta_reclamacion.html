@@ -97,8 +97,12 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
 .nota-ej{display:inline-flex;align-items:center;gap:1mm;border:1.2px solid #222;border-radius:1.4mm;padding:0 1.8mm;font:700 9pt Arial,sans-serif;color:#222;background:#fff;white-space:nowrap;line-height:1.7;text-transform:none;letter-spacing:0;vertical-align:middle;flex:0 0 auto}
 .nota-ej i{display:inline-block;width:8mm}
 .nota-tot{display:inline-block;width:16mm;height:6.6mm;border:1.4px solid #222;border-radius:1.4mm;vertical-align:middle;background:#fff}
-.who{grid-template-columns:3fr 1fr 1fr 1.3fr!important;align-items:end}
 h2 .nota-ej{margin-left:2mm}
+.orto{display:flex;align-items:center;gap:3mm;font-size:8.3pt;line-height:1.3;margin-top:1.2mm;font-family:Arial,sans-serif;color:#222}
+.orto p{flex:1;margin:0;text-align:justify;font-size:8.3pt}
+.orto span{white-space:nowrap;font-weight:700;font-size:9.2pt}
+.nota-ort{display:inline-block;width:10mm;height:6.6mm;border:1.2px solid #222;border-radius:1.2mm;vertical-align:middle;background:#fff}
+@media screen and (max-width:820px){.orto{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -110,7 +114,8 @@ h2 .nota-ej{margin-left:2mm}
     <h1>Ficha · La venganza del <span>tractorista</span></h1>
     <div class="sub">HISTORIA · LENGUA · VEHÍCULOS</div>
   </div>
-  <div class="who"><div>Nombre:</div><div>Curso:</div><div>Fecha:</div><div>Nota: <b class="nota-tot"></b> / 10</div></div>
+  <div class="who"><div>Nombre:</div><div>Curso:</div><div>Fecha:</div></div>
+  <div class="orto"><p><b>Ortografía:</b> sobre la nota se descontará 0,1 por cada falta no repetida o error de léxico, y 0,1 por cada tres errores de tildes.</p><span>Descuento ortografía: −<b class="nota-ort"></b></span><span>NOTA FINAL: <b class="nota-tot"></b> / 10</span></div>
 
 
 <div class="ex">

@@ -74,6 +74,11 @@ body.sol-on .sol{display:block}
 .nota-ej i{display:inline-block;width:8mm}
 .nota-tot{display:inline-block;width:16mm;height:6.6mm;border:1.4px solid #222;border-radius:1.4mm;vertical-align:middle;background:#fff}
 .ej h2 .pts.nota-ej{color:#222;font-size:9pt}
+.orto{display:flex;align-items:center;gap:3mm;font-size:8.3pt;line-height:1.3;margin-top:1.2mm;font-family:Arial,sans-serif;color:#222}
+.orto p{flex:1;margin:0;text-align:justify;font-size:8.3pt}
+.orto span{white-space:nowrap;font-weight:700;font-size:9.2pt}
+.nota-ort{display:inline-block;width:10mm;height:6.6mm;border:1.2px solid #222;border-radius:1.2mm;vertical-align:middle;background:#fff}
+@media screen and (max-width:820px){.orto{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -82,7 +87,8 @@ body.sol-on .sol{display:block}
 <!-- ===================== CARA 1 ===================== -->
 <div class="hoja">
   <div class="cabecera"><h1>Ficha <span>comunicación</span></h1><div class="mod">Comunicación y Ciencias Sociales · 1.º FPB<br>Mantenimiento de vehículos</div></div>
-  <div class="datos"><div>Nombre y apellidos</div><div>Fecha</div><div>Nota (sobre 10)</div></div>
+  <div class="datos"><div>Nombre y apellidos</div><div>Fecha</div><div>Curso</div></div>
+  <div class="orto"><p><b>Ortografía:</b> sobre la nota se descontará 0,1 por cada falta no repetida o error de léxico, y 0,1 por cada tres errores de tildes.</p><span>Descuento ortografía: −<b class="nota-ort"></b></span><span>NOTA FINAL: <b class="nota-tot"></b> / 10</span></div>
   <p class="intro">Piensa en el cliente del taller de la semana 1 y en las tres escenas: <b>la rueda de prensa</b>, <b>el abuelo con el cuento</b> y <b>la profesora con el globo</b>. Comunicar bien es saber <b>adaptarse a cada situación</b>.</p>
 
   <div class="ej">
