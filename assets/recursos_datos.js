@@ -49,7 +49,7 @@ window.RECURSOS=[
       "n": "APUNTES EXÁMENES",
       "c": [
        {
-        "t": "Apuntes de repaso: primer examen",
+        "t": "Apuntes primer parcial (1ª EV.)",
         "h": "01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html"
        }
       ]
@@ -58,7 +58,7 @@ window.RECURSOS=[
       "n": "MODELOS RESUELTOS EXÁMENES",
       "c": [
        {
-        "t": "Modelo resuelto: primer parcial (1.ª evaluación)",
+        "t": "Modelo examen primer parcial (1ª EV.) resuelto",
         "h": "01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html"
        }
       ]

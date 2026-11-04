@@ -13,8 +13,7 @@ const CATS={
     {titulo:'Presentaciones',icon:'🎞️',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html']},
     {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html']},
     {titulo:'Ortografía y vocabulario',icon:'🔤',archivos:['01_ESO/1_Y_2/PRESENTACIONES/vocabulario_1.html','01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html']},
-    {titulo:'Apuntes exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html']},
-    {titulo:'Modelos resueltos exámenes',icon:'📝',archivos:['01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
+    {titulo:'Apuntes y modelos de exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
     {titulo:'Obras de lectura',icon:'📚',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html']}],
     quitar:['1º','Presentaciones','Tareas']}},
  '02. BACH':{name:'Bachillerato',icon:'🎓',col:'--c2',desc:'Unidades didácticas, actividades y presentaciones de Lengua y Literatura para Bachillerato.'},
@@ -35,7 +34,7 @@ const KEEP={BACH:'Bach.',PDC:'PDC',ESO:'ESO',LCL:'LCL',FPB:'FPB'};
 const nice=s=>s.split(' ').map((w,i)=>KEEP[w]||(i===0?w.charAt(0)+w.slice(1).toLowerCase():w.toLowerCase())).join(' ').replace(/\bY\b/g,'y');
 const folderOf=c=>{let h=null;(function f(n){if(h)return;if(n.h)h=n.h;else n.c.forEach(f)})(c);return h.split('/')[0]};
 function kind(h){const f=h.split('/').pop().toLowerCase();
- if(/^apuntes/.test(f))return['📒','Apuntes'];if(/presentacion/.test(f))return['🎞️','Presentación'];if(/^unidad/.test(f))return['📘','Unidad didáctica'];
+ if(/^apuntes/.test(f))return['📒','Apuntes'];if(/^modelo_examen/.test(f))return['📝','Modelo de examen'];if(/presentacion/.test(f))return['🎞️','Presentación'];if(/^unidad/.test(f))return['📘','Unidad didáctica'];
  if(/taller|prompt|promts|epl2r/.test(f))return['🛠️','Taller'];if(/bingo|atlas|bandera|pasaporte|pasatiempo|ruleta|vocabulario/.test(f))return['🎲','Juego'];
  if(/expediente/.test(f))return['🕵️','Expediente'];if(/tutoria/.test(f))return['💬','Tutoría'];
  if(/actividad|ejercicio|reto|soluciones|sujeto/.test(f))return['✏️','Actividad'];return['📄','Recurso']}
