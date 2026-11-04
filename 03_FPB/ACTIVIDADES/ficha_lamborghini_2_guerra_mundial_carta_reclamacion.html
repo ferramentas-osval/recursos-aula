@@ -92,6 +92,13 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
 /* sin rayas ni recuadros en las zonas de escritura */
 .line,.frag .ans,.deb .why .line,.who div{border:none!important}
 .write.blank{border:none!important}
+
+/* puntuación (como en los exámenes) */
+.nota-ej{display:inline-flex;align-items:center;gap:1mm;border:1.2px solid #222;border-radius:1.4mm;padding:0 1.8mm;font:700 9pt Arial,sans-serif;color:#222;background:#fff;white-space:nowrap;line-height:1.7;text-transform:none;letter-spacing:0;vertical-align:middle;flex:0 0 auto}
+.nota-ej i{display:inline-block;width:8mm}
+.nota-tot{display:inline-block;width:16mm;height:6.6mm;border:1.4px solid #222;border-radius:1.4mm;vertical-align:middle;background:#fff}
+.who{grid-template-columns:3fr 1fr 1fr 1.3fr!important;align-items:end}
+h2 .nota-ej{margin-left:2mm}
 </style>
 </head>
 <body>
@@ -103,11 +110,11 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
     <h1>Ficha · La venganza del <span>tractorista</span></h1>
     <div class="sub">HISTORIA · LENGUA · VEHÍCULOS</div>
   </div>
-  <div class="who"><div>Nombre:</div><div>Curso:</div><div>Fecha:</div></div>
+  <div class="who"><div>Nombre:</div><div>Curso:</div><div>Fecha:</div><div>Nota: <b class="nota-tot"></b> / 10</div></div>
 
 
 <div class="ex">
-  <h2><span class="n">1</span>Después del vídeo: piensa y responde<span class="t">luego lo hablamos</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <h2><span class="n">1</span>Después del vídeo: piensa y responde<span class="t">luego lo hablamos</span> <span class="nota-ej"><i></i>/ 1,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
   <div class="rq">
     <span class="q">a) Ferrari despreció a Ferruccio por ser «un tractorista». ¿Por qué crees que lo hizo? ¿Hoy se juzga a la gente por su trabajo o por de dónde viene?</span>
     <div class="s">Ferrari se sentía superior: era famoso y veía los tractores como algo «del campo», inferior. Es un prejuicio por el oficio y el origen. Hoy pasa algo parecido: se juzga por estudiar FP, trabajar en un taller, la ropa, el acento o el barrio.</div>
@@ -122,7 +129,7 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
   </div>
 
 <div class="ex">
-  <h2><span class="n">2</span>Lee el texto y reflexiona<span class="t">Italia después de la guerra</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <h2><span class="n">2</span>Lee el texto y reflexiona<span class="t">Italia después de la guerra</span> <span class="nota-ej"><i></i>/ 1,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
   <div class="box read">
     <p>En 1940, Italia, gobernada por el dictador Mussolini, entró en la Segunda Guerra Mundial junto a Hitler. Desde 1943 el país fue campo de batalla.</p>
     <p>En 1945 Italia estaba destrozada: carreteras y fábricas bombardeadas, sin comida ni trabajo. En el campo se araba con bueyes, pero por todas partes quedaban abandonados miles de vehículos militares.</p>
@@ -147,7 +154,7 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
 <!-- ===================== CARILLA 2 ===================== -->
 <div class="page">
 <div class="ex">
-  <h2><span class="n">3</span>¿Qué tipo de texto es? Escríbelo debajo<span class="t">repaso</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <h2><span class="n">3</span>¿Qué tipo de texto es? Escríbelo debajo<span class="t">repaso</span> <span class="nota-ej"><i></i>/ 1,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
   <div class="bank"><span>narrativo</span><span>descriptivo</span><span>expositivo</span><span>argumentativo</span><span>instructivo</span><span>dialogado</span></div>
   <div class="frags compact">
     <div class="frag"><b class="L">A</b><div><i>Gire la llave de contacto, espere diez segundos y pise el embrague a fondo antes de arrancar.</i><div class="ans"><span class="s">Instructivo</span></div></div></div>
@@ -160,7 +167,7 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
   </div>
 
 <div class="ex">
-  <h2><span class="n">4</span>Debate: ¿de qué lado estás?<span class="t">marca y da una razón</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <h2><span class="n">4</span>Debate: ¿de qué lado estás?<span class="t">marca y da una razón</span> <span class="nota-ej"><i></i>/ 1</span> <button class="btn-sol noprint">💡 Solución</button></h2>
   <div class="deb">
     <b class="L">A</b><span>«Con esfuerzo, cualquiera puede llegar a donde quiera.»</span><span class="opt"><span>De acuerdo</span> <span>En desacuerdo</span></span>
     <div class="why">Porque<div class="line"></div><span class="s">Respuesta personal. Ej.: <b>De acuerdo</b>, porque Ferruccio era hijo de agricultores y llegó a lo más alto. / <b>En desacuerdo</b>, porque también influyen la suerte, el dinero y las oportunidades.</span></div>
@@ -172,7 +179,7 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
   </div>
 
 <div class="ex grow">
-  <h2><span class="n">5</span>Reto de escritura: carta de reclamación (mínimo 6 líneas)<span class="t">12 min</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <h2><span class="n">5</span>Reto de escritura: carta de reclamación (mínimo 6 líneas)<span class="t">12 min</span> <span class="nota-ej"><i></i>/ 3,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
   <div class="box"><p><b>Eres Ferruccio Lamborghini.</b> Escribe a Enzo Ferrari para reclamar por el embrague de tu coche. Usa los datos de la historia y sigue estos pasos:</p>
     <div class="steps"><span><b>1</b> Lugar y fecha</span><span><b>2</b> Saludo</span><span><b>3</b> Cuerpo: qué pasó · pruebas · qué pides</span><span><b>4</b> Despedida</span><span><b>5</b> Firma</span></div>
   </div>
@@ -185,7 +192,7 @@ h2 .t{margin-left:auto;font-family:'Barlow';font-weight:600;font-size:8.5pt;colo
   </div>
 
 <div class="ex rq0">
-  <h2><span class="n">6</span>Ticket de salida<span class="t">una sola frase</span> <button class="btn-sol noprint">💡 Solución</button></h2>
+  <h2><span class="n">6</span>Ticket de salida<span class="t">una sola frase</span> <span class="nota-ej"><i></i>/ 1</span> <button class="btn-sol noprint">💡 Solución</button></h2>
   <p>Si alguien te dijera «tú no sirves para esto», ¿qué harías? Empieza así: <i>«Si alguien me dijera eso, yo…»</i></p>
   <div class="s">Respuesta personal. Ej.: «Si alguien me dijera eso, yo no le insultaría: trabajaría más y le demostraría con hechos que se equivoca».</div><div class="line"></div><div class="line"></div>
   </div>

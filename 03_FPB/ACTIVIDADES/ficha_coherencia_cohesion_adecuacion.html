@@ -57,6 +57,12 @@ td .v{font-size:11pt}
 .toolbar button.or{background:#2f7d4f}
 @media print{.noprint{display:none!important}}
 @media screen and (max-width:820px){.page{width:100%;margin:0 0 8px;min-height:0;padding:10mm 6mm}.frag,.cols{grid-template-columns:1fr}.toolbar{position:static;padding:6px;justify-content:center}}
+
+/* puntuación (como en los exámenes) */
+.nota-ej{display:inline-flex;align-items:center;gap:1mm;border:1.2px solid #222;border-radius:1.4mm;padding:0 1.8mm;font:700 9pt Arial,sans-serif;color:#222;background:#fff;white-space:nowrap;line-height:1.7;text-transform:none;letter-spacing:0;vertical-align:middle;flex:0 0 auto}
+.nota-ej i{display:inline-block;width:8mm}
+.nota-tot{display:inline-block;width:16mm;height:6.6mm;border:1.4px solid #222;border-radius:1.4mm;vertical-align:middle;background:#fff}
+.ex h2 .nota-ej{float:right;margin-left:2mm}
 </style>
 </head>
 <body>
@@ -65,11 +71,11 @@ td .v{font-size:11pt}
 <section class="page">
   <header>
     <h1>Ficha coherencia, cohesión y adecuación</h1>
-    <div class="data">Nombre:<span style='display:inline-block;width:62mm'></span><br>Fecha:<span style='display:inline-block;width:30mm'></span>Grupo: 1.º FPB</div>
+    <div class="data">Nombre:<span style='display:inline-block;width:62mm'></span><br>Fecha:<span style='display:inline-block;width:30mm'></span>Grupo: 1.º FPB<br>Nota: <b class="nota-tot"></b> / 10</div>
   </header>
 
   <div class="ex">
-    <h2><button class="btn-sol noprint">💡 Solución</button>1 · Coherencia <span>— Ordena el mito de Faetón. Escribe las letras en orden.</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 1</span>1 · Coherencia <span>— Ordena el mito de Faetón. Escribe las letras en orden.</span></h2>
     <div class="frag">
       <div><b class="l">A</b>Zeus, para salvar el mundo, lanzó un rayo contra el carro y Faetón cayó al río Erídano.</div>
       <div><b class="l">B</b>Faetón era hijo de Helios, el dios que conducía el carro del Sol.</div>
@@ -82,19 +88,19 @@ td .v{font-size:11pt}
   </div>
 
   <div class="ex">
-    <h2><button class="btn-sol noprint">💡 Solución</button>2 · Cohesión <span>— Reescribe el texto sin repetir palabras: usa pronombres (él, lo, las, que), sinónimos (el herrero divino, el taller) o quita palabras.</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 1,5</span>2 · Cohesión <span>— Reescribe el texto sin repetir palabras: usa pronombres (él, lo, las, que), sinónimos (el herrero divino, el taller) o quita palabras.</span></h2>
     <div class="textbox">Hefesto era el dios del fuego. Hefesto trabajaba en una fragua. En la fragua Hefesto fabricaba armas para los dioses. Los dioses admiraban las armas de Hefesto. Hefesto también fabricó un gigante de bronce. El gigante de bronce se llamaba Talos. Talos vigilaba la isla de Creta.</div>
     <div class="ans" style="height:26.4mm">Hefesto era el dios del fuego y trabajaba en una fragua. <b>Allí</b> fabricaba armas para los dioses, <b>que las</b> admiraban. <b>El herrero divino</b> también fabricó un gigante de bronce <b>llamado</b> Talos, <b>que</b> vigilaba la isla de Creta.</div>
   </div>
 
   <div class="ex">
-    <h2><button class="btn-sol noprint">💡 Solución</button>3 · Conectores <span>— Completa el mito de Ícaro con las palabras del recuadro.</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 1,5</span>3 · Conectores <span>— Completa el mito de Ícaro con las palabras del recuadro.</span></h2>
     <div class="bank"><span>porque</span><span>pero</span><span>para</span><span>entonces</span><span>sin embargo</span><span>al final</span></div>
     <div class="textbox" style="line-height:1.9">Dédalo construyó unas alas <span class="gap">(1)<span class="v">para</span></span> escapar de Creta. Le explicó a Ícaro las normas, <span class="gap">(2)<span class="v">pero</span></span> el chico no le hizo caso. Subió muy alto <span class="gap">(3)<span class="v">porque</span></span> se sentía invencible. <span class="gap">(4)<span class="v">Entonces</span></span>, el sol derritió la cera de las alas. Dédalo gritó su nombre; <span class="gap">(5)<span class="v">sin embargo</span></span>, ya era tarde. <span class="gap">(6)<span class="v">Al final</span></span>, Ícaro cayó al mar, que hoy lleva su nombre: el mar Icario.</div>
   </div>
 
   <div class="ex grow">
-    <h2><button class="btn-sol noprint">💡 Solución</button>4 · Mitos en el taller <span>— ¿Qué mito se esconde en cada marca o palabra?</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 1</span>4 · Mitos en el taller <span>— ¿Qué mito se esconde en cada marca o palabra?</span></h2>
     <div class="bank"><span>Neptuno</span><span>Faetón</span><span>Pegaso</span><span>Mercurio</span><span>Nike</span></div>
     <table>
       <tr><th>Marca o palabra</th><th>Mito</th><th>Marca o palabra</th><th>Mito</th></tr>
@@ -109,7 +115,7 @@ td .v{font-size:11pt}
 
 <section class="page">
   <div class="ex">
-    <h2><button class="btn-sol noprint">💡 Solución</button>5 · Mapa de sentimientos <span>— Une cada sentimiento con su mito (escribe la letra).</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 1,5</span>5 · Mapa de sentimientos <span>— Une cada sentimiento con su mito (escribe la letra).</span></h2>
     <div class="cols">
       <table>
         <tr><td>1. Orgullo herido</td><td style="width:30mm"><span class="v">c · Hefesto</span></td></tr>
@@ -133,7 +139,7 @@ td .v{font-size:11pt}
   </div>
 
   <div class="ex">
-    <h2><button class="btn-sol noprint">💡 Solución</button>6 · Adecuación <span>— Mensajes desde el taller de Hefesto.</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 2</span>6 · Adecuación <span>— Mensajes desde el taller de Hefesto.</span></h2>
     <p>Tras el accidente, el carro del Sol llega al taller de Hefesto, que tiene que contarlo a tres personas. Ningún mensaje dice el nombre: escribe a quién va cada uno, <b>Helios</b> (el dueño del carro), <b>Zeus</b> (el jefe de los dioses) o <b>un cíclope aprendiz</b> del taller, fijándote en el tono y las palabras.</p>
     <table>
       <tr><td><b class="l">A</b>Esto pinta mal: el eje está doblado y dos ruedas no valen. Tráeme el gato grande y ve aflojando tuercas mientras reviso lo demás.</td><td style="width:34mm"><span class="v">Cíclope aprendiz</span></td></tr>
@@ -147,7 +153,7 @@ td .v{font-size:11pt}
   </div>
 
   <div class="ex grow">
-    <h2><button class="btn-sol noprint">💡 Solución</button>7 · Reflexiona <span>— Responde en 3 o 4 líneas.</span></h2>
+    <h2><button class="btn-sol noprint">💡 Solución</button><span class="nota-ej"><i></i>/ 1,5</span>7 · Reflexiona <span>— Responde en 3 o 4 líneas.</span></h2>
     <p>Lamborghini convirtió su orgullo herido en un superdeportivo; Ícaro y Faetón, en una caída. Cuenta una vez en que el orgullo te hizo <b>mejorar</b> o te hizo <b>meter la pata</b>. ¿Qué aprendiste?</p>
     <div class="lines"><div class="ans" style="height:33mm"><b>Respuesta personal.</b> Modelo: «Un compañero me dijo que nunca sabría cambiar una rueda. Me picó tanto que practiqué en el taller hasta hacerlo el más rápido de clase. Aprendí que el orgullo herido puede ayudarte a mejorar si lo usas para esforzarte y no para presumir».</div></div>
     <p class="small" style="text-align:center;margin-top:1.5mm">«El orgullo es como un motor: bien ajustado te lleva lejos; pasado de vueltas, revienta».</p>

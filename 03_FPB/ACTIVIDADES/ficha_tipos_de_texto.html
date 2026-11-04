@@ -135,6 +135,13 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
 .node .k{font-weight:700;color:var(--orange-d)}
 @media screen and (max-width:820px){.two,.strip,.nodes{grid-template-columns:1fr}.cars img{height:auto;aspect-ratio:3/2}}
 
+
+/* puntuación (como en los exámenes) */
+.nota-ej{display:inline-flex;align-items:center;gap:1mm;border:1.2px solid #222;border-radius:1.4mm;padding:0 1.8mm;font:700 9pt Arial,sans-serif;color:#222;background:#fff;white-space:nowrap;line-height:1.7;text-transform:none;letter-spacing:0;vertical-align:middle;flex:0 0 auto}
+.nota-ej i{display:inline-block;width:8mm}
+.nota-tot{display:inline-block;width:16mm;height:6.6mm;border:1.4px solid #222;border-radius:1.4mm;vertical-align:middle;background:#fff}
+.ex h2 .nota-ej{margin-left:auto}.ex h2 .nota-ej + .btn-sol{margin-left:2mm}
+.datos i{width:38mm}
 </style>
 </head>
 <body>
@@ -146,7 +153,7 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
     <div class="kicker">ACTIVIDAD · SEGUNDO DÍA EN EL TALLER</div>
     <h1>Búsqueda de piezas</h1>
     <div class="intro">Rafa, el encargado, os ha dejado un motor desmontado sobre el banco. Le faltan seis piezas y están repartidas por el taller. Cada trabajo que resolváis os dará una.</div>
-    <div class="datos"><span>Nombre: <i></i></span><span>Curso: <i style="width:24mm"></i></span><span>Fecha: <i style="width:26mm"></i></span></div>
+    <div class="datos"><span>Nombre: <i></i></span><span>Curso: <i style="width:24mm"></i></span><span>Fecha: <i style="width:26mm"></i></span><span>Nota: <b class="nota-tot"></b> / 10</span></div>
   </header>
 
   <div class="ex" id="e0">
@@ -156,7 +163,7 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
   </div>
 
   <div class="ex" id="e1">
-    <h2><span class="n">1 ·</span> El primer viaje en coche <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">1 ·</span> El primer viaje en coche <span class="nota-ej"><i></i>/ 1</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="cons">La historia se ha desmontado. Numera los fragmentos del 1 al 5 en el orden correcto.</p>
     <div class="ord"><div class="nb"><span class="g">3</span></div><p>Por el camino se quedaron sin combustible. Lo compraron en una farmacia de Wiesloch, que se convirtió así en la primera gasolinera de la historia.</p><div class="nb"><span class="g">1</span></div><p>En 1888, Karl Benz tenía un invento que casi nadie quería comprar: un coche con motor de gasolina.</p><div class="nb"><span class="g">5</span></div><p>Al anochecer llegaron a Pforzheim. Bertha envió un telegrama a Karl para decirle que el viaje había sido un éxito. El mundo acababa de descubrir que el automóvil funcionaba.</p><div class="nb"><span class="g">2</span></div><p>Una madrugada, su mujer, Bertha, cogió el coche sin avisar y salió con sus dos hijos hacia la casa de su madre, a unos 100 kilómetros.</p><div class="nb"><span class="g">4</span></div><p>Cuando se atascó un conducto, Bertha lo limpió con una horquilla del pelo. Más adelante, un zapatero forró de cuero los frenos, que se habían desgastado.</p></div>
     <p class="lab">¿Qué hace este texto: explica cómo funciona algo, da órdenes o cuenta algo que le pasó a alguien?</p>
@@ -164,7 +171,7 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
   </div>
 
   <div class="ex" id="e2">
-    <h2><span class="n">2 ·</span> ¿Qué coche busca Bob Dylan? <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">2 ·</span> ¿Qué coche busca Bob Dylan? <span class="nota-ej"><i></i>/ 1</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <div class="two">
       <div class="nota"><p>«Es alto y cuadrado, como una caja negra sobre ruedas. La carrocería es negra entera y el techo es rígido, no de lona. La cabina va cerrada, con puertas y ventanillas rectangulares. Las ruedas tienen radios de madera, gruesos y de color claro, y los neumáticos son negros y estrechos. Los guardabarros son curvos y debajo de las puertas lleva un estribo para subir. Delante tiene un capó corto y estrecho y dos faros redondos.»</p></div>
       <div>
@@ -179,13 +186,13 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
 <!-- ============ PÁGINA 2 ============ -->
 <section class="page">
   <div class="ex" id="e3">
-    <h2><span class="n">3 ·</span> Pinchazo en la autovía <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">3 ·</span> Pinchazo en la autovía <span class="nota-ej"><i></i>/ 1,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="cons">Un cliente ha pinchado y no ha cambiado una rueda en su vida. Escríbele los pasos para que lo haga él solo y sin peligro. Numera los pasos y empieza cada uno con un verbo.</p>
     <div class="area h-xl"><div class="s blk">1. Aparca en un sitio llano y seguro, pon el freno de mano y las luces de emergencia. Ponte el chaleco.<br>2. Coloca la baliza V16 en el techo del coche.<br>3. Afloja un poco los tornillos con la llave de rueda, sin quitarlos.<br>4. Coloca el gato en el punto de apoyo y levanta el coche.<br>5. Quita los tornillos y retira la rueda pinchada.<br>6. Pon la rueda de repuesto y aprieta los tornillos a mano.<br>7. Baja el coche y aprieta los tornillos en cruz con la llave.</div></div>
   </div>
 
   <div class="ex" id="e4">
-    <h2><span class="n">4 ·</span> ¿Verdad o bulo? <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">4 ·</span> ¿Verdad o bulo? <span class="nota-ej"><i></i>/ 1</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="cons">Lee el texto y marca V (verdadero) o F (falso).</p>
     <div class="nota"><p>El primer vehículo que se movió solo no funcionaba con gasolina. En 1769, el ingeniero francés Nicolas-Joseph Cugnot construyó un carro de vapor para arrastrar cañones. Iba a unos 4 km/h y, según se cuenta, acabó chocando contra un muro. En 1886, Karl Benz patentó su Motorwagen, considerado el primer automóvil con motor de gasolina. Hacia 1900, los coches eléctricos eran muy populares en ciudades como Nueva York: eran silenciosos, no echaban humo y no había que arrancarlos con manivela. ¿Por qué ganó la gasolina? Por tres razones: el petróleo se abarató, las baterías tenían poca autonomía y, en 1908, Henry Ford lanzó el Modelo T, un coche de gasolina tan barato que muchas familias pudieron comprarlo. Más de cien años después, el eléctrico vuelve a estar en el centro del debate.</p></div>
     <table class="tab" style="margin-top:2mm"><tr><th>Afirmación</th><th style="text-align:center">V / F</th></tr><tr><td>El primer vehículo autopropulsado funcionaba con gasolina.</td><td class="c"><span class="g">F</span></td></tr><tr><td>El carro de Cugnot servía para transportar cañones.</td><td class="c"><span class="g">V</span></td></tr><tr><td>Hacia 1900 todavía no existían coches eléctricos.</td><td class="c"><span class="g">F</span></td></tr><tr><td>Una ventaja de los eléctricos era que no había que arrancarlos con manivela.</td><td class="c"><span class="g">V</span></td></tr><tr><td>El Modelo T triunfó, sobre todo, porque era barato.</td><td class="c"><span class="g">V</span></td></tr></table>
@@ -197,7 +204,7 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
 <!-- ============ PÁGINA 3 ============ -->
 <section class="page">
   <div class="ex" id="e5">
-    <h2><span class="n">5 ·</span> Eléctrico contra gasolina <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">5 ·</span> Eléctrico contra gasolina <span class="nota-ej"><i></i>/ 1,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="cons">Subraya las expresiones que sirven para dar una opinión o para unir las razones. Después, con tu equipo, elige los tres mejores argumentos.</p>
     <div class="two">
       <div><p class="team">Equipo Voltio</p><p><span class="conn">Opino que</span> el coche eléctrico es el futuro. <span class="conn">En primer lugar</span>, no expulsa humo por el tubo de escape, así que el aire de las ciudades sería más limpio. <span class="conn">Además</span>, cargarlo en casa cuesta bastante menos que llenar un depósito. <span class="conn">Por otro lado</span>, tiene menos piezas que se desgasten: no lleva aceite de motor, ni embrague, ni correa de distribución. <span class="conn">Por tanto</span>, se avería menos. <span class="conn">En conclusión</span>, quien se compre hoy un coche de gasolina se está quedando en el pasado.</p></div>
@@ -208,7 +215,7 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
   </div>
 
   <div class="ex" id="e6">
-    <h2><span class="n">6 ·</span> Javier Lomba vuelve al taller <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">6 ·</span> Javier Lomba vuelve al taller <span class="nota-ej"><i></i>/ 1,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="cons">Leed la conversación por parejas y continuadla. Tono formal y trato de usted.</p>
     <div class="two"><div class="dialogo dcomp">
       <div class="say tu"><b class="who">Aprendiz</b>Buenos días. ¿En qué le puedo ayudar?</div>
@@ -228,13 +235,13 @@ header .intro{font-style:italic;color:var(--steel);margin-top:1mm}
 <!-- ============ PÁGINA 4 ============ -->
 <section class="page">
   <div class="ex" id="e7">
-    <h2><span class="n">7 ·</span> Reto final: ¿qué tipo de texto es? <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">7 ·</span> Reto final: ¿qué tipo de texto es? <span class="nota-ej"><i></i>/ 2</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="key">Escribe el número: 1 narrativo · 2 descriptivo · 3 instructivo · 4 expositivo · 5 argumentativo · 6 dialogado</p>
     <div class="two"><table class="tab"><tr><td class="n">1</td><td>Gire la llave media vuelta y espere a que se apague el testigo del motor.</td><td class="c"><span class="g">3</span></td></tr><tr><td class="n">2</td><td>El Seat 600 era pequeño, redondeado y de color crema, con dos faros redondos que parecían ojos.</td><td class="c"><span class="g">2</span></td></tr><tr><td class="n">3</td><td>—¿Me puedes cambiar el aceite esta tarde? —Claro, déjamelo a las cuatro.</td><td class="c"><span class="g">6</span></td></tr><tr><td class="n">4</td><td>Los neumáticos deben cambiarse cuando el dibujo baja de 1,6 milímetros, que es el mínimo legal.</td><td class="c"><span class="g">4</span></td></tr></table><table class="tab"><tr><td class="n">5</td><td>En el verano de 1966, Bob Dylan se cayó de su moto cerca de su casa de Woodstock. Después del accidente, estuvo años sin salir de gira.</td><td class="c"><span class="g">1</span></td></tr><tr><td class="n">6</td><td>Prohibir los coches en el centro es un error, porque los comercios pierden clientes.</td><td class="c"><span class="g">5</span></td></tr><tr><td class="n">7</td><td>La llave de cruz tiene cuatro brazos de acero y una boca de distinto tamaño en cada extremo.</td><td class="c"><span class="g">2</span></td></tr><tr><td class="n">8</td><td>Creo que todo el mundo debería aprender a cambiar una rueda: un día te puede salvar.</td><td class="c"><span class="g">5</span></td></tr></table></div>
   </div>
 
   <div class="ex" id="e8">
-    <h2><span class="n">8 ·</span> Ticket de salida <button class="btn-sol noprint">💡 Solución</button></h2>
+    <h2><span class="n">8 ·</span> Ticket de salida <span class="nota-ej"><i></i>/ 0,5</span> <button class="btn-sol noprint">💡 Solución</button></h2>
     <p class="cons">Piensa en tu coche o tu moto favorita. Escribe una frase que la describa y otra para convencer a alguien de que se la compre.</p>
     <div class="area h-m"><div class="s blk">«Mi moto favorita es pequeña, roja y con el depósito redondeado.» «Deberías comprártela porque gasta muy poco y se aparca en cualquier sitio.»</div></div>
   </div>
