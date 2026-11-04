@@ -4,279 +4,497 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>retos_repaso_historia_galego</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#1d2b4a; --panel:#fffaf0; --ink:#1d2333; --muted:#5b6478;
+  --bg:#1d2b4a; --panel:#fffaf0; --ink:#1d2333; --muted:#5b6478; --line:#e3dccb;
   --hist:#c0562f; --gal:#2a7f62; --gold:#f2b632; --ok:#2e9e57; --ko:#d23c3c;
-  --t1:#e4572e; --t2:#2f80ed; --t3:#27ae60; --t4:#9b51e0;
+  --gA:#e4572e; --gB:#2f80ed; --gC:#8e44ad; --gD:#16a085;
+  --fd:'Fredoka',system-ui,sans-serif; --fb:'Nunito',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Nunito',sans-serif;color:var(--ink)}
-body{text-align:justify}
-/* barra superior: marcador */
-#bar{position:fixed;top:0;left:0;right:0;height:9vh;display:flex;align-items:center;gap:1vw;padding:0 1.2vw;background:#121c33;z-index:20}
-#bar .logo{font-family:'Fredoka';color:var(--gold);font-size:3.2vh;white-space:nowrap}
-#teams{display:flex;gap:.8vw;flex:1;justify-content:center}
-.team{display:flex;align-items:center;gap:.5vw;background:#fff;border-radius:1.2vh;padding:.6vh .8vw;border:.5vh solid var(--c)}
-.team .nm{font-family:'Fredoka';font-weight:600;font-size:2.6vh;color:var(--c);outline:none;min-width:3em;text-align:center}
-.team .pt{font-family:'Fredoka';font-weight:700;font-size:4vh;min-width:1.6em;text-align:center}
-.team button{width:4.4vh;height:4.4vh;border-radius:50%;border:none;background:var(--c);color:#fff;font-size:2.8vh;font-weight:800;cursor:pointer;line-height:1}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb);color:var(--ink);user-select:none;-webkit-user-select:none}
+#wrap{position:fixed;inset:0}
+#stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0}
+.j{text-align:justify}
+button{font-family:var(--fd);cursor:pointer}
+#bar{position:absolute;left:0;top:0;width:1600px;height:92px;display:flex;align-items:center;gap:18px;padding:0 22px;background:#121c33}
+#bar .logo{font:600 30px var(--fd);color:var(--gold);white-space:nowrap}
+#teams{display:flex;gap:12px;flex:1;justify-content:center}
+.team{display:flex;align-items:center;gap:8px;background:#fff;border-radius:14px;padding:6px 10px;border:5px solid var(--c);transition:transform .2s}
+.team.turn{transform:scale(1.08);box-shadow:0 0 0 5px var(--gold)}
+.team .nm{font:600 24px var(--fd);color:var(--c);max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team .pt{font:700 38px var(--fd);min-width:52px;text-align:center}
+.team button{width:38px;height:38px;border-radius:50%;border:none;background:var(--c);color:#fff;font-size:26px;font-weight:700;line-height:1}
 .team button.m{background:#d9dce3;color:#444}
-#count{font-family:'Fredoka';color:#cfd6e6;font-size:2.6vh;white-space:nowrap}
-/* diapositivas */
-.slide{position:fixed;top:9vh;left:0;right:0;bottom:0;display:none;padding:2vh 6.5vw 2.5vh}
-.slide.on{display:flex;flex-direction:column}
-.card{flex:1;background:var(--panel);border-radius:2.4vh;display:flex;flex-direction:column;overflow:hidden;min-height:0}
-.head{display:flex;align-items:center;gap:1.2vw;padding:1.4vh 1.6vw;color:#fff;background:var(--sub)}
-.head .tag{font-family:'Fredoka';font-size:2.4vh;background:rgba(255,255,255,.22);padding:.4vh 1vw;border-radius:99px;white-space:nowrap}
-.head h2{font-family:'Fredoka';font-weight:600;font-size:4.6vh;line-height:1.1;flex:1;text-align:left}
-.head .btns{display:flex;gap:.6vw}
-.head button{font-family:'Fredoka';font-size:2.5vh;border:none;border-radius:1vh;padding:.9vh 1.1vw;cursor:pointer;background:#fff;color:var(--sub);font-weight:600}
-.fit{flex:1;min-height:0;overflow:hidden;padding:1.6vh 1.6vw}
-.fit-in{height:100%;display:flex;flex-direction:column;gap:.5em}
-.ins{font-weight:700;color:var(--muted);font-size:.8em;text-align:justify;width:100%}
+#count{font:500 24px var(--fd);color:#cfd6e6;white-space:nowrap}
+.nav{position:absolute;top:400px;width:58px;height:150px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:64px;border-radius:18px}
+.nav:hover{background:rgba(255,255,255,.22)} .nav:disabled{opacity:.25}
+#prev{left:6px} #next{right:6px}
+#view{position:absolute;left:72px;top:108px;width:1456px;height:776px}
+.card{position:absolute;inset:0;background:var(--panel);border-radius:26px;display:flex;flex-direction:column;overflow:hidden}
+.head{display:flex;align-items:center;gap:18px;padding:14px 22px;background:var(--sub);color:#fff;min-height:84px}
+.head .tag{font:500 22px var(--fd);background:rgba(255,255,255,.22);padding:5px 14px;border-radius:99px;white-space:nowrap}
+.head h2{font:600 40px var(--fd);line-height:1.05;flex:1}
+.who{display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border-radius:14px;padding:6px 14px;font:600 24px var(--fd);white-space:nowrap}
+.who i{font-style:normal;width:18px;height:18px;border-radius:50%;background:var(--c)}
+.who b{color:var(--c)}
+.timer{min-width:96px;height:62px;border-radius:14px;border:none;background:#fff;color:var(--ink);font:700 34px var(--fd)}
+.timer.low{background:var(--gold)} .timer.zero{background:var(--ko);color:#fff}
+.body{flex:1;min-height:0;position:relative;padding:16px 26px 8px;display:flex;flex-direction:column;gap:14px}
+.foot{display:flex;align-items:center;gap:14px;padding:8px 22px 14px}
+.dots{display:flex;gap:10px;flex:1}
+.dots span{width:22px;height:22px;border-radius:50%;background:#e5e0d2}
+.dots span.cur{outline:4px solid var(--sub);outline-offset:2px} .dots span.okd{background:var(--ok)} .dots span.kod{background:var(--ko)}
+.btn{border:none;border-radius:14px;padding:12px 22px;font:600 26px var(--fd);background:var(--sub);color:#fff}
+.btn.alt{background:#fff;color:var(--sub);border:3px solid var(--sub)}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn:disabled{opacity:.35;cursor:default}
+.ins{font:700 26px var(--fb);color:var(--muted);line-height:1.25}
 .ins b{color:var(--ink)}
-.items{flex:1;display:grid;gap:.45em;grid-auto-rows:minmax(min-content,1fr)}
-.it{display:flex;align-items:center;gap:.6em;background:#fff;border:.12em solid #e3dccb;border-radius:.45em;padding:.25em .5em;cursor:pointer;user-select:none;transition:transform .1s}
-.it:active{transform:scale(.98)}
-.it .tx{flex:1;font-weight:700;line-height:1.15;text-align:left}
-.it .an{font-family:'Fredoka';font-weight:600;min-width:5.4em;text-align:center;padding:.12em .45em;border-radius:.4em;background:#eef0f4;color:#8a92a6;white-space:nowrap}
-.it.sel .an{background:var(--sub);color:#fff}
-.it.ok{border-color:var(--ok);background:#e9f7ee}
-.it.ko{border-color:var(--ko);background:#fdecec}
-.it.ok .an{background:var(--ok)} .it.ko .an{background:var(--ko)}
-.it .n{font-family:'Fredoka';font-weight:700;width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;background:#eef0f4;color:#aab}
-.it.sel .n{background:var(--sub);color:#fff}
-/* tarxetas que xiran */
-.flip{perspective:1000px;cursor:pointer}
-.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;min-height:3.2em}
-.flip.r .in{transform:rotateY(180deg)}
-.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:.45em;display:flex;align-items:center;justify-content:center;padding:.3em .6em;text-align:center;font-weight:700;line-height:1.15}
-.flip .f{background:#fff;border:.12em solid #e3dccb}
-.flip .b{background:var(--sub);color:#fff;transform:rotateY(180deg);font-family:'Fredoka';font-weight:600;font-size:1.15em}
-.flip .sz{visibility:hidden;padding:.55em .8em;font-weight:700;line-height:1.15;text-align:center}
-/* portada e final */
-.cover{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5vh;color:#fff;text-align:center}
-.cover h1{font-family:'Fredoka';font-size:10vh;line-height:1;color:var(--gold)}
-.cover p{font-size:3.4vh;max-width:none;width:100%;text-align:center}
-.cover .chips{display:flex;gap:1vw;flex-wrap:wrap;justify-content:center}
-.cover .chip{font-family:'Fredoka';font-size:3vh;padding:1vh 1.6vw;border-radius:99px;background:#fff;color:var(--ink);cursor:pointer;border:.4vh solid transparent}
-.cover .chip.on{border-color:var(--gold);background:var(--gold)}
-.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;width:100%}
-.rules div{background:rgba(255,255,255,.1);border-radius:2vh;padding:2vh 1.4vw;font-size:3vh;text-align:justify}
-.rules b{display:block;font-family:'Fredoka';color:var(--gold);font-size:3.6vh;margin-bottom:.6vh}
-.sec{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;gap:2vh}
-.sec .big{font-size:20vh}
-.sec h1{font-family:'Fredoka';font-size:11vh;text-align:center}
-.sec p{font-size:3.6vh;text-align:center}
-#podium{display:flex;align-items:flex-end;justify-content:center;gap:2vw;height:55vh;width:100%}
-#podium .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:18vw}
-#podium .nm{font-family:'Fredoka';font-size:4vh;color:#fff;margin-bottom:1vh;text-align:center}
-#podium .blk{width:100%;border-radius:1.5vh 1.5vh 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:2vh;font-family:'Fredoka';color:#fff;font-size:6vh}
-#podium .blk small{font-size:3vh}
-/* frechas laterais */
-.nav{position:fixed;top:50%;transform:translateY(-30%);width:5vw;height:16vh;border:none;background:rgba(255,255,255,.08);color:#fff;font-size:7vh;cursor:pointer;z-index:15;border-radius:2vh;display:grid;place-items:center}
-.nav:hover{background:rgba(255,255,255,.2)}
-#prev{left:.6vw} #next{right:.6vw}
-/* ventá de solucións */
-#modal{position:fixed;inset:0;background:rgba(10,15,30,.75);display:none;align-items:center;justify-content:center;z-index:50}
-#modal.on{display:flex}
-#mbox{position:relative;width:88vw;height:84vh;background:#fff;border-radius:2.4vh;display:flex;flex-direction:column;overflow:hidden}
-#mbox h3{font-family:'Fredoka';font-size:4.4vh;padding:1.6vh 2vw;background:var(--gold);color:var(--ink)}
-#mclose{position:absolute;top:1vh;right:1vw;width:6vh;height:6vh;border:none;border-radius:50%;background:#fff;font-size:3.6vh;cursor:pointer}
-#mfit{flex:1;min-height:0;overflow:hidden;padding:2vh 2.4vw}
-#mlist{height:100%;display:grid;gap:.35em .9em;align-content:start}
-#mlist div{line-height:1.25;text-align:justify}
-#mlist b{color:var(--hist)}
+.prompt{font:800 40px var(--fb);line-height:1.2;text-align:center}
+.fb{min-height:40px;font:600 30px var(--fd);text-align:center}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
+.kb{display:grid;grid-template-columns:repeat(14,1fr);gap:7px}
+.k{height:62px;border:3px solid var(--line);background:#fff;border-radius:12px;font:600 30px var(--fd);color:var(--ink)}
+.k:active{background:var(--sub);color:#fff}
+.k.used{opacity:.3} .k.hit{background:#e9f7ee;border-color:var(--ok);opacity:1} .k.miss{background:#fdecec;border-color:var(--ko)}
+.k.w2{grid-column:span 2} .k.del{color:var(--ko)}
+.disp{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.disp span{min-width:62px;height:78px;border-bottom:6px solid var(--sub);font:700 52px var(--fd);display:grid;place-items:center;background:#fff;border-radius:10px 10px 0 0}
+.disp.long span{min-width:52px;height:68px;font-size:44px}
+.numpad{display:grid;grid-template-columns:repeat(6,96px);gap:10px;justify-content:center}
+.numpad .k{height:76px;font-size:38px}
+.numshow{min-width:340px;height:96px;margin:0 auto;border:5px solid var(--sub);border-radius:18px;background:#fff;font:700 62px var(--fd);display:grid;place-items:center;padding:0 20px}
+.opts{display:grid;gap:16px}
+.op{border:4px solid var(--line);background:#fff;border-radius:18px;padding:14px 18px;font:800 32px var(--fb);color:var(--ink);line-height:1.15;min-height:96px}
+.op.sel{border-color:var(--gold);background:#fff6dc}
+.op.okc{border-color:var(--ok);background:#e9f7ee} .op.koc{border-color:var(--ko);background:#fdecec}
+.tiles{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.tile{min-width:84px;height:92px;padding:0 14px;border:none;border-radius:16px;background:var(--sub);color:#fff;font:700 50px var(--fd);box-shadow:0 6px 0 rgba(0,0,0,.18)}
+.tile.used{opacity:.18;pointer-events:none}
+.ord{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;grid-auto-rows:1fr}
+.ord .op{display:flex;align-items:center;gap:14px;text-align:left}
+.ord .n{flex:0 0 58px;height:58px;border-radius:50%;background:#eef0f4;color:#aab;font:700 32px var(--fd);display:grid;place-items:center}
+.ord .op.sel .n{background:var(--sub);color:#fff}
+.clues{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.clue{border-radius:18px;padding:14px;min-height:150px;font:800 30px var(--fb);line-height:1.2;display:flex;flex-direction:column;justify-content:center;text-align:center;background:#fff;border:4px dashed var(--line);color:#c9c2b0}
+.clue.on{border:4px solid var(--sub);color:var(--ink)}
+.clue em{font:600 22px var(--fd);font-style:normal;color:var(--sub);margin-bottom:6px}
+.sent{display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:10px 12px;font:800 50px var(--fb);line-height:1.3;padding:20px;background:#fff;border-radius:20px;border:4px solid var(--line)}
+.tok{padding:2px 8px;border-radius:10px;cursor:pointer}
+.tok:hover{background:#fff6dc}
+.tok.okc{background:#e9f7ee;outline:4px solid var(--ok)} .tok.koc{background:#fdecec;outline:4px solid var(--ko)}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:14px 70px;grid-auto-rows:1fr}
+.mt .op{text-align:center;min-height:0;display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 14px}
+.mt .tagn{min-width:40px;height:40px;border-radius:50%;color:#fff;font:700 24px var(--fd);display:none;place-items:center}
+.mt .op.pr .tagn{display:grid}
+.gaptx{font:800 40px var(--fb);line-height:1.8;background:#fff;border-radius:20px;border:4px solid var(--line);padding:16px 26px}
+.gap{display:inline-block;min-width:150px;border-bottom:5px dashed var(--sub);text-align:center;color:var(--sub);font-family:var(--fd);font-weight:600;cursor:pointer;border-radius:8px 8px 0 0;padding:0 10px;line-height:1.2}
+.gap.cur{background:#fff6dc;border-bottom-style:solid}
+.gap.okc{background:#e9f7ee;color:var(--ok)} .gap.koc{background:#fdecec;color:var(--ko)}
+.bank{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.code{display:grid;grid-template-columns:repeat(14,1fr);gap:5px}
+.code span{background:#fff;border:2px solid var(--line);border-radius:10px;padding:1px 0;text-align:center;font:600 20px var(--fd);line-height:1.1}
+.code b{color:var(--sub);display:block;font-size:24px}
+.cipher{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.cipher span{min-width:74px;padding:6px 0;border-radius:12px;background:var(--ink);color:var(--gold);font:700 40px var(--fd);text-align:center}
+.lock{display:grid;grid-template-columns:1.5fr 1fr;gap:26px;flex:1;min-height:0}
+.lk{display:flex;flex-direction:column;gap:12px}
+.lk .op{display:flex;align-items:center;gap:16px;min-height:0;padding:10px 16px;font-size:27px;text-align:left;flex:1}
+.lk .op .dg{flex:0 0 74px;height:74px;border-radius:14px;background:#eef0f4;display:grid;place-items:center;font:700 44px var(--fd);color:var(--sub)}
+.lockart{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.lockart .pad{font-size:120px;line-height:1;transition:transform .4s}
+.lockart .digits{display:flex;gap:10px}
+.lockart .digits span{width:70px;height:86px;border-radius:14px;background:var(--ink);color:var(--gold);font:700 56px var(--fd);display:grid;place-items:center}
+.lives{font-size:40px;text-align:center;letter-spacing:6px}
+.spin{font:700 76px var(--fd);text-align:center;color:var(--sub);min-height:100px}
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.boxes .op{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:32px}
+.boxes .op span{font-size:64px}
+.phrase{font:900 70px var(--fb);text-align:center;padding:24px;background:#fff;border-radius:22px;border:4px solid var(--line)}
+.cover{position:absolute;inset:0;display:grid;grid-template-columns:1.05fr 1fr;gap:36px;color:#fff;align-items:center}
+.cover h1{font:700 104px var(--fd);line-height:.95;color:var(--gold)}
+.cover p{font:700 30px var(--fb);line-height:1.35;margin-top:22px}
+.grp{background:rgba(255,255,255,.08);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.grp h3{font:600 34px var(--fd);color:var(--gold);display:flex;justify-content:space-between;align-items:center}
+.gbox{background:#fff;border-radius:16px;padding:10px 14px;border-left:12px solid var(--c);color:var(--ink)}
+.gbox input{font:600 28px var(--fd);color:var(--c);border:none;border-bottom:2px dashed #ccc;width:100%;outline:none;background:transparent}
+.gbox .mem{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.gbox .mem span{font:700 24px var(--fb);background:#f1eee6;border-radius:99px;padding:3px 14px;cursor:pointer}
+.chips{display:flex;gap:10px}
+.chip{font:600 24px var(--fd);padding:8px 18px;border-radius:99px;background:#fff;color:var(--ink);border:4px solid transparent}
+.chip.on{background:var(--gold)}
+.sec{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;gap:18px;text-align:center}
+.sec .big{font-size:150px;line-height:1}
+.sec h1{font:700 100px var(--fd)}
+.sec p{font:700 36px var(--fb)}
+.sec .list{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px;width:1300px}
+.sec .list button{background:rgba(255,255,255,.12);color:#fff;border:none;border-radius:16px;padding:14px;font:600 26px var(--fd);text-align:left}
+.sec .list button small{display:block;color:var(--gold);font-size:20px}
+#podium{display:flex;align-items:flex-end;justify-content:center;gap:30px;height:520px}
+#podium .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:280px;height:100%}
+#podium .nm{font:600 38px var(--fd);margin-bottom:10px;text-align:center}
+#podium .blk{width:100%;border-radius:20px 20px 0 0;display:flex;flex-direction:column;align-items:center;padding-top:20px;font:700 70px var(--fd)}
+#podium .blk small{font-size:28px}
+.ov{position:absolute;inset:0;background:rgba(10,15,30,.78);display:none;align-items:center;justify-content:center;z-index:30}
+.ov.on{display:flex}
+.ovbox{position:relative;width:1300px;background:#fff;border-radius:28px;overflow:hidden;display:flex;flex-direction:column}
+.ovbox h3{font:600 46px var(--fd);padding:20px 30px;background:var(--gold)}
+.ovbody{padding:24px 34px 30px;font:700 46px var(--fb);line-height:1.35;max-height:640px;overflow:hidden}
+.ovbody b{color:var(--hist)}
+.x{position:absolute;top:14px;right:18px;width:62px;height:62px;border:none;border-radius:50%;background:#fff;font-size:34px}
+.steal{width:1100px;border-radius:28px;background:#fff;padding:36px 40px;text-align:center;display:flex;flex-direction:column;gap:22px;align-items:center}
+.steal h3{font:700 64px var(--fd);color:var(--c)}
+.steal p{font:700 34px var(--fb)}
+.toast{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) scale(.6);opacity:0;background:var(--ok);color:#fff;font:700 70px var(--fd);padding:22px 50px;border-radius:30px;z-index:40;pointer-events:none;transition:all .35s;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.toast.bad{background:var(--ko)}
 </style>
 </head>
 <body>
-
-<div id="bar">
-  <div class="logo">🏆 Retos de repaso</div>
-  <div id="teams"></div>
-  <div id="count"></div>
-</div>
-
-<div id="deck"></div>
-
-<button class="nav" id="prev" aria-label="Anterior">‹</button>
-<button class="nav" id="next" aria-label="Seguinte">›</button>
-
-<div id="modal"><div id="mbox"><h3 id="mtitle">Solución</h3><button id="mclose" aria-label="Pechar">✕</button><div id="mfit"><div id="mlist"></div></div></div></div>
+<div id="wrap"><div id="stage">
+  <div id="bar"><div class="logo">🏆 Retos de repaso</div><div id="teams"></div><div id="count"></div></div>
+  <button class="nav" id="prev" aria-label="Anterior">‹</button>
+  <button class="nav" id="next" aria-label="Seguinte">›</button>
+  <div id="view"></div>
+  <div class="ov" id="solOv"><div class="ovbox"><h3 id="solT">Solución</h3><button class="x" id="solX" aria-label="Pechar">✕</button><div class="ovbody j" id="solB"></div></div></div>
+  <div class="ov" id="stOv"><div class="steal" id="stBox"></div></div>
+  <div class="toast" id="toast"></div>
+</div></div>
 
 <script>
-const H='Historia', G='Lingua galega';
-const ET=['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'];
+const $=s=>document.querySelector(s);
+const STUD=['Jorge','Diego','Emma','Kristine','Irene','Zoe','Zacaría','Brais','Lucía'];
+const COLS=['var(--gA)','var(--gB)','var(--gC)','var(--gD)'];
+let NG=3, G=[], turn=0;
+function makeGroups(shuffle){
+  const s=STUD.slice(); if(shuffle) for(let i=s.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[s[i],s[j]]=[s[j],s[i]]}
+  const old=G; G=[];
+  for(let i=0;i<NG;i++) G.push({name:(old[i]&&old[i].name)||('Grupo '+'ABCD'[i]),c:COLS[i],pts:(old[i]&&old[i].pts)||0,mem:[],k:0});
+  s.forEach((n,i)=>G[i%NG].mem.push(n));
+}
+makeGroups(true);
+function who(g){const x=G[g];return x.mem.length?x.mem[x.k%x.mem.length]:''}
+function drawTeams(hl){
+  const t=$('#teams');t.innerHTML='';const on=hl==null?turn:hl;
+  G.forEach((g,i)=>{const d=document.createElement('div');d.className='team'+(i===on?' turn':'');d.style.setProperty('--c',g.c);
+    d.innerHTML=`<button class="m">−</button><span class="nm">${g.name}</span><span class="pt">${g.pts}</span><button>+</button>`;
+    d.querySelector('.m').onclick=()=>{g.pts=Math.max(0,g.pts-1);drawTeams(hl)};
+    d.querySelector('button:last-child').onclick=()=>{g.pts++;drawTeams(hl)};t.appendChild(d)});
+}
+const norm=s=>String(s).trim().toLowerCase().replace(/\s+/g,' ');
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* =================== RETOS =================== */
+const H='Historia', GL='Lingua galega';
+const ABC='ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+const enc=w=>w.split('').map(c=>ABC.indexOf(c)+1);
 const R=[
  {sec:H,icon:'🏰',title:'Historia',sub:'A Idade Moderna e o humanismo'},
- {s:H,type:'order',title:'Ordena as etapas da historia',ins:'Toca as etapas <b>da máis antiga á máis recente</b>. Se te equivocas, tócaa outra vez para quitar o número.',
-  items:['Idade Moderna','Prehistoria','Idade Contemporánea','Idade Antiga','Idade Media'],
-  sol:['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'],cols:1},
- {s:H,type:'cycle',title:'Que etapa remata con este feito?',ins:'Toca cada feito ata que apareza <b>a etapa que pecha</b>.',opts:ET,cols:1,
-  items:[['A aparición da escritura (3000 a. C.)','Prehistoria'],['A caída do Imperio romano de Occidente (476)','Idade Antiga'],['A caída de Constantinopla (1453)','Idade Media'],['A Revolución francesa (1789)','Idade Moderna']]},
- {s:H,type:'cycle',title:'Que tipo de fonte histórica é?',ins:'Toca cada fonte ata que apareza o seu tipo: <b>escrita, material, iconográfica ou oral</b>.',opts:['Escrita','Material','Iconográfica','Oral'],cols:2,
-  items:[['Unha carta','Escrita'],['Unha moeda','Material'],['Un mapa antigo','Iconográfica'],['O relato da avoa','Oral'],['Unha lei','Escrita'],['Un barco','Material'],['Unha pintura','Iconográfica'],['Un testemuño contado de palabra','Oral'],['Unha crónica','Escrita'],['Un edificio','Material']]},
- {s:H,type:'cycle',title:'Idade Media ou Idade Moderna?',ins:'Toca cada característica para levala á súa época.',opts:['Media','Moderna'],cols:2,
-  items:[['Peste negra e crise','Media'],['Crecemento da poboación','Moderna'],['Sociedade rural e campesiña','Media'],['Auxe dos burgueses','Moderna'],['Economía agraria e de subsistencia','Media'],['Mercantilismo','Moderna'],['Monarquía feudal','Media'],['Monarcas autoritarios','Moderna'],['Teocentrismo: Deus no centro','Media'],['Antropocentrismo: o ser humano no centro','Moderna'],['Primeiras migracións transoceánicas','Moderna'],['A fe por riba da razón','Media']]},
- {s:H,type:'flip',title:'Palabra secreta',ins:'O equipo le a definición e di a palabra <b>antes de xirar a tarxeta</b>.',cols:3,
-  items:[['Idea de que un país é máis rico canto máis ouro e prata acumula','Mercantilismo'],['Habitante das cidades que vivía do comercio ou da artesanía','Burgués'],['Rei que concentra o poder, con exército, funcionarios e impostos propios','Monarca autoritario'],['Estudo da poboación: cantas persoas hai, onde viven, como aumentan','Demografía'],['Mentalidade que pon o ser humano no centro do Universo','Antropocentrismo'],['Mentalidade na que todo xira arredor de Deus','Teocentrismo'],['Persoa rica que paga os proxectos de artistas e científicos','Mecenas'],['Lingua que fala a xente, fronte ao latín','Lingua vernácula'],['Invento de Gutenberg que difundiu as ideas moito máis rápido','Imprenta']]},
- {s:H,type:'cycle',title:'Verdadeiro ou falso?',ins:'Toca cada frase para marcar <b>V</b> ou <b>F</b>. Despois, corrixide as falsas en voz alta.',opts:['V','F'],cols:2,short:true,
-  items:[['A Idade Moderna vai de 1453 a 1789.','V'],['En España, o inicio da Idade Moderna sitúase en 1492.','V'],['A peste negra matou arredor da metade da poboación europea.','F'],['O humanismo inspírase na Grecia e na Roma antigas.','V'],['Os burgueses apoiaron os reis fronte aos nobres.','V'],['A imprenta inventouse arredor de 1650.','F'],['Na Idade Moderna as cidades perden poboación.','F'],['Os Reis Católicos son un exemplo de monarcas autoritarios.','V'],['Escribir en linguas vernáculas fixo que a cultura chegase a menos xente.','F'],['O humanismo valora a liberdade e a razón.','V']]},
- {s:H,type:'cycle',title:'Dante, Petrarca ou Boccaccio?',ins:'Toca cada pista ata que apareza o autor.',opts:['Dante','Petrarca','Boccaccio'],cols:2,
-  items:[['Escribiu a Divina comedia','Dante'],['Escribiu o Cancioneiro','Petrarca'],['Escribiu o Decamerón','Boccaccio'],['Os seus versos falan do seu amor por Laura','Petrarca'],['Percorre o Inferno da man de Virxilio e Beatriz','Dante'],['A peste de 1348 inspirou a súa obra mestra','Boccaccio'],['Sentou as bases do italiano','Dante'],['Unha colección de cen contos en prosa','Boccaccio'],['Desterrado de Florencia, morreu en Rávena','Dante'],['Rescatou antigos códices latinos de Cicerón','Petrarca']]},
- {s:H,type:'cycle',title:'Como se espallou o humanismo?',ins:'Toca cada descrición ata que apareza o medio correcto.',opts:['Imprenta','Academias','Mecenas','Universidades'],cols:1,
-  items:[['Difundiu as novas ideas a moita máis velocidade ca na Idade Media','Imprenta'],['Reunían filólogos, poetas e científicos en faladoiros','Academias'],['Os Medici pagaban os proxectos de artistas e científicos','Mecenas'],['Abríronse novos centros en Santiago, Alcalá ou Valencia','Universidades']]},
- {sec:G,icon:'📚',title:'Lingua galega',sub:'A palabra, o substantivo e o adxectivo'},
- {s:G,type:'cycle',title:'Variable ou invariable?',ins:'Toca cada palabra: <b>cambia</b> con xénero, número, persoa…? Entón é variable.',opts:['Variable','Invariable'],cols:2,short:true,
-  items:[['casa','Variable'],['alí','Invariable'],['branca','Variable'],['en','Invariable'],['xogar','Variable'],['e','Invariable'],['xa','Invariable'],['fillo','Variable'],['contra','Invariable'],['estas','Variable'],['pero','Invariable'],['rápido','Variable']]},
- {s:G,type:'cycle',title:'O ou A?',ins:'Toca cada substantivo para poñerlle o artigo. <b>Ollo cos que enganan!</b>',opts:['o','a'],cols:2,short:true,
-  items:[['dor','a'],['ponte','a'],['leite','o'],['sangue','o'],['viaxe','a'],['traxe','o'],['lume','o'],['costume','o'],['orde','a'],['sal','o'],['mel','o'],['árbore','a'],['cor','a'],['nariz','o'],['linguaxe','a'],['análise','a']]},
- {s:G,type:'cycle',title:'Cal é o feminino correcto?',ins:'Toca cada palabra ata que apareza o feminino ben formado.',cols:2,short:true,
-  items:[['león',['leoa','leona'],'leoa'],['abusón',['abusoa','abusona'],'abusona'],['alemán',['alemá','alemana'],'alemá'],['folgazán',['folgazá','folgazana'],'folgazana'],['xudeu',['xudea','xudía'],'xudía'],['avó',['avá','avoa'],'avoa'],['capitán',['capitá','capitana'],'capitá'],['solteirón',['solteiroa','solteirona'],'solteirona'],['patrón',['patroa','patrona'],'patroa'],['xefe',['xefa','xefe'],'xefa']]},
- {s:G,type:'cycle',title:'Cal é o plural correcto?',ins:'Toca cada palabra ata que apareza o plural ben formado.',cols:2,short:true,
-  items:[['camión',['camiones','camións'],'camións'],['compás',['compás','compases'],'compases'],['canal',['canales','canais'],'canais'],['móbil',['móbiles','móbils'],'móbiles'],['o lapis',['os lapises','os lapis'],'os lapis'],['raíz',['raíces','raízs'],'raíces'],['tren',['trenes','trens'],'trens'],['xersei',['xerseis','xerseies'],'xerseis'],['perfil',['perfiles','perfís'],'perfís'],['o tórax',['os tóraxes','os tórax'],'os tórax']]},
- {s:G,type:'cycle',title:'Clasifica o substantivo',ins:'Toca cada palabra ata que apareza a súa clase máis concreta.',opts:['Propio','Abstracto','Non contable','Individual','Colectivo'],cols:2,
-  items:[['Uxía','Propio'],['Miño','Propio'],['xustiza','Abstracto'],['solidariedade','Abstracto'],['leite','Non contable'],['vento','Non contable'],['prato','Individual'],['árbore','Individual'],['rabaño','Colectivo'],['arboredo','Colectivo']]},
- {s:G,type:'cycle',title:'Explicativo ou especificativo?',ins:'Truco: <b>todos os ___ son así?</b> Se si → explicativo. Se non → especificativo.',opts:['Explicativo','Especificativo'],cols:2,
-  items:[['neve fría','Explicativo'],['coche amarelo','Especificativo'],['mel doce','Explicativo'],['can pequeno','Especificativo'],['pedra dura','Explicativo'],['rapaz louro','Especificativo'],['lume quente','Explicativo'],['camisa azul','Especificativo']]},
- {s:G,type:'cycle',title:'Ca, coma, como ou do que?',ins:'Toca cada oco ata que apareza a conxunción correcta.',opts:['ca','coma','como','do que'],cols:1,
-  items:[['Corre máis ___ ti.','ca'],['É tan alto ___ min.','coma'],['É menos complicado ___ cres.','do que'],['Non é tan difícil ___ parece.','como'],['Canta mellor ___ eu.','ca'],['Es tan rápida ___ ela.','coma']]},
- {s:G,type:'flip',title:'Superlativo culto',ins:'O equipo di o superlativo con <b>raíz culta</b> antes de xirar a tarxeta.',cols:3,
-  items:[['amable','amabilísimo'],['fiel','fidelísimo'],['antigo','antiquísimo'],['áspero','aspérrimo'],['acre','acérrimo'],['íntegro','integérrimo']]},
+ {s:H,t:'order',title:'Liña do tempo',ins:'Tocade os feitos <b>do máis antigo ao máis recente</b>. Se vos equivocades, tocádeo outra vez para quitarlle o número.',
+  qs:[{items:['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'],sol:'Prehistoria → Idade Antiga → Idade Media → Idade Moderna → Idade Contemporánea.'},
+      {items:['Aparición da escritura (3000 a. C.)','Caída do Imperio romano (476)','Invento da imprenta (arredor de 1450)','Caída de Constantinopla (1453)','Chegada a América (1492)','Revolución francesa (1789)'],sol:'Escritura (3000 a. C.) → Imperio romano (476) → imprenta (1450) → Constantinopla (1453) → América (1492) → Revolución francesa (1789).'}]},
+ {s:H,t:'num',title:'Calculadora do tempo',secs:90,ins:'Podedes usar papel. Escribide o resultado e premede <b>✔</b>.',
+  qs:[{p:'A Idade Moderna vai de 1453 a 1789. Cantos anos durou?',a:336,sol:'1789 − 1453 = <b>336 anos</b>.'},
+      {p:'Cantos anos pasaron entre o invento da imprenta (1450) e a chegada a América (1492)?',a:42,sol:'1492 − 1450 = <b>42 anos</b>.'},
+      {p:'A peste negra matou arredor dun terzo da poboación. Se nunha cidade vivían 9 000 persoas, cantas morreron?',a:3000,sol:'9 000 ÷ 3 = <b>3 000 persoas</b>.'},
+      {p:'Petrarca naceu en 1304 e morreu en 1374. Cantos anos viviu?',a:70,sol:'1374 − 1304 = <b>70 anos</b>.'},
+      {p:'Boccaccio naceu en 1313. A peste que inspirou o Decamerón foi en 1348. Cantos anos tiña?',a:35,sol:'1348 − 1313 = <b>35 anos</b>.'}]},
+ {s:H,t:'cipher',title:'Mensaxe secreta',secs:120,ins:'Cada número é unha letra (A = 1, B = 2…).',
+  qs:[{w:'IMPRENTA',clue:'Inventouna Gutenberg',sol:'<b>IMPRENTA</b>: espallou as ideas moito máis rápido.'},
+      {w:'MECENAS',clue:'Pagaban os proxectos dos artistas',sol:'<b>MECENAS</b>, como os Medici.'},
+      {w:'BURGUESES',clue:'Vivían do comercio nas cidades',sol:'<b>BURGUESES</b>: apoiaron os reis fronte aos nobres.'}]},
+ {s:H,t:'intr',title:'Caza o intruso',ins:'Tres van xuntos e un sobra. <b>Tocade o intruso.</b>',
+  qs:[{o:['Dante','Petrarca','Boccaccio','Colón'],a:'Colón',sol:'<b>Colón</b>: non era un escritor humanista italiano.'},
+      {o:['carta','lei','crónica','moeda'],a:'moeda',sol:'<b>moeda</b>: é unha fonte material; as outras son escritas.'},
+      {o:['imprenta','academias','mecenas','peste negra'],a:'peste negra',sol:'<b>peste negra</b>: as outras axudaron a espallar o humanismo.'},
+      {o:['antropocentrismo','razón','liberdade','teocentrismo'],a:'teocentrismo',sol:'<b>teocentrismo</b>: é a mentalidade da Idade Media.'},
+      {o:['comercio','mercantilismo','burgueses','monarquía feudal'],a:'monarquía feudal',sol:'<b>monarquía feudal</b>: é medieval; o resto, da Idade Moderna.'}]},
+ {s:H,t:'hang',title:'A palabra oculta',ins:'O grupo vai tocando letras. Ten <b>6 vidas</b>; se as perde, rebote.',
+  qs:[{w:'HUMANISMO',clue:'Movemento que pon o ser humano no centro',sol:'<b>HUMANISMO</b>'},
+      {w:'MERCANTILISMO',clue:'Un país é máis rico canto máis ouro e prata acumula',sol:'<b>MERCANTILISMO</b>'},
+      {w:'CONSTANTINOPLA',clue:'A súa caída en 1453 abre a Idade Moderna',sol:'<b>CONSTANTINOPLA</b>'}]},
+ {s:H,t:'clues',title:'Quen son?',ins:'Abride as pistas unha a unha. <b>Canto antes acertedes, máis puntos</b>: 3, 2 ou 1.',
+  opts:['Dante','Petrarca','Boccaccio','Gutenberg','Os Medici','Os Reis Católicos'],
+  qs:[{c:['Nacín en Florencia e fun desterrado','Morrín en Rávena','Escribín a Divina comedia'],a:'Dante',sol:'<b>Dante Alighieri</b> (1265-1321).'},
+      {c:['Vivín en Alemaña no século XV','Grazas a min os libros xa non se copian a man','Inventei a imprenta'],a:'Gutenberg',sol:'<b>Gutenberg</b>, inventor da imprenta.'},
+      {c:['Estudei leis en Boloña e Aviñón','Rescatei libros antigos de Cicerón','Escribín o Cancioneiro para Laura'],a:'Petrarca',sol:'<b>Francesco Petrarca</b> (1304-1374).'},
+      {c:['Somos unha familia rica de Florencia','Pagamos obras de artistas e científicos','Somos os mecenas máis famosos'],a:'Os Medici',sol:'<b>Os Medici</b>, mecenas de Florencia.'},
+      {c:['Concentramos o poder e dominamos os nobres','Temos exército, funcionarios e impostos propios','Somos o exemplo español de monarcas autoritarios'],a:'Os Reis Católicos',sol:'<b>Os Reis Católicos</b>, monarcas autoritarios.'}]},
+ {s:H,t:'err',title:'Detective do erro',ins:'Cada frase ten <b>unha palabra equivocada</b>. Tocádea e dicide en voz alta cal é a correcta.',
+  qs:[{w:'A Idade Moderna comeza no ano 1789 coa caída de Constantinopla.',bad:'1789',sol:'Non é 1789, senón <b>1453</b>.'},
+      {w:'Na Idade Moderna a poboación diminúe tras superar a crise.',bad:'diminúe',sol:'Non diminúe: <b>medra</b>.'},
+      {w:'Os nobres apoiaron os reis para que tivesen máis poder.',bad:'nobres',sol:'Non foron os nobres, senón os <b>burgueses</b>.'},
+      {w:'Petrarca escribiu o Decamerón para a súa amada Laura.',bad:'Decamerón',sol:'Non é o Decamerón, senón o <b>Cancioneiro</b>.'},
+      {w:'A imprenta fixo que as ideas se espallasen máis lentamente.',bad:'lentamente',sol:'Non lentamente: <b>rapidamente</b>.'}]},
+ {sec:GL,icon:'📚',title:'Lingua galega',sub:'A palabra, o substantivo e o adxectivo'},
+ {s:GL,t:'anag',title:'Palabras revoltas',ins:'Ordenade as letras. Despois dicide en voz alta se leva <b>o</b> ou <b>a</b>.',
+  qs:[{w:'VIAXE',clue:'Imos de ___ de fin de curso',sol:'<b>a viaxe</b> (feminino, como os rematados en -axe).'},
+      {w:'ÁRBORE',clue:'Ten tronco, ramas e follas',sol:'<b>a árbore</b> (feminino).'},
+      {w:'LEITE',clue:'Bébese no almorzo',sol:'<b>o leite</b> (masculino; en castelán «la leche»).'},
+      {w:'COSTUME',clue:'Algo que facemos sempre',sol:'<b>o costume</b> (masculino, rematado en -ume).'},
+      {w:'PONTE',clue:'Pasa por riba do río',sol:'<b>a ponte</b> (feminino; en castelán «el puente»).'}]},
+ {s:GL,t:'text',title:'A máquina do plural',secs:40,ins:'Escribide o plural co teclado. <b>Ollo cos acentos!</b>',
+  qs:[{p:'camión',a:'camións',sol:'Rematadas en -n: + s → <b>camións</b>.'},{p:'compás',a:'compases',sol:'Agudas en -s: + es → <b>compases</b>.'},
+      {p:'canal',a:'canais',sol:'Agudas en -l: -l → -is → <b>canais</b>.'},{p:'móbil',a:'móbiles',sol:'Graves en -l: + es → <b>móbiles</b>.'},
+      {p:'raíz',a:'raíces',sol:'Rematadas en -z: + es (z → c) → <b>raíces</b>.'},{p:'lapis',a:'lapis',sol:'Graves en -s: non cambian → <b>os lapis</b>.'}]},
+ {s:GL,t:'spin',title:'Ruleta do feminino',ins:'Premede <b>Xirar</b> e elixide o feminino correcto.',
+  qs:[{p:'león',o:['leoa','leona','leóa'],a:'leoa',sol:'-ón → -oa: <b>leoa</b>.'},{p:'abusón',o:['abusoa','abusona','abusá'],a:'abusona',sol:'É despectivo: -ón → -ona: <b>abusona</b>.'},
+      {p:'alemán',o:['alemana','alemá','alemáa'],a:'alemá',sol:'-án → -á: <b>alemá</b>.'},{p:'folgazán',o:['folgazá','folgazana','folgazoa'],a:'folgazana',sol:'É despectivo: -án → -ana: <b>folgazana</b>.'},
+      {p:'xudeu',o:['xudea','xudía','xudeua'],a:'xudía',sol:'-eu → -ía: <b>xudía</b>.'},{p:'avó',o:['avoa','avá','avóa'],a:'avoa',sol:'Vogal tónica + a: <b>avoa</b>.'}]},
+ {s:GL,t:'match',title:'Relaciona',ins:'Tocade un substantivo e despois a súa clase. Cando estean todos, <b>Comprobar</b>.',
+  qs:[{l:['Uxía','xustiza','leite','rabaño','prato'],r:['propio','abstracto','non contable','colectivo','individual'],sol:'Uxía → <b>propio</b> · xustiza → <b>abstracto</b> · leite → <b>non contable</b> · rabaño → <b>colectivo</b> · prato → <b>individual</b>.'},
+      {l:['Miño','solidariedade','area','arboredo','libro'],r:['propio','abstracto','non contable','colectivo','individual'],sol:'Miño → <b>propio</b> · solidariedade → <b>abstracto</b> · area → <b>non contable</b> · arboredo → <b>colectivo</b> · libro → <b>individual</b>.'}]},
+ {s:GL,t:'box',title:'Que grao é?',ins:'Le a frase e tocade a caixa do seu grao.',
+  boxes:[['🟰','Positivo'],['⚖️','Comparativo'],['🔝','Superlativo absoluto'],['🏆','Superlativo relativo']],
+  qs:[{p:'unha casa vella',a:'Positivo'},{p:'vellísima',a:'Superlativo absoluto'},{p:'máis vella ca a túa',a:'Comparativo'},{p:'a máis vella da rúa',a:'Superlativo relativo'},{p:'moi vella',a:'Superlativo absoluto'},{p:'tan vella coma esta',a:'Comparativo'}]},
+ {s:GL,t:'gaps',title:'Completa o texto',ins:'Tocade un oco e despois a palabra. Ante <b>pronome</b>: ca / coma. Ante <b>verbo</b>: do que / como.',
+  qs:[{tx:'O meu irmán é máis alto [ca] ti, pero non é tan rápido [coma] min. O exame foi menos difícil [do que] pensabamos e non foi tan longo [como] parecía.',bank:['ca','coma','do que','como'],sol:'ca · coma · do que · como.'},
+      {tx:'A neve é [fría] e o mel é doce: son adxectivos [explicativos]. En «o coche amarelo», o adxectivo é [especificativo] porque non todos os coches son así.',bank:['fría','explicativos','especificativo','quente'],sol:'fría · explicativos · especificativo.'}]},
+ {s:GL,t:'lock',title:'O candado final',ins:'Cada resposta é unha cifra do código. Tocade unha pregunta, escribide o número e abride o candado.',
+  qs:[{l:[['Cantas palabras invariables hai en: alí, casa, en, pero, branca, xa, contra?',5],['Cantos son masculinos en galego: dor, leite, ponte, sangue, viaxe, nariz?',3],['Cantos son colectivos: rabaño, prato, arboredo, mesa?',2],['Cantos plurais están ben: camións, camiones, compases, canais, canales, móbiles?',4]],
+       sol:'Invariables: alí, en, pero, xa, contra → <b>5</b>. Masculinos: leite, sangue, nariz → <b>3</b>. Colectivos: rabaño, arboredo → <b>2</b>. Ben escritos: camións, compases, canais, móbiles → <b>4</b>. Código: <b>5 3 2 4</b>.'}]},
  {final:true}
 ];
 
-let NT=3, names=['Equipo 1','Equipo 2','Equipo 3','Equipo 4'], pts=[0,0,0,0], cur=0;
-const cols=['var(--t1)','var(--t2)','var(--t3)','var(--t4)'];
-const deck=document.getElementById('deck');
+/* =================== MOTOR =================== */
+let cur=0;const slides=[{cover:true}].concat(R);
+let timerId=null;
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+function startTimer(btn,secs){stopTimer();let left=secs;const p=()=>{btn.textContent=left;btn.className='timer'+(left<=10&&left>0?' low':'')+(left<=0?' zero':'')};p();
+  timerId=setInterval(()=>{left--;p();if(left<=0)stopTimer()},1000);btn.onclick=()=>startTimer(btn,secs)}
+function toast(t,bad){const e=$('#toast');e.textContent=t;e.className='toast on'+(bad?' bad':'');setTimeout(()=>e.className='toast',1300)}
+function openSol(title,html){$('#solT').textContent=title;const b=$('#solB');b.innerHTML=html;$('#solOv').classList.add('on');let f=46;b.style.fontSize=f+'px';while(b.scrollHeight>b.clientHeight+2&&f>22){f-=2;b.style.fontSize=f+'px'}}
+function closeSol(){$('#solOv').classList.remove('on')}
+$('#solX').onclick=closeSol;$('#solOv').onclick=e=>{if(e.target.id==='solOv')closeSol()};
 
-function drawTeams(){
-  const t=document.getElementById('teams'); t.innerHTML='';
-  for(let i=0;i<NT;i++){
-    const d=document.createElement('div'); d.className='team'; d.style.setProperty('--c',cols[i]);
-    d.innerHTML=`<button class="m">−</button><span class="nm" contenteditable spellcheck="false">${names[i]}</span><span class="pt">${pts[i]}</span><button>+</button>`;
-    d.querySelector('.m').onclick=()=>{pts[i]=Math.max(0,pts[i]-1);drawTeams()};
-    d.querySelector('button:last-child').onclick=()=>{pts[i]++;drawTeams()};
-    d.querySelector('.nm').oninput=e=>names[i]=e.target.textContent;
-    t.appendChild(d);
-  }
-}
-
-function build(){
-  let n=0;
-  R.forEach((r,idx)=>{
-    const s=document.createElement('section'); s.className='slide';
-    if(idx===0){}
-    if(r.sec){
-      s.innerHTML=`<div class="sec"><div class="big">${r.icon}</div><h1>${r.title}</h1><p>${r.sub}</p></div>`;
-    } else if(r.final){
-      s.innerHTML=`<div class="sec"><h1>🏆 Podio final</h1><div id="podium"></div></div>`;
-      s.dataset.final=1;
-    } else {
-      n++;
-      const sub=r.s===H?'var(--hist)':'var(--gal)';
-      s.style.setProperty('--sub',sub);
-      const hasCheck=r.type!=='flip';
-      s.innerHTML=`<div class="card"><div class="head"><span class="tag">Reto ${n} · ${r.s}</span><h2>${r.title}</h2><div class="btns">${hasCheck?'<button class="chk">✔ Comprobar</button>':''}<button class="rst">↺</button><button class="sol">💡 Solución</button></div></div><div class="fit"><div class="fit-in"><p class="ins">${r.ins}</p><div class="items" style="grid-template-columns:repeat(${r.cols},1fr)"></div></div></div></div>`;
-      const box=s.querySelector('.items');
-      const render=()=>{
-        box.innerHTML='';
-        if(r.type==='order'){
-          let seq=[];
-          r.items.forEach(t=>{
-            const e=document.createElement('div'); e.className='it'; e.innerHTML=`<span class="n">?</span><span class="tx">${t}</span>`;
-            e.onclick=()=>{s.querySelectorAll('.it').forEach(x=>x.classList.remove('ok','ko'));
-              const p=seq.indexOf(t); if(p>-1) seq.splice(p,1); else seq.push(t);
-              box.querySelectorAll('.it').forEach(x=>{const k=seq.indexOf(x.querySelector('.tx').textContent);x.classList.toggle('sel',k>-1);x.querySelector('.n').textContent=k>-1?k+1:'?'});};
-            box.appendChild(e);
-          });
-          s.check=()=>box.querySelectorAll('.it').forEach(x=>{const t=x.querySelector('.tx').textContent;x.classList.add(seq.indexOf(t)===r.sol.indexOf(t)?'ok':'ko')});
-        } else if(r.type==='cycle'){
-          r.items.forEach(it=>{
-            const opts=it.length===3?it[1]:r.opts, ans=it.length===3?it[2]:it[1];
-            const e=document.createElement('div'); e.className='it'; let k=-1;
-            e.innerHTML=`<span class="tx">${it[0]}</span><span class="an" style="${r.short?'min-width:3.6em':''}">?</span>`;
-            e.onclick=()=>{e.classList.remove('ok','ko');k=(k+1)%opts.length;e.classList.add('sel');e.querySelector('.an').textContent=opts[k];e.dataset.v=opts[k]};
-            e.dataset.a=ans; box.appendChild(e);
-          });
-          s.check=()=>box.querySelectorAll('.it').forEach(x=>{x.classList.remove('ok','ko');x.classList.add(x.dataset.v===x.dataset.a?'ok':'ko')});
-        } else if(r.type==='flip'){
-          r.items.forEach(it=>{
-            const e=document.createElement('div'); e.className='flip';
-            e.innerHTML=`<div class="in"><div class="sz">${it[0]}</div><div class="f">${it[0]}</div><div class="b">${it[1]}</div></div>`;
-            e.onclick=()=>e.classList.toggle('r'); box.appendChild(e);
-          });
-        }
-      };
-      render();
-      s.querySelector('.rst').onclick=()=>{render();fit(s)};
-      if(hasCheck) s.querySelector('.chk').onclick=()=>s.check();
-      s.querySelector('.sol').onclick=()=>openSol(r);
-    }
-    deck.appendChild(s);
-  });
-  // portada
-  const c=document.createElement('section'); c.className='slide';
-  c.innerHTML=`<div class="cover"><h1>Retos de repaso</h1><p>Historia (Idade Moderna e humanismo) · Lingua galega (substantivo e adxectivo)</p>
-  <div class="chips">${[2,3,4].map(v=>`<span class="chip ${v===3?'on':''}" data-v="${v}">${v} equipos</span>`).join('')}</div>
-  <div class="rules"><div><b>1. Sae un equipo</b>En cada reto sae á pantalla un equipo distinto (ou unha persoa de cada equipo por quendas).</div><div><b>2. Toca e comproba</b>Tocade as respostas e premede «Comprobar». Os verdes suman; os vermellos poden roubalos os outros equipos.</div><div><b>3. Suma puntos</b>A persoa docente reparte os puntos co marcador de arriba. Tocade o nome do equipo para cambialo.</div></div></div>`;
-  deck.prepend(c);
-  c.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{NT=+ch.dataset.v;c.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===ch));drawTeams()});
-}
-
-function fitBox(outer,inner,max){
-  let lo=10,hi=max;
-  for(let i=0;i<14;i++){const m=(lo+hi)/2;inner.style.fontSize=m+'px';
-    if(inner.scrollHeight<=outer.clientHeight+1 && inner.scrollWidth<=outer.clientWidth+1) lo=m; else hi=m;}
-  inner.style.fontSize=lo+'px';
-}
-function maxFont(){return Math.min(innerWidth*0.024,innerHeight*0.05)}
-function fit(s){const o=s.querySelector('.fit');if(o) fitBox(o,s.querySelector('.fit-in'),maxFont())}
-
-function openSol(r){
-  document.getElementById('mtitle').textContent='Solución · '+r.title;
-  const L=document.getElementById('mlist'); let rows=[];
-  if(r.type==='order') rows=r.sol.map((t,i)=>`<b>${i+1}.</b> ${t}`);
-  else if(r.type==='flip') rows=r.items.map(it=>`${it[0]} → <b>${it[1]}</b>`);
-  else rows=r.items.map(it=>`${it[0]} → <b>${it.length===3?it[2]:it[1]}</b>`);
-  L.innerHTML=rows.map(x=>`<div>${x}</div>`).join('');
-  L.style.gridTemplateColumns=rows.length>6?'1fr 1fr':'1fr';
-  document.getElementById('modal').classList.add('on');
-  const o=document.getElementById('mfit'); fitBox(o,L,Math.min(innerWidth*0.03,innerHeight*0.06));
-}
-function closeSol(){document.getElementById('modal').classList.remove('on')}
-document.getElementById('mclose').onclick=closeSol;
-document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeSol()};
-
-function podium(){
-  const P=document.getElementById('podium'); if(!P)return;
-  const arr=[...Array(NT).keys()].map(i=>({n:names[i],p:pts[i],c:cols[i]})).sort((a,b)=>b.p-a.p);
-  const order=arr.length>=3?[arr[1],arr[0],arr[2],...arr.slice(3)]:[arr[1],arr[0]].filter(Boolean);
-  const mx=Math.max(1,arr[0].p), med=['🥇','🥈','🥉','4º'];
-  P.innerHTML=order.map(t=>{const rk=arr.indexOf(t);return `<div class="col"><div class="nm">${med[rk]} ${t.n}</div><div class="blk" style="background:${t.c};height:${Math.max(18,t.p/mx*100)}%">${t.p}<small>puntos</small></div></div>`}).join('');
-}
-
-function show(i){
-  const S=deck.querySelectorAll('.slide'); cur=Math.max(0,Math.min(S.length-1,i));
-  S.forEach((s,k)=>s.classList.toggle('on',k===cur));
-  document.getElementById('count').textContent=(cur+1)+' / '+S.length;
-  if(S[cur].dataset.final) podium();
-  fit(S[cur]);
-}
-document.getElementById('prev').onclick=()=>show(cur-1);
-document.getElementById('next').onclick=()=>show(cur+1);
+function go(i){cur=Math.max(0,Math.min(slides.length-1,i));render()}
+$('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')return closeSol();
-  if(document.activeElement && document.activeElement.isContentEditable)return;
-  if(e.key==='ArrowRight'||e.key==='PageDown')show(cur+1);
-  if(e.key==='ArrowLeft'||e.key==='PageUp')show(cur-1);
+  if(e.key==='Escape'){closeSol();return}
+  if(document.activeElement&&document.activeElement.tagName==='INPUT')return;
+  if($('#stOv').classList.contains('on'))return;
+  if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
 });
-addEventListener('resize',()=>show(cur));
-build(); drawTeams();
-(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>show(0));
-show(0);
+
+let RC=0;
+function render(){
+  RC++;stopTimer();closeSol();$('#stOv').classList.remove('on');
+  $('#count').textContent=(cur+1)+' / '+slides.length;$('#prev').disabled=cur===0;$('#next').disabled=cur===slides.length-1;
+  drawTeams();const v=$('#view');v.innerHTML='';const s=slides[cur];
+  if(s.cover) return rCover(v);
+  if(s.sec) return rSec(v,s);
+  if(s.final) return rPod(v);
+  rGame(v,s);
+}
+
+function rCover(v){
+  v.innerHTML=`<div class="cover"><div><h1>Retos de repaso</h1><p class="j">Historia (Idade Moderna e humanismo) e lingua galega (substantivo e adxectivo) en 14 retos distintos: cálculos, mensaxes secretas, palabra oculta, pistas, detective do erro, anagramas, ruleta, candado…</p>
+  <p class="j" style="font-size:27px;color:#cfd6e6">Acerto á primeira: <b style="color:var(--gold)">2 puntos</b>. Se fallades, <b style="color:var(--gold)">rebote</b> para o seguinte grupo, que pode levar <b style="color:var(--gold)">1 punto</b>. O turno vai rotando en cada pregunta.</p></div>
+  <div class="grp"><h3>Grupos <span class="chips">${[2,3,4].map(n=>`<button class="chip ${n===NG?'on':''}" data-n="${n}">${n}</button>`).join('')}<button class="chip" id="mix">🔀 Mesturar</button></span></h3><div id="gl" style="display:flex;flex-direction:column;gap:12px"></div>
+  <p class="j" style="font:700 21px var(--fb);color:#cfd6e6">Tocade un nome para pasar a persoa ao grupo seguinte. Tocade o nome do grupo para escribir outro.</p></div></div>`;
+  const gl=v.querySelector('#gl');
+  G.forEach((g,i)=>{const d=document.createElement('div');d.className='gbox';d.style.setProperty('--c',g.c);
+    d.innerHTML=`<input value="${g.name}" maxlength="18"><div class="mem">${g.mem.map(m=>`<span>${m}</span>`).join('')}</div>`;
+    d.querySelector('input').oninput=e=>{g.name=e.target.value||('Grupo '+'ABCD'[i]);drawTeams()};
+    d.querySelectorAll('.mem span').forEach(sp=>sp.onclick=()=>{const n=sp.textContent;g.mem.splice(g.mem.indexOf(n),1);G[(i+1)%NG].mem.push(n);render()});
+    gl.appendChild(d)});
+  v.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{NG=+b.dataset.n;makeGroups(true);turn=0;render()});
+  v.querySelector('#mix').onclick=()=>{makeGroups(true);render()};
+}
+function rSec(v,s){
+  const idx=slides.indexOf(s);const list=[];for(let k=idx+1;k<slides.length&&slides[k].s===s.title;k++)list.push(k);
+  v.innerHTML=`<div class="sec"><div class="big">${s.icon}</div><h1>${s.title}</h1><p>${s.sub}</p><div class="list">${list.map((k,n)=>`<button data-k="${k}"><small>Reto ${n+1}</small>${slides[k].title}</button>`).join('')}</div></div>`;
+  v.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>go(+b.dataset.k));
+}
+function rPod(v){
+  const arr=G.slice().sort((a,b)=>b.pts-a.pts);const ord=arr.length>=3?[arr[1],arr[0],arr[2],...arr.slice(3)]:[arr[1],arr[0]];
+  const mx=Math.max(1,arr[0].pts),med=['🥇','🥈','🥉','4.º'];
+  v.innerHTML=`<div class="sec"><h1 style="font-size:80px">🏆 Podio final</h1><div id="podium">${ord.map(g=>`<div class="col"><div class="nm">${med[arr.indexOf(g)]} ${g.name}</div><div class="blk" style="background:${g.c};color:#fff;height:${Math.max(16,g.pts/mx*100)}%">${g.pts}<small>puntos</small></div></div>`).join('')}</div></div>`;
+}
+
+/* ---- xogo: unha pregunta cada vez ---- */
+function rGame(v,s){
+  if(!s.st) s.st={qi:0,res:[]};
+  const st=s.st, q=s.qs[st.qi], n=R.filter(x=>x.s===s.s).indexOf(s)+1;
+  const sub=s.s===H?'var(--hist)':'var(--gal)';
+  v.innerHTML=`<div class="card" style="--sub:${sub}"><div class="head"><span class="tag">Reto ${n} · ${s.s}</span><h2>${s.title}</h2>
+   <div class="who" id="who"></div><button class="timer" id="tm" title="Reiniciar tempo">${s.secs||45}</button></div>
+   <div class="body" id="body"></div>
+   <div class="foot"><div class="dots">${s.qs.map((_,i)=>`<span></span>`).join('')}</div>
+   <button class="btn alt" id="solB2">💡 Solución</button><button class="btn" id="nx">${st.qi<s.qs.length-1?'Seguinte pregunta ›':'Reto seguinte ›'}</button></div></div>`;
+  const play={g:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
+  const paintWho=()=>{const w=$('#who');w.style.setProperty('--c',G[play.g].c);w.innerHTML=`<i></i>Xoga <b>${G[play.g].name}</b> · ${who(play.g)}`;drawTeams(play.g)};
+  const repaintDots=()=>v.querySelectorAll('.dots span').forEach((e,i)=>{e.className=(i===st.qi?'cur ':'')+(st.res[i]===true?'okd':st.res[i]===false?'kod':'')});
+  paintWho();repaintDots();startTimer($('#tm'),s.secs||45);
+  $('#solB2').onclick=()=>openSol('Solución · '+s.title,solOf(s,q));
+  $('#nx').onclick=()=>{ if(!play.done) advanceTurn(); if(st.qi<s.qs.length-1){st.qi++;render()} else go(cur+1)};
+  const api={
+    ok(p){ if(play.done)return; play.done=true; stopTimer(); const pts=play.att===1?(p||2):1; G[play.g].pts+=pts; st.res[st.qi]=true; toast('✔ +'+pts+' '+G[play.g].name); advanceTurn(); drawTeams(play.g); repaintDots(); if(s.t!=='box')later(()=>openSol('Moi ben!',solOf(s,q)),1100)},
+    ko(){ if(play.done)return;
+      if(play.att===1&&NG>1){ play.att=2; const ng=(play.g+1)%NG; showSteal(ng,()=>{play.g=ng; paintWho(); startTimer($('#tm'),s.secs||45); draw(true)}); }
+      else { play.done=true; stopTimer(); st.res[st.qi]=false; toast('✘ Sen puntos',true); advanceTurn(); repaintDots(); later(()=>openSol('Solución · '+s.title,solOf(s,q)),1100)} }
+  };
+  function draw(retry){const b=$('#body');b.innerHTML='';T[s.t](s,q,b,api,retry)}
+  draw(false);
+}
+function advanceTurn(){G[turn].k++;turn=(turn+1)%NG}
+function showSteal(g,go2){
+  const ov=$('#stOv'),b=$('#stBox');stopTimer();
+  b.style.setProperty('--c',G[g].c);
+  b.innerHTML=`<h3>🔁 Rebote para ${G[g].name}!</h3><p>Responde <b style="color:${G[g].c}">${who(g)}</b>. Se acertades, levades <b>1 punto</b>.</p><button class="btn gold" id="stGo" disabled>Esperade…</button>`;
+  G[g].k++;ov.classList.add('on');
+  setTimeout(()=>{const x=$('#stGo');if(!x)return;x.disabled=false;x.textContent='Responder ›';x.onclick=()=>{ov.classList.remove('on');go2()}},1800);
+}
+function solOf(s,q){
+  if(s.t==='box') return `«${q.p}» → <b>${q.a}</b>.`;
+  if(s.t==='hang'||s.t==='cipher') return q.sol+`<br><span style="color:var(--muted)">Pista: ${q.clue}.</span>`;
+  return q.sol||'';
+}
+
+/* ---- teclados ---- */
+const h=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
+function keyboard(el,onKey,extra){
+  const kb=h('div','kb');
+  'QWERTYUIOPÁÉÍÓASDFGHJKLÑÚZXCVBNM'.split('').forEach(c=>{const k=h('button','k',c);k.onclick=()=>onKey(c,k);kb.appendChild(k)});
+  (extra||[]).forEach(([lab,fn,cls])=>{const k=h('button','k '+(cls||'w2'),lab);k.onclick=fn;kb.appendChild(k)});
+  el.appendChild(kb);return kb;
+}
+function numpad(el,onKey){const np=h('div','numpad');
+  ['1','2','3','4','5','6','7','8','9','0','⌫','✔'].forEach(c=>{const k=h('button','k'+(c==='⌫'?' del':''),c);if(c==='✔'){k.style.background='var(--sub)';k.style.color='#fff'}k.onclick=()=>onKey(c);np.appendChild(k)});el.appendChild(np);return np}
+
+/* ---- tipos de reto ---- */
+const T={
+ order(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const seq=[];const g=h('div','ord');g.style.flex='1';
+  shuf(q.items).forEach(t=>{const o=h('button','op',`<span class="n">?</span><span>${t}</span>`);o.onclick=()=>{const i=seq.indexOf(t);if(i>-1)seq.splice(i,1);else seq.push(t);
+    g.querySelectorAll('.op').forEach(x=>{const k=seq.indexOf(x.lastChild.textContent);x.classList.toggle('sel',k>-1);x.querySelector('.n').textContent=k>-1?k+1:'?'})};g.appendChild(o)});
+  b.appendChild(g);const f=h('div','fb');b.appendChild(f);
+  const c=h('button','btn','Comprobar');c.style.alignSelf='center';b.appendChild(c);
+  c.onclick=()=>{if(seq.length<q.items.length){f.className='fb ko';f.textContent='Faltan feitos por numerar.';return}
+    const ok=seq.every((t,i)=>t===q.items[i]);g.querySelectorAll('.op').forEach(x=>{const t=x.lastChild.textContent;x.classList.add(seq.indexOf(t)===q.items.indexOf(t)?'okc':'koc')});
+    c.disabled=true;ok?api.ok():setTimeout(api.ko,1000)};
+ },
+ num(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt j',q.p);p.style.flex='1';p.style.display='flex';p.style.alignItems='center';b.appendChild(p);
+  let val='';const sh=h('div','numshow','&nbsp;');b.appendChild(sh);const f=h('div','fb');
+  numpad(b,c=>{if(c==='⌫')val=val.slice(0,-1);else if(c==='✔'){if(!val)return;if(+val===q.a){f.className='fb ok';f.textContent='Correcto!';api.ok()}else{f.className='fb ko';f.textContent='Non é '+val;setTimeout(api.ko,900)}return}else if(val.length<6)val+=c;sh.innerHTML=val||'&nbsp;'});
+  b.appendChild(f);
+ },
+ cipher(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins+` <b>Pista:</b> ${q.clue}.`));
+  b.appendChild(h('div','cipher',enc(q.w).map(n=>`<span>${n}</span>`).join('')));
+  b.appendChild(h('div','code',ABC.map((c,i)=>`<span><b>${c}</b>${i+1}</span>`).join('')));
+  let val='';const d=h('div','disp');const paint=()=>{d.innerHTML=q.w.split('').map((_,i)=>`<span>${val[i]||''}</span>`).join('')};paint();b.appendChild(d);
+  keyboard(b,c=>{if(val.length<q.w.length){val+=c;paint()}},[['⌫',()=>{val=val.slice(0,-1);paint()},'w2 del'],['✔',()=>{if(val.length<q.w.length)return;if(val===q.w)api.ok();else{d.querySelectorAll('span').forEach((e,i)=>e.style.background=val[i]===q.w[i]?'#e9f7ee':'#fdecec');setTimeout(api.ko,1000)}},'w2']]);
+ },
+ intr(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const g=h('div','opts');g.style.cssText='grid-template-columns:1fr 1fr;flex:1;grid-auto-rows:1fr';
+  shuf(q.o).forEach(t=>{const o=h('button','op',t);o.style.fontSize='50px';o.onclick=()=>{if(t===q.a){o.classList.add('okc');api.ok()}else{o.classList.add('koc');o.disabled=true;setTimeout(api.ko,700)}};g.appendChild(o)});
+  b.appendChild(g);
+ },
+ hang(s,q,b,api,retry){
+  const W=q.w;
+  if(retry){
+    b.appendChild(h('p','ins j','O outro grupo di a palabra <b>en voz alta</b>. Axudámosvos coa primeira e a última letra.'));
+    const p=h('div','prompt',`<span style="font-size:32px;color:var(--muted)">Pista:</span> ${q.clue}`);p.style.flex='1';p.style.display='flex';p.style.alignItems='center';p.style.justifyContent='center';b.appendChild(p);
+    b.appendChild(h('div','disp'+(W.length>11?' long':''),W.split('').map((c,i)=>`<span>${i===0||i===W.length-1?c:''}</span>`).join('')));
+    const r=h('div','',`<div style="display:flex;gap:20px;justify-content:center;padding:20px 0"><button class="btn" style="background:var(--ok)" id="hy">✔ Acertaron</button><button class="btn" style="background:var(--ko)" id="hn">✘ Fallaron</button></div>`);b.appendChild(r);
+    r.querySelector('#hy').onclick=()=>api.ok();r.querySelector('#hn').onclick=()=>api.ko();return;
+  }
+  b.appendChild(h('p','ins j',s.ins));b.appendChild(h('div','prompt',`<span style="font-size:32px;color:var(--muted)">Pista:</span> ${q.clue}`));
+  let lives=6;const got=new Set();
+  const d=h('div','disp'+(W.length>11?' long':''));const lv=h('div','lives');
+  const paint=()=>{d.innerHTML=W.split('').map(c=>`<span>${got.has(c)?c:''}</span>`).join('');lv.textContent='❤️'.repeat(lives)+'🖤'.repeat(6-lives)};paint();
+  b.appendChild(d);b.appendChild(lv);
+  keyboard(b,(c,k)=>{if(k.classList.contains('used')||lives<=0)return;k.classList.add('used');
+    if(W.includes(c)){got.add(c);k.classList.add('hit');paint();if(W.split('').every(x=>got.has(x)))api.ok()}
+    else{k.classList.add('miss');lives--;paint();if(lives<=0)setTimeout(api.ko,700)}});
+ },
+ clues(s,q,b,api,retry){
+  b.appendChild(h('p','ins j',s.ins));if(!retry)q._n=1;
+  const cl=h('div','clues');const paint=()=>{cl.innerHTML=q.c.map((t,i)=>`<div class="clue ${i<q._n?'on':''}"><em>Pista ${i+1} · ${3-i} p.</em>${i<q._n?t:'?'}</div>`).join('')};paint();b.appendChild(cl);
+  const more=h('button','btn alt','🔍 Outra pista');more.style.alignSelf='center';more.onclick=()=>{if(q._n<3){q._n++;paint()}if(q._n>=3)more.disabled=true};if(q._n>=3)more.disabled=true;b.appendChild(more);
+  const g=h('div','opts');g.style.cssText='grid-template-columns:repeat(3,1fr);flex:1;grid-auto-rows:1fr';
+  s.opts.forEach(t=>{const o=h('button','op',t);o.style.minHeight='0';o.onclick=()=>{if(t===q.a){o.classList.add('okc');api.ok(4-q._n)}else{o.classList.add('koc');setTimeout(api.ko,700)}};g.appendChild(o)});b.appendChild(g);
+ },
+ err(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const se=h('div','sent');se.style.flex='1';
+  q.w.split(' ').forEach(w=>{const clean=w.replace(/[.,]/g,'');const t=h('span','tok',w);t.onclick=()=>{if(clean===q.bad){t.classList.add('okc');api.ok()}else{t.classList.add('koc');setTimeout(api.ko,700)}};se.appendChild(t)});
+  b.appendChild(se);
+ },
+ anag(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt',`<span style="font-size:32px;color:var(--muted)">Pista:</span> ${q.clue}`);p.style.flex='1';p.style.display='flex';p.style.alignItems='center';p.style.justifyContent='center';b.appendChild(p);
+  let val=[];const W=q.w.split('');let letters=shuf(W.map((c,i)=>({c,i})));if(letters.map(x=>x.c).join('')===q.w)letters=letters.reverse();
+  const d=h('div','disp');const tl=h('div','tiles');
+  const paint=()=>{d.innerHTML=W.map((_,i)=>`<span>${val[i]?val[i].c:''}</span>`).join('');tl.querySelectorAll('.tile').forEach(t=>t.classList.toggle('used',val.some(v=>v.i==t.dataset.i)))};
+  letters.forEach(x=>{const t=h('button','tile',x.c);t.dataset.i=x.i;t.onclick=()=>{val.push(x);paint();if(val.length===W.length){if(val.map(v=>v.c).join('')===q.w)api.ok();else{d.querySelectorAll('span').forEach(e=>e.style.background='#fdecec');setTimeout(api.ko,1000)}}};tl.appendChild(t)});
+  b.appendChild(d);b.appendChild(tl);paint();
+  const del=h('button','btn alt','⌫ Borrar letra');del.style.alignSelf='center';del.onclick=()=>{val.pop();paint()};b.appendChild(del);
+ },
+ text(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt',`<span style="color:var(--muted);font-size:36px">Plural de</span> «${q.p}»`);p.style.fontSize='56px';p.style.flex='1';p.style.display='flex';p.style.alignItems='center';p.style.justifyContent='center';p.style.gap='16px';b.appendChild(p);
+  let val='';const sh=h('div','numshow','&nbsp;');sh.style.minWidth='520px';b.appendChild(sh);const f=h('div','fb');b.appendChild(f);
+  const paint=()=>sh.innerHTML=val.toLowerCase()||'&nbsp;';
+  keyboard(b,c=>{if(val.length<14){val+=c;paint()}},[['⌫',()=>{val=val.slice(0,-1);paint()},'w2 del'],['✔',()=>{if(!val)return;if(norm(val)===norm(q.a)){f.className='fb ok';f.textContent='Correcto!';api.ok()}else{f.className='fb ko';f.textContent='Non é «'+val.toLowerCase()+'»';setTimeout(api.ko,900)}},'w2']]);
+ },
+ spin(s,q,b,api,retry){
+  b.appendChild(h('p','ins j',s.ins));const sp=h('div','spin','🎡');b.appendChild(sp);
+  const g=h('div','opts');g.style.cssText='grid-template-columns:repeat(3,1fr);flex:1;grid-auto-rows:1fr;visibility:hidden';
+  shuf(q.o).forEach(t=>{const o=h('button','op',t);o.style.fontSize='60px';o.onclick=()=>{if(t===q.a){o.classList.add('okc');api.ok()}else{o.classList.add('koc');setTimeout(api.ko,700)}};g.appendChild(o)});
+  const go3=h('button','btn gold','🎡 Xirar');go3.style.alignSelf='center';go3.style.fontSize='40px';b.appendChild(go3);b.appendChild(g);
+  const pool=s.qs.map(x=>x.p);
+  const show=()=>{sp.innerHTML=`<span style="color:var(--muted);font-size:44px">Feminino de</span> «${q.p}»`;g.style.visibility='visible';go3.remove()};
+  if(retry){show();return}
+  go3.onclick=()=>{go3.disabled=true;let k=0;const it=setInterval(()=>{sp.textContent=pool[k++%pool.length];if(k>16){clearInterval(it);show()}},90)};
+ },
+ match(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const pairs={};let selL=null;const cols=['#e4572e','#2f80ed','#8e44ad','#16a085','#c79100'];
+  const g=h('div','mt');g.style.flex='1';const L=q.l,Rr=shuf(q.r);
+  const paint=()=>{g.querySelectorAll('[data-l]').forEach(e=>{const l=e.dataset.l;const k=L.indexOf(l);e.classList.toggle('sel',selL===l);e.classList.toggle('pr',pairs[l]!=null);const t=e.querySelector('.tagn');t.style.background=cols[k];t.textContent=k+1});
+    g.querySelectorAll('[data-r]').forEach(e=>{const l=Object.keys(pairs).find(x=>pairs[x]===e.dataset.r);e.classList.toggle('pr',!!l);if(l){const k=L.indexOf(l);const t=e.querySelector('.tagn');t.style.background=cols[k];t.textContent=k+1}})};
+  for(let i=0;i<L.length;i++){
+    const a=h('button','op',`<span class="tagn"></span>${L[i]}`);a.dataset.l=L[i];a.onclick=()=>{selL=L[i];paint()};g.appendChild(a);
+    const r=h('button','op',`<span class="tagn"></span>${Rr[i]}`);r.dataset.r=Rr[i];r.onclick=()=>{if(!selL)return;for(const x in pairs)if(pairs[x]===Rr[i])delete pairs[x];pairs[selL]=Rr[i];selL=null;paint()};g.appendChild(r)}
+  b.appendChild(g);const c=h('button','btn','Comprobar');c.style.alignSelf='center';b.appendChild(c);paint();
+  c.onclick=()=>{if(Object.keys(pairs).length<L.length)return;let ok=true;L.forEach((l,k)=>{const good=pairs[l]===q.r[k];if(!good)ok=false;g.querySelector(`[data-l="${l}"]`).classList.add(good?'okc':'koc')});c.disabled=true;ok?api.ok():setTimeout(api.ko,1100)};
+ },
+ box(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));b.appendChild(h('div','phrase',`«${q.p}»`));
+  const g=h('div','boxes');g.style.flex='1';
+  s.boxes.forEach(([ic,t])=>{const o=h('button','op',`<span>${ic}</span>${t}`);o.onclick=()=>{if(t===q.a){o.classList.add('okc');api.ok()}else{o.classList.add('koc');setTimeout(api.ko,700)}};g.appendChild(o)});b.appendChild(g);
+ },
+ gaps(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const ans=[];let curG=0;
+  const html=q.tx.replace(/\[([^\]]+)\]/g,(_,w)=>{ans.push(w);return `<span class="gap" data-g="${ans.length-1}">&nbsp;</span>`});
+  const tx=h('div','gaptx j',html);tx.style.flex='1';b.appendChild(tx);const vals=[];
+  const paint=()=>tx.querySelectorAll('.gap').forEach(e=>{const k=+e.dataset.g;e.classList.toggle('cur',k===curG);e.innerHTML=vals[k]||'&nbsp;'});
+  tx.querySelectorAll('.gap').forEach(e=>e.onclick=()=>{curG=+e.dataset.g;paint()});
+  const bk=h('div','bank');shuf(q.bank).forEach(w=>{const t=h('button','tile',w);t.style.fontSize='40px';t.onclick=()=>{vals[curG]=w;curG=Math.min(ans.length-1,curG+1);paint()};bk.appendChild(t)});
+  b.appendChild(bk);const c=h('button','btn','Comprobar');c.style.alignSelf='center';b.appendChild(c);paint();
+  c.onclick=()=>{if(vals.filter(Boolean).length<ans.length)return;let ok=true;tx.querySelectorAll('.gap').forEach(e=>{const k=+e.dataset.g;const gd=vals[k]===ans[k];if(!gd)ok=false;e.classList.add(gd?'okc':'koc')});c.disabled=true;ok?api.ok():setTimeout(api.ko,1100)};
+ },
+ lock(s,q,b,api){
+  b.appendChild(h('p','ins j',s.ins));const vals=q.l.map(()=>'');let sel=0;
+  const w=h('div','lock');const lk=h('div','lk');const art=h('div','lockart');w.appendChild(lk);w.appendChild(art);b.appendChild(w);
+  art.innerHTML=`<div class="pad">🔒</div><div class="digits"></div>`;
+  const paint=()=>{lk.innerHTML=q.l.map((x,i)=>`<button class="op ${i===sel?'sel':''}" data-i="${i}"><span class="dg">${vals[i]||'?'}</span><span>${x[0]}</span></button>`).join('');
+    lk.querySelectorAll('button').forEach(e=>e.onclick=()=>{sel=+e.dataset.i;paint()});
+    art.querySelector('.digits').innerHTML=vals.map(v=>`<span>${v||'•'}</span>`).join('')};
+  const np=h('div','numpad');np.style.gridTemplateColumns='repeat(5,76px)';
+  ['1','2','3','4','5','6','7','8','9','0'].forEach(c=>{const k=h('button','k',c);k.style.height='64px';k.onclick=()=>{vals[sel]=c;sel=Math.min(q.l.length-1,sel+1);paint()};np.appendChild(k)});art.appendChild(np);
+  const c=h('button','btn gold','🔓 Abrir');art.appendChild(c);paint();
+  c.onclick=()=>{if(vals.some(v=>!v))return;const ok=q.l.every((x,i)=>+vals[i]===x[1]);
+    lk.querySelectorAll('button').forEach((e,i)=>e.classList.add(+vals[i]===q.l[i][1]?'okc':'koc'));const pad=art.querySelector('.pad');
+    if(ok){pad.textContent='🔓';pad.style.transform='scale(1.2) rotate(-10deg)';api.ok(3)}else{pad.style.transform='rotate(12deg)';setTimeout(api.ko,1200)}};
+ }
+};
+
+function scale(){const k=Math.min(innerWidth/1600,innerHeight/900);const st=$('#stage');st.style.transform=`scale(${k})`;st.style.left=((innerWidth-1600*k)/2)+'px';st.style.top=((innerHeight-900*k)/2)+'px'}
+addEventListener('resize',scale);scale();
+render();
 </script>
 <a id="volverPanel" href="../../04_PDC/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
 </body>
