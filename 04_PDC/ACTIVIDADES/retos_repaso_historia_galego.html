@@ -58,6 +58,7 @@ button{font-family:var(--fd);cursor:pointer}
 .prompt{font:800 40px var(--fb);line-height:1.2;text-align:center}
 .fb{min-height:40px;font:600 30px var(--fd);text-align:center}
 .fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
+.arts{display:flex;gap:10px}.arts .tile{min-width:92px}
 .kb{display:grid;grid-template-columns:repeat(14,1fr);gap:7px}
 .k{height:62px;border:3px solid var(--line);background:#fff;border-radius:12px;font:600 30px var(--fd);color:var(--ink)}
 .k:active{background:var(--sub);color:#fff}
@@ -238,12 +239,12 @@ const R=[
       {w:'Petrarca escribiu o Decamerón para a súa amada Laura.',bad:'Decamerón',sol:'Non é o Decamerón, senón o <b>Cancioneiro</b>.'},
       {w:'A imprenta fixo que as ideas se espallasen máis lentamente.',bad:'lentamente',sol:'Non lentamente: <b>rapidamente</b>.'}]},
  {sec:GL,icon:'📚',title:'Lingua galega',sub:'A palabra, o substantivo e o adxectivo'},
- {s:GL,t:'anag',title:'Palabras revoltas',ins:'Ordenade as letras. Despois dicide en voz alta se leva <b>o</b> ou <b>a</b>.',
-  qs:[{w:'VIAXE',clue:'Imos de ___ de fin de curso',sol:'<b>a viaxe</b> (feminino, como os rematados en -axe).'},
-      {w:'ÁRBORE',clue:'Ten tronco, ramas e follas',sol:'<b>a árbore</b> (feminino).'},
-      {w:'LEITE',clue:'Bébese no almorzo',sol:'<b>o leite</b> (masculino; en castelán «la leche»).'},
-      {w:'COSTUME',clue:'Algo que facemos sempre',sol:'<b>o costume</b> (masculino, rematado en -ume).'},
-      {w:'PONTE',clue:'Pasa por riba do río',sol:'<b>a ponte</b> (feminino; en castelán «el puente»).'}]},
+ {s:GL,t:'anag',title:'Palabras revoltas',ins:'Escollede <b>o</b> ou <b>a</b> e escribide a palabra ben ordenada. Se pedides pista, o acerto vale 1 punto.',
+  qs:[{w:'VIAXE',art:'a',clue:'Imos de ___ de fin de curso',sol:'<b>a viaxe</b> (feminino, como os rematados en -axe).'},
+      {w:'ÁRBORE',art:'a',clue:'Ten tronco, ramas e follas',sol:'<b>a árbore</b> (feminino).'},
+      {w:'LEITE',art:'o',clue:'Bébese no almorzo',sol:'<b>o leite</b> (masculino; en castelán «la leche»).'},
+      {w:'COSTUME',art:'o',clue:'Algo que facemos sempre',sol:'<b>o costume</b> (masculino, rematado en -ume).'},
+      {w:'PONTE',art:'a',clue:'Pasa por riba do río',sol:'<b>a ponte</b> (feminino; en castelán «el puente»).'}]},
  {s:GL,t:'text',title:'A máquina do plural',secs:40,ins:'Escribide o plural co teclado. <b>Ollo cos acentos!</b>',
   qs:[{p:'camión',a:'camións',sol:'Rematadas en -n: + s → <b>camións</b>.'},{p:'compás',a:'compases',sol:'Agudas en -s: + es → <b>compases</b>.'},
       {p:'canal',a:'canais',sol:'Agudas en -l: -l → -is → <b>canais</b>.'},{p:'móbil',a:'móbiles',sol:'Graves en -l: + es → <b>móbiles</b>.'},
@@ -450,13 +451,24 @@ const T={
   b.appendChild(se);
  },
  anag(s,q,b,api){
-  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt',`<span style="font-size:32px;color:var(--muted)">Pista:</span> ${q.clue}`);p.style.flex='1';p.style.display='flex';p.style.alignItems='center';p.style.justifyContent='center';b.appendChild(p);
-  let val=[];const W=q.w.split('');let letters=shuf(W.map((c,i)=>({c,i})));if(letters.map(x=>x.c).join('')===q.w)letters=letters.reverse();
-  const d=h('div','disp');const tl=h('div','tiles');
-  const paint=()=>{d.innerHTML=W.map((_,i)=>`<span>${val[i]?val[i].c:''}</span>`).join('');tl.querySelectorAll('.tile').forEach(t=>t.classList.toggle('used',val.some(v=>v.i==t.dataset.i)))};
-  letters.forEach(x=>{const t=h('button','tile',x.c);t.dataset.i=x.i;t.onclick=()=>{val.push(x);paint();if(val.length===W.length){if(val.map(v=>v.c).join('')===q.w)api.ok();else{d.querySelectorAll('span').forEach(e=>e.style.background='#fdecec');setTimeout(api.ko,1000)}}};tl.appendChild(t)});
-  b.appendChild(d);b.appendChild(tl);paint();
-  const del=h('button','btn alt','⌫ Borrar letra');del.style.alignSelf='center';del.onclick=()=>{val.pop();paint()};b.appendChild(del);
+  b.appendChild(h('p','ins j',s.ins));
+  const W=q.w.split('');let mix=shuf(W);if(mix.join('')===q.w)mix=mix.reverse();
+  const top=h('div','',`<div class="prompt" style="font-size:30px;color:var(--muted)">Pista: ${q.clue}</div><div class="cipher" style="margin-top:8px">${mix.map(c=>`<span style="min-width:80px;font-size:52px">${c}</span>`).join('')}</div>`);b.appendChild(top);
+  let art='',val=W.map(()=>''),fixed=W.map(()=>false),pos=0,used=0;
+  const row=h('div','',`<div style="display:flex;align-items:center;justify-content:center;gap:22px"><div class="arts"><button class="tile" data-a="o">o</button><button class="tile" data-a="a">a</button></div><div class="disp" id="ad"></div><button class="btn gold" id="pista">💡 Pista</button></div>`);b.appendChild(row);
+  const d=row.querySelector('#ad');
+  const nextPos=()=>{pos=val.findIndex((v,i)=>!v&&!fixed[i]);if(pos<0)pos=W.length};
+  const paint=()=>{d.innerHTML=W.map((_,i)=>`<span style="${fixed[i]?'color:var(--gold)':''}">${val[i]}</span>`).join('');row.querySelectorAll('[data-a]').forEach(t=>t.style.opacity=art&&t.dataset.a!==art?.3:1)};
+  row.querySelectorAll('[data-a]').forEach(t=>t.onclick=()=>{art=t.dataset.a;paint()});
+  row.querySelector('#pista').onclick=()=>{const free=W.map((c,i)=>i).filter(i=>!fixed[i]&&val[i]!==W[i]);if(free.length<=1)return;const i=free[0];val[i]=W[i];fixed[i]=true;used++;nextPos();paint();row.querySelector('#pista').textContent='💡 Pista ('+used+')'};
+  const f=h('div','fb');b.appendChild(f);
+  keyboard(b,c=>{nextPos();if(pos<W.length){val[pos]=c;nextPos();paint()}},[['⌫',()=>{for(let i=W.length-1;i>=0;i--)if(val[i]&&!fixed[i]){val[i]='';break}nextPos();paint()},'w2 del'],['✔',()=>{
+    if(!art){f.className='fb ko';f.textContent='Falta escoller o ou a';return}
+    if(val.some(v=>!v)){f.className='fb ko';f.textContent='Faltan letras';return}
+    const ok=val.join('')===q.w&&art===q.art;
+    if(ok){f.className='fb ok';f.textContent='Correcto: '+q.art+' '+q.w.toLowerCase();api.ok(used?1:2)}
+    else{f.className='fb ko';f.textContent=val.join('')!==q.w?'A palabra non é correcta':'Ollo co artigo!';d.querySelectorAll('span').forEach((e,i)=>e.style.background=val[i]===W[i]?'#e9f7ee':'#fdecec');setTimeout(api.ko,1100)}},'w2']]);
+  paint();
  },
  text(s,q,b,api){
   b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt',`<span style="color:var(--muted);font-size:36px">Plural de</span> «${q.p}»`);p.style.fontSize='56px';p.style.flex='1';p.style.display='flex';p.style.alignItems='center';p.style.justifyContent='center';p.style.gap='16px';b.appendChild(p);
