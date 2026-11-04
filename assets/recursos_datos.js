@@ -215,23 +215,23 @@ window.RECURSOS=[
     "n": "PRESENTACIONES",
     "c": [
      {
-      "t": "Presentación primera semana en el taller",
+      "t": "Presentación 1ª semana taller (evaluación inicial)",
       "h": "03_FPB/PRESENTACIONES/presentacion_primera_semana_en_el_taller.html"
      },
      {
-      "t": "Presentación tipos de texto",
+      "t": "Presentación piezas taller (tipos de texto)",
       "h": "03_FPB/PRESENTACIONES/presentacion_tipos_de_texto.html"
      },
      {
-      "t": "Presentación venganza tractorista",
+      "t": "Presentación Ferrari y Lamborghini (2ª Guerra Mundial, carta de reclamación)",
       "h": "03_FPB/PRESENTACIONES/presentacion_venganza_tractorista.html"
      },
      {
-      "t": "Presentación mitos y orgullo",
+      "t": "Presentación mitología (coherencia, cohesión, adecuación)",
       "h": "03_FPB/PRESENTACIONES/presentacion_mitos_y_orgullo.html"
      },
      {
-      "t": "Presentación la comunicación",
+      "t": "Presentación Obama (comunicación)",
       "h": "03_FPB/PRESENTACIONES/presentacion_la_comunicacion.html"
      }
     ]
@@ -240,11 +240,11 @@ window.RECURSOS=[
     "n": "ACTIVIDADES",
     "c": [
      {
-      "t": "Ficha primera semana taller",
+      "t": "Ficha 1ª semana taller (evaluación inicial)",
       "h": "03_FPB/ACTIVIDADES/ficha_primera_semana_taller.html"
      },
      {
-      "t": "Ficha tipos de texto",
+      "t": "Ficha piezas taller (tipos de texto)",
       "h": "03_FPB/ACTIVIDADES/ficha_tipos_de_texto.html"
      },
      {
@@ -252,15 +252,15 @@ window.RECURSOS=[
       "h": "03_FPB/ACTIVIDADES/rock_and_road_dream_cars.html"
      },
      {
-      "t": "Ficha Lamborghini, 2ª Guerra Mundial y carta de reclamación",
+      "t": "Ficha Ferrari y Lamborghini (2ª Guerra Mundial, carta de reclamación)",
       "h": "03_FPB/ACTIVIDADES/ficha_lamborghini_2_guerra_mundial_carta_reclamacion.html"
      },
      {
-      "t": "Ficha coherencia, cohesión y adecuación",
+      "t": "Ficha mitología (coherencia, cohesión, adecuación)",
       "h": "03_FPB/ACTIVIDADES/ficha_coherencia_cohesion_adecuacion.html"
      },
      {
-      "t": "Ficha comunicación",
+      "t": "Ficha Obama (comunicación)",
       "h": "03_FPB/ACTIVIDADES/ficha_comunicacion.html"
      }
     ]
