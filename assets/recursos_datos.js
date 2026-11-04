@@ -237,10 +237,6 @@ window.RECURSOS=[
     "c": [
      {
       "t": "Ficha taller semana 1",
-      "h": "03_FPB/ACTIVIDADES/taller-semana1.html"
-     },
-     {
-      "t": "Ficha taller semana 1 · versión para imprimir",
       "h": "03_FPB/ACTIVIDADES/ficha_taller_semana_1.html"
      },
      {
