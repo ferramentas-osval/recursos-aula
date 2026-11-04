@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primera semana en el taller</title>
+<style>
+:root{
+  --azul:#1d3557; --azul2:#2f4b7c; --naranja:#e76f51; --amarillo:#f4a261; --verde:#2a9d8f;
+  --crema:#fbf7f0; --tinta:#1b1b1b; --gris:#6b7280; --claro:#eef2f7; --rojo:#c0392b; --ok:#1e8e5a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#14213d;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--tinta)}
+p,li,.just{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+button{font:inherit;cursor:pointer}
+
+/* ---------- DIAPOSITIVAS ---------- */
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:2.4vh 6vw 5.2vh;background:var(--crema);overflow:hidden;line-height:1.28}
+.slide.activa{display:flex}
+.cab{display:flex;align-items:center;gap:.6em;margin-bottom:.45em;flex:0 0 auto}
+.cab h2{font-size:1.4em;color:var(--azul);line-height:1.1;font-weight:800}
+.etq{font-size:.62em;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3em .8em;border-radius:2em;color:#fff;background:var(--azul2);white-space:nowrap}
+.etq.teoria{background:var(--verde)} .etq.act{background:var(--naranja)} .etq.lectura{background:#8e44ad} .etq.oral{background:#b5651d}
+.cuerpo{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:.55em;width:100%}
+.g2{display:grid;grid-template-columns:1fr 2fr;grid-template-rows:minmax(0,1fr);gap:1.1em;flex:1;min-height:0}
+.g2.mitad{grid-template-columns:1fr 1fr}
+.col{display:flex;flex-direction:column;gap:.5em;min-height:0;justify-content:safe center}
+.fig{min-height:0;overflow:hidden;border-radius:.6em;display:flex;align-items:center;justify-content:safe center;background:#fff;box-shadow:0 .15em .6em rgba(0,0,0,.08)}
+.fig svg{display:block;width:100%;height:100%;object-fit:contain}
+ul.lista,ol.lista{padding-left:1.2em;display:flex;flex-direction:column;gap:.25em}
+ul.lista li::marker,ol.lista li::marker{color:var(--naranja);font-weight:800}
+.caja{background:#fff;border-radius:.55em;padding:.5em .75em;box-shadow:0 .12em .5em rgba(0,0,0,.07);min-height:0}
+.caja h3{font-size:1em;color:var(--azul);margin-bottom:.15em}
+.destaca{background:var(--azul);color:#fff;border-radius:.55em;padding:.5em .8em;font-weight:600}
+.btn{background:var(--naranja);color:#fff;border:none;border-radius:2em;padding:.35em 1em;font-weight:700;box-shadow:0 .12em .3em rgba(0,0,0,.2);white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.az{background:var(--azul2)} .btn.ve{background:var(--verde)}
+.btn.mini{font-size:.7em;padding:.15em .7em;box-shadow:none}
+.fila-btn{display:flex;gap:.5em;flex-wrap:wrap;align-items:center}
+.peq{font-size:.8em;color:var(--gris)}
+.n{display:inline-flex;align-items:center;justify-content:safe center;width:1.5em;height:1.5em;border-radius:50%;background:var(--naranja);color:#fff;font-weight:800;font-size:.85em;flex:0 0 auto}
+
+/* portada */
+.portada{background:linear-gradient(135deg,#1d3557 0%,#2f4b7c 60%,#2a9d8f 100%);color:#fff}
+.portada .g2{grid-template-columns:1fr 1.3fr}
+.portada h1{font-size:2.3em;line-height:1.05;font-weight:900}
+.portada h1 span{color:var(--amarillo)}
+.portada .sub{font-size:1.05em;opacity:.95}
+.mosaico{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:.5em;min-height:0}
+
+/* hoja de ruta y tarjetas */
+.cartas{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:.6em;flex:1;min-height:0}
+.paso{border-radius:.7em;display:flex;flex-direction:column;justify-content:safe center;gap:.2em;padding:.5em .7em;color:#fff;box-shadow:0 .15em .45em rgba(0,0,0,.18);min-height:0}
+.paso .ico{font-size:1.8em;line-height:1}
+.paso b{font-size:1.1em}
+.paso p{font-size:.9em}
+.g4{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:.55em;flex:1;min-height:0}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:minmax(0,1fr);gap:.7em;flex:1;min-height:0}
+.tarj{background:#fff;border-radius:.7em;border-top:.35em solid var(--naranja);padding:.5em .7em;box-shadow:0 .15em .5em rgba(0,0,0,.09);display:flex;flex-direction:column;gap:.3em;justify-content:safe center;min-height:0;text-align:left}
+.tarj h3{color:var(--azul);font-size:1.1em}
+.tarj .ej{background:var(--claro);border-radius:.4em;padding:.25em .5em;font-style:italic;text-align:justify}
+button.tarj{border-left:none;border-right:none;border-bottom:none;font:inherit;color:inherit}
+button.tarj:hover{transform:translateY(-.15em)}
+
+/* lectura */
+.nota{flex:1;min-height:0;background:#fffdf7;border:.06em solid #e2dac4;border-left:.35em solid var(--naranja);border-radius:.3em;padding:.7em 1em;column-count:2;column-gap:2em;column-fill:auto;box-shadow:0 .15em .6em rgba(0,0,0,.08)}
+.nota p{margin-bottom:.55em}
+.nota .firma{color:var(--gris);font-size:.9em;text-align:left}
+
+/* preguntas con opciones */
+.dos-col{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(0,1fr);gap:.5em .9em;flex:1;min-height:0}
+.preg{background:#fff;border-radius:.6em;padding:.4em .6em;box-shadow:0 .12em .4em rgba(0,0,0,.08);display:flex;flex-direction:column;gap:.25em;min-height:0;justify-content:safe center}
+.preg .q{display:flex;gap:.5em;align-items:flex-start;font-weight:800;color:var(--azul)}
+.preg .q .t{flex:1;text-align:justify}
+.preg .q .btn{margin-left:auto}
+.opts{display:flex;flex-direction:column;gap:.18em}
+.opt{border:.1em solid #c8d1dd;background:#f6f8fb;border-radius:.5em;padding:.12em .6em;text-align:justify;font-weight:600;color:#333;width:100%}
+.opt:hover{border-color:var(--azul2)}
+.opt.bien{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.malr{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+
+/* llamada: cita y hoja de taller */
+.cita{font-size:1.05em;font-weight:600;color:#3a2f10;background:#fff8e8;border:.12em dashed #d9a441;border-radius:1em;padding:.5em .8em;text-align:justify}
+.cita .quien{display:block;font-size:.75em;font-weight:800;color:#8a5a00;text-transform:uppercase;letter-spacing:.05em}
+.hoja{position:relative;background:#fffdf5;border:.07em solid #d5cdb5;border-left:.35em solid var(--naranja);border-radius:.3em;padding:1em .8em .6em;box-shadow:0 .2em .7em rgba(0,0,0,.12);display:flex;flex-direction:column;gap:.3em;justify-content:safe center;min-height:0}
+.hoja .tag{position:absolute;top:-.7em;left:.8em;background:var(--naranja);color:#fff;font-weight:800;font-size:.7em;padding:.2em .8em;border-radius:.2em;letter-spacing:.04em}
+.hoja .cmp{display:grid;grid-template-columns:1fr 1fr;gap:.25em .7em}
+.hoja .cmp div{display:flex;flex-direction:column;border-bottom:.06em solid #e7e0c8;padding-bottom:.1em}
+.hoja .cmp .full{grid-column:1/-1}
+.hoja label{font-size:.68em;font-weight:800;color:var(--gris);text-transform:uppercase;letter-spacing:.04em}
+.hoja .vac{min-height:1.2em}
+.hoja .ans{font-weight:700;color:#1d4fa0}
+
+/* whatsapp */
+.movil{background:#efe7dd;border-radius:1.2em;border:.3em solid #263238;display:flex;flex-direction:column;min-height:0;overflow:hidden;box-shadow:0 .2em .7em rgba(0,0,0,.25)}
+.movil .cabm{background:#075e54;color:#fff;padding:.3em .8em;font-weight:700;display:flex;gap:.5em;align-items:center;flex:0 0 auto}
+.movil .av{background:#ddd;color:#075e54;border-radius:50%;width:1.7em;height:1.7em;display:inline-flex;align-items:center;justify-content:center;font-size:.8em;font-weight:800}
+.chatm{flex:1;min-height:0;display:flex;flex-direction:column;gap:.4em;padding:.5em .6em;justify-content:safe center}
+.bur{max-width:86%;padding:.3em .6em;border-radius:.6em;box-shadow:0 .05em .15em rgba(0,0,0,.15);text-align:justify}
+.bur.in{background:#fff;align-self:flex-start}
+.bur.out{background:#dcf8c6;align-self:flex-end;border:.1em dashed #6fae5a}
+.bur .tu{display:block;font-size:.72em;font-weight:800;color:var(--ok);text-transform:uppercase}
+.mal-bien{display:grid;grid-template-columns:1fr 1fr;gap:.6em}
+.cita.mal{background:#fdecea;border-color:#d96a5f;color:#7a1f16}
+.cita.bien{background:#e8f6ef;border-color:#4aa57a;color:#17543a}
+
+/* parte de trabajo */
+.parte{background:#fff;border:.07em solid #d5cdb5;border-radius:.3em;box-shadow:0 .2em .7em rgba(0,0,0,.12);display:flex;flex-direction:column;min-height:0}
+.parte .cabp{background:var(--naranja);color:#fff;font-weight:800;padding:.35em .8em;border-radius:.3em .3em 0 0;font-size:.85em}
+.parte ol,.parte ul{list-style:none;padding:.5em .8em;display:flex;flex-direction:column;gap:.35em;justify-content:safe center;flex:1;min-height:0}
+.parte li{line-height:1.7}
+.hueco{display:inline-block;width:7.2em;border:none;border-bottom:.12em solid var(--naranja);background:#fff4ec;color:transparent;border-radius:.2em .2em 0 0;padding:0 .3em;font-weight:800;line-height:1.1;text-align:center;user-select:none;vertical-align:baseline}
+.hueco.l{width:1.4em}
+.hueco.ver{color:var(--ok);background:#e8f6ef;border-bottom-color:var(--ok)}
+.banco{display:flex;flex-wrap:wrap;gap:.3em}
+.banco span{background:var(--claro);color:var(--azul);border-radius:2em;padding:.1em .7em;font-weight:700}
+.pares{display:grid;grid-template-columns:1fr 1fr;gap:.25em .8em}
+.pares div{background:#fff;border-radius:.4em;padding:.15em .5em;box-shadow:0 .08em .3em rgba(0,0,0,.07)}
+.pares b{color:var(--naranja)}
+
+/* ortografía */
+.carta{border:none;border-radius:.7em;display:grid;min-height:0;color:#fff;text-align:left;box-shadow:0 .15em .45em rgba(0,0,0,.18)}
+.carta>div{grid-area:1/1;padding:.5em .7em;display:flex;flex-direction:column;justify-content:safe center;gap:.2em;transition:opacity .25s}
+.carta .tras{opacity:0;visibility:hidden}
+.carta.vuelta .tras{opacity:1;visibility:visible}
+.carta.vuelta .frente{opacity:0;visibility:hidden}
+.carta .frente{align-items:center;text-align:center}
+.carta .nom{font-weight:900;font-size:1.15em}
+.carta .tras p{font-size:.88em}
+.carta .tras i{background:rgba(255,255,255,.18);border-radius:.4em;padding:.15em .4em;font-size:.88em;display:block;text-align:justify}
+.vcols{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:minmax(0,1fr);gap:.7em;flex:1;min-height:0}
+.vcol{background:#fff;border-radius:.6em;padding:.5em .7em;box-shadow:0 .12em .4em rgba(0,0,0,.08);display:flex;flex-direction:column;gap:.3em;min-height:0;justify-content:safe center}
+.vcol h3{color:var(--naranja);font-size:1.1em;text-align:center}
+.vcol ul{list-style:none;display:flex;flex-direction:column;gap:.3em;font-size:1.15em;font-weight:700;color:var(--azul)}
+.vcol li{text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:.45em;justify-content:center;align-content:safe center;flex:1;min-height:0}
+.chip{font-weight:700;padding:.35em .9em;background:#fff;border:.1em solid #c8d1dd;border-radius:.5em;color:var(--azul);user-select:none}
+.chip.selected{border-color:var(--naranja);background:#fff0ea}
+.chip.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
+.chip.incorrect{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+.chip.missed{background:#f4a261;color:#fff;border-color:#f4a261}
+.res{font-weight:800;color:var(--azul)}
+
+/* resumen */
+.flujo{display:grid;grid-template-columns:.8fr auto 3.2fr auto .8fr;grid-template-rows:minmax(0,1fr);gap:.5em;align-items:stretch;flex:1;min-height:0}
+.flujo .bloque{border-radius:.7em;color:#fff;display:flex;flex-direction:column;justify-content:safe center;align-items:center;text-align:center;padding:.6em;font-weight:800}
+.flecha{display:flex;align-items:center;justify-content:safe center;font-size:1.6em;color:var(--naranja);font-weight:900}
+.claves{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(0,1fr);gap:.4em;min-height:0}
+.claves div{display:flex;flex-direction:column;justify-content:safe center;background:#fff;border-radius:.5em;padding:.35em .55em;box-shadow:0 .12em .4em rgba(0,0,0,.08);text-align:justify}
+.claves b{color:var(--naranja)}
+
+/* ---------- NAVEGACIÓN ---------- */
+.nav{position:fixed;top:50%;transform:translateY(-50%);width:4.2vw;height:16vh;border:none;background:rgba(29,53,87,.14);color:var(--azul);font-size:4.5vh;border-radius:1vh;z-index:20;display:flex;align-items:center;justify-content:safe center}
+.nav:hover{background:rgba(29,53,87,.3)}
+#prev{left:.6vw} #next{right:.6vw}
+body.oscuro .nav{background:rgba(255,255,255,.15);color:#fff}
+#pie{position:fixed;bottom:1vh;right:1.4vw;font-size:2vh;color:var(--gris);z-index:20;display:flex;gap:1vw;align-items:center}
+#pie button{border:none;background:none;color:inherit;font-size:2.4vh}
+#barra{position:fixed;left:0;bottom:0;height:.7vh;background:var(--naranja);z-index:20;transition:width .3s}
+
+/* ---------- VENTANA SUPERPUESTA ---------- */
+#fondo{position:fixed;inset:0;background:rgba(10,20,40,.72);display:none;align-items:center;justify-content:safe center;z-index:50}
+#fondo.on{display:flex}
+#modal{position:relative;width:90vw;height:86vh;background:#fff;border-radius:1.4vh;padding:4.2vh 4vw 3vh;overflow:hidden;box-shadow:0 2vh 6vh rgba(0,0,0,.4);display:flex;flex-direction:column}
+#modal-in{flex:1;min-height:0;display:flex;flex-direction:column;gap:.5em;justify-content:safe center;line-height:1.3}
+#modal h3{color:var(--naranja);font-size:1.2em}
+#modal h4{color:var(--azul);font-size:1em}
+#modal .sol{color:var(--verde);font-weight:800}
+#modal .azul{color:#1d4fa0;font-weight:700}
+#cerrar{position:absolute;top:1.2vh;right:1.2vw;border:none;background:var(--azul);color:#fff;width:5.4vh;height:5.4vh;border-radius:50%;font-size:3vh;font-weight:800;line-height:1}
+.m2{display:grid;grid-template-columns:1fr 1fr;gap:.4em 1.2em}
+.m2 p{margin:0}
+
+/* aviso de orientación en móvil */
+#girar{position:fixed;inset:0;z-index:100;background:#1d3557;color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5vw;padding:8vw;text-align:center;font-size:5vw;line-height:1.3}
+#girar .movilico{font-size:20vw;display:inline-block;animation:gira 2s ease-in-out infinite}
+@keyframes gira{0%,25%{transform:rotate(0)}50%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#girar b{color:#f4a261}
+#girar button{border:none;border-radius:10vw;padding:3.5vw 7vw;font:inherit;font-weight:800;cursor:pointer}
+#girar .si{background:#e76f51;color:#fff}
+#girar .no{background:transparent;color:#cfd8e3;text-decoration:underline;font-size:4vw;font-weight:500}
+@media (orientation:portrait) and (max-width:900px){body:not(.vertical-ok) #girar{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- ============ ILUSTRACIONES (símbolos reutilizables) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="sc-taller" viewBox="0 0 400 260">
+  <rect width="400" height="260" fill="#dfe7f1"/>
+  <g stroke="#b9c4d3" stroke-width="3"><line x1="180" y1="22" x2="395" y2="22"/><line x1="180" y1="42" x2="395" y2="42"/><line x1="180" y1="62" x2="395" y2="62"/><line x1="180" y1="82" x2="395" y2="82"/><line x1="180" y1="102" x2="395" y2="102"/></g>
+  <rect y="205" width="400" height="55" fill="#b8c0cc"/>
+  <path d="M188 192 L198 162 Q214 134 250 131 L312 131 Q338 134 352 160 L386 168 Q396 173 396 192 Z" fill="#e76f51"/>
+  <path d="M214 160 Q224 142 250 141 L276 141 L276 160Z" fill="#cfe3f3"/><path d="M284 141 L310 141 Q328 143 338 160 L284 160Z" fill="#cfe3f3"/>
+  <circle cx="232" cy="193" r="18" fill="#263238"/><circle cx="232" cy="193" r="7" fill="#cfd8dc"/>
+  <circle cx="356" cy="193" r="18" fill="#263238"/><circle cx="356" cy="193" r="7" fill="#cfd8dc"/>
+  <rect x="58" y="172" width="12" height="38" rx="4" fill="#1d3557"/><rect x="74" y="172" width="12" height="38" rx="4" fill="#1d3557"/>
+  <rect x="53" y="118" width="38" height="60" rx="10" fill="#1d3557"/><rect x="66" y="124" width="12" height="9" rx="2" fill="#f4a261"/>
+  <circle cx="72" cy="100" r="16" fill="#e0ac69"/><path d="M55 97 Q72 76 89 97 Z" fill="#e76f51"/><rect x="84" y="93" width="14" height="4" rx="2" fill="#e76f51"/>
+  <rect x="90" y="128" width="9" height="30" rx="4" fill="#1d3557" transform="rotate(-25 94 128)"/>
+  <rect x="128" y="172" width="12" height="38" rx="4" fill="#455a64"/><rect x="144" y="172" width="12" height="38" rx="4" fill="#455a64"/>
+  <rect x="123" y="118" width="38" height="60" rx="10" fill="#2a9d8f"/>
+  <circle cx="142" cy="100" r="16" fill="#f1c27d"/><path d="M126 98 Q127 81 142 81 Q157 81 158 98 Q151 89 142 89 Q133 89 126 98Z" fill="#5d4037"/>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">
+    <rect x="8" y="26" width="118" height="40" rx="14" fill="#fff"/><path d="M60 66 L70 82 L78 66Z" fill="#fff"/>
+    <text x="67" y="51" text-anchor="middle" fill="#1d3557">¿En qué le ayudo?</text>
+    <rect x="134" y="26" width="126" height="40" rx="14" fill="#fff"/><path d="M140 66 L144 82 L154 66Z" fill="#fff"/>
+    <text x="197" y="51" text-anchor="middle" fill="#2a9d8f">Hace un ruido raro…</text>
+  </g>
+</symbol>
+
+<symbol id="sc-telefono" viewBox="0 0 400 260">
+  <rect width="400" height="260" fill="#e8f0f8"/>
+  <rect y="208" width="400" height="52" fill="#b8c0cc"/>
+  <rect x="150" y="22" width="100" height="196" rx="16" fill="#1d3557"/>
+  <rect x="159" y="44" width="82" height="152" rx="6" fill="#fff"/>
+  <circle cx="200" cy="33" r="3" fill="#9aa5b5"/>
+  <rect x="168" y="56" width="64" height="9" rx="4" fill="#2a9d8f"/>
+  <g font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">
+    <text x="200" y="98" font-size="14" font-weight="700" fill="#1d3557">Cliente</text>
+    <text x="200" y="116" font-size="11" fill="#6b7280">llamando…</text>
+  </g>
+  <circle cx="200" cy="158" r="21" fill="#2a9d8f"/>
+  <rect x="188" y="153" width="24" height="10" rx="5" fill="#fff" transform="rotate(-40 200 158)"/>
+  <g stroke="#e76f51" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M128 82 q-14 22 0 44"/><path d="M108 66 q-28 38 0 76"/>
+    <path d="M272 82 q14 22 0 44"/><path d="M292 66 q28 38 0 76"/>
+  </g>
+  <rect x="288" y="160" width="86" height="52" rx="4" fill="#fff" stroke="#c3b89e" stroke-width="3"/>
+  <g stroke="#9fb3d1" stroke-width="4" stroke-linecap="round"><line x1="298" y1="174" x2="364" y2="174"/><line x1="298" y1="186" x2="350" y2="186"/><line x1="298" y1="198" x2="358" y2="198"/></g>
+  <rect x="26" y="168" width="70" height="40" rx="6" fill="#f4a261"/><rect x="40" y="152" width="42" height="20" rx="5" fill="#f4a261"/>
+  <rect x="48" y="158" width="26" height="8" rx="2" fill="#fff"/>
+</symbol>
+
+<symbol id="sc-wasap" viewBox="0 0 400 260">
+  <rect width="400" height="260" fill="#e8f4f1"/>
+  <rect x="140" y="12" width="120" height="224" rx="18" fill="#263238"/>
+  <rect x="149" y="34" width="102" height="172" rx="6" fill="#efe7dd"/>
+  <rect x="149" y="34" width="102" height="20" fill="#075e54"/>
+  <rect x="156" y="62" width="62" height="22" rx="7" fill="#fff"/><rect x="182" y="92" width="62" height="22" rx="7" fill="#dcf8c6"/>
+  <rect x="156" y="122" width="56" height="22" rx="7" fill="#fff"/><rect x="178" y="152" width="66" height="22" rx="7" fill="#dcf8c6"/>
+  <g stroke="#b4bcc6" stroke-width="3" stroke-linecap="round"><line x1="162" y1="70" x2="208" y2="70"/><line x1="162" y1="77" x2="196" y2="77"/><line x1="188" y1="100" x2="236" y2="100"/><line x1="188" y1="107" x2="222" y2="107"/><line x1="162" y1="130" x2="200" y2="130"/><line x1="184" y1="160" x2="236" y2="160"/><line x1="184" y1="167" x2="226" y2="167"/></g>
+  <rect x="149" y="184" width="102" height="22" fill="#f0f0f0"/><circle cx="238" cy="195" r="7" fill="#2a9d8f"/>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700">
+    <rect x="8" y="64" width="124" height="40" rx="13" fill="#fff"/><text x="70" y="89" text-anchor="middle" fill="#1d3557">Buenas, Javier:</text>
+    <rect x="268" y="124" width="124" height="40" rx="13" fill="#dcf8c6"/><text x="330" y="149" text-anchor="middle" fill="#17543a">Hasta mañana</text>
+  </g>
+  <path d="M30 196 l8 8 l16 -16" stroke="#2a9d8f" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="sc-parte" viewBox="0 0 400 260">
+  <rect width="400" height="260" fill="#fbe8d3"/>
+  <rect y="214" width="400" height="46" fill="#d7b98e"/>
+  <rect x="120" y="14" width="160" height="214" rx="10" fill="#8d6e63"/>
+  <rect x="132" y="36" width="136" height="184" rx="3" fill="#fff"/>
+  <rect x="168" y="6" width="64" height="24" rx="7" fill="#455a64"/>
+  <rect x="132" y="36" width="136" height="22" fill="#e76f51"/>
+  <text x="200" y="52" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="800" fill="#fff">PARTE Nº 001</text>
+  <g stroke="#9fb3d1" stroke-width="5" stroke-linecap="round"><line x1="168" y1="82" x2="256" y2="82"/><line x1="168" y1="114" x2="246" y2="114"/><line x1="168" y1="146" x2="256" y2="146"/><line x1="168" y1="178" x2="238" y2="178"/></g>
+  <g stroke="#2a9d8f" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M142 82 l6 6 l11 -12"/><path d="M142 114 l6 6 l11 -12"/><path d="M142 146 l6 6 l11 -12"/><path d="M142 178 l6 6 l11 -12"/></g>
+  <rect x="300" y="150" width="14" height="62" rx="3" fill="#f4d35e" transform="rotate(25 307 181)"/>
+  <path d="M284 196 l6 -16 l12 8z" fill="#e0ac69"/>
+</symbol>
+</defs>
+</svg>
+
+<!-- ======================= 1 · PORTADA ======================= -->
+<section class="slide portada oscuro">
+  <div class="cuerpo">
+    <div class="g2">
+      <div class="col">
+        <span class="etq" style="align-self:flex-start;background:var(--naranja)">1.º FPB · Mantenimiento de vehículos</span>
+        <h1>Primera semana <span>en el taller</span></h1>
+        <p class="sub">Leer, hablar y escribir como un buen profesional: la nota del encargado, la llamada, el WhatsApp, el parte de trabajo y la ortografía del taller.</p>
+      </div>
+      <div class="mosaico">
+        <div class="fig"><svg><use href="#sc-taller"/></svg></div>
+        <div class="fig"><svg><use href="#sc-telefono"/></svg></div>
+        <div class="fig"><svg><use href="#sc-wasap"/></svg></div>
+        <div class="fig"><svg><use href="#sc-parte"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · IMPORTANCIA DE COMUNICAR ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq">Para empezar</span><h2>Antes de tocar una llave inglesa…</h2></div>
+  <div class="cuerpo">
+    <div class="g2">
+      <div class="col">
+        <p>Empiezas como aprendiz en un taller mecánico y hay cosas de <b>comunicación</b> que tienes que dominar.</p>
+        <p>Saber comunicarse no es solo «hablar bien»: es <b>escuchar</b>, <b>adaptar el tono</b> a cada persona y <b>explicarte con claridad</b>. Hace falta en casa, con los amigos, en el instituto… y muchísimo en el trabajo.</p>
+        <ul class="lista">
+          <li>El cliente <b>entiende</b> la avería y <b>confía</b> en el taller.</li>
+          <li>Un compañero/a te entiende <b>a la primera</b>.</li>
+          <li>Tu jefe/a sabe que puede <b>confiar</b> en ti.</li>
+        </ul>
+        <div class="destaca"><p>Explicarse mal es un problema tan real como no saber usar una herramienta.</p></div>
+      </div>
+      <div class="fig"><svg><use href="#sc-taller"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3 · HOJA DE RUTA ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq">Esta semana</span><h2>Seis tareas de un primer día en el taller</h2></div>
+  <div class="cuerpo">
+    <div class="cartas">
+      <div class="paso" style="background:#1d3557"><span class="ico">📖</span><b>1 · Leer la nota del encargado</b><p>Comprender un texto y sacar los datos importantes.</p></div>
+      <div class="paso" style="background:#2a9d8f"><span class="ico">📞</span><b>2 · Atender una llamada</b><p>Anotar los datos y contestar con cortesía.</p></div>
+      <div class="paso" style="background:#e76f51"><span class="ico">💬</span><b>3 · Escribir por WhatsApp</b><p>Mensajes formales a un cliente.</p></div>
+      <div class="paso" style="background:#8e44ad"><span class="ico">📋</span><b>4 · Redactar el parte de trabajo</b><p>Contar lo que se ha hecho, en orden.</p></div>
+      <div class="paso" style="background:#b5651d"><span class="ico">🗣️</span><b>5 · Hablar con cada persona</b><p>Cliente, jefe/a y compañero/a.</p></div>
+      <div class="paso" style="background:#2f4b7c"><span class="ico">✍️</span><b>6 · Escribir sin faltas</b><p>Palabras dudosas, b/v, g/j, h y tildes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4 · TEORÍA LEER PARA COMPRENDER ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>Leer para comprender: cuatro tipos de pregunta</h2></div>
+  <div class="cuerpo">
+    <div class="g4">
+      <div class="tarj" style="border-top-color:#1d3557"><h3>🔎 Localizar</h3><p>El dato está escrito <b>tal cual</b> en el texto.</p><p class="ej">Si abre a las 16:00, ¿a qué hora empieza la tarde? → 16:00.</p></div>
+      <div class="tarj" style="border-top-color:#2a9d8f"><h3>🧮 Calcular</h3><p>Hay que <b>operar</b> con los datos del texto.</p><p class="ej">De 16:00 a 19:00 → 3 horas.</p></div>
+      <div class="tarj" style="border-top-color:#e76f51"><h3>🧩 Inferir</h3><p>El texto no lo dice, pero lo <b>sugiere</b>.</p><p class="ej">«Aquí se aprende mirando y preguntando» → se espera que preguntes, no que finjas saber.</p></div>
+      <div class="tarj" style="border-top-color:#8e44ad"><h3>🛠️ Aplicar</h3><p>Llevar una norma del texto a un <b>caso nuevo</b>.</p><p class="ej">Si piden botas de seguridad, ¿puedes mover un neumático en chanclas? → No.</p></div>
+    </div>
+    <div class="destaca"><p><b>Truco:</b> vuelve siempre al texto y subraya el dato antes de contestar.</p></div>
+  </div>
+</section>
+
+<!-- ======================= 5 · LECTURA ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq lectura">Lectura</span><h2>La nota del encargado en el tablón</h2></div>
+  <div class="cuerpo">
+    <div class="nota">
+      <p>¡Bienvenido/a al equipo! Este es tu primer día en el taller, así que aquí van algunas cosas importantes antes de ponerte manos a la obra.</p>
+      <p>Nuestro horario es de <b>8:00 a 14:00</b> y de <b>16:00 a 19:00</b>, de lunes a viernes.</p>
+      <p>Dentro del taller es obligatorio llevar los <b>EPI</b> (Equipos de Protección Individual): guantes, botas de seguridad y gafas cuando uses cualquier herramienta que pueda proyectar partículas. Si vas a trabajar bajo un vehículo elevado, comprueba siempre que el elevador está bien bloqueado antes de meterte debajo.</p>
+      <p>Cuando un cliente entre por la puerta, lo primero es saludar y preguntarle en qué se le puede ayudar, con calma y buena cara, aunque estés liado. Si necesitas ir a buscar a alguien, pídele que espere un momento; nunca lo dejes sin decir nada.</p>
+      <p>Los residuos (aceite usado, filtros, baterías) van siempre en su contenedor correspondiente, nunca mezclados ni tirados a la basura normal.</p>
+      <p>Cualquier duda, pregúntame a mí o a cualquier compañero/a con más experiencia. Aquí se aprende sobre todo mirando y preguntando. ¡Suerte con tu primer día!</p>
+      <p class="firma">— Rafja, tu encargado/a de taller</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · ACTIVIDAD 1 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 1</span><h2>Comprensión de la nota: elige la respuesta</h2></div>
+  <div class="cuerpo">
+    <div class="dos-col" id="comp-grid"></div>
+    <div class="fila-btn"><button class="btn ve" data-modal="m-comp">Ver soluciones</button></div>
+  </div>
+</section>
+
+<!-- ======================= 7 · TEORÍA LLAMADA ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>Atender una llamada como un profesional</h2></div>
+  <div class="cuerpo">
+    <div class="g2">
+      <div class="col">
+        <ol class="lista">
+          <li><b>Saluda e identifícate:</b> «Taller Sangriña, buenos días, ¿dígame?».</li>
+          <li><b>Escucha sin interrumpir</b> y <b>anota</b>: nombre, teléfono, matrícula, modelo, problema y cita.</li>
+          <li><b>Repite los datos</b> para comprobar que los has entendido.</li>
+          <li><b>Contesta con claridad</b> y de <b>usted</b>: qué harás y cuándo.</li>
+          <li><b>Despídete</b> con cortesía: «Gracias por llamar. Hasta mañana».</li>
+        </ol>
+        <div class="destaca"><p>Al teléfono no se ve la cara: la voz y las palabras lo son todo.</p></div>
+      </div>
+      <div class="fig"><svg><use href="#sc-telefono"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 · ACTIVIDAD 2 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 2</span><h2>La primera llamada: anota los datos y contesta</h2></div>
+  <div class="cuerpo">
+    <div class="g2 mitad">
+      <div class="col">
+        <div class="cita"><span class="quien">📞 Cliente al teléfono</span>«Hola, buenas, mira, te llamo porque el coche este mío hace un ruido rarísimo cuando freno, como un chirrido, no sé, me está preocupando un poco. Es un Renault Clio del 2015, la matrícula es 4521-KLM. Ah, y mira, me llamo Javier Lomba, mi número es el 620 686 908. ¿Podría llevarlo mañana por la mañana, sobre las 10:00h.?»</div>
+        <div class="destaca"><p><b>Tú al teléfono:</b> contesta al cliente y coméntale que le confirmas la cita más tarde por WhatsApp.</p></div>
+      </div>
+      <div class="hoja">
+        <span class="tag">FICHA DE ENTRADA · Nº 001</span>
+        <div class="cmp">
+          <div><label>Nombre del cliente</label><span class="vac">&nbsp;</span></div>
+          <div><label>Teléfono</label><span class="vac">&nbsp;</span></div>
+          <div><label>Matrícula</label><span class="vac">&nbsp;</span></div>
+          <div><label>Modelo del vehículo</label><span class="vac">&nbsp;</span></div>
+          <div class="full"><label>Fecha y hora de la cita</label><span class="vac">&nbsp;</span></div>
+          <div class="full"><label>La avería, en tus propias palabras</label><span class="vac">&nbsp;</span><span class="vac">&nbsp;</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fila-btn"><button class="btn ve" data-modal="m-ficha">Ver ficha resuelta</button><button class="btn az" data-modal="m-tel">Ejemplo de respuesta telefónica</button></div>
+  </div>
+</section>
+
+<!-- ======================= 9 · TEORÍA WHATSAPP ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>El WhatsApp con un cliente</h2></div>
+  <div class="cuerpo">
+    <div class="mal-bien">
+      <div class="cita mal"><span class="quien">✘ Así no</span>«ey kdamos mñn a las 10 vale? ;)»</div>
+      <div class="cita bien"><span class="quien">✔ Así sí</span>«Buenas tardes, Javier. Le confirmo la cita de mañana a las 10:00 en el taller. Un saludo.»</div>
+    </div>
+    <div class="g2 mitad">
+      <div class="caja"><h3>Estructura del mensaje</h3>
+        <ol class="lista"><li><b>Saludo:</b> «Buenas tardes, Javier:».</li><li><b>Dato clave:</b> qué, cuándo y cuánto.</li><li><b>Cierre o pregunta:</b> «¿Le viene bien?».</li><li><b>Despedida:</b> «Un saludo».</li></ol>
+      </div>
+      <div class="caja"><h3>Reglas de un mensaje profesional</h3>
+        <ul class="lista"><li>Trato de <b>usted</b> con el cliente.</li><li><b>Frases completas</b>, sin abreviaturas ni «jajas».</li><li><b>Una idea clara</b> en cada mensaje.</li><li><b>Revisa</b> la ortografía antes de enviar.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 10 · ACTIVIDAD 3 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 3</span><h2>Confirma la cita por WhatsApp</h2></div>
+  <div class="cuerpo">
+    <div class="g2 mitad" style="grid-template-columns:1.25fr 1fr">
+      <div class="movil">
+        <div class="cabm"><span class="av">JL</span>Javier Lomba</div>
+        <div class="chatm">
+          <div class="bur out"><span class="tu">✍️ Tú · mensaje 1</span>Salúdalo y confírmale la cita de mañana a las 10:00.</div>
+          <div class="bur in">¡Genial, muchas gracias! Una cosa: cuando deje el coche, ¿podréis acercarme a mi lugar de trabajo?</div>
+          <div class="bur out"><span class="tu">✍️ Tú · mensaje 2</span>Contéstale afirmativamente y dile a qué hora podrá recoger el coche (18:00).</div>
+          <div class="bur in">¡Perfecto, muchísimas gracias! Hasta mañana, entonces.</div>
+          <div class="bur out"><span class="tu">✍️ Tú · mensaje 3</span>Despídete.</div>
+        </div>
+      </div>
+      <div class="col">
+        <p>Ten una breve conversación de WhatsApp con Javier. <b>Complétala</b> con las indicaciones de cada mensaje verde.</p>
+        <div class="destaca"><p>Tono <b>formal</b> en todo momento: usted, frases completas y buena ortografía.</p></div>
+        <div class="fila-btn"><button class="btn az" data-modal="m-wasap">Ver ejemplos de los mensajes</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 11 · TEORÍA PARTE ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>El parte de trabajo: contar lo que se hace</h2></div>
+  <div class="cuerpo">
+    <div class="g2 mitad">
+      <div class="col">
+        <p>Un parte es un <b>texto técnico</b>: ordenado, exacto y sin opiniones. Se nombran las acciones con <b>sustantivos</b> derivados de verbos:</p>
+        <div class="pares">
+          <div>revisar → <b>revisión</b></div><div>sustituir → <b>sustitución</b></div>
+          <div>comprobar → <b>comprobación</b></div><div>detectar → <b>detección</b></div>
+          <div>reparar → <b>reparación</b></div><div>probar → <b>prueba</b></div>
+        </div>
+        <ul class="lista"><li>Usa <b>ordinales</b> (1º, 2ª…) o conectores: <b>primero, después, por último</b>.</li><li>Indica <b>pieza, lado y motivo</b>.</li></ul>
+      </div>
+      <div class="parte">
+        <div class="cabp">PARTE DE TRABAJO Nº 000 · Ejemplo: Seat Ibiza</div>
+        <ol>
+          <li>1º <b>Revisión</b> de la presión de los neumáticos.</li>
+          <li>2º <b>Sustitución</b> del neumático trasero derecho por pinchazo.</li>
+          <li>3º <b>Comprobación</b> del apriete de las tuercas.</li>
+          <li>4º <b>Equilibrado</b> de las cuatro ruedas.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 12 · ACTIVIDAD 4 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 4</span><h2>El parte de trabajo: completa y cuéntalo</h2></div>
+  <div class="cuerpo">
+    <div class="g2 mitad">
+      <div class="parte">
+        <div class="cabp">PARTE Nº 001 · Javier Lomba · Renault Clio (4521-KLM)</div>
+        <ol>
+          <li>1º <button class="hueco" data-ok="1">revisión</button> del nivel del líquido de frenos.</li>
+          <li>2ª <button class="hueco" data-ok="1">sustitución</button> del disco delantero izquierdo por desgaste.</li>
+          <li>4º <button class="hueco" data-ok="1">detección</button> y <button class="hueco" data-ok="1">reparación</button> de una pequeña fuga en el latiguillo del freno.</li>
+          <li>5º <button class="hueco" data-ok="1">prueba</button> del coche en marcha para confirmar que el ruido había desaparecido.</li>
+        </ol>
+      </div>
+      <div class="col">
+        <div class="caja"><h3>Banco de palabras</h3>
+          <div class="banco"><span>prueba</span><span>venta</span><span>revisión</span><span>invención</span><span>reparación</span><span>sustitución</span><span>comprobación</span><span>detección</span></div>
+          <p class="peq">Sobran tres palabras. Pulsa un hueco para ver su respuesta.</p>
+        </div>
+        <div class="destaca"><p><b>Ahora, cuéntaselo a un compañero/a:</b> explica qué le has hecho al coche con tus palabras (mínimo 20 palabras).</p></div>
+      </div>
+    </div>
+    <div class="fila-btn"><button class="btn ve" data-modal="m-parte">Ver soluciones</button><button class="btn az" data-modal="m-parte-ej">Ejemplo de explicación</button></div>
+  </div>
+</section>
+
+<!-- ======================= 13 · TEORÍA REGISTRO ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>Mismo taller, tres personas, tres formas de hablar</h2></div>
+  <div class="cuerpo">
+    <div class="tres">
+      <div class="tarj" style="border-top-color:#2a9d8f"><h3>🧑‍💼 El cliente</h3><p><b>Usted</b>, tono amable y tranquilo. Escucha, reconoce el problema y ofrece una solución.</p><p class="ej">«Entiendo su enfado y siento las molestias».</p></div>
+      <div class="tarj" style="border-top-color:#b6870a"><h3>👔 El jefe/a</h3><p><b>Respeto</b> (tú o usted, según el taller). Di la verdad, discúlpate y comprométete.</p><p class="ej">«Perdona el retraso; no volverá a pasar».</p></div>
+      <div class="tarj" style="border-top-color:#6b7280"><h3>🤝 El compañero/a</h3><p><b>Tuteo</b> y tono cercano, frases breves… pero sin olvidar la seguridad.</p><p class="ej">«Claro, voy. Doblamos las rodillas, ¿vale?».</p></div>
+    </div>
+    <div class="destaca"><p>Hablar bien no es hablar «fino»: es hablar de forma <b>adecuada</b> a la situación y a la persona.</p></div>
+  </div>
+</section>
+
+<!-- ======================= 14 · ACTIVIDAD 5 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq oral">Actividad 5</span><h2>Actividad oral: interpreta la escena</h2></div>
+  <div class="cuerpo">
+    <p>Por parejas, o con el profesor/a como interlocutor. Elige una tarjeta y representad la escena durante 1-2 minutos. Pulsa cada tarjeta para ver <b>pistas y ejemplo</b>.</p>
+    <div class="tres">
+      <button class="tarj" style="border-top-color:#2a9d8f" data-modal="m-o1"><h3>Tarjeta 1 · El cliente enfadado</h3><p>Tu compañero/a hace de cliente: llama muy enfadado porque le han cobrado más de lo que decía el presupuesto. Tú debes escuchar, disculparte, explicar con calma el motivo y ofrecer una solución.</p><p class="ej">Recuerda: usted, tono calmado, nunca discutir ni levantar la voz.</p></button>
+      <button class="tarj" style="border-top-color:#b6870a" data-modal="m-o2"><h3>Tarjeta 2 · El jefe/a pregunta</h3><p>Tu compañero/a hace de jefe/a: ve que has llegado 20 minutos tarde y te pregunta qué ha pasado. Tú debes explicar el motivo con respeto, disculparte y comprometerte a que no se repita.</p><p class="ej">Recuerda: tú o usted según el taller, siempre con respeto y sin excusas vagas.</p></button>
+      <button class="tarj" style="border-top-color:#6b7280" data-modal="m-o3"><h3>Tarjeta 3 · El compañero/a necesita ayuda</h3><p>Tu compañero/a te pide ayuda urgente para levantar una rueda pesada. Tú debes responder con naturalidad, ofrecer ayuda y coordinaros para hacerlo con seguridad.</p><p class="ej">Recuerda: tono cercano e informal, pero mencionando alguna medida de seguridad (posturas, EPI…).</p></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 15 · TEORÍA PALABRAS QUE SE CONFUNDEN ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>Palabras que se confunden: pulsa para girar</h2></div>
+  <div class="cuerpo">
+    <div class="cartas" id="flip-grid"></div>
+  </div>
+</section>
+
+<!-- ======================= 16 · ACTIVIDAD 6 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 6</span><h2>¿Está bien escrito? Marca la frase correcta</h2></div>
+  <div class="cuerpo">
+    <div class="dos-col" id="gram-grid" style="grid-template-rows:repeat(3,minmax(0,1fr))"></div>
+    <div class="fila-btn"><button class="btn ve" data-modal="m-gram">Ver soluciones</button></div>
+  </div>
+</section>
+
+<!-- ======================= 17 · TEORÍA ORTOGRAFÍA ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq teoria">Teoría</span><h2>Ortografía del taller: reglas útiles</h2></div>
+  <div class="cuerpo">
+    <div class="g4">
+      <div class="tarj" style="border-top-color:#1d3557"><h3>B / V</h3><ul class="lista"><li>Tras <b>m</b>, siempre <b>b</b>: <i>bombilla</i>.</li><li>Tras <b>n</b>, siempre <b>v</b>: <i>envase</i>, <i>convertidor</i>.</li><li>Empiezan por <b>bu-, bur-, bus-</b>: <i>bujía</i>.</li></ul></div>
+      <div class="tarj" style="border-top-color:#2a9d8f"><h3>G / J</h3><ul class="lista"><li>Terminan en <b>-aje</b>: <i>garaje</i>, <i>aprendizaje</i>.</li><li>Verbos en <b>-ger / -gir</b>: <i>recoger</i>, <i>elegir</i>.</li><li>A memorizar: <i>eje</i>, <i>bujía</i>.</li></ul></div>
+      <div class="tarj" style="border-top-color:#e76f51"><h3>H</h3><ul class="lista"><li>Empiezan por <b>hue-, hie-</b>: <i>hueco</i>, <i>hierro</i>.</li><li>Prefijos <b>hidr-, hiper-, homo-</b>: <i>homologado</i>.</li><li>A memorizar: <i>hollín</i>, <i>prohibido</i>; sin h: <i>abierto</i>, <i>embrague</i>.</li></ul></div>
+      <div class="tarj" style="border-top-color:#8e44ad"><h3>La tilde</h3><ul class="lista"><li><b>Agudas</b> (n, s, vocal): <i>reparación</i>.</li><li><b>Llanas</b> (otra letra): <i>fácil</i>.</li><li><b>Esdrújulas</b>, siempre: <i>rápido</i>, <i>número</i>.</li><li><b>Hiato</b> í/ú: <i>avería</i>.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 18 · ACTIVIDAD 7 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 7</span><h2>Vocabulario del taller: completa las palabras</h2></div>
+  <div class="cuerpo">
+    <div class="vcols" id="voc-cols"></div>
+    <div class="fila-btn"><button class="btn ve" id="voc-todo">Descubrir todo</button><button class="btn az" id="voc-tapar">Tapar</button><span class="peq">Pulsa cada hueco para ver la letra. «—» significa que no lleva h.</span></div>
+  </div>
+</section>
+
+<!-- ======================= 19 · ACTIVIDAD 8 ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 8</span><h2>¿A cuáles les falta la tilde?</h2></div>
+  <div class="cuerpo">
+    <p>Pulsa solo las palabras que <b>necesitan tilde y no la tienen</b>. Después, comprueba.</p>
+    <div class="chips" id="til-chips"></div>
+    <div class="fila-btn"><button class="btn ve" id="til-check">Comprobar</button><button class="btn az" id="til-reset">Reiniciar</button><button class="btn" data-modal="m-glos-til">📖 Glosario</button><span class="res" id="til-res"></span></div>
+  </div>
+</section>
+
+<!-- ======================= 20 · RESUMEN ======================= -->
+<section class="slide">
+  <div class="cab"><span class="etq">Resumen</span><h2>Tu caja de herramientas de la primera semana</h2></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="bloque" style="background:var(--azul)"><span style="font-size:1.6em">📍</span>Observo la situación<span class="peq" style="color:#cfe">¿quién? ¿cómo?</span></div>
+      <div class="flecha">➜</div>
+      <div class="claves">
+        <div><b>Leer:</b> localizar, calcular, inferir y aplicar.</div>
+        <div><b>Teléfono:</b> saludar, anotar, repetir y despedirse.</div>
+        <div><b>WhatsApp:</b> usted, frases completas y buena ortografía.</div>
+        <div><b>Parte:</b> sustantivos de acción y orden.</div>
+        <div><b>Registro:</b> cliente, jefe/a o compañero/a.</div>
+        <div><b>Ortografía:</b> palabras dudosas, b/v, g/j, h y tildes.</div>
+      </div>
+      <div class="flecha">➜</div>
+      <div class="bloque" style="background:var(--naranja)"><span style="font-size:1.6em">✅</span>Comunico como un buen profesional</div>
+    </div>
+    <div class="destaca" style="text-align:center">Ahora te toca a ti: <b>Ficha taller semana 1</b>.</div>
+  </div>
+</section>
+
+<!-- ======================= NAVEGACIÓN Y VENTANA ======================= -->
+<button class="nav" id="prev" aria-label="Anterior">‹</button>
+<button class="nav" id="next" aria-label="Siguiente">›</button>
+<div id="pie"><span id="contador"></span><button id="pantalla" title="Pantalla completa">⛶</button></div>
+<div id="barra"></div>
+<div id="girar">
+  <div class="movilico">📱</div>
+  <p><b>Gira el móvil</b> para ver la presentación en horizontal.</p>
+  <button class="si" id="girar-si">Ver en horizontal</button>
+  <button class="no" id="girar-no">Seguir en vertical</button>
+</div>
+<div id="fondo"><div id="modal"><button id="cerrar" aria-label="Cerrar">✕</button><div id="modal-in"></div></div></div>
+
+<script>
+/* ======================= DATOS ======================= */
+const COMP=[
+ {q:"¿Cuántas horas en total abre el taller en un día laborable entre semana (de lunes a viernes)?",o:["7 horas y media","8 horas","9 horas","10 horas y media"],c:2,fb:"De 8:00 a 14:00 son 6 horas y de 16:00 a 19:00 son 3 horas más: 6 + 3 = 9 horas."},
+ {q:"Estás muy liado con una tarea y en ese momento entra un cliente por la puerta. Según la nota, ¿qué deberías hacer?",o:["Terminar la tarea, porque lo urgente tiene prioridad, y atenderlo después","Saludarlo y preguntarle en qué puedes ayudarle, con calma, aunque estés ocupado","Pedirle que espere sin decirle nada, hasta que puedas atenderlo","Avisar a un compañero para que lo atienda él directamente"],c:1,fb:"La nota dice que, aunque estés liado, lo primero es saludar al cliente y preguntarle en qué se le puede ayudar, con calma."},
+ {q:"Vas a usar una amoladora, una herramienta que proyecta chispas y partículas. Además de guantes y botas, ¿qué EPI es imprescindible según la nota?",o:["Casco integral","Gafas de protección","Mascarilla filtrante","Chaleco reflectante"],c:1,fb:"La nota exige gafas siempre que se use una herramienta que pueda proyectar partículas, como una amoladora."},
+ {q:"Acabas de cambiar el filtro de aceite de un coche. ¿Qué debes hacer con el filtro usado y por qué?",o:["Tirarlo a la basura normal, porque ocupa poco espacio","Dejarlo en el suelo del taller hasta el final del turno","Llevarlo a su contenedor específico, porque es un residuo que no puede mezclarse con la basura normal","Devolvérselo directamente al cliente junto con el coche"],c:2,fb:"Los residuos como filtros, aceite usado o baterías van siempre en su contenedor correspondiente, nunca mezclados con la basura normal."}
+];
+const GRAM=[
+ {o:["A ver si mañana terminamos el coche del cliente.","Haber si mañana terminamos el coche del cliente.","Aver si mañana terminamos el coche del cliente."],c:0,fb:"«A ver» (dos palabras) sirve para comprobar algo; «haber» es el verbo, y «aver» no existe.",mas:"«A ver» son dos palabras: la preposición «a» + el verbo «ver». Se usa en tres casos: 1) para comprobar o esperar a ver qué pasa («A ver si mañana terminamos», «A ver si llueve»); 2) para pedir que te dejen mirar algo («A ver, enséñame esa pieza»); 3) al principio de una frase, para llamar la atención («A ver, esto funciona así…»). «Haber» es un verbo (o un sustantivo): «Tiene que haber una solución», «el haber de la cuenta». «Aver» no existe en español."},
+ {o:["No sé porqué se ha estropeado el motor.","No sé por qué se ha estropeado el motor.","No sé por que se ha estropeado el motor."],c:1,fb:"En una pregunta indirecta («no sé por qué…») se escribe en dos palabras y con tilde.",mas:"«Por qué» (dos palabras, con tilde) se usa en preguntas, directas o indirectas: «¿Por qué llegas tarde?», «No sé por qué llegas tarde». «Porque» (una palabra, sin tilde) da una razón: «Llego tarde porque hubo un atasco». «El porqué» (una palabra, con tilde) es un sustantivo: «No entiendo el porqué de tu enfado». «Por que» (dos palabras, sin tilde) aparece cuando «que» va con una preposición exigida por el verbo: «Este es el motivo por (el) que discutimos»."},
+ {o:["El problema no es la batería, si no el alternador.","El problema no es la batería, sino el alternador.","El problema no es la batería, sino qué el alternador."],c:1,fb:"«Sino» (junto) contrapone dos ideas; «si no» (separado) equivale a una condición: «si no vienes…».",mas:"«Sino» (junto) contrapone dos ideas, normalmente tras una negación: «No quiero café, sino té». También es un sustantivo: «ese es su sino» (su destino). «Si no» (separado) es una condición negativa: «Si no llueve, iremos a la playa» (equivale a «en caso de que no…»)."},
+ {o:["Ahí están las llaves del coche, encima del banco.","Hay están las llaves del coche, encima del banco.","¡Ay están las llaves del coche, encima del banco!"],c:0,fb:"«Ahí» indica lugar; «hay» es del verbo haber; «¡ay!» es una interjección.",mas:"«Ahí» es un adverbio de lugar: «Ahí está el coche», «ponlo ahí». «Hay» es una forma del verbo haber que indica existencia: «hay tres coches en el taller», «no hay piezas». «¡Ay!» es una interjección de dolor, sorpresa o queja: «¡Ay, qué susto!», «¡Ay de mí!»."},
+ {o:["Espero que el cliente halla quedado satisfecho.","Espero que el cliente haya quedado satisfecho.","Espero que el cliente aya quedado satisfecho."],c:1,fb:"«Haya» es del verbo haber; «halla» es del verbo hallar (encontrar); «aya» es otra palabra (niñera).",mas:"«Haya» es del verbo haber (subjuntivo): «cuando haya terminado», «espero que haya piezas». También es un árbol (el haya). «Halla» es del verbo hallar (encontrar): «no halla la solución», «se halla en el taller». «Aya» es una palabra antigua que designa a una niñera o cuidadora de niños."},
+ {o:["Ya hemos echo el presupuesto para el cliente.","Ya hemos hecho el presupuesto para el cliente.","Ya emos hecho el presupuesto para el cliente."],c:1,fb:"«Hecho» (con h) viene de hacer; «echo» (sin h) viene de echar; y el verbo haber siempre lleva h: «hemos».",mas:"«Hecho» (con h) es el participio de hacer: «he hecho el presupuesto», «un trabajo bien hecho». «Echo» (sin h) es del verbo echar: «echo la culpa», «te echo una mano». El verbo haber siempre lleva h en todas sus formas: he, has, ha, hemos, habéis, han; nunca «emos»."}
+];
+const FLIP=[
+ {c:"#1d3557",t:"A ver · haber · aver",b:"<p><b>A ver</b> (a + ver): comprobar o pedir que te dejen mirar. <b>Haber</b>: verbo. <b>Aver</b> no existe.</p><i>«A ver si arranca» · «Tiene que haber una solución».</i>"},
+ {c:"#e76f51",t:"Por qué · porque · porqué",b:"<p><b>Por qué</b>: pregunta. <b>Porque</b>: respuesta. <b>El porqué</b>: la razón (sustantivo).</p><i>«¿Por qué suena?» — «Porque está gastado».</i>"},
+ {c:"#2a9d8f",t:"Sino · si no",b:"<p><b>Sino</b> contrapone dos ideas. <b>Si no</b> es una condición.</p><i>«No es la batería, sino el alternador» · «Si no frenas, chocas».</i>"},
+ {c:"#8e44ad",t:"Ahí · hay · ay",b:"<p><b>Ahí</b>: lugar. <b>Hay</b>: verbo haber. <b>¡Ay!</b>: interjección.</p><i>«Ahí están las llaves» · «Hay tres coches» · «¡Ay, qué susto!».</i>"},
+ {c:"#b5651d",t:"Haya · halla · aya",b:"<p><b>Haya</b>: verbo haber. <b>Halla</b>: verbo hallar (encontrar). <b>Aya</b>: niñera.</p><i>«Espero que haya piezas» · «Halla la avería».</i>"},
+ {c:"#2f4b7c",t:"Hecho · echo",b:"<p><b>Hecho</b>: de hacer. <b>Echo</b>: de echar. El verbo haber siempre lleva <b>h</b>.</p><i>«He hecho el presupuesto» · «Echo aceite» · «hemos».</i>"}
+];
+const VOC=[
+ {t:"Con B o V",it:[["","b","atería","batería","Acumulador que almacena energía eléctrica para arrancar el motor y alimentar los sistemas eléctricos del vehículo."],["","v","olante","volante","Pieza circular que el conductor gira con las manos para dirigir el vehículo."],["a","v","ería","avería","Fallo o desperfecto que impide que un vehículo funcione correctamente."],["","b","ombilla","bombilla","Pieza de cristal con un filamento que se enciende y da luz (faros, intermitentes…)."],["","v","ehículo","vehículo","Máquina que sirve para transportar personas o cosas: coche, moto, camión…"]]},
+ {t:"Con G o J",it:[["gara","j","e","garaje","Local cerrado donde se guardan o reparan vehículos."],["bu","j","ía","bujía","Pieza que produce la chispa que enciende la mezcla de combustible en el motor."],["e","j","e","eje","Barra que une y hace girar dos ruedas de un vehículo."],["reco","g","er","recoger","Ir a buscar algo (o a alguien) para llevárselo."],["ele","g","ir","elegir","Escoger una opción entre varias posibles."]]},
+ {t:"Con H o sin H",it:[["","h","ueco","hueco","Espacio vacío entre dos piezas o partes."],["","h","omologado","homologado","Que cumple oficialmente con la normativa técnica exigida."],["","h","ollín","hollín","Sustancia negra y grasienta que deja el humo al quemarse algo, por ejemplo en un tubo de escape."],["pro","h","ibido","prohibido","Que no está permitido hacerlo."],["","—","embrague","embrague (sin h)","Mecanismo que conecta o desconecta el motor de las ruedas al cambiar de marcha."]]}
+];
+const TIL=[
+ ["mecánico",0,"","Persona que se dedica a reparar y mantener vehículos o máquinas."],["reparacion",1,"reparación","Acción de arreglar algo que estaba roto o averiado."],
+ ["taller",0,"","Lugar donde se reparan o fabrican vehículos u otros objetos."],["cliente",0,"","Persona que compra un producto o contrata un servicio."],
+ ["garaje",0,"","Local cerrado donde se guardan o reparan vehículos."],["presupuesto",0,"","Cálculo anticipado de lo que costará un trabajo o servicio."],
+ ["facil",1,"fácil","Que no cuesta esfuerzo hacerlo o entenderlo."],["rapido",1,"rápido","Que se hace o sucede en poco tiempo."],
+ ["averia",1,"avería","Fallo o desperfecto que impide que algo funcione correctamente."],["práctico",0,"","Que resulta útil y fácil de usar."],
+ ["sencillo",0,"","Que no es complicado."],["numero",1,"número","Signo o conjunto de signos que expresan una cantidad."]
+];
+
+/* ventanas con contenido dinámico o fijo */
+const MOD={
+ "m-comp":"<h3>Soluciones · Actividad 1</h3>"+COMP.map((q,i)=>`<p><b>${i+1} · ${q.o[q.c]}</b><br>${q.fb}</p>`).join(""),
+ "m-ficha":`<h3>Ficha de entrada resuelta</h3><div class="m2"><p><b>Nombre:</b> <span class="azul">Javier Lomba</span></p><p><b>Teléfono:</b> <span class="azul">620 686 908</span></p><p><b>Matrícula:</b> <span class="azul">4521-KLM</span></p><p><b>Modelo:</b> <span class="azul">Renault Clio (2015)</span></p></div><p><b>Fecha y hora de la cita:</b> <span class="azul">mañana, sobre las 10:00</span></p><p><b>La avería:</b> <span class="azul">hace un ruido raro, como un chirrido, al frenar (vale cualquier redacción propia que recoja este dato).</span></p>`,
+ "m-tel":`<h3>Ejemplo de respuesta telefónica</h3><p class="azul">«Buenas, sí, no se preocupe. Apunto sus datos y esta tarde le confirmo por WhatsApp la hora exacta para dejar el coche mañana. ¿Le parece bien?»</p><p class="sol">Saluda, tranquiliza, trata de usted y dice qué hará y cuándo.</p>`,
+ "m-wasap":`<h3>Ejemplos de los mensajes</h3><p><b>Mensaje 1 (saludo y confirmación de la cita):</b><br><span class="azul">«Buenas, le confirmo la cita: mañana a las 10:00 le esperamos para dejar el coche.»</span></p><p><b>Mensaje 2 (respuesta afirmativa y hora de recogida):</b><br><span class="azul">«Sin problema, le acercamos a su trabajo sin coste. Además, el coche estará listo mañana mismo a las 18:00.»</span></p><p><b>Mensaje 3 (despedida):</b><br><span class="azul">«Perfecto, ¡hasta mañana!»</span></p>`,
+ "m-parte":`<h3>Soluciones · El parte de trabajo</h3><p>1º <b class="sol">revisión</b> del nivel del líquido de frenos.</p><p>2ª <b class="sol">sustitución</b> del disco delantero izquierdo por desgaste.</p><p>4º <b class="sol">detección</b> y <b class="sol">reparación</b> de una pequeña fuga en el latiguillo del freno.</p><p>5º <b class="sol">prueba</b> del coche en marcha para confirmar que el ruido había desaparecido.</p><p class="peq">Sobran: venta, invención y comprobación.</p>`,
+ "m-parte-ej":`<h3>Ejemplo de explicación</h3><p class="azul">El parte del coche de Javier es el siguiente: <b>primero</b>, le hemos revisado el nivel de líquido de frenos. <b>Segundo</b>, sustituimos el disco delantero izquierdo por desgaste. <b>Después</b>, detectamos y reparamos una pequeña fuga en el latiguillo. <b>Por último</b>, probamos el coche en marcha para confirmar que el ruido había desaparecido.</p><p class="sol">Fíjate en los conectores en negrita: ordenan el texto.</p>`,
+ "m-o1":`<h3>🧑‍💼 El cliente enfadado · pistas y ejemplo</h3><p><b>Pistas:</b> deja que se desahogue sin interrumpir; discúlpate aunque no tengas la culpa directa («entiendo su enfado, lo siento»); explica el motivo real del cobro con datos concretos; propón algo (revisar la factura juntos, un descuento, una llamada del encargado/a).</p><p class="azul"><b>Ejemplo:</b> «Entiendo perfectamente su enfado, y siento las molestias. Déjeme revisar la factura con usted: el importe de más corresponde a una pieza que hubo que sustituir y que no estaba en el presupuesto inicial, se lo puedo mostrar. Si le parece, hablo con mi encargado/a para ver qué podemos hacer.»</p>`,
+ "m-o2":`<h3>👔 El jefe/a pregunta · pistas y ejemplo</h3><p><b>Pistas:</b> di la verdad, sin dar mil vueltas ni inventar excusas raras; discúlpate de forma directa; añade un compromiso concreto para que no se repita (poner una alarma antes, salir con más tiempo…).</p><p class="azul"><b>Ejemplo:</b> «Perdona el retraso, se me pinchó la rueda de la bici de camino y he tardado en arreglarlo. Siento no haber avisado antes; a partir de ahora salgo con más margen para que no vuelva a pasar.»</p>`,
+ "m-o3":`<h3>🤝 El compañero/a necesita ayuda · pistas y ejemplo</h3><p><b>Pistas:</b> responde rápido y con naturalidad (tuteo, tono cercano); coordina quién hace qué antes de levantar («tú por ese lado, yo por este»); menciona alguna medida de seguridad (doblar rodillas y no la espalda, usar guantes, apoyar bien los pies).</p><p class="azul"><b>Ejemplo:</b> «Claro, voy. Espera, doblamos las rodillas y no la espalda, que esto pesa. ¿Cuentas hasta tres y la levantamos a la vez? Yo la sujeto por este lado.»</p>`,
+ "m-gram":"<h3>Soluciones · ¿Está bien escrito?</h3>"+GRAM.map((g,i)=>`<p><b>${i+1} · </b><span class="sol">${g.o[g.c]}</span></p>`).join(""),
+ "m-glos-til":"<h3>📖 Glosario</h3><div class=\"m2\">"+TIL.map(t=>`<p><b>${t[1]?t[2]:t[0]}:</b> ${t[3]}</p>`).join("")+"</div>"
+};
+GRAM.forEach((g,i)=>{MOD["m-g"+i]=`<h3>${i+1} · ✔ ${g.o[g.c]}</h3><p>${g.fb}</p><p><b>Más ejemplos y diferencias:</b> ${g.mas}</p>`;});
+VOC.forEach((v,i)=>{MOD["m-v"+i]=`<h3>📖 ${v.t}: significados</h3>`+v.it.map(x=>`<p><b>${x[3]}:</b> ${x[4]}</p>`).join("");});
+
+/* ======================= CONSTRUCCIÓN DE ACTIVIDADES ======================= */
+const letra=i=>String.fromCharCode(65+i)+") ";
+function opciones(cont,lista,c){
+  lista.forEach((txt,i)=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=letra(i)+txt;
+    b.onclick=()=>{cont.querySelectorAll('.opt').forEach(x=>x.classList.remove('bien','malr'));b.classList.add(i===c?'bien':'malr');};
+    cont.appendChild(b);
+  });
+}
+const compG=document.getElementById('comp-grid');
+COMP.forEach((q,i)=>{
+  const d=document.createElement('div');d.className='preg';
+  d.innerHTML=`<div class="q"><span class="n">${i+1}</span><span class="t">${q.q}</span></div><div class="opts"></div>`;
+  opciones(d.querySelector('.opts'),q.o,q.c);compG.appendChild(d);
+});
+const gramG=document.getElementById('gram-grid');
+GRAM.forEach((g,i)=>{
+  const d=document.createElement('div');d.className='preg';
+  d.innerHTML=`<div class="q"><span class="n">${i+1}</span><span class="t">¿Cuál está bien escrita?</span><button class="btn az mini" data-modal="m-g${i}">💡 Explicación</button></div><div class="opts"></div>`;
+  opciones(d.querySelector('.opts'),g.o,g.c);gramG.appendChild(d);
+});
+const flipG=document.getElementById('flip-grid');
+FLIP.forEach(f=>{
+  const b=document.createElement('button');b.className='carta';b.style.background=f.c;
+  b.innerHTML=`<div class="frente"><span class="nom">${f.t}</span><span class="peq" style="color:#e8eefc">pulsa para girar</span></div><div class="tras"><span class="nom">${f.t}</span>${f.b}</div>`;
+  b.onclick=()=>b.classList.toggle('vuelta');flipG.appendChild(b);
+});
+const vocC=document.getElementById('voc-cols');
+VOC.forEach((v,i)=>{
+  const d=document.createElement('div');d.className='vcol';
+  d.innerHTML=`<h3>${v.t}</h3><ul>${v.it.map(x=>`<li>${x[0]}<button class="hueco l" data-ok="1">${x[1]}</button>${x[2]}</li>`).join("")}</ul><button class="btn az mini" data-modal="m-v${i}" style="align-self:center">📖 Significados</button>`;
+  vocC.appendChild(d);
+});
+document.addEventListener('click',e=>{const h=e.target.closest('.hueco');if(h)h.classList.toggle('ver');});
+document.getElementById('voc-todo').onclick=()=>vocC.querySelectorAll('.hueco').forEach(h=>h.classList.add('ver'));
+document.getElementById('voc-tapar').onclick=()=>vocC.querySelectorAll('.hueco').forEach(h=>h.classList.remove('ver'));
+/* tildes */
+const tilC=document.getElementById('til-chips'),tilRes=document.getElementById('til-res');let tilList=[];
+function tilBuild(){
+  tilC.innerHTML='';tilRes.textContent='';tilList=[];
+  TIL.forEach(t=>{const s=document.createElement('button');s.className='chip';s.textContent=t[0];
+    s.onclick=()=>{if(!s.classList.contains('locked'))s.classList.toggle('selected');};tilC.appendChild(s);tilList.push([s,t]);});
+}
+tilBuild();
+document.getElementById('til-reset').onclick=tilBuild;
+document.getElementById('til-check').onclick=()=>{
+  let ok=0,total=0;
+  tilList.forEach(([s,t])=>{
+    s.classList.add('locked');const sel=s.classList.contains('selected');
+    if(t[1]){total++;if(sel){s.classList.add('correct');ok++;}else{s.classList.add('missed');s.textContent=t[0]+' → '+t[2];}}
+    else if(sel)s.classList.add('incorrect');
+  });
+  tilRes.textContent='Aciertos: '+ok+' / '+total;
+  if(window.__ajustarSlide)window.__ajustarSlide(document.querySelector('.slide.activa'));
+};
+
+/* orientación en móvil */
+document.getElementById('girar-si').onclick=async()=>{
+  try{await document.documentElement.requestFullscreen();}catch(e){}
+  try{await screen.orientation.lock('landscape');}catch(e){
+    document.querySelector('#girar p').innerHTML='Tu móvil no permite girarla solo: <b>gíralo con la mano</b> (y quita el bloqueo de rotación si lo tienes activado).';
+  }
+};
+document.getElementById('girar-no').onclick=()=>document.body.classList.add('vertical-ok');
+
+/* ======================= MOTOR DE DIAPOSITIVAS ======================= */
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  let actual=0;
+  const maxFuente=()=>Math.min(innerHeight/23,innerWidth/40);
+  const SEL='.col,.caja,.preg,.opts,.hoja,.parte,.movil,.chatm,.bur,.paso,.tarj,.vcol,.vcols,.carta,.cita,.nota,.claves,.claves div,.dos-col,.g2,.g4,.tres,.cartas,.flujo,.mal-bien,.chips,.pares,.banco,.fig';
+  function desborda(els){return els.some(e=>e&&(e.scrollHeight>e.clientHeight+1||e.scrollWidth>e.clientWidth+1));}
+  function ajustar(cont,medir,max){
+    let lo=9,hi=max;cont.style.fontSize=hi+'px';
+    if(!desborda(medir))return hi;
+    for(let k=0;k<16;k++){const m=(lo+hi)/2;cont.style.fontSize=m+'px';if(desborda(medir))hi=m;else lo=m;}
+    cont.style.fontSize=lo+'px';return lo;
+  }
+  function ajustarSlide(s){
+    const medir=[s,s.querySelector('.cuerpo'),...s.querySelectorAll(SEL)];
+    return ajustar(s,medir,maxFuente());
+  }
+  function mostrar(i){
+    actual=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('activa',k===actual));
+    document.body.classList.toggle('oscuro',slides[actual].classList.contains('oscuro'));
+    ajustarSlide(slides[actual]);
+    document.getElementById('contador').textContent=(actual+1)+' / '+slides.length;
+    document.getElementById('barra').style.width=((actual+1)/slides.length*100)+'%';
+  }
+  window.__mostrar=mostrar;window.__ajustarSlide=ajustarSlide;window.__nSlides=slides.length;
+
+  document.getElementById('prev').onclick=()=>mostrar(actual-1);
+  document.getElementById('next').onclick=()=>mostrar(actual+1);
+  document.getElementById('pantalla').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
+
+  /* ventana superpuesta */
+  const fondo=document.getElementById('fondo'),modal=document.getElementById('modal'),mIn=document.getElementById('modal-in');
+  const medirModal=()=>[modal,mIn,...mIn.querySelectorAll('.m2,p,h3')];
+  function abrir(id){
+    mIn.innerHTML=MOD[id];
+    fondo.classList.add('on');
+    ajustar(modal,medirModal(),Math.min(innerHeight/17,innerWidth/30));
+  }
+  function cerrar(){fondo.classList.remove('on');}
+  window.__abrir=abrir;window.__modal=modal;window.__mIn=mIn;window.__MOD=MOD;
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-modal]');if(b){e.stopPropagation();abrir(b.dataset.modal);}});
+  document.getElementById('cerrar').onclick=cerrar;
+  fondo.addEventListener('click',e=>{if(e.target===fondo)cerrar();});
+
+  document.addEventListener('keydown',e=>{
+    if(fondo.classList.contains('on')){if(e.key==='Escape')cerrar();return;}
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();mostrar(actual+1);}
+    if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();mostrar(actual-1);}
+    if(e.key==='Home')mostrar(0);if(e.key==='End')mostrar(slides.length-1);
+  });
+  addEventListener('resize',()=>{ajustarSlide(slides[actual]);if(fondo.classList.contains('on'))ajustar(modal,medirModal(),Math.min(innerHeight/17,innerWidth/30));});
+  mostrar(0);
+})();
+</script>
+<a id="volverPanel" href="../../03_FPB/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
