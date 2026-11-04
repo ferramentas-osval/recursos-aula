@@ -299,7 +299,7 @@ window.RECURSOS=[
     "n": "MODELOS EXÁMENES",
     "c": [
      {
-      "t": "Modelo primer parcial 1.ª evaluación (lengua y xeografía)",
+      "t": "Modelo primer parcial lengua castellana y geografía (1ª EV.) resuelto",
       "h": "04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html"
      }
     ]
@@ -308,7 +308,7 @@ window.RECURSOS=[
     "n": "APUNTES EXÁMENES",
     "c": [
      {
-      "t": "Apuntes primeros dos exámenes",
+      "t": "Apuntes dos primeros parciales (1ª EV.)",
       "h": "04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html"
      }
     ]
