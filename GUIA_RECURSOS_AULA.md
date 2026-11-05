@@ -66,11 +66,11 @@ Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `
 
 ## Soluciones protegidas con PIN y liberadas para todos
 
-Algunos recursos (de momento, `01_ESO/1_Y_2/ACTIVIDADES/ortografia_por_que_tiene_que_ser_todo_tan_dificil.html`) llevan las soluciones **cifradas** dentro del HTML (`window.__ENC`, AES-GCM con clave derivada del PIN del profesor y de la ruta del archivo). El candado 🔒 de la esquina pide el PIN y muestra los botones «Ver solución»; 🔓 las vuelve a ocultar.
+Algunos recursos (de momento, `01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html`) llevan las soluciones **cifradas** dentro del HTML (`window.__ENC`, AES-GCM con clave derivada del PIN del profesor y de la ruta del archivo). El candado 🔒 de la esquina pide el PIN y muestra los botones «Ver solución»; 🔓 las vuelve a ocultar.
 
 Cuando el profesor pide **liberar las soluciones para todos**, no se vuelve a subir el recurso: se añade su clave a `assets/soluciones_liberadas.json` con
 `node tools/liberar_soluciones.mjs <ruta del recurso> <PIN>` (o `--ocultar` para quitarla) y se hace commit. Cada recurso consulta ese JSON al abrirse (también desde el aula virtual o descargado, si hay internet); los cambios tardan unos minutos en verse por la caché de GitHub Pages.
 
 ## Botón «🖨️ Imprimir»
 
-Solo las fichas (no las presentaciones) llevan arriba un botón para imprimirlas sin soluciones ni botones.
+Solo las fichas (no las presentaciones) llevan arriba un botón para imprimirlas sin soluciones ni botones. Las fichas se maquetan en hojas A4 (`.page`, 210 × 297 mm) que se reparten solas al mostrar u ocultar soluciones; ejemplo: `01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html`.

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ficha ortografía 1 · ¿Por qué tiene que ser todo tan difícil?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&amp;family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;family=Kalam:wght@400;700&amp;display=swap">
+<style>
+@page{size:A4;margin:0}
+:root{--noche:#1b1d55;--oro:#f2c14e;--cobre:#b5683a;--tinta:#1d1d1d;--suave:#55534f;--azul:#1546c4;--linea:#cfc6b3}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#e7e3da;color:var(--tinta);font-family:"Atkinson Hyperlegible",Arial,sans-serif;font-size:10.6pt;line-height:1.36}
+p,li,td,.just{text-align:justify;hyphens:auto}
+p{margin:0 0 1.4mm}
+.page{background:#fff;width:210mm;height:297mm;margin:8mm auto;padding:11mm 12mm 10mm;box-shadow:0 2px 10px rgba(0,0,0,.15);position:relative;overflow:hidden}
+.page .pie{position:absolute;bottom:4.5mm;left:12mm;right:12mm;display:flex;justify-content:space-between;font-size:8pt;color:var(--suave)}
+header.cab{border-bottom:2.5px solid var(--noche);padding-bottom:2.5mm;margin-bottom:3.5mm}
+header.cab h1{font-family:"Special Elite",monospace;font-weight:400;font-size:21pt;margin:0;color:var(--noche);line-height:1.1}
+header.cab .sub{font-size:10pt;color:var(--cobre);margin-top:1mm}
+.datos{display:grid;grid-template-columns:3fr 1fr 1fr;gap:3mm;margin-top:2.5mm}
+.datos div{border:1px solid var(--linea);border-radius:1.5mm;padding:1mm 2mm;height:9mm;font-size:8.5pt;color:var(--suave)}
+.ej{margin:0 0 4mm;break-inside:avoid}
+.ej h2{font-size:12pt;margin:0 0 1.4mm;color:var(--noche);display:flex;align-items:center;gap:2mm}
+.ej h2 .n{flex:none;background:var(--noche);color:var(--oro);border-radius:50%;width:6.5mm;height:6.5mm;display:grid;place-items:center;font-size:9.5pt}
+.ej h2 .t{flex:1}
+.teo{background:#f7f3ea;border-left:3px solid var(--oro);padding:1.4mm 2.6mm;margin-bottom:1.8mm;font-size:9.8pt}
+.teo p:last-child{margin:0}
+ol.it{list-style:none;padding:0;margin:0;counter-reset:i}
+ol.it>li{counter-increment:i;position:relative;padding-left:5.5mm;margin:0 0 1.3mm}
+ol.it>li::before{content:counter(i,lower-alpha)")";position:absolute;left:0;font-weight:700;color:var(--cobre)}
+.c2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:7mm}
+.c3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:5mm}
+.gap{display:inline-block;min-width:20mm;height:5.5mm;vertical-align:-1.6mm;border-bottom:1px dotted #9a9488}
+.caja .gap,td.cel .gap{border:none}
+.nota{font-size:9.4pt;color:var(--suave);margin:0}
+.c3 .gap{min-width:24mm}
+.opts{color:var(--cobre);font-size:9pt;white-space:nowrap}
+.hand{font-family:"Kalam","Comic Sans MS",cursive;color:var(--azul);font-weight:700;font-size:1.1em;line-height:1.15}
+.caja{border:1px solid var(--linea);border-radius:1.5mm;padding:1.5mm 2.5mm;margin-top:1mm}
+.caja .gap{display:block;width:100%}
+.h2{min-height:12mm}.h3{min-height:18mm}.h4{min-height:24mm}.h6{min-height:36mm}.h9{min-height:55mm}.h12{min-height:75mm}
+.caja.h2 .gap{height:9mm}.caja.h3 .gap{height:15mm}.caja.h4 .gap{height:21mm}.caja.h6 .gap{height:33mm}.caja.h9 .gap{height:52mm}.caja.h12 .gap{height:72mm}
+.palabras{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1.6mm 2mm;text-align:center}
+.palabras span.w{border:1px solid var(--linea);border-radius:1.5mm;padding:1mm 0;font-size:11pt;letter-spacing:.02em}
+.texto{border:1px solid var(--linea);border-radius:1.5mm;padding:2mm 3mm;line-height:1.75;font-size:10.8pt}
+table{border-collapse:collapse;width:100%}
+td,th{border:1px solid var(--linea);padding:1mm 2mm;vertical-align:top;text-align:left}
+th{background:#f3efe5;font-size:9.5pt}
+td.cel{height:16mm}
+td.cel .gap{display:block;width:100%;height:auto}
+.chat{font-family:"Courier New",monospace;font-size:10pt;background:#f7f3ea;border-radius:1.5mm;padding:1mm 2.5mm;margin-top:1.5mm}
+.teatro p{font-family:"Courier New",monospace;font-size:10pt;margin:0 0 .6mm;text-align:left}
+.pj{font-variant:small-caps;font-weight:700;color:var(--noche)}
+.req{font-size:9.6pt}
+.solbox{margin-top:1.5mm;border-left:3px solid var(--azul);background:#f0f4ff;padding:1.5mm 2.5mm}
+.solbox>b{color:var(--azul)}
+/* barra y botones */
+.barra{position:sticky;top:0;z-index:20;display:flex;gap:2mm;justify-content:center;align-items:center;padding:2.5mm;background:rgba(231,227,218,.94);backdrop-filter:blur(3px)}
+.bt{font:inherit;font-weight:700;font-size:11pt;border:none;border-radius:2mm;padding:2mm 4.5mm;cursor:pointer;background:var(--noche);color:#fff}
+.bt.alt{background:var(--azul)}
+.bt.lk{background:transparent;color:var(--suave);font-size:13pt;padding:1mm 2mm;opacity:.55}
+.solbtn{float:right;font:inherit;font-size:8.5pt;font-weight:700;border:none;border-radius:1.5mm;padding:.8mm 2.5mm;background:var(--azul);color:#fff;cursor:pointer;margin-left:2mm}
+.dict{font:inherit;font-size:8.5pt;font-weight:700;border:1px solid var(--noche);background:#fff;color:var(--noche);border-radius:1.5mm;padding:.6mm 2mm;cursor:pointer;margin-right:1.5mm}
+#proy{position:fixed;inset:0;background:var(--noche);color:#fff;display:none;place-items:center;z-index:50;font:700 4.2vw/1.35 "Courier New",monospace;text-align:center;padding:6vw;transition:opacity 1.2s}
+#proy.on{display:grid}
+#pinbox{position:fixed;inset:0;background:rgba(17,18,58,.6);display:none;place-items:center;z-index:60}
+#pinbox.on{display:grid}
+#pinbox .in{background:#fff;border-radius:3mm;padding:6mm 7mm;width:min(130mm,92vw);font-size:12pt}
+#pinbox input{font:inherit;font-size:13pt;padding:1.5mm 2mm;border:2px solid var(--noche);border-radius:1.5mm;flex:1;min-width:0}
+.noprint{}
+@media print{
+  body{background:#fff}
+  .page{margin:0;box-shadow:none;height:auto;break-before:page}
+  .page.p1{break-before:auto}
+  .page>div:first-child{height:auto!important}
+  .page .pie{position:static;margin-top:2mm}
+  body{zoom:1!important}
+  .noprint,.barra,.solbtn,.dict,#proy,#pinbox{display:none!important}
+}
+@media (max-width:820px){.page{margin:4mm auto}}
+</style>
+</head>
+<body data-built="1">
+<script>window.__ENC={id:"01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html",i:"lEvKoa0YyVm+Y1xj",n:150000,c:"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"};</script>
+<div class="barra noprint">
+  <button class="bt" onclick="window.print()">🖨️ Imprimir ficha</button>
+  <button class="bt alt" id="todas" style="display:none">Mostrar todas las soluciones</button>
+  <button class="bt lk" id="lock" title="Soluciones (profesor)" style="">🔒</button>
+</div>
+<div class="page p1"><div style="height: 100%; overflow: hidden;"><header class="cab">
+  <h1>Ficha de ortografía 1</h1>
+  <div class="sub">A partir de <i>¿Por qué tiene que ser todo tan difícil?</i> (Nando López), capítulos 6-9 · 1.º ESO</div>
+  <div class="datos"><div>Nombre y apellidos</div><div>Curso</div><div>Fecha</div></div>
+</header><section class="ej"><h2><span class="n">1</span><span class="t">Ob-via-men-te: los adverbios en <i>-mente</i></span></h2>
+  <div class="teo"><p>Raquel separa las sílabas: <b>ob-via-men-te</b>. Estos adverbios <b>llevan tilde solo si el adjetivo ya la llevaba</b>: <i>rápido → rápidamente</i>, pero <i>lento → lentamente</i>.</p></div>
+  <p>Escribe el adverbio en <i>-mente</i> de cada adjetivo.</p>
+  <ol class="it c3 cuerpo">
+    <li>obvio → <span class="gap"></span></li><li>último → <span class="gap"></span></li><li>rotundo → <span class="gap"></span></li>
+    <li>afirmativo → <span class="gap"></span></li><li>fijo → <span class="gap"></span></li><li>perfecto → <span class="gap"></span></li>
+    <li>difícil → <span class="gap"></span></li><li>cómodo → <span class="gap"></span></li><li>irónico → <span class="gap"></span></li>
+    <li>tímido → <span class="gap"></span></li><li>único → <span class="gap"></span></li><li>suave → <span class="gap"></span></li>
+  </ol>
+</section><section class="ej"><h2><span class="n">2</span><span class="t">Detectives de tildes</span></h2>
+  <p>Estas palabras de los capítulos 6-9 han perdido todas sus tildes. <b>Escribe la tilde</b> en las que la necesiten.</p>
+  <div class="palabras cuerpo">
+    <span class="w">dificil</span><span class="w">publico</span><span class="w">musica</span><span class="w">Socrates</span><span class="w">movil</span><span class="w">balon</span>
+    <span class="w">baloncesto</span><span class="w">rincon</span><span class="w">comodo</span><span class="w">timbre</span><span class="w">rapido</span><span class="w">clarisimo</span>
+    <span class="w">toalla</span><span class="w">guitarra</span><span class="w">jocoso</span><span class="w">Alex</span><span class="w">volumen</span><span class="w">eclipse</span>
+    <span class="w">picardia</span><span class="w">fiebre</span><span class="w">videojuego</span><span class="w">escenario</span><span class="w">sarcasmo</span><span class="w">examenes</span>
+  </div>
+  <p style="margin-top:1.5mm">Elige tres de las palabras con tilde y explica por qué la llevan.</p>
+  <div class="caja h3 cuerpo"><span class="gap"></span></div>
+</section><section class="ej"><h2><span class="n">3</span><span class="t">La trampa de los pronombres pegados</span></h2>
+  <div class="teo"><p>En las acotaciones aparecen <i>(Corrigiéndola)</i> o <i>(Reconociéndolo…)</i>. Al pegar pronombres, la palabra crece y puede volverse esdrújula: <i>corrigiendo + la → corrigiéndola</i>. Pero <i>dime</i> o <i>dale</i> no llevan tilde: son llanas acabadas en vocal.</p></div>
+  <p>Une las piezas y escribe la palabra resultante.</p>
+  <ol class="it c2 cuerpo">
+    <li>corrigiendo + la → <span class="gap"></span></li><li>desprendiendo + se → <span class="gap"></span></li>
+    <li>reconociendo + lo → <span class="gap"></span></li><li>gritando + se → <span class="gap"></span></li>
+    <li>buscando + lo → <span class="gap"></span></li><li>imitando + se → <span class="gap"></span></li>
+    <li>suelta + lo → <span class="gap"></span></li><li>decide + te → <span class="gap"></span></li>
+    <li>cuenta + nos + lo → <span class="gap"></span></li><li>pregunta + se + lo → <span class="gap"></span></li>
+    <li>di + me → <span class="gap"></span></li><li>da + le → <span class="gap"></span></li>
+  </ol>
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">1 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">4</span><span class="t">¿Juntas o separadas? Diptongos y hiatos</span></h2>
+  <p>Separa en sílabas y clasifica: <b>diptongo</b> (las vocales van en la misma sílaba), <b>hiato con tilde</b> (se separan y la tilde lo marca) o <b>trampa</b> (la <i>u</i> no suena: no hay diptongo).</p>
+  <p style="text-align:center;font-weight:700;letter-spacing:.02em">tío · miedo · oídos · audio · Guille · juicio · había · negocio · pretendía · fiebre · guitarra · antigua · oímos · paciencia · aún · auriculares · quería · suavidad · sigue · cuela</p>
+  <table class="cuerpo"><tbody><tr><th style="width:42%">Diptongo</th><th style="width:36%">Hiato con tilde</th><th>Trampa (u muda)</th></tr>
+  <tr><td class="cel"><span class="gap"></span></td><td class="cel"><span class="gap"></span></td><td class="cel"><span class="gap"></span></td></tr></tbody></table>
+</section><section class="ej"><h2><span class="n">5</span><span class="t">Tilde diacrítica: parejas que se escriben casi igual</span></h2>
+  <div class="teo"><p><b>tú</b> (persona) / <b>tu</b> guitarra · <b>él</b> / <b>el</b> audio · a <b>mí</b> / <b>mi</b> móvil · <b>sí</b> (afirmación) / <b>si</b> vienes · yo <b>sé</b> / <b>se</b> ríen · que me <b>dé</b> / la tienda <b>de</b> · un <b>té</b> / <b>te</b> veo · <b>más</b> (cantidad) / <b>mas</b> (= pero) · <b>aún</b> (= todavía) / <b>aun</b> (= incluso)</p></div>
+  <p>Elige la forma correcta y escríbela en el hueco.</p>
+  <ol class="it cuerpo">
+    <li>Vero, <span class="gap"></span><span class="opts">(tu / tú)</span> voz suena genial cuando <span class="gap"></span><span class="opts">(tu / tú)</span> no piensas en el público.</li>
+    <li>Celia jura que <span class="gap"></span><span class="opts">(si / sí)</span> se lo ha contado a Zhihan; <span class="gap"></span><span class="opts">(si / sí)</span> Vero se entera, se enfadará.</li>
+    <li>«A <span class="gap"></span><span class="opts">(mi / mí)</span> no me miréis», protesta Gertie. «<span class="gap"></span><span class="opts">(Mi / Mí)</span> hermano tampoco sabe nada.»</li>
+    <li>Raquel: «Yo <span class="gap"></span><span class="opts">(se / sé)</span> la fecha, pero Celia no <span class="gap"></span><span class="opts">(se / sé)</span> calla nunca».</li>
+    <li><span class="gap"></span><span class="opts">(El / Él)</span> quería enviar <span class="gap"></span><span class="opts">(el / él)</span> audio, pero el miedo pudo <span class="gap"></span><span class="opts">(mas / más)</span>.</li>
+    <li>Alba quiere que Guille le <span class="gap"></span><span class="opts">(de / dé)</span> una explicación <span class="gap"></span><span class="opts">(de / dé)</span> los seis vistos.</li>
+    <li><span class="gap"></span><span class="opts">(Aun / Aún)</span> no ha mandado nada; <span class="gap"></span><span class="opts">(aun / aún)</span> así, Alba lo encuentra en el parque.</li>
+    <li>«¿<span class="gap"></span><span class="opts">(Te / Té)</span> preparo un <span class="gap"></span><span class="opts">(te / té)</span>?», pregunta Zhihan antes del ensayo.</li>
+  </ol>
+</section><section class="ej"><h2><span class="n">6</span><span class="t">¿Qué o que? ¿Cómo o como? ¿Dónde o donde?</span></h2>
+  <div class="teo"><p>Llevan tilde cuando <b>preguntan o exclaman</b>, aunque no haya signos de interrogación: <i>No sé <b>dónde</b> meterme</i>.</p></div>
+  <ol class="it c2 cuerpo">
+    <li>Gertie no sabe <span class="gap"></span><span class="opts">(donde / dónde)</span> meterse.</li>
+    <li>Raquel quiere que le pregunten de <span class="gap"></span><span class="opts">(que / qué)</span> se trata.</li>
+    <li><span class="gap"></span><span class="opts">(Como / Cómo)</span> vayamos al eclipse, Dani nos soltará un rollo.</li>
+    <li>¡<span class="gap"></span><span class="opts">(Que / Qué)</span> difícil es guardar un secreto!</li>
+    <li>Celia no recuerda <span class="gap"></span><span class="opts">(cuando / cuándo)</span> se lo dijo Vero.</li>
+    <li><span class="gap"></span><span class="opts">(Cuando / Cuándo)</span> llegue el sábado, todo se sabrá.</li>
+    <li>Nadie sabe <span class="gap"></span><span class="opts">(quien / quién)</span> se lo ha contado a Raquel.</li>
+    <li>Fue Celia <span class="gap"></span><span class="opts">(quien / quién)</span> se ofreció a hablar con Vero.</li>
+    <li>Vero toca <span class="gap"></span><span class="opts">(como / cómo)</span> si nadie la escuchara.</li>
+    <li>Alba le pregunta <span class="gap"></span><span class="opts">(como / cómo)</span> le ha ido el juicio.</li>
+    <li>No os imagináis <span class="gap"></span><span class="opts">(cuanto / cuánto)</span> se alegrará Dani.</li>
+    <li>Es el rincón <span class="gap"></span><span class="opts">(donde / dónde)</span> se esconde Guille.</li>
+  </ol>
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">2 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">7</span><span class="t">El título del libro: ¿por qué, porque, porqué o por que?</span></h2>
+  <div class="teo"><p><b>por qué</b>: pregunta, directa o indirecta. <b>porque</b>: da la causa. <b>porqué</b>: sustantivo, va con artículo (<i>el porqué</i> = el motivo). <b>por que</b>: preposición + relativo (<i>la razón por (la) que</i>) o verbo que pide «por» (<i>se preocupa por que…</i>).</p></div>
+  <ol class="it cuerpo">
+    <li>¿<span class="gap"></span> tiene que ser todo tan difícil?</li>
+    <li>Guille no fue a clase <span class="gap"></span> no quería ver a nadie.</li>
+    <li>Nadie entiende el <span class="gap"></span> de los seis vistos.</li>
+    <li>Alba no sabe <span class="gap"></span> se esconde Guille.</li>
+    <li>Raquel lo cuenta <span class="gap"></span> así se siente menos culpable.</li>
+    <li>Esa es la razón <span class="gap"></span> Vero no quiere subir al escenario.</li>
+    <li>Celia se preocupa <span class="gap"></span> Vero no aparezca el sábado.</li>
+    <li>Explícame el <span class="gap"></span> de tanto secretismo, <span class="gap"></span> yo no lo entiendo.</li>
+  </ol>
+</section><section class="ej"><h2><span class="n">8</span><span class="t">Homófonos: suenan igual, se escriben distinto</span></h2>
+  <ol class="it c2 cuerpo">
+    <li>Sus padres se han puesto <span class="gap"></span><span class="opts">(echos / hechos)</span> una furia.</li>
+    <li>Guille <span class="gap"></span><span class="opts">(hecha / echa)</span> de menos su casa de antes.</li>
+    <li><span class="gap"></span><span class="opts">(A ver / Haber)</span> si Celia es capaz de callarse.</li>
+    <li>Podrías <span class="gap"></span><span class="opts">(a ver / haber)</span>me llamado en vez de dejarme en visto.</li>
+    <li>—¿Y Gertie? —<span class="gap"></span><span class="opts">(Ahí / Hay / Ay)</span>, en el banco de la entrada.</li>
+    <li>¡<span class="gap"></span><span class="opts">(Ahí / Hay / Ay)</span>, qué daño! —grita Elliot al chocar con la puerta.</li>
+    <li>No <span class="gap"></span><span class="opts">(ahí / hay / ay)</span> tiempo que perder: el concurso es el sábado.</li>
+    <li>Raquel <span class="gap"></span><span class="opts">(a / ha / ah)</span> guardado el secreto… cinco minutos.</li>
+    <li>¡<span class="gap"></span><span class="opts">(Vaya / Valla / Baya)</span> paliza os hemos dado en baloncesto!</li>
+    <li>Saltaron la <span class="gap"></span><span class="opts">(vaya / valla / baya)</span> del parque para llegar al recodo.</li>
+    <li>El balón no deja de <span class="gap"></span><span class="opts">(votar / botar)</span> en la cancha.</li>
+    <li>Lo del eclipse es una <span class="gap"></span><span class="opts">(rallada / rayada)</span> de Dani.</li>
+  </ol>
+</section><section class="ej"><h2><span class="n">9</span><span class="t">¿Junto o separado?</span></h2>
+  <div class="teo"><p>Si dudas, sustituye: <i>tan bien</i> = «muy bien»; <i>tan poco</i> = «muy poco»; <i>si no</i> = «en caso de que no».</p></div>
+  <ol class="it c2 cuerpo">
+    <li>Vero accede a tocar <span class="gap"></span><span class="opts">(aregañadientes / a regañadientes)</span>.</li>
+    <li>«<span class="gap"></span><span class="opts">(Tampoco / Tan poco)</span> es para tanto», dice Gertie.</li>
+    <li>Gertie habla <span class="gap"></span><span class="opts">(tampoco / tan poco)</span> que nadie conoce su voz.</li>
+    <li>Como en el parque lo pasamos <span class="gap"></span><span class="opts">(también / tan bien)</span>… (ironía).</li>
+    <li>Celia <span class="gap"></span><span class="opts">(también / tan bien)</span> quiere ir al eclipse.</li>
+    <li>No es miedo, <span class="gap"></span><span class="opts">(sino / si no)</span> respeto por la música.</li>
+    <li><span class="gap"></span><span class="opts">(Sino / Si no)</span> vas el sábado, Zhihan tocará solo.</li>
+    <li>Guille <span class="gap"></span><span class="opts">(apenas / a penas)</span> ha dormido esta semana.</li>
+    <li>Podríamos ir los <span class="gap"></span><span class="opts">(demás / de más)</span>.</li>
+    <li>Has traído dos toallas <span class="gap"></span><span class="opts">(demás / de más)</span>.</li>
+    <li><span class="gap"></span><span class="opts">(Derrepente / De repente)</span> suena un wasap.</li>
+    <li><span class="gap"></span><span class="opts">(Sobretodo / Sobre todo)</span>, que nadie diga nada.</li>
+  </ol>
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">3 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">10</span><span class="t">Corrige las mayúsculas</span></h2>
+  <p>En este resumen hay <b>16 errores</b> de mayúsculas: unas faltan y otras sobran. Corrígelos sobre el propio texto.</p>
+  <div class="texto cuerpo"><p>el Miércoles por la mañana, en el Gimnasio del instituto, raquel les cuenta a alba y a Celia que Vero no irá al Concurso del Sábado. guille dice que en su casa han montado la tercera guerra mundial, y zhihan, que es muy Filosófico, recuerda a sócrates y a beethoven. Mientras tanto, gertie cotillea las cuentas de instagram de sus nuevos Compañeros.</p></div>
+  
+</section><section class="ej"><h2><span class="n">11</span><span class="t">El corrector se ha estropeado</span></h2>
+  <p>Este resumen de los capítulos 6, 7 y 8 tiene <b>16 faltas</b> (b/v, h, g/j, ll/y y tildes). Corrígelas sobre el propio texto.</p>
+  <div class="texto cuerpo"><p>El martes por la tarde, Vero y Zhihan ensallan en el almacen de la tienda una canción para el concurso. Celia entra sin acer ruido y se queda escuchando. Mientras tanto, Guille saca el movil e intenta grabar un audio para Alba: lo graba y lo vorra una y otra vez porque no save cómo explicar lo que a pasado en el juicio. Al dia siguiente, en los bestuarios del gimnasio, Raquel no consige guardar un secreto: Vero no piensa ir al concurso. Gertie, que lo a oído todo, finje que no se a enterado de nada. Por la tarde, Alba encuentra a Guille en un rincon del parque. Él no quiere ablar, pero al final comparten la misma canción y Alba le demuestra que los canvios no tienen por qué ser a peor.</p></div>
+</section><section class="ej"><h2><span class="n">12</span><span class="t">Dictado de audios borrados</span></h2>
+  <p>Como Guille, estos mensajes se graban… y se borran. Tu profesor los proyectará unos segundos. Memorízalos y escríbelos sin un solo error.</p>
+  <p class="noprint"><button class="dict" data-i="0">🎙️ Mensaje 1</button><button class="dict" data-i="1">🎙️ Mensaje 2</button><button class="dict" data-i="2">🎙️ Mensaje 3</button><button class="dict" data-i="3">🎙️ Mensaje 4</button><span style="font-size:8.5pt;color:var(--suave)">(para proyectar; Esc o clic para cerrar)</span></p>
+  <ol class="it cuerpo">
+    <li><div class="caja h2"><span class="gap"></span></div></li>
+    <li><div class="caja h2"><span class="gap"></span></div></li>
+    <li><div class="caja h2"><span class="gap"></span></div></li>
+    <li><div class="caja h2"><span class="gap"></span></div></li>
+  </ol>
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">4 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">13</span><span class="t">Wasap, <i>gif</i>, <i>pack</i>… y «me piro»</span></h2>
+  <p><b>A.</b> En el libro aparecen en cursiva <i>pack</i> y <i>gif</i>, pero <b>wasap</b> va en letra normal. ¿Por qué crees que ocurre? ¿Cómo se escribe <b>Instagram</b>?</p>
+  <div class="caja h3 cuerpo"><span class="gap"></span></div>
+  <div class="c2" style="margin-top:2mm">
+    <div><p><b>B.</b> Tradúcelas al español.</p>
+      <ol class="it cuerpo"><li><i>pack</i> → <span class="gap"></span></li><li><i>bonus</i> → <span class="gap"></span></li><li><i>epic fail</i> → <span class="gap"></span></li><li><i>gif</i> → <span class="gap"></span></li></ol></div>
+    <div><p><b>C.</b> Escríbelo en un registro formal.</p>
+      <ol class="it cuerpo"><li>Me piro a la ducha. → <span class="gap"></span></li><li>Dani lo va a flipar. → <span class="gap"></span></li><li>Sus planes son un muermo. → <span class="gap"></span></li><li>No me trolees. → <span class="gap"></span></li></ol></div>
+  </div>
+</section><section class="ej"><h2><span class="n">14</span><span class="t">Del chat al papel</span></h2>
+  <p>En el capítulo 9, Dani, Gertie y Sergi escriben y borran sin atreverse a enviar nada. Reescribe estos borradores <b>con ortografía y puntuación correctas</b> (signos de apertura incluidos).</p>
+  <div class="cuerpo">
+    <div class="chat"><span class="pj">Dani:</span> ola k tal?? xq no vienes el viernes al eclipse, va a mola muxo enserio</div>
+    <div class="caja h2"><span class="gap"></span></div>
+    <div class="chat"><span class="pj">Gertie:</span> nse si deberia preguntarselo... tb puede q se ria d mi</div>
+    <div class="caja h2"><span class="gap"></span></div>
+    <div class="chat"><span class="pj">Sergi:</span> weno tio tranki q yo tb e estado asi, a ver si mñn se lo digo</div>
+    <div class="caja h2"><span class="gap"></span></div>
+  </div>
+</section><section class="ej"><h2><span class="n">15</span><span class="t">Del teatro a la novela: la raya</span></h2>
+  <div class="teo"><p>En una novela el diálogo se marca con <b>raya (—)</b>: <i>—No pienso ir —dijo Vero—. No estoy preparada.</i> La raya abre la réplica, abre el comentario del narrador y lo cierra si la réplica continúa; el punto va después de la raya de cierre.</p></div>
+  <p>Convierte esta escena inventada en un diálogo de novela, con rayas y verbos de habla (<i>dijo, susurró, protestó…</i>).</p>
+  <div class="teatro">
+    <p><span class="pj">CELIA</span> (Bajando la voz). ¿Seguro que no piensas ir?</p>
+    <p><span class="pj">VERO</span> No lo sé. (Mirando la guitarra). A lo mejor sí.</p>
+    <p><span class="pj">CELIA</span> Zhihan te necesita, ¿lo sabes?</p>
+    <p><span class="pj">VERO</span> (Suspirando). Ya lo sé. Por eso es tan difícil.</p>
+  </div>
+  <div class="caja h6 cuerpo"><span class="gap"></span></div>
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">5 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">16</span><span class="t">Escritura creativa: el audio que Guille nunca envió</span></h2>
+  <p>Guille graba un audio larguísimo para Alba… y al final manda solo «Todo bien». Escribe el <b>audio sincero</b> que podría haber enviado el miércoles por la noche, después de su charla en el parque (100-130 palabras).</p>
+  <p class="req"><b>Tu texto debe incluir:</b> 3 tildes diacríticas (<i>tú, mí, sé…</i>) · un <i>por qué</i> y un <i>porque</i> · un hiato con tilde (<i>había…</i>) · un adverbio en <i>-mente</i> con tilde · dos palabras con <i>h</i> · un verbo con pronombre pegado (<i>contártelo…</i>).</p>
+  <div class="caja h12 cuerpo"><span class="gap"></span></div>
+  
+</section><section class="ej"><h2><span class="n">17</span><span class="t">Escritura creativa: tres móviles, tres mensajes</span></h2>
+  <p>Elige a Dani, a Gertie o a Sergi e imagina que por fin se atreve. Escribe: <b>a)</b> los tres borradores que borra, cortados con puntos suspensivos; <b>b)</b> el mensaje que sí envía (60-80 palabras), con ortografía impecable, signos ¿? ¡! y sin abreviaturas; <b>c)</b> la respuesta que recibe.</p>
+  <div class="caja h9 cuerpo"><span class="gap"></span></div>
+  
+</section><section class="ej"><h2><span class="n">18</span><span class="t">Escritura creativa por grupos: la escena del eclipse</span></h2>
+  <p>El viernes llega el eclipse. En grupos de 4, escribid la escena en <b>formato teatral</b>, como Nando López (10-14 réplicas), en una hoja aparte. Debe tener: acotación inicial con día, hora y lugar · nombres de los personajes en mayúscula · 2 acotaciones con gerundio + pronombre (<i>Mirándolo</i>) · una pareja <i>a / ha / ah</i> bien usada · un <i>por qué</i> y un <i>porque</i> · una palabra extranjera en cursiva.</p>
+  
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">6 / 6</span></div></div><div id="flujo" style="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div id="proy"></div>
+<div id="pinbox"><div class="in">
+  <p style="font-size:14pt;font-weight:700;color:var(--noche)">🔒 Soluciones del profesor</p>
+  <p>Escribe el PIN para mostrar los botones de solución.</p>
+  <div style="display:flex;gap:2mm"><input id="pin" type="password" autocomplete="off"><button class="bt" id="ojo" type="button" title="Mostrar u ocultar" style="background:#fff;color:var(--noche);border:2px solid var(--noche)">👁</button><button class="bt alt" id="pinok">Desbloquear</button></div>
+  <p id="pinmsg" style="color:#c8463d;min-height:6mm;margin-top:2mm"></p>
+  <p style="text-align:right;margin:0"><button class="bt" id="pincancel" style="background:#888">Cancelar</button></p>
+</div></div>
+
+<script>
+(function(){
+const BUILT=!!document.body.dataset.built;
+const EJ=[...document.querySelectorAll('.ej')];
+const GAP=/\{([^=}]*)=([^}]+)\}/g, REP=/\[\[([^|\]]+)\|([^\]]+)\]\]/g;
+const unV=h=>h.replace(GAP,(m,o,a)=>{o=o.trim();return '<span class="gap"></span>'+(o&&o!=='…'?'<span class="opts">('+o.split('/').map(s=>s.trim()).join(' / ')+')</span>':'')}).replace(REP,'$1');
+const soV=h=>h.replace(GAP,(m,o,a)=>'<span class="hand">'+a+'</span>').replace(REP,'<span class="hand">$2</span>');
+if(!BUILT){
+  EJ.forEach(e=>{const t=e.querySelector('template.sol');
+    const cs=[...e.querySelectorAll('.cuerpo')];
+    e._sol={c:cs.map(c=>soV(c.innerHTML)),x:t?t.innerHTML:''};
+    cs.forEach(c=>c.innerHTML=unV(c.innerHTML));
+    if(t)t.remove();
+  });
+  window.__EJ=EJ;
+}
+/* paginación A4 */
+const F=document.getElementById('flujo');
+function paginate(){
+  let all=[];document.querySelectorAll('.page>div:first-child').forEach(b=>all.push(...b.children));
+  if(!all.length)all=[...F.children];
+  document.querySelectorAll('.page').forEach(p=>p.remove());
+  let n=0,page=null,box=null;
+  const mk=()=>{page=document.createElement('div');page.className='page';box=document.createElement('div');box.style.cssText='height:100%;overflow:hidden';page.appendChild(box);
+    const pie=document.createElement('div');pie.className='pie';pie.innerHTML='<span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn"></span>';page.appendChild(pie);
+    F.parentNode.insertBefore(page,F);n++};
+  mk();
+  all.forEach(el=>{box.appendChild(el);if(box.scrollHeight>box.clientHeight+1&&box.children.length>1){box.removeChild(el);mk();box.appendChild(el)}});
+  const ps=document.querySelectorAll('.page');ps.forEach((p,i)=>{p.querySelector('.pn').textContent=(i+1)+' / '+ps.length;p.classList.toggle('p1',i===0)});
+}
+F.style.cssText='';
+/* dictado proyectado */
+const MSG=["Hoy he tenido un día rarísimo: mis padres se han echado la culpa delante de todos y yo, a lo mejor, debería haber hablado más.","Vero, ¿por qué no vienes el sábado? Sé que tienes miedo, pero también sé que tocas la guitarra como nadie.","¡Ay, Gertie! Ahí, en el vestuario, hay más secretos que toallas: a ver cuánto tardan en descubrirse.","¿Y si el viernes, cuando empiece el eclipse, le pregunto por fin lo que llevo días queriendo preguntarle?"];
+const P=document.getElementById('proy');let tm=[];
+const cerrarP=()=>{tm.forEach(clearTimeout);tm=[];P.classList.remove('on');P.style.opacity=1};
+P.onclick=cerrarP;
+document.addEventListener('click',e=>{const d=e.target.closest('.dict');if(!d)return;cerrarP();
+  P.classList.add('on');P.innerHTML='<span>🔴 REC · Mensaje '+(+d.dataset.i+1)+'</span>';const w=MSG[d.dataset.i].split(' ');let o='';
+  tm.push(setTimeout(()=>{P.innerHTML='<span id="pt"></span>';const t=document.getElementById('pt');
+    w.forEach((x,k)=>tm.push(setTimeout(()=>{o+=(k?' ':'')+x;t.textContent=o},k*260)));
+    tm.push(setTimeout(()=>{P.style.opacity=0;tm.push(setTimeout(()=>{P.innerHTML='<span style="color:#f2c14e">🗑️ Mensaje borrado. ¡A escribir!</span>';P.style.opacity=1},1300))},w.length*260+8000))},900))});
+/* soluciones */
+let SOL=null;const shown=new Set();
+const lk=document.getElementById('lock'),todas=document.getElementById('todas');
+function render(){
+  EJ.forEach((e,k)=>{
+    let b=e.querySelector('.solbtn');
+    if(!SOL){if(b)b.remove();if(shown.has(k))hide(k);return}
+    if(!SOL[k])return;
+    if(!b){b=document.createElement('button');b.className='solbtn';e.querySelector('h2').appendChild(b);b.onclick=()=>{shown.has(k)?hide(k):show(k);paginate()}}
+    b.textContent=shown.has(k)?'Ocultar solución':'Ver solución';
+  });
+  todas.style.display=SOL?'':'none';
+  todas.textContent=SOL&&shown.size===EJ.filter((e,k)=>SOL[k]).length?'Ocultar todas las soluciones':'Mostrar todas las soluciones';
+}
+function show(k){const e=EJ[k],s=SOL[k];if(!e._orig)e._orig=[...e.querySelectorAll('.cuerpo')].map(c=>c.innerHTML);
+  e.querySelectorAll('.cuerpo').forEach((c,i)=>{if(s.c[i]!=null)c.innerHTML=s.c[i]});
+  if(s.x){const d=document.createElement('div');d.className='solbox';d.innerHTML=s.x;e.appendChild(d)}shown.add(k);render()}
+function hide(k){const e=EJ[k];if(e._orig)e.querySelectorAll('.cuerpo').forEach((c,i)=>c.innerHTML=e._orig[i]);e.querySelectorAll('.solbox').forEach(d=>d.remove());shown.delete(k);render()}
+todas.onclick=()=>{const all=shown.size===EJ.filter((e,k)=>SOL[k]).length;EJ.forEach((e,k)=>{if(!SOL[k])return;all?hide(k):(shown.has(k)||show(k))});paginate()};
+const ENC=window.__ENC;
+const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0)),TE=new TextEncoder();
+async function opn(k){const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(ENC.i)},k,b64(ENC.c));return JSON.parse(new TextDecoder().decode(pt))}
+async function dec(pin){const km=await crypto.subtle.importKey('raw',TE.encode(pin),'PBKDF2',false,['deriveKey']);
+  return opn(await crypto.subtle.deriveKey({name:'PBKDF2',salt:TE.encode('recursos-aula:'+ENC.id),iterations:ENC.n,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']))}
+async function decK(raw){return opn(await crypto.subtle.importKey('raw',b64(raw),'AES-GCM',false,['decrypt']))}
+function unlock(a){SOL=a;lk.textContent='🔓';lk.title='Ocultar soluciones';render()}
+function relock(){[...shown].forEach(hide);SOL=null;lk.textContent='🔒';lk.title='Soluciones (profesor)';try{sessionStorage.removeItem('solpin')}catch(e){}render();paginate()}
+const PB=document.getElementById('pinbox'),pi=document.getElementById('pin'),msg=document.getElementById('pinmsg');
+const cerrarPin=()=>{PB.classList.remove('on');pi.value='';msg.textContent=''};
+if(!ENC&&!BUILT){lk.style.display='none'}
+lk.onclick=()=>{if(SOL){relock();return}PB.classList.add('on');pi.focus()};
+document.getElementById('pincancel').onclick=cerrarPin;PB.addEventListener('click',e=>{if(e.target===PB)cerrarPin()});
+document.getElementById('ojo').onclick=()=>{pi.type=pi.type==='password'?'text':'password';pi.focus()};
+const tryit=async()=>{msg.textContent='Comprobando…';try{const a=await dec(pi.value);try{sessionStorage.setItem('solpin',pi.value)}catch(e){}cerrarPin();unlock(a)}catch(e){msg.textContent='PIN incorrecto';pi.select()}};
+document.getElementById('pinok').onclick=tryit;pi.addEventListener('keydown',e=>{if(e.key==='Enter')tryit()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarP();cerrarPin()}});
+if(ENC){
+  try{const sp=sessionStorage.getItem('solpin');if(sp)dec(sp).then(unlock).catch(()=>{})}catch(e){}
+  fetch('https://ferramentas-osval.github.io/recursos-aula/assets/soluciones_liberadas.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(j=>{const k=j[ENC.id];if(k)decK(k).then(a=>{unlock(a);lk.style.display='none'})}).catch(()=>{});
+}
+/* móvil: encajar el A4 en pantallas estrechas */
+function zoom(){const z=Math.min(1,(innerWidth-8)/(210*96/25.4+2));document.body.style.zoom=z<1?z:''}
+addEventListener('resize',zoom);zoom();
+const go=()=>paginate();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);go();
+window.__paginate=paginate;
+})();
+</script>
+<a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&amp;&amp;!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+
+
+</body></html>
