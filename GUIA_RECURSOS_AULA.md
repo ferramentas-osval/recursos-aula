@@ -63,3 +63,14 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 ## Botón «⌂ Panel»
 
 Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) que vuelve a la página de su apartado (`../…/0X_APARTADO/index.html`). Si el recurso se abrió en pestaña nueva, cierra la pestaña y vuelve al panel. Copiar el bloque de cualquier recurso existente.
+
+## Soluciones protegidas con PIN y liberadas para todos
+
+Algunos recursos (de momento, `01_ESO/1_Y_2/ACTIVIDADES/ortografia_por_que_tiene_que_ser_todo_tan_dificil.html`) llevan las soluciones **cifradas** dentro del HTML (`window.__ENC`, AES-GCM con clave derivada del PIN del profesor y de la ruta del archivo). El candado 🔒 de la esquina pide el PIN y muestra los botones «Ver solución»; 🔓 las vuelve a ocultar.
+
+Cuando el profesor pide **liberar las soluciones para todos**, no se vuelve a subir el recurso: se añade su clave a `assets/soluciones_liberadas.json` con
+`node tools/liberar_soluciones.mjs <ruta del recurso> <PIN>` (o `--ocultar` para quitarla) y se hace commit. Cada recurso consulta ese JSON al abrirse (también desde el aula virtual o descargado, si hay internet); los cambios tardan unos minutos en verse por la caché de GitHub Pages.
+
+## Botón «🖨️ Imprimir»
+
+Las fichas y actividades llevan arriba un botón para imprimirlas sin soluciones ni botones (en las presentaciones-actividad, una diapositiva por hoja A4 horizontal, con la letra ajustada a la página).
