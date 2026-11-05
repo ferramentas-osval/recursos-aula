@@ -73,4 +73,4 @@ Cuando el profesor pide **liberar las soluciones para todos**, no se vuelve a su
 
 ## Botón «🖨️ Imprimir»
 
-Las fichas y actividades llevan arriba un botón para imprimirlas sin soluciones ni botones (en las presentaciones-actividad, una diapositiva por hoja A4 horizontal, con la letra ajustada a la página).
+Solo las fichas (no las presentaciones) llevan arriba un botón para imprimirlas sin soluciones ni botones.
