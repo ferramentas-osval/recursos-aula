@@ -36,7 +36,7 @@ window.RECURSOS=[
       "n": "TAREAS",
       "c": [
        {
-        "t": "Practica: la comunicación",
+        "t": "Práctica: la comunicación",
         "h": "01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html"
        },
        {
