@@ -12,7 +12,7 @@ const CATS={
    layout:{apartados:[
     {titulo:'Presentaciones',icon:'🎞️',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html']},
     {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html']},
-    {titulo:'Ortografía y vocabulario',icon:'🔤',archivos:['01_ESO/1_Y_2/PRESENTACIONES/vocabulario_1.html','01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html','01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html']},
+    {titulo:'Ortografía y vocabulario',icon:'🔤',archivos:['01_ESO/1_Y_2/PRESENTACIONES/vocabulario_1.html','01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html',{titulo:'Ortografía 1',icon:'🔤',par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_ortografia_1.html','01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html']}]},
     {titulo:'Apuntes y modelos de exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
     {titulo:'Obras de lectura',icon:'📚',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html']}],
     quitar:['1º','Presentaciones','Tareas'],evaluacion:'1ª evaluación'}},
@@ -43,7 +43,7 @@ const count=n=>n.h?1:n.c.reduce((a,c)=>a+count(c),0);
 const info=c=>CATS[c.n]||{name:nice(c.n),icon:'📁',col:'--c1',desc:''};
 /* Organización a medida de un apartado: apartados con archivos concretos, niveles que se quitan, orden de materias */
 function ordenar(gs,L){let out=[];
- (L.apartados||[]).forEach(a=>{const fs=[];a.archivos.forEach(h=>gs.forEach(g=>{const i=g.files.findIndex(x=>x.h===h);if(i>-1)fs.push(g.files.splice(i,1)[0])}));if(fs.length)out.push({path:[a.titulo],files:fs,ic:a.icon})});
+ (L.apartados||[]).forEach(a=>{const fs=[];const take=h=>{let r=null;gs.forEach(g=>{const i=g.files.findIndex(x=>x.h===h);if(i>-1&&!r)r=g.files.splice(i,1)[0]});return r};a.archivos.forEach(h=>{if(typeof h==='object'){const ps=h.par.map(take).filter(Boolean);if(ps.length)fs.push({par:ps,t:h.titulo,ic:h.icon||'🔤'})}else{const f=take(h);if(f)fs.push(f)}});if(fs.length)out.push({path:[a.titulo],files:fs,ic:a.icon})});
  gs=gs.filter(g=>g.files.length);
  if(L.quitar){const m=new Map();gs.forEach(g=>{const p=g.path.filter(x=>!L.quitar.includes(x));const k=p.join(' › ');if(m.has(k))m.get(k).files.push(...g.files);else m.set(k,{path:p,files:g.files.slice()})});gs=[...m.values()]}
  const MAT=L.materias;if(MAT){const o=Object.keys(MAT);const r=g=>{const i=o.indexOf(g.path[g.path.length-1]);return i<0?99:i};gs.sort((a,b)=>r(a)-r(b));gs.forEach(g=>g.ic=MAT[g.path[g.path.length-1]]||'📁')}
@@ -83,7 +83,8 @@ const HERO=`<svg viewBox="0 0 420 320" aria-hidden="true">
       <g fill="#ffd75e"><path d="M30 200 l5 11 12 2 -9 8 2 12 -10 -6 -10 6 2 -12 -9 -8 12 -2 z" opacity=".9"/><path d="M392 120 l3 7 8 1 -6 5 2 8 -7 -4 -7 4 2 -8 -6 -5 8 -1 z"/><circle cx="240" cy="10" r="4"/><circle cx="20" cy="120" r="3"/></g>
     </svg>`;
 const WAVE='<svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 40 C240 80 480 0 720 30 C960 60 1200 10 1440 40 L1440 70 L0 70 Z" fill="#f6f2ea"/></svg>';
-function card(f,lab0,ctx){const [ic,lab]=kind(f.h);return `<a class="card" href="${ROOT+f.h}" target="_blank" rel="noopener" data-t="${(f.t+' '+lab+' '+ctx).toLowerCase().replace(/"/g,'')}">${NEW.includes(f.h)?'<span class="new">NUEVO</span>':''}<div class="ticon">${ic}</div><div><small>${lab}</small><b>${f.t}</b></div><span class="go">→</span></a>`}
+function parCard(f,ctx){const nu=f.par.some(x=>NEW.includes(x.h));const ls=f.par.map(x=>{const [ic,lab]=kind(x.h);XX}).join('');return `<div class="card par" data-t="${(f.t+' '+f.par.map(x=>x.t+' '+kind(x.h)[1]).join(' ')+' '+ctx).toLowerCase().replace(/"/g,'')}">${nu?'<span class="new">NUEVO</span>':''}<div class="ticon">${f.ic}</div><div><small>Presentación + ficha</small><b>${f.t}</b><div class="parlinks">${ls}</div></div></div>`}
+function card(f,lab0,ctx){if(f.par)return parCard(f,ctx);const [ic,lab]=kind(f.h);return `<a class="card" href="${ROOT+f.h}" target="_blank" rel="noopener" data-t="${(f.t+' '+lab+' '+ctx).toLowerCase().replace(/"/g,'')}">${NEW.includes(f.h)?'<span class="new">NUEVO</span>':''}<div class="ticon">${ic}</div><div><small>${lab}</small><b>${f.t}</b></div><span class="go">→</span></a>`}
 function groupHTML(g,ctx,ic){return `<div class="group${ic?' materia':''}"><h3>${ic?`<span class="mic">${ic}</span>`:''}${g.path.length?g.path.join(' › '):'General'}</h3><div class="grid">${g.files.map(f=>card(f,'',ctx+' '+g.path.join(' '))).join('')}</div></div>`}
 function stat(b,s){return `<div class="stat"><b>${b}</b><small>${s}</small></div>`}
 const app=document.getElementById('app');let html='';
