@@ -25,6 +25,10 @@ window.RECURSOS=[
           "h": "01_ESO/1_Y_2/ACTIVIDADES/SINTAXIS/sujeto_complementos_todos.html"
          }
         ]
+       },
+       {
+        "t": "Ortografía en escena: ¿Por qué tiene que ser todo tan difícil?",
+        "h": "01_ESO/1_Y_2/ACTIVIDADES/ortografia_por_que_tiene_que_ser_todo_tan_dificil.html"
        }
       ]
      },
@@ -539,7 +543,7 @@ window.RECURSOS=[
   ]
  }
 ];
-window.NUEVOS=["03_FPB/ACTIVIDADES/ficha_lamborghini_2_guerra_mundial_carta_reclamacion.html","03_FPB/PRESENTACIONES/presentacion_tipos_de_texto.html","03_FPB/ACTIVIDADES/ficha_tipos_de_texto.html","03_FPB/ACTIVIDADES/ficha_coherencia_cohesion_adecuacion.html","03_FPB/ACTIVIDADES/ficha_comunicacion.html","03_FPB/ACTIVIDADES/ficha_primera_semana_taller.html","03_FPB/PRESENTACIONES/presentacion_primera_semana_en_el_taller.html","03_FPB/PRESENTACIONES/presentacion_la_comunicacion.html","01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html","03_FPB/PRESENTACIONES/presentacion_mitos_y_orgullo.html","04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html","01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html","01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html","03_FPB/PRESENTACIONES/presentacion_venganza_tractorista.html","04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html","01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html","04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_relaciones_semanticas.html","01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html","01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html","01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html"];
+window.NUEVOS=["01_ESO/1_Y_2/ACTIVIDADES/ortografia_por_que_tiene_que_ser_todo_tan_dificil.html","03_FPB/ACTIVIDADES/ficha_lamborghini_2_guerra_mundial_carta_reclamacion.html","03_FPB/PRESENTACIONES/presentacion_tipos_de_texto.html","03_FPB/ACTIVIDADES/ficha_tipos_de_texto.html","03_FPB/ACTIVIDADES/ficha_coherencia_cohesion_adecuacion.html","03_FPB/ACTIVIDADES/ficha_comunicacion.html","03_FPB/ACTIVIDADES/ficha_primera_semana_taller.html","03_FPB/PRESENTACIONES/presentacion_primera_semana_en_el_taller.html","03_FPB/PRESENTACIONES/presentacion_la_comunicacion.html","01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html","03_FPB/PRESENTACIONES/presentacion_mitos_y_orgullo.html","04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html","01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html","01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html","03_FPB/PRESENTACIONES/presentacion_venganza_tractorista.html","04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html","01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html","04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_relaciones_semanticas.html","01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html","01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html","01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html"];
 
 /* Recursos OCULTOS: no aparecen ni en la portada ni en la página del curso.
    Se puede ocultar un archivo concreto o una carpeta entera (terminada en «/»).
@@ -547,7 +551,7 @@ window.NUEVOS=["03_FPB/ACTIVIDADES/ficha_lamborghini_2_guerra_mundial_carta_recl
    Para verlo todo como profesor, añade ?ver=todo al final de la dirección. */
 window.OCULTOS=[
  '03_FPB/ACTIVIDADES/rock_and_road_dream_cars.html',
- '01_ESO/1_Y_2/ACTIVIDADES/',
+ '01_ESO/1_Y_2/ACTIVIDADES/SINTAXIS/',
  '01_ESO/1_Y_2/PRESENTACIONES/presentacion_genero_lirico.html',
  '04_PDC/PRESENTACIONES/presentacion_pdc.html',
  '04_PDC/PRESENTACIONES/presentacion_tutoria_3eso_pdc.html',

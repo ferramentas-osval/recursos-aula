@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Ortografía en escena · ¿Por qué tiene que ser todo tan difícil?</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Kalam:wght@400;700&display=swap">
+<style>
+:root{
+  --noche:#1b1d55;--noche-2:#11123a;--papel:#f6f2e9;--papel-2:#ece5d6;--tinta:#1d1d1d;--suave:#4a4a48;
+  --oro:#f2c14e;--cobre:#c27a4a;--cielo:#5fc0ea;--teal:#173f47;--rojo:#c8463d;--verde:#3d8b5a;
+  --azul-sol:#1546c4;
+  --f-titulo:"Special Elite","Courier New",monospace;
+  --f-maq:"Courier Prime","Courier New",monospace;
+  --f-texto:"Atkinson Hyperlegible",system-ui,sans-serif;
+  --f-mano:"Kalam","Comic Sans MS",cursive;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--papel);color:var(--tinta);font-family:var(--f-texto)}
+.slide{position:fixed;inset:0;display:none;background:var(--papel)}
+.slide.on{display:block}
+.slide.dark{background:radial-gradient(ellipse at 70% 30%,#2a2d7a 0%,var(--noche) 45%,var(--noche-2) 100%);color:#f4f1ea}
+.inner{position:absolute;top:3.2vh;bottom:6.5vh;left:5.6vw;right:5.6vw;overflow:hidden;display:flex;flex-direction:column;gap:.55em;font-size:30px;line-height:1.28}
+.inner.center{justify-content:center}
+p,li,dd,td,.just{text-align:justify;hyphens:auto}
+p{margin:0}
+h1,h2,h3{margin:0;font-family:var(--f-titulo);font-weight:400;line-height:1.08;text-align:left}
+h1{font-size:2.5em;color:var(--oro)}
+h2{font-size:1.55em;color:var(--noche);display:flex;align-items:baseline;gap:.45em}
+h2 .n{font-family:var(--f-maq);font-weight:700;font-size:.7em;background:var(--noche);color:var(--oro);border-radius:.3em;padding:.08em .4em;flex:none}
+h3{font-size:1.05em;color:var(--cobre)}
+.dark h2{color:var(--oro)}
+.kicker{font-family:var(--f-maq);text-transform:uppercase;letter-spacing:.12em;font-size:.68em;color:var(--cobre)}
+.dark .kicker{color:var(--cielo)}
+.enun{background:#fff;border-left:.3em solid var(--oro);border-radius:.25em;padding:.4em .7em;font-size:.95em;box-shadow:0 .08em .3em rgba(0,0,0,.07)}
+.enun b{color:var(--noche)}
+.grow{flex:1 1 auto;min-height:0}
+.row{display:flex;gap:1.1em;align-items:stretch}
+.row>*{flex:1 1 0;min-width:0}
+.row .w2{flex:2 1 0}
+.card{background:#fff;border-radius:.35em;padding:.5em .75em;box-shadow:0 .08em .35em rgba(0,0,0,.08)}
+.dark .card{background:rgba(255,255,255,.08);box-shadow:none;border:1px solid rgba(255,255,255,.15)}
+.card h3{margin-bottom:.2em}
+ul,ol{margin:0;padding-left:1.25em}
+li{margin:.12em 0}
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:2.2em;row-gap:.25em;padding-left:0;list-style:none;counter-reset:it}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:1.6em;row-gap:.25em;padding-left:0;list-style:none;counter-reset:it}
+.cols2>li,.cols3>li,.list1>li{counter-increment:it;position:relative;padding-left:1.7em;margin:0}
+.list1{list-style:none;padding-left:0;counter-reset:it}
+.cols2>li::before,.cols3>li::before,.list1>li::before{content:counter(it);position:absolute;left:0;top:.12em;font-family:var(--f-maq);font-weight:700;font-size:.78em;width:1.55em;height:1.55em;display:grid;place-items:center;border-radius:50%;background:var(--noche);color:var(--oro)}
+.gap{display:inline-block;min-width:2.4em;border-bottom:.08em dashed var(--suave);margin:0 .1em;height:1em;vertical-align:-.1em}
+.opts{color:var(--cobre);font-family:var(--f-maq);font-size:.86em;white-space:nowrap}
+.hand{font-family:var(--f-mano);color:var(--azul-sol);font-weight:700;font-size:1.08em;line-height:1.1}
+.tag{display:inline-block;font-family:var(--f-maq);font-size:.72em;font-weight:700;padding:.05em .45em;border-radius:.3em;background:var(--noche);color:var(--oro);vertical-align:.1em}
+.pg{font-family:var(--f-maq);font-weight:700;color:var(--cobre);white-space:nowrap}
+.pj{font-variant:small-caps;font-weight:700;letter-spacing:.04em;color:var(--noche)}
+.dark .pj{color:var(--oro)}
+.quote{font-style:italic}
+.small{font-size:.8em}
+.muted{color:var(--suave)}
+table{border-collapse:collapse;width:100%}
+th,td{padding:.2em .45em;border-bottom:1px solid #d9d0bd;vertical-align:top}
+th{font-family:var(--f-maq);text-align:left;color:var(--noche);font-size:.86em}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:.4em .45em;align-content:flex-start}
+.chip{font:inherit;font-family:var(--f-maq);font-weight:700;border:.1em solid var(--noche);background:#fff;color:var(--noche);border-radius:.4em;padding:.12em .55em;cursor:pointer;line-height:1.2}
+.chip.mk{background:var(--oro)}
+.chip[data-c="1"]{background:#bfe3f2;border-color:#2b7ea8}
+.chip[data-c="2"]{background:#f6d38b;border-color:#b07a12}
+.chip[data-c="3"]{background:#e8c3c0;border-color:var(--rojo)}
+.legend{display:flex;gap:1em;flex-wrap:wrap;font-size:.8em}
+.legend span{display:inline-flex;align-items:center;gap:.3em}
+.legend i{width:1em;height:1em;border-radius:.25em;display:inline-block;border:.1em solid #555}
+/* buttons */
+.btn{white-space:nowrap;font:inherit;font-family:var(--f-texto);font-weight:700;border:none;border-radius:2em;padding:.3em 1em;cursor:pointer;background:var(--noche);color:var(--oro);box-shadow:0 .1em .3em rgba(0,0,0,.2)}
+.btn.alt{background:var(--cobre);color:#fff}
+.solbtn{position:fixed;right:5.6vw;bottom:1.2vh;z-index:40;font-size:clamp(14px,1.6vw,26px)}
+.word{cursor:pointer;border-radius:.2em;padding:0 .04em}
+.word.mk{background:var(--oro)}
+/* nav */
+.nav{position:fixed;top:50%;transform:translateY(-50%);z-index:50;width:4.2vw;min-width:34px;height:14vh;border:none;background:rgba(27,29,85,.14);color:var(--noche);font-size:clamp(22px,3vw,54px);cursor:pointer;border-radius:.3em;display:grid;place-items:center;line-height:1}
+.nav:hover{background:rgba(27,29,85,.3)}
+.nav.prev{left:.5vw}.nav.next{right:.5vw}
+.dark~.nav,.navdark .nav{color:#fff;background:rgba(255,255,255,.12)}
+.nav[disabled]{opacity:.15;cursor:default}
+#count{position:fixed;left:50%;transform:translateX(-50%);bottom:1.4vh;font-family:var(--f-maq);font-size:clamp(12px,1.1vw,20px);color:var(--suave);z-index:40}
+#bar{position:fixed;left:0;top:0;height:.5vh;background:var(--oro);z-index:60;transition:width .3s}
+/* modal */
+#modal{position:fixed;inset:0;z-index:100;background:rgba(17,18,58,.62);display:none}
+#modal.on{display:block}
+#modal .box{position:absolute;inset:3vh 3.5vw;background:#fffdf8;border-radius:1vw;box-shadow:0 1vw 4vw rgba(0,0,0,.4);border-top:1.2vh solid var(--oro)}
+#modal .x{position:absolute;right:1vw;top:.6vh;border:none;background:none;font-size:clamp(26px,3.2vw,58px);cursor:pointer;color:var(--noche);z-index:2;line-height:1}
+#modal .inner{top:3vh;bottom:3vh;left:3.4vw;right:5.4vw}
+.nota{font-size:.78em;color:var(--suave)}
+@media print{.nav,#count,.solbtn,#bar{display:none!important}}
+</style>
+</head>
+<body>
+<!-- 0 PORTADA -->
+<section class="slide dark" data-max="1.1"><div class="inner center">
+  <div class="row" style="align-items:center">
+    <div class="w2" style="display:flex;flex-direction:column;gap:.5em">
+      <span class="kicker">1.º ESO · Lengua Castellana y Literatura · Capítulos 6-9</span>
+      <h1>Ob-via-men-te:<br>ortografía en escena</h1>
+      <p>Guille graba cien audios y los borra. Raquel no sabe guardar un secreto. Tres personajes escriben un mensaje… y no lo envían.</p>
+      <p>Hoy las palabras de <i>¿Por qué tiene que ser todo tan difícil?</i> (Nando López) nos ponen a prueba: <b style="color:var(--oro)">¿por qué tiene que ser todo tan difícil… al escribir?</b></p>
+    </div>
+    <div style="display:grid;place-items:center">
+      <svg viewBox="0 0 200 200" style="width:100%;max-width:9em" aria-hidden="true">
+        <defs><radialGradient id="co" cx="50%" cy="50%" r="50%"><stop offset="55%" stop-color="#f2c14e" stop-opacity=".95"/><stop offset="100%" stop-color="#f2c14e" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="100" cy="100" r="95" fill="url(#co)"/><circle cx="100" cy="100" r="58" fill="#11123a"/>
+        <text x="100" y="92" text-anchor="middle" font-family="Special Elite" font-size="30" fill="#f2c14e">á é í</text>
+        <text x="100" y="128" text-anchor="middle" font-family="Special Elite" font-size="30" fill="#5fc0ea">ó ú</text>
+      </svg>
+    </div>
+  </div>
+</div></section>
+
+<!-- 1 CALENTAMIENTO -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Calentamiento</span>
+  <h2><span class="n">1</span>Ob-via-men-te: los adverbios en <i>-mente</i></h2>
+  <div class="row grow">
+    <div class="card">
+      <h3>La regla</h3>
+      <p>Raquel separa las sílabas para que se oigan bien: <b>ob-via-men-te</b>. Estos adverbios tienen dos sílabas fuertes, pero la tilde se decide de otra forma:</p>
+      <p style="margin-top:.4em">✅ <b>Llevan tilde si el adjetivo ya la llevaba.</b><br><i>rápido → rápidamente</i><br><i>lento → lentamente</i></p>
+      <p style="margin-top:.4em" class="small muted">Todas estas palabras salen en las acotaciones y las réplicas de los capítulos 6-9.</p>
+    </div>
+    <div class="w2 card">
+      <p class="enun">Escribe el adverbio en <b>-mente</b> de cada adjetivo. ¡Ojo con la tilde!</p>
+      <ol class="cols2 ej" style="margin-top:.4em">
+        <li>obvio → {…=obviamente}</li>
+        <li>último → {…=últimamente}</li>
+        <li>rotundo → {…=rotundamente}</li>
+        <li>afirmativo → {…=afirmativamente}</li>
+        <li>fijo → {…=fijamente}</li>
+        <li>perfecto → {…=perfectamente}</li>
+        <li>difícil → {…=difícilmente}</li>
+        <li>cómodo → {…=cómodamente}</li>
+        <li>irónico → {…=irónicamente}</li>
+        <li>tímido → {…=tímidamente}</li>
+        <li>único → {…=únicamente}</li>
+        <li>suave → {…=suavemente}</li>
+      </ol>
+    </div>
+  </div>
+</div></section>
+
+<!-- 2 DETECTIVES DE TILDES -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Acentuación</span>
+  <h2><span class="n">2</span>Detectives de tildes</h2>
+  <p class="enun">Estas 24 palabras de los capítulos 6-9 han perdido <b>todas</b> sus tildes. Pulsa las que deberían llevarla. Después, explica en el cuaderno por qué (aguda, llana o esdrújula).</p>
+  <div class="chips grow" style="font-size:1.15em;align-content:center;justify-content:center">
+    <button class="chip">dificil</button><button class="chip">publico</button><button class="chip">musica</button><button class="chip">Socrates</button>
+    <button class="chip">movil</button><button class="chip">balon</button><button class="chip">baloncesto</button><button class="chip">rincon</button>
+    <button class="chip">comodo</button><button class="chip">timbre</button><button class="chip">rapido</button><button class="chip">clarisimo</button>
+    <button class="chip">toalla</button><button class="chip">guitarra</button><button class="chip">jocoso</button><button class="chip">Alex</button>
+    <button class="chip">volumen</button><button class="chip">eclipse</button><button class="chip">picardia</button><button class="chip">fiebre</button>
+    <button class="chip">videojuego</button><button class="chip">escenario</button><button class="chip">sarcasmo</button><button class="chip">examenes</button>
+  </div>
+</div>
+<template class="sol">
+  <h2>Detectives de tildes · solución</h2>
+  <table>
+    <tr><th>Llevan tilde</th><th>Por qué</th></tr>
+    <tr><td><span class="hand">difícil, móvil, Álex</span></td><td><span class="hand">llanas que no acaban en -n, -s ni vocal</span></td></tr>
+    <tr><td><span class="hand">balón, rincón</span></td><td><span class="hand">agudas acabadas en -n</span></td></tr>
+    <tr><td><span class="hand">público, música, Sócrates, cómodo, rápido, clarísimo, exámenes</span></td><td><span class="hand">esdrújulas: siempre llevan tilde</span></td></tr>
+    <tr><td><span class="hand">picardía</span></td><td><span class="hand">hiato: la í tónica se separa de la a</span></td></tr>
+    <tr><th>Sin tilde</th><th>Por qué</th></tr>
+    <tr><td><span class="hand">baloncesto, timbre, toalla, guitarra, jocoso, eclipse, fiebre, videojuego, escenario, sarcasmo</span></td><td><span class="hand">llanas acabadas en vocal</span></td></tr>
+    <tr><td><span class="hand">volumen</span></td><td><span class="hand">llana acabada en -n (¡aunque «exámenes» sí la lleva!)</span></td></tr>
+  </table>
+</template></section>
+
+<!-- 3 VERBOS CON PRONOMBRES -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Acentuación · nivel difícil</span>
+  <h2><span class="n">3</span>La trampa de los pronombres pegados</h2>
+  <div class="row grow">
+    <div class="card">
+      <h3>Fíjate en las acotaciones</h3>
+      <p>Nando López escribe <span class="quote">(Corrigiéndola)</span>, <span class="quote">(Reconociéndolo…)</span> o <span class="quote">suéltalo</span>. Al pegar pronombres, la palabra crece y <b>cambia su acentuación</b>:</p>
+      <p style="margin-top:.4em"><i>corrigiendo</i> (llana, sin tilde) + <i>la</i> → <b>corrigiéndola</b> (esdrújula, con tilde).</p>
+      <p style="margin-top:.4em">⚠️ Pero <i>dime</i>, <i>dale</i> o <i>vete</i> no la llevan: son llanas acabadas en vocal.</p>
+    </div>
+    <div class="w2 card">
+      <p class="enun">Une las piezas y escribe la palabra resultante.</p>
+      <ol class="cols2 ej" style="margin-top:.4em">
+        <li>corrigiendo + la → {…=corrigiéndola}</li>
+        <li>desprendiendo + se → {…=desprendiéndose}</li>
+        <li>reconociendo + lo → {…=reconociéndolo}</li>
+        <li>gritando + se → {…=gritándose}</li>
+        <li>buscando + lo → {…=buscándolo}</li>
+        <li>imitando + se → {…=imitándose}</li>
+        <li>suelta + lo → {…=suéltalo}</li>
+        <li>decide + te → {…=decídete}</li>
+        <li>cuenta + nos + lo → {…=cuéntanoslo}</li>
+        <li>pregunta + se + lo → {…=pregúntaselo}</li>
+        <li>di + me → {…=dime}</li>
+        <li>da + le → {…=dale}</li>
+      </ol>
+    </div>
+  </div>
+</div></section>
+
+<!-- 4 DIPTONGO HIATO -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Acentuación · diptongos y hiatos</span>
+  <h2><span class="n">4</span>¿Juntas o separadas?</h2>
+  <p class="enun">Pulsa cada palabra hasta darle su color: <b>diptongo</b> (las vocales van en la misma sílaba), <b>hiato con tilde</b> (se separan y la tilde lo marca) o <b>trampa</b> (la <i>u</i> no suena: no hay diptongo).</p>
+  <div class="legend"><span><i style="background:#bfe3f2"></i>1 pulsación: diptongo</span><span><i style="background:#f6d38b"></i>2 pulsaciones: hiato con tilde</span><span><i style="background:#e8c3c0"></i>3 pulsaciones: trampa (u muda)</span></div>
+  <div class="chips grow" data-n="3" style="font-size:1.15em;align-content:center;justify-content:center">
+    <button class="chip">tío</button><button class="chip">miedo</button><button class="chip">oídos</button><button class="chip">audio</button>
+    <button class="chip">Guille</button><button class="chip">juicio</button><button class="chip">había</button><button class="chip">negocio</button>
+    <button class="chip">pretendía</button><button class="chip">fiebre</button><button class="chip">guitarra</button><button class="chip">antigua</button>
+    <button class="chip">oímos</button><button class="chip">paciencia</button><button class="chip">aún</button><button class="chip">auriculares</button>
+    <button class="chip">quería</button><button class="chip">suavidad</button><button class="chip">sigue</button><button class="chip">cuela</button>
+  </div>
+</div>
+<template class="sol">
+  <h2>¿Juntas o separadas? · solución</h2>
+  <table>
+    <tr><th style="width:24%">Diptongo</th><td><span class="hand">mie-do, au-dio, jui-cio, ne-go-cio, fie-bre, an-ti-gua, pa-cien-cia, au-ri-cu-la-res, sua-vi-dad, cue-la</span></td></tr>
+    <tr><th>Hiato con tilde</th><td><span class="hand">tí-o, o-í-dos, ha-bí-a, pre-ten-dí-a, o-í-mos, a-ún, que-rí-a</span></td></tr>
+    <tr><th>Trampa: u muda</th><td><span class="hand">Gui-lle, gui-ta-rra, si-gue</span> → <i>gu</i> + <i>e/i</i> es una sola letra en el sonido: la <i>u</i> no se pronuncia, así que no forma diptongo.</td></tr>
+  </table>
+  <p style="margin-top:.5em">Truco: <b>í, ú tónicas junto a a, e, o</b> siempre se separan y llevan tilde aunque la regla general diga lo contrario (<i>había</i> es llana acabada en vocal… ¡y la lleva!).</p>
+</template></section>
+
+<!-- 5 TILDE DIACRITICA teoria + ejercicio -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Tilde diacrítica</span>
+  <h2><span class="n">5</span>Parejas que se escriben igual… o casi</h2>
+  <div class="row grow">
+    <div class="card" style="flex:.85">
+      <table class="small">
+        <tr><th>Con tilde</th><th>Sin tilde</th></tr>
+        <tr><td><b>tú</b> (persona)</td><td><b>tu</b> guitarra</td></tr>
+        <tr><td><b>él</b> (persona)</td><td><b>el</b> audio</td></tr>
+        <tr><td>a <b>mí</b></td><td><b>mi</b> móvil</td></tr>
+        <tr><td><b>sí</b> (afirmación, a sí mismo)</td><td><b>si</b> vienes…</td></tr>
+        <tr><td>yo <b>sé</b> (saber)</td><td><b>se</b> ríen</td></tr>
+        <tr><td>que me <b>dé</b> (dar)</td><td>la tienda <b>de</b></td></tr>
+        <tr><td><b>té</b> (bebida)</td><td><b>te</b> veo</td></tr>
+        <tr><td><b>más</b> (cantidad)</td><td><b>mas</b> (= pero)</td></tr>
+        <tr><td><b>aún</b> (= todavía)</td><td><b>aun</b> (= incluso)</td></tr>
+      </table>
+    </div>
+    <div class="w2 card">
+      <p class="enun">Elige la forma correcta en cada hueco.</p>
+      <ol class="list1 ej" style="margin-top:.35em">
+        <li>Vero, {tu/tú=tu} voz suena genial cuando {tu/tú=tú} no piensas en el público.</li>
+        <li>Celia jura que {si/sí=sí} se lo ha contado a Zhihan; {si/sí=si} Vero se entera, se enfadará.</li>
+        <li>«A {mi/mí=mí} no me miréis», protesta Gertie. «{Mi/Mí=Mi} hermano tampoco sabe nada.»</li>
+        <li>Raquel: «Yo {se/sé=sé} la fecha, pero Celia no {se/sé=se} calla nunca».</li>
+        <li>{El/Él=Él} quería enviar {el/él=el} audio, pero el miedo pudo {mas/más=más}.</li>
+        <li>Alba quiere que Guille le {de/dé=dé} una explicación {de/dé=de} los seis vistos.</li>
+        <li>{Aun/Aún=Aún} no ha mandado nada; {aun/aún=aun} así, Alba lo encuentra en el parque.</li>
+        <li>«¿{Te/Té=Te} preparo un {te/té=té}?», pregunta Zhihan antes del ensayo.</li>
+      </ol>
+    </div>
+  </div>
+</div></section>
+
+<!-- 6 INTERROGATIVOS -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Tilde diacrítica · interrogativos y exclamativos</span>
+  <h2><span class="n">6</span>¿Qué, que? ¿Cómo, como? ¿Dónde, donde?</h2>
+  <p class="enun">Llevan tilde cuando <b>preguntan o exclaman</b>, aunque no haya signos de interrogación (<i>No sé <b>dónde</b> meterme</i>). Completa con la forma correcta.</p>
+  <ol class="cols2 ej grow" style="align-content:center">
+    <li>Gertie no sabe {donde/dónde=dónde} meterse.</li>
+    <li>Raquel quiere que le pregunten de {que/qué=qué} se trata.</li>
+    <li>{Como/Cómo=Como} vayamos al eclipse, Dani nos soltará un rollo.</li>
+    <li>¡{Que/Qué=Qué} difícil es guardar un secreto!</li>
+    <li>Celia no recuerda {cuando/cuándo=cuándo} se lo dijo Vero.</li>
+    <li>{Cuando/Cuándo=Cuando} llegue el sábado, todo se sabrá.</li>
+    <li>Nadie sabe {quien/quién=quién} se lo ha contado a Raquel.</li>
+    <li>Fue Celia {quien/quién=quien} se ofreció a hablar con Vero.</li>
+    <li>Vero toca {como/cómo=como} si nadie la escuchara.</li>
+    <li>Alba le pregunta {como/cómo=cómo} le ha ido el juicio.</li>
+    <li>No os imagináis {cuanto/cuánto=cuánto} se alegrará Dani.</li>
+    <li>Es el rincón del parque {donde/dónde=donde} se esconde Guille.</li>
+  </ol>
+</div></section>
+
+<!-- 7 POR QUÉ -->
+<section class="slide"><div class="inner">
+  <span class="kicker">El título del libro</span>
+  <h2><span class="n">7</span>¿Por qué, porque, porqué o por que?</h2>
+  <div class="row grow">
+    <div class="card" style="flex:.9">
+      <p><b>por qué</b> → pregunta (directa o indirecta): <i>¿Por qué tiene que ser todo tan difícil?</i></p>
+      <p style="margin-top:.3em"><b>porque</b> → da la causa: <i>No vino porque tenía fiebre.</i></p>
+      <p style="margin-top:.3em"><b>porqué</b> → sustantivo, va con artículo (= el motivo): <i>el porqué</i>.</p>
+      <p style="margin-top:.3em"><b>por que</b> → preposición + relativo (= por el que, por la cual) o verbo que pide «por»: <i>se preocupa por que…</i></p>
+    </div>
+    <div class="w2 card">
+      <p class="enun">Completa con la forma adecuada.</p>
+      <ol class="list1 ej" style="margin-top:.35em">
+        <li>¿{…=Por qué} tiene que ser todo tan difícil?</li>
+        <li>Guille no fue a clase {…=porque} no quería ver a nadie.</li>
+        <li>Nadie entiende el {…=porqué} de los seis vistos.</li>
+        <li>Alba no sabe {…=por qué} se esconde Guille.</li>
+        <li>Raquel lo cuenta {…=porque} así se siente menos culpable.</li>
+        <li>Esa es la razón {…=por (la) que} Vero no quiere subir al escenario.</li>
+        <li>Celia se preocupa {…=por que} Vero no aparezca el sábado.</li>
+        <li>Explícame el {…=porqué} de tanto secretismo, {…=porque} yo no lo entiendo.</li>
+      </ol>
+    </div>
+  </div>
+</div></section>
+
+<!-- 8 HOMOFONOS -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Palabras que suenan igual</span>
+  <h2><span class="n">8</span>Homófonos: ¿con h o sin h? ¿b o v? ¿ll o y?</h2>
+  <p class="enun">Todas estas parejas aparecen (o casi) en los capítulos 6-9. Elige la correcta.</p>
+  <ol class="cols2 ej grow" style="align-content:center">
+    <li>Sus padres se han puesto {echos/hechos=hechos} una furia.</li>
+    <li>Guille {hecha/echa=echa} de menos su casa de antes.</li>
+    <li>{A ver/Haber=A ver} si Celia es capaz de callarse.</li>
+    <li>Podrías {a ver/haber=haber}me llamado en vez de dejarme en visto.</li>
+    <li>—¿Y Gertie? —{Ahí/Hay/Ay=Ahí}, en el banco de la entrada.</li>
+    <li>¡{Ahí/Hay/Ay=Ay}, qué daño! —grita Elliot al chocar con la puerta.</li>
+    <li>No {ahí/hay/ay=hay} tiempo que perder: el concurso es el sábado.</li>
+    <li>Raquel {a/ha/ah=ha} guardado el secreto… cinco minutos.</li>
+    <li>¡{Vaya/Valla/Baya=Vaya} paliza os hemos dado en baloncesto!</li>
+    <li>Saltaron la {vaya/valla/baya=valla} del parque para llegar al recodo.</li>
+    <li>El balón no deja de {votar/botar=botar} en la cancha.</li>
+    <li>Lo del eclipse es una {rallada/rayada=rayada} de Dani.</li>
+  </ol>
+</div></section>
+
+<!-- 9 JUNTO O SEPARADO -->
+<section class="slide"><div class="inner">
+  <span class="kicker">¿Junto o separado?</span>
+  <h2><span class="n">9</span>También o tan bien, tampoco o tan poco…</h2>
+  <p class="enun">Elige la opción correcta. Si dudas, sustituye: <i>tan bien</i> = «muy bien»; <i>tan poco</i> = «muy poco»; <i>si no</i> = «en caso de que no».</p>
+  <ol class="cols2 ej grow" style="align-content:center">
+    <li>Vero accede a tocar {aregañadientes/a regañadientes=a regañadientes}.</li>
+    <li>«{Tampoco/Tan poco=Tampoco} es para tanto», dice Gertie.</li>
+    <li>Gertie habla {tampoco/tan poco=tan poco} que nadie conoce su voz.</li>
+    <li>Como en el parque lo pasamos {también/tan bien=tan bien}… (ironía).</li>
+    <li>Celia {también/tan bien=también} quiere ir al eclipse.</li>
+    <li>No es miedo, {sino/si no=sino} respeto por la música.</li>
+    <li>{Sino/Si no=Si no} vas el sábado, Zhihan tocará solo.</li>
+    <li>Guille {apenas/a penas=apenas} ha dormido esta semana.</li>
+    <li>Podríamos ir los {demás/de más=demás}.</li>
+    <li>Has traído dos toallas {demás/de más=de más}.</li>
+    <li>{Derrepente/De repente=De repente} suena un wasap.</li>
+    <li>{Sobretodo/Sobre todo=Sobre todo}, que nadie diga nada.</li>
+  </ol>
+</div></section>
+
+<!-- 10 MAYUSCULAS -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Mayúsculas</span>
+  <h2><span class="n">10</span>Corrige las mayúsculas</h2>
+  <p class="enun">En este resumen hay <b>16 errores</b> de mayúsculas: unas faltan y otras sobran. Pulsa las palabras que están mal.</p>
+  <div class="card grow tx" style="font-size:1.12em;line-height:1.5;display:flex;align-items:center"><p>el Miércoles por la mañana, en el Gimnasio del instituto, raquel les cuenta a alba y a Celia que Vero no irá al Concurso del Sábado. guille dice que en su casa han montado la tercera guerra mundial, y zhihan, que es muy Filosófico, recuerda a sócrates y a beethoven. Mientras tanto, gertie cotillea las cuentas de instagram de sus nuevos Compañeros.</p></div>
+</div>
+<template class="sol">
+  <h2>Corrige las mayúsculas · solución</h2>
+  <p style="line-height:1.6"><span class="hand">El</span> <span class="hand">miércoles</span> por la mañana, en el <span class="hand">gimnasio</span> del instituto, <span class="hand">Raquel</span> les cuenta a <span class="hand">Alba</span> y a Celia que Vero no irá al <span class="hand">concurso</span> del <span class="hand">sábado</span>. <span class="hand">Guille</span> dice que en su casa han montado la <span class="hand">Tercera Guerra Mundial</span>, y <span class="hand">Zhihan</span>, que es muy <span class="hand">filosófico</span>, recuerda a <span class="hand">Sócrates</span> y a <span class="hand">Beethoven</span>. Mientras tanto, <span class="hand">Gertie</span> cotillea las cuentas de <span class="hand">Instagram</span> de sus nuevos <span class="hand">compañeros</span>.</p>
+  <p class="nota" style="margin-top:.6em">Faltaban: El, Raquel, Alba, Guille, Tercera Guerra Mundial, Zhihan, Sócrates, Beethoven, Gertie, Instagram. Sobraban: Miércoles, Gimnasio, Concurso, Sábado, Filosófico, Compañeros. Recuerda: los días de la semana y los meses van en minúscula; las guerras con nombre propio, en mayúscula.</p>
+</template></section>
+
+<!-- 11 DETECTIVE DE FALTAS -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Reto por parejas</span>
+  <h2><span class="n">11</span>El corrector se ha estropeado</h2>
+  <p class="enun">Este resumen de los capítulos 6, 7 y 8 tiene <b>16 faltas</b> (b/v, h, g/j, ll/y y tildes). Pulsa cada palabra incorrecta y copia el texto corregido en el cuaderno. ¿Qué pareja las encuentra todas antes?</p>
+  <div class="card grow tx" style="font-size:1.08em;line-height:1.5;display:flex;align-items:center"><p>El martes por la tarde, Vero y Zhihan ensallan en el almacen de la tienda una canción para el concurso. Celia entra sin acer ruido y se queda escuchando. Mientras tanto, Guille saca el movil e intenta grabar un audio para Alba: lo graba y lo vorra una y otra vez porque no save cómo explicar lo que a pasado en el juicio. Al dia siguiente, en los bestuarios del gimnasio, Raquel no consige guardar un secreto: Vero no piensa ir al concurso. Gertie, que lo a oído todo, finje que no se a enterado de nada. Por la tarde, Alba encuentra a Guille en un rincon del parque. Él no quiere ablar, pero al final comparten la misma canción y Alba le demuestra que los canvios no tienen por qué ser a peor.</p></div>
+</div>
+<template class="sol">
+  <h2>El corrector se ha estropeado · solución</h2>
+  <p style="line-height:1.55">El martes por la tarde, Vero y Zhihan <span class="hand">ensayan</span> en el <span class="hand">almacén</span> de la tienda una canción para el concurso. Celia entra sin <span class="hand">hacer</span> ruido y se queda escuchando. Mientras tanto, Guille saca el <span class="hand">móvil</span> e intenta grabar un audio para Alba: lo graba y lo <span class="hand">borra</span> una y otra vez porque no <span class="hand">sabe</span> cómo explicar lo que <span class="hand">ha</span> pasado en el juicio. Al <span class="hand">día</span> siguiente, en los <span class="hand">vestuarios</span> del gimnasio, Raquel no <span class="hand">consigue</span> guardar un secreto: Vero no piensa ir al concurso. Gertie, que lo <span class="hand">ha</span> oído todo, <span class="hand">finge</span> que no se <span class="hand">ha</span> enterado de nada. Por la tarde, Alba encuentra a Guille en un <span class="hand">rincón</span> del parque. Él no quiere <span class="hand">hablar</span>, pero al final comparten la misma canción y Alba le demuestra que los <span class="hand">cambios</span> no tienen por qué ser a peor.</p>
+</template></section>
+
+<!-- 12 DICTADO BORRADO -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Dictado no clásico</span>
+  <h2><span class="n">12</span>Dictado de audios borrados</h2>
+  <p class="enun">Como Guille, estos mensajes se graban… y se borran. Cada uno aparece unos segundos en pantalla y desaparece. Memorízalo y escríbelo <b>sin un solo error</b>. Gana un punto quien acierte todas las tildes y letras.</p>
+  <div style="display:flex;flex:none;align-items:center;justify-content:center;gap:.5em;flex-wrap:wrap">
+    <button class="btn play" data-i="0">🎙️ Mensaje 1</button>
+    <button class="btn play" data-i="1">🎙️ Mensaje 2</button>
+    <button class="btn play" data-i="2">🎙️ Mensaje 3</button>
+    <button class="btn play" data-i="3">🎙️ Mensaje 4</button>
+    <label class="small" style="flex:none">Segundos: <select id="dseg" style="font:inherit"><option>6</option><option selected>8</option><option>10</option><option>14</option></select></label>
+  </div>
+  <div class="card grow" id="dbox" style="display:grid;place-items:center;text-align:center;font-size:1.2em;font-family:var(--f-maq);line-height:1.35;background:var(--noche);color:#fff;transition:opacity 1.2s"><span class="muted" style="color:#aab">Pulsa un mensaje para empezar</span></div>
+</div>
+<template class="sol">
+  <h2>Dictado de audios borrados · solución</h2>
+  <ol class="list1">
+    <li><span class="hand">Hoy he tenido un día rarísimo: mis padres se han echado la culpa delante de todos y yo, a lo mejor, debería haber hablado más.</span></li>
+    <li><span class="hand">Vero, ¿por qué no vienes el sábado? Sé que tienes miedo, pero también sé que tocas la guitarra como nadie.</span></li>
+    <li><span class="hand">¡Ay, Gertie! Ahí, en el vestuario, hay más secretos que toallas: a ver cuánto tardan en descubrirse.</span></li>
+    <li><span class="hand">¿Y si el viernes, cuando empiece el eclipse, le pregunto por fin lo que llevo días queriendo preguntarle?</span></li>
+  </ol>
+  <p class="nota" style="margin-top:.5em">Puntos calientes: <i>he / echado / haber / hablado</i>, <i>por qué / sé / también</i>, <i>ay / ahí / hay / a ver / cuánto</i>, <i>cuando / pregunto / días</i>.</p>
+</template></section>
+
+<!-- 13 EXTRANJERISMOS Y REGISTRO -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Extranjerismos y palabras coloquiales</span>
+  <h2><span class="n">13</span>Wasap, <i>gif</i>, <i>pack</i>… y «me piro»</h2>
+  <div class="row grow">
+    <div class="card">
+      <h3>A. ¿Por qué cursiva?</h3>
+      <p>En el libro aparecen en <i>cursiva</i> <i>pack</i> y <i>gif</i>, pero <b>wasap</b> va en letra normal. ¿Por qué crees que ocurre? ¿Cómo se escribe el nombre de la red social <b>Instagram</b>?</p>
+      <h3 style="margin-top:.5em">B. Tradúcelas al español</h3>
+      <ol class="list1 ej">
+        <li><i>pack</i> → {…=paquete, lote}</li>
+        <li><i>bonus</i> → {…=premio, extra, bonificación}</li>
+        <li><i>epic fail</i> (título del cap. 9) → {…=fracaso épico, desastre total}</li>
+        <li><i>gif</i> → {…=imagen animada}</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>C. Del registro coloquial al formal</h3>
+      <p>Los personajes hablan como adolescentes. Escribe cada expresión en un registro formal.</p>
+      <ol class="list1 ej" style="margin-top:.3em">
+        <li>Me piro a la ducha. → {…=Me voy a la ducha.}</li>
+        <li>Dani lo va a flipar. → {…=Dani se va a asombrar / alucinar mucho.}</li>
+        <li>Los planes de Dani son un muermo. → {…=Los planes de Dani son muy aburridos.}</li>
+        <li>Eso es una rayada de Dani. → {…=Es una obsesión / una idea extraña de Dani.}</li>
+        <li>No me trolees. → {…=No me tomes el pelo / no te burles de mí.}</li>
+        <li>Está siempre de coña. → {…=Siempre está bromeando.}</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<template class="sol">
+  <h2>Wasap, gif, pack… · solución</h2>
+  <div class="row">
+    <div>
+      <p><b>A.</b> <span class="hand">«Wasap» es la forma ya adaptada al español (se escribe como suena y la recoge el diccionario), por eso va en redonda. «Pack» y «gif» se dejan como en inglés: por eso el autor las marca en cursiva. «Instagram» es un nombre propio: mayúscula y sin cursiva.</span></p>
+      <p style="margin-top:.4em"><b>B.</b></p>
+      <ol class="list1 ej">
+        <li><i>pack</i> → {…=paquete, lote}</li>
+        <li><i>bonus</i> → {…=premio, extra, bonificación}</li>
+        <li><i>epic fail</i> → {…=fracaso épico, desastre total}</li>
+        <li><i>gif</i> → {…=imagen animada}</li>
+      </ol>
+    </div>
+    <div>
+      <p><b>C.</b></p>
+      <ol class="list1 ej">
+        <li>Me piro a la ducha. → {…=Me voy a la ducha.}</li>
+        <li>Dani lo va a flipar. → {…=Dani se va a asombrar mucho.}</li>
+        <li>Son un muermo. → {…=Son muy aburridos.}</li>
+        <li>Es una rayada de Dani. → {…=Es una obsesión / idea extraña de Dani.}</li>
+        <li>No me trolees. → {…=No me tomes el pelo.}</li>
+        <li>Está siempre de coña. → {…=Siempre está bromeando.}</li>
+      </ol>
+    </div>
+  </div>
+</template></section>
+
+<!-- 14 DEL CHAT AL PAPEL -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Capítulo 9 · «Epic fail»</span>
+  <h2><span class="n">14</span>Del chat al papel</h2>
+  <p class="enun">Dani, Gertie y Sergi escriben y borran mensajes sin atreverse a enviarlos. Estos son algunos borradores. Reescríbelos <b>con ortografía y puntuación correctas</b> (signos de apertura incluidos).</p>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:.5em">
+    <div class="card" style="font-family:var(--f-maq)"><span class="pj">Dani:</span> ola k tal?? xq no vienes el viernes al eclipse, va a mola muxo enserio</div>
+    <div class="card" style="font-family:var(--f-maq)"><span class="pj">Gertie:</span> nse si deberia preguntarselo... tb puede q se ria d mi</div>
+    <div class="card" style="font-family:var(--f-maq)"><span class="pj">Sergi:</span> weno tio tranki q yo tb e estado asi, a ver si mñn se lo digo</div>
+  </div>
+</div>
+<template class="sol">
+  <h2>Del chat al papel · solución</h2>
+  <div style="display:flex;flex-direction:column;gap:.6em">
+    <p><span class="pj">Dani:</span> <span class="hand">Hola, ¿qué tal? ¿Por qué no vienes el viernes al eclipse? Va a molar mucho, en serio.</span></p>
+    <p><span class="pj">Gertie:</span> <span class="hand">No sé si debería preguntárselo… También puede que se ría de mí.</span></p>
+    <p><span class="pj">Sergi:</span> <span class="hand">Bueno, tío, tranquilo, que yo también he estado así. A ver si mañana se lo digo.</span></p>
+  </div>
+  <p class="nota" style="margin-top:.6em">Fíjate: <i>qué, por qué, sé, debería, preguntárselo, ría, mí, también, he, así</i> llevan tilde o h que el chat se come. Y en español las preguntas se abren con <b>¿</b>.</p>
+</template></section>
+
+<!-- 15 TEATRO A NARRACION -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Ortotipografía · la raya</span>
+  <h2><span class="n">15</span>Del teatro a la novela</h2>
+  <div class="row grow">
+    <div class="card">
+      <p>En el teatro, el nombre del personaje va delante y las acotaciones, entre paréntesis. En una novela, el diálogo se marca con <b>raya (—)</b>:</p>
+      <p style="margin-top:.4em;font-family:var(--f-maq)">—No pienso ir —dijo Vero—. No estoy preparada.</p>
+      <p style="margin-top:.4em" class="small">La raya abre la réplica, abre el comentario del narrador y lo cierra si la réplica continúa. El punto va <b>después</b> de la raya de cierre.</p>
+    </div>
+    <div class="w2 card">
+      <p class="enun">Convierte esta escena inventada en un diálogo de novela, con rayas y verbos de habla (<i>dijo, susurró, protestó…</i>).</p>
+      <div style="font-family:var(--f-maq);margin-top:.4em;display:flex;flex-direction:column;gap:.3em">
+        <p><span class="pj">CELIA</span> (Bajando la voz). ¿Seguro que no piensas ir?</p>
+        <p><span class="pj">VERO</span> No lo sé. (Mirando la guitarra). A lo mejor sí.</p>
+        <p><span class="pj">CELIA</span> Zhihan te necesita, ¿lo sabes?</p>
+        <p><span class="pj">VERO</span> (Suspirando). Ya lo sé. Por eso es tan difícil.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<template class="sol">
+  <h2>Del teatro a la novela · una solución posible</h2>
+  <div style="display:flex;flex-direction:column;gap:.45em">
+    <p><span class="hand">—¿Seguro que no piensas ir? —preguntó Celia, bajando la voz.</span></p>
+    <p><span class="hand">—No lo sé —Vero miró la guitarra—. A lo mejor sí.</span></p>
+    <p><span class="hand">—Zhihan te necesita, ¿lo sabes?</span></p>
+    <p><span class="hand">—Ya lo sé —suspiró Vero—. Por eso es tan difícil.</span></p>
+  </div>
+  <p class="nota" style="margin-top:.6em">Comprueba: raya pegada a la palabra, verbo de habla en minúscula, punto después de la raya de cierre y signos ¿? completos.</p>
+</template></section>
+
+<!-- 16 ESCRITURA CREATIVA 1 -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Escritura creativa · 1</span>
+  <h2><span class="n">16</span>El audio que Guille nunca envió</h2>
+  <div class="row grow">
+    <div class="w2 card">
+      <p>Guille graba un audio larguísimo para Alba… y al final manda solo «Todo bien». Escribe el <b>audio sincero</b> que Guille podría haber enviado <b>el miércoles por la noche</b>, después de su charla con Alba en el parque (100-130 palabras).</p>
+      <h3 style="margin-top:.5em">Reto ortográfico: tu texto debe incluir</h3>
+      <ol class="cols2">
+        <li>3 tildes diacríticas (<i>tú, mí, sé, más…</i>)</li>
+        <li>un <i>por qué</i> y un <i>porque</i></li>
+        <li>un hiato con tilde (<i>había, oído…</i>)</li>
+        <li>un adverbio en <i>-mente</i> con tilde</li>
+        <li>dos palabras con <i>h</i></li>
+        <li>un verbo con pronombre pegado (<i>contártelo…</i>)</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Después</h3>
+      <p>Intercambia el cuaderno con tu compañero. Subraya en <b>azul</b> cada requisito que encuentres y en <b>rojo</b> cada falta. Devuélvelo con una nota del 1 al 6 (un punto por requisito bien escrito).</p>
+    </div>
+  </div>
+</div>
+<template class="sol">
+  <h2>El audio que Guille nunca envió · modelo</h2>
+  <p style="line-height:1.5"><span class="hand">Alba, soy yo otra vez. Antes te he mandado un «todo bien», pero no es verdad, y tú lo sabías. No te contesté porque me daba vergüenza contártelo: en el juicio me sentí pequeñísimo. Mis padres quieren que elija, y yo no sé por qué tengo que hacerlo. Hoy, cuando me has puesto la mano en la frente, me he reído por primera vez en días. Había olvidado lo que era eso. Últimamente todo me sale fatal, pero creo que tenías razón: a lo mejor los cambios no son siempre a peor. Gracias por buscarme. Mañana voy a clase. Y sí, a lo mejor hasta voy al plan de Dani… pero no se lo digas a nadie, ¿vale?</span></p>
+  <p class="nota" style="margin-top:.5em">Requisitos: tú, sé, sí (diacríticas) · por qué / porque · había, reído, días (hiato) · últimamente (-mente con tilde) · hoy, he, había, hacerlo (h) · contártelo, buscarme.</p>
+</template></section>
+
+<!-- 17 ESCRITURA CREATIVA 2 -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Escritura creativa · 2</span>
+  <h2><span class="n">17</span>Tres móviles, tres mensajes</h2>
+  <div class="row grow">
+    <div class="w2 card">
+      <p>En el capítulo 9, Dani, Gertie y Sergi escriben y borran sin enviar nada. Elige a <b>uno</b> de los tres e imagina que por fin se atreve:</p>
+      <ol class="list1" style="margin-top:.3em">
+        <li>Escribe los <b>tres borradores</b> que borra (cortados con puntos suspensivos, como los audios de Guille).</li>
+        <li>Escribe el <b>mensaje definitivo</b> que sí envía (60-80 palabras), con ortografía impecable: signos ¿? ¡!, tildes y sin abreviaturas.</li>
+        <li>Escribe la <b>respuesta</b> que recibe.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Pistas</h3>
+      <p>¿A quién escribe? ¿Cuál es «<i>la</i> pregunta»? Recuerda lo que planean Álex y los demás para el viernes del eclipse. ¡No hay respuesta incorrecta si es coherente con lo leído!</p>
+    </div>
+  </div>
+</div>
+<template class="sol">
+  <h2>Tres móviles · ejemplo (Sergi)</h2>
+  <p><b>Borradores:</b> <span class="hand">«Oye, ¿tú crees que…?» · «No sé si te lo he dicho, pero…» · «Mira, lo del viernes…»</span></p>
+  <p style="margin-top:.4em"><b>Mensaje enviado:</b> <span class="hand">Dani, ya sé que todos se ríen de tus planes, pero a mí me apetece ir a ver el eclipse contigo. Además, creo que esta vez no iremos solos: Álex también se ha apuntado. ¿A qué hora quedamos? Llevaré los prismáticos de mi abuelo, aunque no sé si sirven para mirar al sol… Mejor, ¡las gafas especiales!</span></p>
+  <p style="margin-top:.4em"><b>Respuesta:</b> <span class="hand">¿En serio? ¡Eres el mejor! A las seis en el parque. Y nada de prismáticos, ¿eh?</span></p>
+</template></section>
+
+<!-- 18 ESCRITURA CREATIVA 3 -->
+<section class="slide"><div class="inner">
+  <span class="kicker">Escritura creativa · 3 · por grupos</span>
+  <h2><span class="n">18</span>Escribid la escena del eclipse</h2>
+  <div class="row grow">
+    <div class="w2 card">
+      <p>El viernes llega el eclipse. Por grupos de 4, escribid la escena en <b>formato teatral</b> como Nando López (10-14 réplicas). Después la leeremos en voz alta.</p>
+      <h3 style="margin-top:.4em">La escena debe tener</h3>
+      <ol class="cols2">
+        <li>acotación inicial con día, hora y lugar (en cursiva)</li>
+        <li>nombres de personajes en mayúscula</li>
+        <li>2 acotaciones con gerundio + pronombre (<i>Mirándolo</i>)</li>
+        <li>una pareja <i>a / ha / ah</i> bien usada</li>
+        <li>un <i>por qué</i> y un <i>porque</i></li>
+        <li>una palabra extranjera en cursiva</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Personajes posibles</h3>
+      <p>Dani, Sergi, Álex, Alba, Guille, Celia, Raquel, Gertie, Elliot… ¿Aparecerán Vero y Zhihan?</p>
+      <p style="margin-top:.4em" class="small muted">Comprobad la ortografía con todo lo trabajado hoy antes de entregarla.</p>
+    </div>
+  </div>
+</div>
+<template class="sol">
+  <h2>Escena del eclipse · ejemplo de arranque</h2>
+  <p class="quote"><span class="hand">Viernes por la tarde. Una colina del parque. DANI, con unas gafas de eclipse enormes, mira al cielo. SERGI reparte gafas a los que van llegando.</span></p>
+  <div style="display:flex;flex-direction:column;gap:.3em;margin-top:.4em">
+    <p><span class="pj">DANI</span> <span class="hand">(Mirándolos sin creérselo). ¿Habéis venido todos? ¿Por qué?</span></p>
+    <p><span class="pj">ALBA</span> <span class="hand">Porque nos lo ha pedido Álex. Y porque tú ibas a estar.</span></p>
+    <p><span class="pj">GUILLE</span> <span class="hand">(Poniéndoselas). Ah, pues estas gafas son muy <i>cool</i>.</span></p>
+    <p><span class="pj">DANI</span> <span class="hand">Ha empezado. Mirad: a la luna le quedan cinco minutos para taparlo todo.</span></p>
+  </div>
+</template></section>
+
+<!-- 19 CIERRE -->
+<section class="slide dark"><div class="inner center">
+  <span class="kicker">Para terminar</span>
+  <h2 style="font-size:1.8em">¿Por qué tiene que ser todo tan difícil?</h2>
+  <div class="row" style="margin-top:.4em">
+    <div class="card"><h3 style="color:var(--oro)">1 · ¿Qué fue lo más difícil?</h3><p>Vota con la mano: adverbios en <i>-mente</i>, hiatos, diacríticas, <i>por qué</i>, homófonos, mayúsculas o la raya.</p></div>
+    <div class="card"><h3 style="color:var(--oro)">2 · Tu falta «enemiga»</h3><p>Escribe en el cuaderno la falta que más repites y una frase tuya, inventada, que te ayude a no volver a cometerla.</p></div>
+    <div class="card"><h3 style="color:var(--oro)">3 · Ob-via-men-te</h3><p>La próxima vez que leas el libro, busca tres palabras de hoy y comprueba cómo las escribe el autor.</p></div>
+  </div>
+</div></section>
+
+<script>
+(function(){
+const M=["Hoy he tenido un día rarísimo: mis padres se han echado la culpa delante de todos y yo, a lo mejor, debería haber hablado más.","Vero, ¿por qué no vienes el sábado? Sé que tienes miedo, pero también sé que tocas la guitarra como nadie.","¡Ay, Gertie! Ahí, en el vestuario, hay más secretos que toallas: a ver cuánto tardan en descubrirse.","¿Y si el viernes, cuando empiece el eclipse, le pregunto por fin lo que llevo días queriendo preguntarle?"];
+let tm=[];
+document.querySelectorAll('.play').forEach(b=>b.onclick=()=>{
+  tm.forEach(clearTimeout);tm=[];
+  const box=document.getElementById('dbox'),seg=+document.getElementById('dseg').value;
+  box.style.transition='none';box.style.opacity=1;box.innerHTML='<span>🔴 REC · Mensaje '+(+b.dataset.i+1)+'</span>';
+  const w=M[b.dataset.i].split(' ');let out='';
+  tm.push(setTimeout(()=>{box.innerHTML='<span id="dtx"></span>';const t=document.getElementById('dtx');t.textContent=M[b.dataset.i];t.style.visibility='hidden';window.__refit();t.textContent='';t.style.visibility='visible';
+    w.forEach((x,k)=>tm.push(setTimeout(()=>{out+=(k?' ':'')+x;t.textContent=out},k*260)));
+    tm.push(setTimeout(()=>{box.style.transition='opacity 1.2s';box.style.opacity=0;
+      tm.push(setTimeout(()=>{box.innerHTML='<span style="color:#f2c14e">🗑️ Mensaje borrado. ¡A escribir!</span>';box.style.opacity=1},1300))},w.length*260+seg*1000));
+  },900));
+});
+})();
+</script><button class="nav prev" id="prev" aria-label="Anterior">‹</button>
+<button class="nav next" id="next" aria-label="Siguiente">›</button>
+<div id="bar"></div><div id="count"></div>
+<button class="btn solbtn" id="solbtn" style="display:none">👁 Ver solución</button>
+<div id="modal" role="dialog" aria-modal="true"><div class="box"><button class="x" id="mx" aria-label="Cerrar">✕</button><div class="inner" id="mi"></div></div></div>
+<script>
+(function(){
+const S=[...document.querySelectorAll('.slide')];
+const GAP=/\{([^=}]+)=([^}]+)\}/g;
+const slideV=h=>h.replace(GAP,(m,o,a)=>'<span class="gap"></span><span class="opts">('+o.split('/').map(s=>s.trim()).join(' / ')+')</span>');
+const solV=h=>h.replace(GAP,(m,o,a)=>'<span class="hand">'+a+'</span>');
+/* soluciones */
+S.forEach(s=>{
+  const t=s.querySelector('template.sol');
+  let sol=null;
+  if(t){sol=solV(t.innerHTML)}
+  else{const ej=s.querySelectorAll('.ej');if(ej.length){const h=s.querySelector('h2');sol=(h?'<h2>'+h.innerHTML+' · solución</h2>':'')+[...ej].map(e=>{const c=e.cloneNode(false);return c.outerHTML.replace('></','>'+solV(e.innerHTML)+'</')}).join('')}}
+  s._sol=sol;
+  s.querySelectorAll('.ej').forEach(e=>e.innerHTML=slideV(e.innerHTML));
+});
+/* palabras pulsables */
+document.querySelectorAll('.tx').forEach(el=>{
+  const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);
+  ns.forEach(n=>{const f=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(p))}else{const sp=document.createElement('span');sp.className='word';sp.textContent=p;f.appendChild(sp)}});n.parentNode.replaceChild(f,n)});
+});
+document.addEventListener('click',e=>{
+  const w=e.target.closest('.word');if(w){w.classList.toggle('mk');return}
+  const c=e.target.closest('.chip');if(c){const box=c.closest('.chips');const n=+(box.dataset.n||0);if(n){c.dataset.c=((+(c.dataset.c||0))+1)%(n+1)}else c.classList.toggle('mk')}
+});
+/* ajuste de letra */
+function maxF(){return Math.min(innerWidth*0.027,innerHeight*0.05)}
+function ok(b){return b.scrollHeight<=b.clientHeight+1&&b.scrollWidth<=b.clientWidth+1}
+function fit(b,mx){let lo=8,hi=mx;b.style.fontSize=hi+'px';if(ok(b))return hi;for(let i=0;i<14;i++){const m=(lo+hi)/2;b.style.fontSize=m+'px';ok(b)?lo=m:hi=m}b.style.fontSize=lo+'px';return lo}
+window.__fit=fit;window.__maxF=maxF;
+/* navegación */
+let cur=0;
+const prev=document.getElementById('prev'),next=document.getElementById('next'),cnt=document.getElementById('count'),bar=document.getElementById('bar'),sb=document.getElementById('solbtn');
+function go(i){
+  cur=Math.max(0,Math.min(S.length-1,i));
+  S.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  const s=S[cur];
+  document.body.classList.toggle('navdark',s.classList.contains('dark'));
+  const inn=s.querySelector('.inner');if(inn)fit(inn,maxF()*(+(s.dataset.max||1)));
+  prev.disabled=cur===0;next.disabled=cur===S.length-1;
+  cnt.textContent=(cur+1)+' / '+S.length;bar.style.width=((cur+1)/S.length*100)+'%';
+  sb.style.display=s._sol?'block':'none';
+  try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+  document.dispatchEvent(new CustomEvent('slide',{detail:s}));
+}
+window.__go=go;window.__refit=()=>go(cur);
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+/* modal */
+const M=document.getElementById('modal'),MI=document.getElementById('mi');
+function openM(html){MI.innerHTML=html;M.classList.add('on');fit(MI,maxF()*1.12)}
+function closeM(){M.classList.remove('on');MI.innerHTML=''}
+window.__openM=openM;window.__closeM=closeM;
+sb.onclick=()=>openM(S[cur]._sol);
+document.getElementById('mx').onclick=closeM;
+M.addEventListener('click',e=>{if(e.target===M)closeM()});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeM();return}
+  if(M.classList.contains('on'))return;
+  if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  if(e.key==='Home')go(0);if(e.key==='End')go(S.length-1);
+});
+let tx=null;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{if(tx===null||M.classList.contains('on'))return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)go(cur+(d<0?1:-1));tx=null});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{go(cur);if(M.classList.contains('on'))fit(MI,maxF()*1.12)},120)});
+const h=parseInt(location.hash.slice(1));
+const start=()=>go(isNaN(h)?0:h-1);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
+start();
+})();
+</script>
+<style>#girar{position:fixed;inset:0;z-index:2147483000;background:#1d3557;color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5vw;padding:8vw;text-align:center;font:500 5vw/1.3 system-ui,Arial,sans-serif}#girar .movilico{font-size:20vw;display:inline-block;animation:girar-gira 2s ease-in-out infinite}@keyframes girar-gira{0%,25%{transform:rotate(0)}50%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}#girar b{color:#f4a261}#girar p{margin:0;max-width:none;text-align:center}#girar button{border:none;border-radius:10vw;padding:3.5vw 7vw;font:inherit;font-weight:800;cursor:pointer}#girar .si{background:#e76f51;color:#fff}#girar .no{background:transparent;color:#cfd8e3;text-decoration:underline;font-size:4vw;font-weight:500}@media (orientation:portrait) and (max-width:900px){body:not(.vertical-ok) #girar{display:flex}}</style><div id="girar"><div class="movilico">📱</div><p><b>Gira el móvil</b> para ver la presentación en horizontal.</p><button class="si" id="girar-si">Ver en horizontal</button><button class="no" id="girar-no">Seguir en vertical</button></div><script>(function(){var si=document.getElementById('girar-si'),no=document.getElementById('girar-no');si.onclick=async function(){try{await document.documentElement.requestFullscreen();}catch(e){}try{await screen.orientation.lock('landscape');}catch(e){document.querySelector('#girar p').innerHTML='Tu móvil no permite girarla solo: <b>gíralo con la mano</b> (y quita el bloqueo de rotación si lo tienes activado).';}};no.onclick=function(){document.body.classList.add('vertical-ok');window.__refit&&window.__refit();};})();</script>
+<a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
