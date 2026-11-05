@@ -11,7 +11,7 @@ const CATS={
  '01. ESO':{name:'1.º ESO',icon:'🎒',col:'--c1',desc:'Presentaciones y actividades de Lengua Castellana y Literatura para 1.º de ESO.',
    layout:{apartados:[
     {titulo:'Presentaciones',icon:'🎞️',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html']},
-    {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html']},
+    {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html']},
     {titulo:'Ortografía y vocabulario',icon:'🔤',archivos:['01_ESO/1_Y_2/PRESENTACIONES/vocabulario_1.html','01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html',{titulo:'Ortografía 1',icon:'🔤',par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_ortografia_1.html','01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html']}]},
     {titulo:'Apuntes y modelos de exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
     {titulo:'Obras de lectura',icon:'📚',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html']}],
