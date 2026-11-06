@@ -262,9 +262,15 @@ const R=[
  {s:GL,t:'gaps',title:'Completa o texto',ins:'Tocade un oco e despois a palabra. Ante <b>pronome</b>: ca / coma. Ante <b>verbo</b>: do que / como.',
   qs:[{tx:'O meu irmán é máis alto [ca] ti, pero non é tan rápido [coma] min. O exame foi menos difícil [do que] pensabamos e non foi tan longo [como] parecía.',bank:['ca','coma','do que','como'],sol:'ca · coma · do que · como.'},
       {tx:'A neve é [fría] e o mel é doce: son adxectivos [explicativos]. En «o coche amarelo», o adxectivo é [especificativo] porque non todos os coches son así.',bank:['fría','explicativos','especificativo','quente'],sol:'fría · explicativos · especificativo.'}]},
- {s:GL,t:'lock',title:'O candado final',ins:'Cada resposta é unha cifra do código. Tocade unha pregunta, escribide o número e abride o candado.',
-  qs:[{l:[['Cantas palabras invariables hai en: alí, casa, en, pero, branca, xa, contra?',5],['Cantos son masculinos en galego: dor, leite, ponte, sangue, viaxe, nariz?',3],['Cantos son colectivos: rabaño, prato, arboredo, mesa?',2],['Cantos plurais están ben: camións, camiones, compases, canais, canales, móbiles?',4]],
-       sol:'Invariables: alí, en, pero, xa, contra → <b>5</b>. Masculinos: leite, sangue, nariz → <b>3</b>. Colectivos: rabaño, arboredo → <b>2</b>. Ben escritos: camións, compases, canais, móbiles → <b>4</b>. Código: <b>5 3 2 4</b>.'}]},
+ {s:GL,t:'lock',title:'O candado final',ins:'Cada grupo ten <b>o seu candado</b>, cun código distinto. Tocade unha pregunta, escribide o número e abride. Á primeira: 3 puntos; á segunda: 1.',
+  all:[{l:[['Cantas palabras invariables hai en: alí, casa, en, pero, branca, xa, contra?',5],['Cantos son masculinos en galego: dor, leite, ponte, sangue, viaxe, nariz?',3],['Cantos son colectivos: rabaño, prato, arboredo, mesa?',2],['Cantos plurais están ben: camións, camiones, compases, canais, canales, móbiles?',4]],
+       sol:'Invariables: alí, en, pero, xa, contra → <b>5</b>. Masculinos: leite, sangue, nariz → <b>3</b>. Colectivos: rabaño, arboredo → <b>2</b>. Ben escritos: camións, compases, canais, móbiles → <b>4</b>. Código: <b>5 3 2 4</b>.'},
+      {l:[['Cantos levan o artigo «a»: árbore, leite, ponte, costume, viaxe, orde?',4],['Cantos adxectivos son explicativos: neve fría, coche amarelo, mel doce, pedra dura, camisa azul?',3],['Cantos femininos están ben: leoa, alemana, xudía, avoa, abusona?',4],['Cantos substantivos son abstractos: paz, mesa, alegría, can?',2]],
+       sol:'Levan «a»: árbore, ponte, viaxe, orde → <b>4</b>. Explicativos: neve fría, mel doce, pedra dura → <b>3</b>. Ben: leoa, xudía, avoa, abusona (non «alemana», senón alemá) → <b>4</b>. Abstractos: paz, alegría → <b>2</b>. Código: <b>4 3 4 2</b>.'},
+      {l:[['Cantas son variables: casa, alí, branca, xogar, en, fillo, estas, rápido, pero?',6],['Cantas non cambian en plural: o lapis, o luns, o tórax, o camión, o mes?',3],['Cantos superlativos están ben: amabilísimo, fidelísimo, antigüísimo, aspérrimo, integérrimo?',4],['Cantas son invariables: casa, branca, xa, fillo?',1]],
+       sol:'Variables: casa, branca, xogar, fillo, estas, rápido → <b>6</b>. Non cambian: lapis, luns, tórax → <b>3</b>. Ben: todos menos antigüísimo (é antiquísimo) → <b>4</b>. Invariable: xa → <b>1</b>. Código: <b>6 3 4 1</b>.'},
+      {l:[['Cantos son femininos: viaxe, linguaxe, paisaxe, traxe, garaxe?',3],['Cantos superlativos relativos hai: a máis alta da clase, altísima, o menos rápido do grupo, moi alto?',2],['Cantas letras ten o plural de «tren»?',5],['Cantos son substantivos propios: Uxía, Miño, Vigo, mesa, Lugo, Brais, paz, Ourense, Xoán?',7]],
+       sol:'Femininos: viaxe, linguaxe, paisaxe → <b>3</b>. Relativos: a máis alta da clase, o menos rápido do grupo → <b>2</b>. trens → <b>5</b> letras. Propios: Uxía, Miño, Vigo, Lugo, Brais, Ourense, Xoán → <b>7</b>. Código: <b>3 2 5 7</b>.'}]},
  {final:true}
 ];
 
@@ -297,11 +303,11 @@ document.addEventListener('keydown',e=>{
 
 let RC=0;
 function render(){
-  RC++;stopTimer();if(slides[cur].qs&&!slides[cur].st)slides[cur].st={qi:0,res:[]};closeSol();$('#stOv').classList.remove('on');
+  RC++;stopTimer();if(slides[cur].all)slides[cur].qs=slides[cur].all.slice(0,NG);if(slides[cur].qs&&!slides[cur].st)slides[cur].st={qi:0,res:[]};closeSol();$('#stOv').classList.remove('on');
   $('#count').textContent=(cur+1)+' / '+slides.length;$('#prev').disabled=cur===0;$('#next').disabled=cur===slides.length-1;
   {const s=slides[cur],nx=$('#next');const inQ=s.qs&&s.st&&s.st.qi<s.qs.length-1;const nxt=slides[cur+1];
    nx.className='nav '+(s.qs?(inQ?'q':'r'):'');nx.style.setProperty('--sub',s.s===H?'var(--hist)':'var(--gal)');
-   $('#nextL').textContent=s.qs?(inQ?'Seguinte pregunta':'Seguinte reto'):(nxt&&nxt.qs?'Empezar reto':'');
+   $('#nextL').textContent=s.qs?(inQ?(s.t==='lock'?'Seguinte candado':'Seguinte pregunta'):'Seguinte reto'):(nxt&&nxt.qs?'Empezar reto':'');
    $('#prevL').textContent=s.qs&&s.st&&s.st.qi>0?'Pregunta anterior':'';}
   drawTeams();const v=$('#view');v.innerHTML='';const s=slides[cur];
   if(s.cover) return rCover(v);
@@ -344,8 +350,8 @@ function rGame(v,s){
    <div class="who" id="who"></div><button class="timer" id="tm" title="Reiniciar tempo">${s.secs||45}</button></div>
    <div class="body" id="body"></div>
    <div class="foot"><div class="dots">${s.qs.map((_,i)=>`<span></span>`).join('')}</div>
-   <span class="qn">Pregunta <b>${st.qi+1}</b> de ${s.qs.length}</span><button class="btn alt" id="solB2">💡 Solución</button></div></div>`;
-  const play={g:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
+   <span class="qn">${s.t==='lock'?'Candado de '+G[st.qi%NG].name+' ·':'Pregunta'} <b>${st.qi+1}</b> de ${s.qs.length}</span><button class="btn alt" id="solB2">💡 Solución</button></div></div>`;
+  const play={g:s.t==='lock'?st.qi%NG:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
   const paintWho=()=>{const w=$('#who');w.style.setProperty('--c',G[play.g].c);w.innerHTML=`<i></i>Xoga <b>${G[play.g].name}</b>`;drawTeams(play.g)};
   const repaintDots=()=>v.querySelectorAll('.dots span').forEach((e,i)=>{e.className=(i===st.qi?'cur ':'')+(st.res[i]===true?'okd':st.res[i]===false?'kod':'')});
   paintWho();repaintDots();$('#tm').textContent=s.secs||45;
@@ -353,6 +359,7 @@ function rGame(v,s){
   $('#solB2').onclick=()=>openSol('Solución · '+s.title,solOf(s,q));
   const api={
     ok(p){ if(play.done)return; play.done=true; stopTimer(); const pts=play.att===1?(p||2):1; G[play.g].pts+=pts; st.res[st.qi]=true; toast('✔ +'+pts+' '+G[play.g].name); advanceTurn(); drawTeams(play.g); repaintDots(); if(s.t!=='box')later(()=>openSol('Moi ben!',solOf(s,q)),1100)},
+    end(){ if(play.done)return; play.done=true; stopTimer(); st.res[st.qi]=false; toast('✘ Sen puntos',true); advanceTurn(); repaintDots(); later(()=>openSol('Solución · '+s.title,solOf(s,q)),1100)},
     ko(){ if(play.done)return;
       if(play.att===1&&NG>1){ play.att=2; const ng=(play.g+1)%NG; showSteal(ng,()=>{play.g=ng; paintWho(); startTimer($('#tm'),s.secs||45); draw(true)}); }
       else { play.done=true; stopTimer(); st.res[st.qi]=false; toast('✘ Sen puntos',true); advanceTurn(); repaintDots(); later(()=>openSol('Solución · '+s.title,solOf(s,q)),1100)} }
@@ -513,9 +520,10 @@ const T={
   b.appendChild(bk);const c=h('button','btn','Comprobar');c.style.alignSelf='center';b.appendChild(c);paint();
   c.onclick=()=>{if(vals.filter(Boolean).length<ans.length)return;let ok=true;tx.querySelectorAll('.gap').forEach(e=>{const k=+e.dataset.g;const gd=vals[k]===ans[k];if(!gd)ok=false;e.classList.add(gd?'okc':'koc')});c.disabled=true;ok?api.ok():setTimeout(api.ko,1100)};
  },
- lock(s,q,b,api,retry){
-  b.appendChild(h('p','ins j',retry?'Rebote: as cifras en verde xa están ben. <b>Corrixide as vermellas</b> e abride o candado.':s.ins));
-  if(!retry)q._v=null;const keep=q.l.map((x,i)=>!!(retry&&q._v&&+q._v[i]===x[1]));const vals=q.l.map((x,i)=>keep[i]?q._v[i]:'');let sel=keep.indexOf(false);
+ lock(s,q,b,api,retry0){
+  const retry=retry0||q._try2;
+  b.appendChild(h('p','ins j',retry?'Segundo intento: as cifras en verde xa están ben. <b>Corrixide as vermellas</b> e abride o candado.':s.ins));
+  if(!retry){q._v=null;q._try2=false}const keep=q.l.map((x,i)=>!!(retry&&q._v&&+q._v[i]===x[1]));const vals=q.l.map((x,i)=>keep[i]?q._v[i]:'');let sel=keep.indexOf(false);
   const w=h('div','lock');const lk=h('div','lk');const art=h('div','lockart');w.appendChild(lk);w.appendChild(art);b.appendChild(w);
   art.innerHTML=`<div class="pad">🔒</div><div class="digits"></div>`;
   const paint=()=>{lk.innerHTML=q.l.map((x,i)=>`<button class="op ${keep[i]?'okc':retry?'koc':''} ${i===sel?'sel':''}" data-i="${i}" ${keep[i]?'disabled':''}><span class="dg">${vals[i]||'?'}</span><span>${x[0]}</span></button>`).join('');
@@ -526,7 +534,7 @@ const T={
   const c=h('button','btn gold','🔓 Abrir');art.appendChild(c);paint();
   c.onclick=()=>{if(vals.some(v=>!v))return;q._v=vals.slice();const ok=q.l.every((x,i)=>+vals[i]===x[1]);
     lk.querySelectorAll('button').forEach((e,i)=>e.classList.add(+vals[i]===q.l[i][1]?'okc':'koc'));const pad=art.querySelector('.pad');
-    if(ok){pad.textContent='🔓';pad.style.transform='scale(1.2) rotate(-10deg)';api.ok(3)}else{pad.style.transform='rotate(12deg)';setTimeout(api.ko,1200)}};
+    if(ok){pad.textContent='🔓';pad.style.transform='scale(1.2) rotate(-10deg)';const two=q._try2;q._try2=false;api.ok(two?1:3)}else{pad.style.transform='rotate(12deg)';if(!q._try2){q._try2=true;setTimeout(()=>{toast('Segundo intento',true);b.innerHTML='';T.lock(s,q,b,api,false)},1200)}else{q._try2=false;setTimeout(()=>api.end(),1200)}}};
  }
 };
 
