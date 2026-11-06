@@ -59,6 +59,11 @@ button{font-family:var(--fd);cursor:pointer}
 .fb{min-height:40px;font:600 30px var(--fd);text-align:center}
 .fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
 .arts{display:flex;gap:10px}.arts .tile{min-width:92px}
+.fieldw{display:flex;justify-content:center;align-items:center;gap:18px}
+.fld{width:640px;height:110px;border:5px solid var(--sub);border-radius:20px;background:#fff;font:700 64px var(--fd);text-align:center;color:var(--ink);outline:none;-webkit-user-select:text;user-select:text}
+.fld:focus{box-shadow:0 0 0 6px var(--gold)}
+.fld::placeholder{font-size:30px;color:#b8b2a2;font-weight:600}
+.fieldw .btn{height:110px;font-size:34px}
 .kb{display:grid;grid-template-columns:repeat(14,1fr);gap:7px}
 .k{height:62px;border:3px solid var(--line);background:#fff;border-radius:12px;font:600 30px var(--fd);color:var(--ink)}
 .k:active{background:var(--sub);color:#fff}
@@ -202,25 +207,22 @@ const ABC='ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
 const enc=w=>w.split('').map(c=>ABC.indexOf(c)+1);
 const R=[
  {sec:H,icon:'🏰',title:'Historia',sub:'A Idade Moderna e o humanismo'},
- {s:H,t:'order',title:'Liña do tempo',ins:'Tocade os feitos <b>do máis antigo ao máis recente</b>. Se vos equivocades, tocádeo outra vez para quitarlle o número.',
+ {s:H,t:'order',title:'Liña do tempo',ins:'Tocade os elementos <b>do máis antigo ao máis recente</b>. Se vos equivocades, tocádeo outra vez para quitarlle o número.',
   qs:[{items:['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'],sol:'Prehistoria → Idade Antiga → Idade Media → Idade Moderna → Idade Contemporánea.'},
-      {items:['Aparición da escritura','Caída do Imperio romano','Invento da imprenta','Caída de Constantinopla','Chegada a América','Revolución francesa'],sol:'Escritura (3000 a. C.) → Imperio romano (476) → imprenta (1450) → Constantinopla (1453) → América (1492) → Revolución francesa (1789).'}]},
- {s:H,t:'num',title:'Calculadora do tempo',secs:90,ins:'Podedes usar papel. Escribide o resultado e premede <b>✔</b>.',
+      {items:['Aparición da escritura','Caída do Imperio romano','Invento da imprenta','Caída de Constantinopla','Chegada a América','Revolución francesa'],sol:'Escritura (3000 a. C.) → Imperio romano (476) → imprenta (1450) → Constantinopla (1453) → América (1492) → Revolución francesa (1789).'},
+      {items:['Monarquía feudal','Peste negra','Caída de Constantinopla','Monarcas autoritarios','Revolución francesa'],sol:'Monarquía feudal → peste negra (1348) → Constantinopla (1453) → monarcas autoritarios (Reis Católicos) → Revolución francesa (1789).'}]},
+ {s:H,t:'num',title:'Calculadora do tempo',secs:90,ins:'Podedes usar papel. Escribide o resultado no recadro e premede <b>Comprobar</b>.',
   qs:[{p:'A Idade Moderna vai de 1453 a 1789. Cantos anos durou?',a:336,sol:'1789 − 1453 = <b>336 anos</b>.'},
-      {p:'Cantos anos pasaron entre o invento da imprenta (1450) e a chegada a América (1492)?',a:42,sol:'1492 − 1450 = <b>42 anos</b>.'},
       {p:'A peste negra matou arredor dun terzo da poboación. Se nunha cidade vivían 9 000 persoas, cantas morreron?',a:3000,sol:'9 000 ÷ 3 = <b>3 000 persoas</b>.'},
-      {p:'Petrarca naceu en 1304 e morreu en 1374. Cantos anos viviu?',a:70,sol:'1374 − 1304 = <b>70 anos</b>.'},
       {p:'Boccaccio naceu en 1313. A peste que inspirou o Decamerón foi en 1348. Cantos anos tiña?',a:35,sol:'1348 − 1313 = <b>35 anos</b>.'}]},
- {s:H,t:'cipher',title:'Mensaxe secreta',secs:120,ins:'Cada número é unha letra (A = 1, B = 2…).',
+ {s:H,t:'cipher',title:'Mensaxe secreta',secs:120,ins:'Cada número é unha letra (A = 1, B = 2…). Escribide a palabra no recadro.',
   qs:[{w:'IMPRENTA',clue:'Inventouna Gutenberg',sol:'<b>IMPRENTA</b>: espallou as ideas moito máis rápido.'},
       {w:'MECENAS',clue:'Pagaban os proxectos dos artistas',sol:'<b>MECENAS</b>, como os Medici.'},
       {w:'BURGUESES',clue:'Vivían do comercio nas cidades',sol:'<b>BURGUESES</b>: apoiaron os reis fronte aos nobres.'}]},
  {s:H,t:'intr',title:'Caza o intruso',ins:'Tres van xuntos e un sobra. <b>Tocade o intruso.</b>',
   qs:[{o:['Dante','Petrarca','Boccaccio','Colón'],a:'Colón',sol:'<b>Colón</b>: non era un escritor humanista italiano.'},
       {o:['carta','lei','crónica','moeda'],a:'moeda',sol:'<b>moeda</b>: é unha fonte material; as outras son escritas.'},
-      {o:['imprenta','academias','mecenas','peste negra'],a:'peste negra',sol:'<b>peste negra</b>: as outras axudaron a espallar o humanismo.'},
-      {o:['antropocentrismo','razón','liberdade','teocentrismo'],a:'teocentrismo',sol:'<b>teocentrismo</b>: é a mentalidade da Idade Media.'},
-      {o:['comercio','mercantilismo','burgueses','monarquía feudal'],a:'monarquía feudal',sol:'<b>monarquía feudal</b>: é medieval; o resto, da Idade Moderna.'}]},
+      {o:['antropocentrismo','razón','liberdade','teocentrismo'],a:'teocentrismo',sol:'<b>teocentrismo</b>: é a mentalidade da Idade Media.'}]},
  {s:H,t:'hang',title:'A palabra oculta',ins:'O grupo vai tocando letras. Ten <b>6 vidas</b>; se as perde, rebote.',
   qs:[{w:'HUMANISMO',clue:'Movemento que pon o ser humano no centro',sol:'<b>HUMANISMO</b>'},
       {w:'AMÉRICA',clue:'Colón chegou a ela en 1492',sol:'<b>AMÉRICA</b>'},
@@ -229,39 +231,35 @@ const R=[
   opts:['Dante','Petrarca','Boccaccio','Gutenberg','Os Medici','Os Reis Católicos'],
   qs:[{c:['Nacín en Florencia e fun desterrado','Morrín en Rávena','Escribín a Divina comedia'],a:'Dante',sol:'<b>Dante Alighieri</b> (1265-1321).'},
       {c:['Vivín en Alemaña no século XV','Grazas a min os libros xa non se copian a man','Inventei a imprenta'],a:'Gutenberg',sol:'<b>Gutenberg</b>, inventor da imprenta.'},
-      {c:['Estudei leis en Boloña e Aviñón','Rescatei libros antigos de Cicerón','Escribín o Cancioneiro para Laura'],a:'Petrarca',sol:'<b>Francesco Petrarca</b> (1304-1374).'},
-      {c:['Somos unha familia rica de Florencia','Pagamos obras de artistas e científicos','Somos os mecenas máis famosos'],a:'Os Medici',sol:'<b>Os Medici</b>, mecenas de Florencia.'},
-      {c:['Concentramos o poder e dominamos os nobres','Temos exército, funcionarios e impostos propios','Somos o exemplo español de monarcas autoritarios'],a:'Os Reis Católicos',sol:'<b>Os Reis Católicos</b>, monarcas autoritarios.'}]},
+      {c:['Somos unha familia rica de Florencia','Pagamos obras de artistas e científicos','Somos os mecenas máis famosos'],a:'Os Medici',sol:'<b>Os Medici</b>, mecenas de Florencia.'}]},
  {s:H,t:'err',title:'Detective do erro',ins:'Cada frase ten <b>unha palabra equivocada</b>. Tocádea e dicide en voz alta cal é a correcta.',
   qs:[{w:'A Idade Moderna comeza no ano 1789 coa caída de Constantinopla.',bad:'1789',sol:'Non é 1789, senón <b>1453</b>.'},
-      {w:'Na Idade Moderna a poboación diminúe tras superar a crise.',bad:'diminúe',sol:'Non diminúe: <b>medra</b>.'},
       {w:'Os nobres apoiaron os reis para que tivesen máis poder.',bad:'nobres',sol:'Non foron os nobres, senón os <b>burgueses</b>.'},
-      {w:'Petrarca escribiu o Decamerón para a súa amada Laura.',bad:'Decamerón',sol:'Non é o Decamerón, senón o <b>Cancioneiro</b>.'},
-      {w:'A imprenta fixo que as ideas se espallasen máis lentamente.',bad:'lentamente',sol:'Non lentamente: <b>rapidamente</b>.'}]},
+      {w:'Petrarca escribiu o Decamerón para a súa amada Laura.',bad:'Decamerón',sol:'Non é o Decamerón, senón o <b>Cancioneiro</b>.'}]},
  {sec:GL,icon:'📚',title:'Lingua galega',sub:'A palabra, o substantivo e o adxectivo'},
  {s:GL,t:'anag',title:'Palabras revoltas',ins:'Escollede <b>o</b> ou <b>a</b> e escribide a palabra ben ordenada. Se pedides pista ou letra, o acerto vale 1 punto.',
   qs:[{w:'VIAXE',art:'a',clue:'Imos de ___ de fin de curso',sol:'<b>a viaxe</b> (feminino, como os rematados en -axe).'},
-      {w:'ÁRBORE',art:'a',clue:'Ten tronco, ramas e follas',sol:'<b>a árbore</b> (feminino).'},
       {w:'LEITE',art:'o',clue:'Bébese no almorzo',sol:'<b>o leite</b> (masculino; en castelán «la leche»).'},
-      {w:'COSTUME',art:'o',clue:'Algo que facemos sempre',sol:'<b>o costume</b> (masculino, rematado en -ume).'},
       {w:'PONTE',art:'a',clue:'Pasa por riba do río',sol:'<b>a ponte</b> (feminino; en castelán «el puente»).'}]},
- {s:GL,t:'text',title:'A máquina do plural',secs:40,ins:'Escribide o plural co teclado. <b>Ollo cos acentos!</b>',
-  qs:[{p:'camión',a:'camións',sol:'Rematadas en -n: + s → <b>camións</b>.'},{p:'compás',a:'compases',sol:'Agudas en -s: + es → <b>compases</b>.'},
-      {p:'canal',a:'canais',sol:'Agudas en -l: -l → -is → <b>canais</b>.'},{p:'móbil',a:'móbiles',sol:'Graves en -l: + es → <b>móbiles</b>.'},
-      {p:'raíz',a:'raíces',sol:'Rematadas en -z: + es (z → c) → <b>raíces</b>.'},{p:'lapis',a:'lapis',sol:'Graves en -s: non cambian → <b>os lapis</b>.'}]},
+ {s:GL,t:'text',title:'A máquina do plural',secs:40,ins:'Escribide o plural no recadro. <b>Ollo cos acentos!</b>',
+  qs:[{p:'camión',a:'camións',sol:'Rematadas en -n: + s → <b>camións</b>.'},
+      {p:'canal',a:'canais',sol:'Agudas en -l: -l → -is → <b>canais</b>.'},
+      {p:'raíz',a:'raíces',sol:'Rematadas en -z: + es (z → c) → <b>raíces</b>.'}]},
  {s:GL,t:'spin',title:'Ruleta do feminino',ins:'Premede <b>Xirar</b> e elixide o feminino correcto.',
-  qs:[{p:'león',o:['leoa','leona','leóa'],a:'leoa',sol:'-ón → -oa: <b>leoa</b>.'},{p:'abusón',o:['abusoa','abusona','abusá'],a:'abusona',sol:'É despectivo: -ón → -ona: <b>abusona</b>.'},
-      {p:'alemán',o:['alemana','alemá','alemáa'],a:'alemá',sol:'-án → -á: <b>alemá</b>.'},{p:'folgazán',o:['folgazá','folgazana','folgazoa'],a:'folgazana',sol:'É despectivo: -án → -ana: <b>folgazana</b>.'},
-      {p:'xudeu',o:['xudea','xudía','xudeua'],a:'xudía',sol:'-eu → -ía: <b>xudía</b>.'},{p:'avó',o:['avoa','avá','avóa'],a:'avoa',sol:'Vogal tónica + a: <b>avoa</b>.'}]},
+  qs:[{p:'león',o:['leoa','leona','leóa'],a:'leoa',sol:'-ón → -oa: <b>leoa</b>.'},
+      {p:'folgazán',o:['folgazá','folgazana','folgazoa'],a:'folgazana',sol:'É despectivo: -án → -ana: <b>folgazana</b>.'},
+      {p:'xudeu',o:['xudea','xudía','xudeua'],a:'xudía',sol:'-eu → -ía: <b>xudía</b>.'}]},
  {s:GL,t:'match',title:'Relaciona',ins:'Tocade un substantivo e despois a súa clase. Cando estean todos, <b>Comprobar</b>.',
   qs:[{l:['Uxía','xustiza','leite','rabaño','prato'],r:['propio','abstracto','non contable','colectivo','individual'],sol:'Uxía → <b>propio</b> · xustiza → <b>abstracto</b> · leite → <b>non contable</b> · rabaño → <b>colectivo</b> · prato → <b>individual</b>.'},
-      {l:['Miño','solidariedade','area','arboredo','libro'],r:['propio','abstracto','non contable','colectivo','individual'],sol:'Miño → <b>propio</b> · solidariedade → <b>abstracto</b> · area → <b>non contable</b> · arboredo → <b>colectivo</b> · libro → <b>individual</b>.'}]},
+      {l:['Miño','solidariedade','area','arboredo','libro'],r:['propio','abstracto','non contable','colectivo','individual'],sol:'Miño → <b>propio</b> · solidariedade → <b>abstracto</b> · area → <b>non contable</b> · arboredo → <b>colectivo</b> · libro → <b>individual</b>.'},
+      {l:['Lugo','paz','auga','enxame','ovella'],r:['propio','abstracto','non contable','colectivo','individual'],sol:'Lugo → <b>propio</b> · paz → <b>abstracto</b> · auga → <b>non contable</b> · enxame → <b>colectivo</b> · ovella → <b>individual</b>.'}]},
  {s:GL,t:'box',title:'Que grao é?',ins:'Le a frase e tocade a caixa do seu grao.',
   boxes:[['🟰','Positivo'],['⚖️','Comparativo'],['🔝','Superlativo absoluto'],['🏆','Superlativo relativo']],
-  qs:[{p:'unha casa vella',a:'Positivo'},{p:'vellísima',a:'Superlativo absoluto'},{p:'máis vella ca a túa',a:'Comparativo'},{p:'a máis vella da rúa',a:'Superlativo relativo'},{p:'moi vella',a:'Superlativo absoluto'},{p:'tan vella coma esta',a:'Comparativo'}]},
- {s:GL,t:'gaps',title:'Completa o texto',ins:'Tocade un oco e despois a palabra. Ante <b>pronome</b>: ca / coma. Ante <b>verbo</b>: do que / como.',
-  qs:[{tx:'O meu irmán é máis alto [ca] ti, pero non é tan rápido [coma] min. O exame foi menos difícil [do que] pensabamos e non foi tan longo [como] parecía.',bank:['ca','coma','do que','como'],sol:'ca · coma · do que · como.'},
-      {tx:'A neve é [fría] e o mel é doce: son adxectivos [explicativos]. En «o coche amarelo», o adxectivo é [especificativo] porque non todos os coches son así.',bank:['fría','explicativos','especificativo','quente'],sol:'fría · explicativos · especificativo.'}]},
+  qs:[{p:'vellísima',a:'Superlativo absoluto'},{p:'máis vella ca a túa',a:'Comparativo'},{p:'a máis vella da rúa',a:'Superlativo relativo'}]},
+ {s:GL,t:'gaps',title:'Completa o texto',ins:'Tocade un oco e despois a palabra do banco.',
+  qs:[{tx:'O meu irmán é máis alto [ca] ti, pero non é tan rápido [coma] min. O exame foi menos difícil [do que] pensabamos e non foi tan longo [como] parecía.',bank:['ca','coma','do que','como'],sol:'Ante pronome: ca / coma. Ante verbo: do que / como.'},
+      {tx:'A neve é [fría] e o mel é doce: son adxectivos [explicativos]. En «o coche amarelo», o adxectivo é [especificativo] porque non todos os coches son así.',bank:['fría','explicativos','especificativo','quente'],sol:'fría · explicativos · especificativo.'},
+      {tx:'[A] viaxe foi longa. No almorzo, [o] leite estaba frío e despois cruzamos [a] ponte para ver [o] costume da vila.',bank:['o','a'],sol:'a viaxe · o leite · a ponte · o costume.'}]},
  {s:GL,t:'lock',title:'O candado final',ins:'Cada grupo ten <b>o seu candado</b>, cun código distinto. Tocade unha pregunta, escribide o número e abride. Á primeira: 3 puntos; á segunda: 1.',
   all:[{l:[['Cantas palabras invariables hai en: alí, casa, en, pero, branca, xa, contra?',5],['Cantos son masculinos en galego: dor, leite, ponte, sangue, viaxe, nariz?',3],['Cantos son colectivos: rabaño, prato, arboredo, mesa?',2],['Cantos plurais están ben: camións, camiones, compases, canais, canales, móbiles?',4]],
        sol:'Invariables: alí, en, pero, xa, contra → <b>5</b>. Masculinos: leite, sangue, nariz → <b>3</b>. Colectivos: rabaño, arboredo → <b>2</b>. Ben escritos: camións, compases, canais, móbiles → <b>4</b>. Código: <b>5 3 2 4</b>.'},
@@ -397,6 +395,17 @@ function keyboard(el,onKey,extra){
 function numpad(el,onKey){const np=h('div','numpad');
   ['1','2','3','4','5','6','7','8','9','0','⌫','✔'].forEach(c=>{const k=h('button','k'+(c==='⌫'?' del':''),c);if(c==='✔'){k.style.background='var(--sub)';k.style.color='#fff'}k.onclick=()=>onKey(c);np.appendChild(k)});el.appendChild(np);return np}
 
+/* ---- campo de escritura (teclado do proxector) ---- */
+function field(b,opts,onCheck){
+  const w=h('div','fieldw');const inp=document.createElement('input');inp.className='fld';inp.autocomplete='off';inp.spellcheck=false;
+  inp.setAttribute('autocapitalize','off');if(opts.num){inp.inputMode='numeric';inp.pattern='[0-9]*'}
+  inp.placeholder=opts.ph||'Tocade aquí para escribir';if(opts.upper)inp.style.textTransform='uppercase';
+  const go=h('button','btn','✔ Comprobar');w.appendChild(inp);w.appendChild(go);b.appendChild(w);
+  const f=h('div','fb');b.appendChild(f);
+  const run=()=>{const v=inp.value.trim();if(!v)return;onCheck(v,f,inp)};
+  go.onclick=run;inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();run()}};
+  return inp;
+}
 /* ---- tipos de reto ---- */
 const T={
  order(s,q,b,api){
@@ -410,17 +419,15 @@ const T={
     c.disabled=true;ok?api.ok():setTimeout(api.ko,1000)};
  },
  num(s,q,b,api){
-  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt j',q.p);p.style.flex='1';p.style.display='flex';p.style.alignItems='center';b.appendChild(p);
-  let val='';const sh=h('div','numshow','&nbsp;');b.appendChild(sh);const f=h('div','fb');
-  numpad(b,c=>{if(c==='⌫')val=val.slice(0,-1);else if(c==='✔'){if(!val)return;if(+val===q.a){f.className='fb ok';f.textContent='Correcto!';api.ok()}else{f.className='fb ko';f.textContent='Non é '+val;setTimeout(api.ko,900)}return}else if(val.length<6)val+=c;sh.innerHTML=val||'&nbsp;'});
-  b.appendChild(f);
+  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt j',q.p);p.style.cssText+='flex:1;display:flex;align-items:center;font-size:50px';b.appendChild(p);
+  field(b,{num:1,ph:'Tocade aquí e escribide o número'},(v,f)=>{if(+v.replace(/\D/g,'')===q.a){f.className='fb ok';f.textContent='Correcto!';api.ok()}else{f.className='fb ko';f.textContent='Non é '+v;setTimeout(api.ko,900)}});
+  const sp=h('div','');sp.style.flex='.6';b.appendChild(sp);
  },
  cipher(s,q,b,api){
   b.appendChild(h('p','ins j',s.ins));b.appendChild(h('div','prompt',`<span style="color:var(--muted);font-size:34px">Pista:</span> ${q.clue}`)).style.fontSize='50px';
-  b.appendChild(h('div','cipher',enc(q.w).map(n=>`<span>${n}</span>`).join('')));
-  b.appendChild(h('div','code',ABC.map((c,i)=>`<span><b>${c}</b>${i+1}</span>`).join('')));
-  let val='';const d=h('div','disp');const paint=()=>{d.innerHTML=q.w.split('').map((_,i)=>`<span>${val[i]||''}</span>`).join('')};paint();b.appendChild(d);
-  keyboard(b,c=>{if(val.length<q.w.length){val+=c;paint()}},[['⌫',()=>{val=val.slice(0,-1);paint()},'w2 del'],['✔',()=>{if(val.length<q.w.length)return;if(val===q.w)api.ok();else{d.querySelectorAll('span').forEach((e,i)=>e.style.background=val[i]===q.w[i]?'#e9f7ee':'#fdecec');setTimeout(api.ko,1000)}},'w2']]);
+  b.appendChild(h('div','cipher',enc(q.w).map(n=>`<span style="min-width:96px;font-size:54px">${n}</span>`).join('')));
+  const c=h('div','code',ABC.map((c,i)=>`<span><b>${c}</b>${i+1}</span>`).join(''));c.style.fontSize='24px';b.appendChild(c);
+  field(b,{upper:1},(v,f)=>{if(v.toUpperCase()===q.w)api.ok();else{f.className='fb ko';f.textContent='Non é «'+v.toUpperCase()+'»';setTimeout(api.ko,1000)}});
  },
  intr(s,q,b,api){
   b.appendChild(h('p','ins j',s.ins));const g=h('div','opts');g.style.cssText='grid-template-columns:1fr 1fr;flex:1;grid-auto-rows:1fr';
@@ -460,29 +467,25 @@ const T={
  anag(s,q,b,api){
   b.appendChild(h('p','ins j',s.ins));
   const W=q.w.split('');let mix=shuf(W);if(mix.join('')===q.w)mix=mix.reverse();
-  const top=h('div','',`<div class="prompt" id="defn" style="font-size:34px;color:var(--muted);min-height:44px"></div><div class="cipher" style="margin-top:8px">${mix.map(c=>`<span style="min-width:80px;font-size:52px">${c}</span>`).join('')}</div>`);b.appendChild(top);
-  let art='',val=W.map(()=>''),fixed=W.map(()=>false),pos=0,used=0;
-  const row=h('div','',`<div style="display:flex;align-items:center;justify-content:center;gap:22px"><div class="arts"><button class="tile" data-a="o">o</button><button class="tile" data-a="a">a</button></div><div class="disp" id="ad"></div><div style="display:flex;flex-direction:column;gap:8px"><button class="btn gold" id="def">📖 Pista</button><button class="btn gold" id="pista">🔤 Letra</button></div></div>`);b.appendChild(row);
-  row.querySelector('#def').onclick=e=>{if(!top.querySelector('#defn').textContent){used++;top.querySelector('#defn').innerHTML='Pista: '+q.clue}e.target.disabled=true};
-  const d=row.querySelector('#ad');
-  const nextPos=()=>{pos=val.findIndex((v,i)=>!v&&!fixed[i]);if(pos<0)pos=W.length};
-  const paint=()=>{d.innerHTML=W.map((_,i)=>`<span style="${fixed[i]?'color:var(--gold)':''}">${val[i]}</span>`).join('');row.querySelectorAll('[data-a]').forEach(t=>t.style.opacity=art&&t.dataset.a!==art?.3:1)};
-  row.querySelectorAll('[data-a]').forEach(t=>t.onclick=()=>{art=t.dataset.a;paint()});
-  row.querySelector('#pista').onclick=()=>{const free=W.map((c,i)=>i).filter(i=>!fixed[i]&&val[i]!==W[i]);if(free.length<=1)return;const i=free[0];val[i]=W[i];fixed[i]=true;used++;nextPos();paint();row.querySelector('#pista').textContent='🔤 Letra ('+W.filter((_,k)=>fixed[k]).length+')'};
-  const f=h('div','fb');b.appendChild(f);
-  keyboard(b,c=>{nextPos();if(pos<W.length){val[pos]=c;nextPos();paint()}},[['⌫',()=>{for(let i=W.length-1;i>=0;i--)if(val[i]&&!fixed[i]){val[i]='';break}nextPos();paint()},'w2 del'],['✔',()=>{
+  const top=h('div','',`<div class="cipher">${mix.map(c=>`<span style="min-width:96px;font-size:64px">${c}</span>`).join('')}</div><div class="prompt" id="defn" style="font-size:40px;min-height:52px;margin-top:10px"></div>`);b.appendChild(top);
+  let art='',used=0;const fixed=W.map(()=>false);
+  const row=h('div','',`<div style="display:flex;align-items:center;justify-content:center;gap:26px"><div class="disp" id="ad"></div><button class="btn gold" id="def">📖 Pista</button><button class="btn gold" id="pista">🔤 Letra</button></div>`);b.appendChild(row);
+  const d=row.querySelector('#ad');const paint=()=>d.innerHTML=W.map((c,i)=>`<span style="color:var(--gold)">${fixed[i]?c:''}</span>`).join('');paint();
+  row.querySelector('#def').onclick=e=>{used++;top.querySelector('#defn').innerHTML='<span style="color:var(--muted)">Pista:</span> '+q.clue;e.target.disabled=true};
+  row.querySelector('#pista').onclick=()=>{const i=fixed.indexOf(false);if(i<0||fixed.filter(x=>!x).length<=1)return;fixed[i]=true;used++;paint()};
+  const fw=h('div','fieldw',`<div class="arts"><button class="tile" data-a="o">o</button><button class="tile" data-a="a">a</button></div>`);b.appendChild(fw);
+  fw.querySelectorAll('[data-a]').forEach(t=>t.onclick=()=>{art=t.dataset.a;fw.querySelectorAll('[data-a]').forEach(x=>x.style.opacity=x.dataset.a===art?1:.3)});
+  const inp=field(fw,{upper:1,ph:'Escribide a palabra'},(v,f)=>{
     if(!art){f.className='fb ko';f.textContent='Falta escoller o ou a';return}
-    if(val.some(v=>!v)){f.className='fb ko';f.textContent='Faltan letras';return}
-    const ok=val.join('')===q.w&&art===q.art;
+    const ok=v.toUpperCase()===q.w&&art===q.art;
     if(ok){f.className='fb ok';f.textContent='Correcto: '+q.art+' '+q.w.toLowerCase();api.ok(used?1:2)}
-    else{f.className='fb ko';f.textContent=val.join('')!==q.w?'A palabra non é correcta':'Ollo co artigo!';d.querySelectorAll('span').forEach((e,i)=>e.style.background=val[i]===W[i]?'#e9f7ee':'#fdecec');setTimeout(api.ko,1100)}},'w2']]);
-  paint();
+    else{f.className='fb ko';f.textContent=v.toUpperCase()!==q.w?'A palabra non é correcta':'Ollo co artigo!';setTimeout(api.ko,1100)}});
+  inp.style.width='520px';b.appendChild(fw.querySelector('.fb'));
  },
  text(s,q,b,api){
-  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt',`<span style="color:var(--muted);font-size:36px">Plural de</span> «${q.p}»`);p.style.fontSize='56px';p.style.flex='1';p.style.display='flex';p.style.alignItems='center';p.style.justifyContent='center';p.style.gap='16px';b.appendChild(p);
-  let val='';const sh=h('div','numshow','&nbsp;');sh.style.minWidth='520px';b.appendChild(sh);const f=h('div','fb');b.appendChild(f);
-  const paint=()=>sh.innerHTML=val.toLowerCase()||'&nbsp;';
-  keyboard(b,c=>{if(val.length<14){val+=c;paint()}},[['⌫',()=>{val=val.slice(0,-1);paint()},'w2 del'],['✔',()=>{if(!val)return;if(norm(val)===norm(q.a)){f.className='fb ok';f.textContent='Correcto!';api.ok()}else{f.className='fb ko';f.textContent='Non é «'+val.toLowerCase()+'»';setTimeout(api.ko,900)}},'w2']]);
+  b.appendChild(h('p','ins j',s.ins));const p=h('div','prompt',`<span style="color:var(--muted);font-size:40px">Plural de</span> «${q.p}»`);p.style.cssText+='font-size:80px;flex:1;display:flex;align-items:center;justify-content:center;gap:20px';b.appendChild(p);
+  field(b,{ph:'Escribide o plural'},(v,f)=>{if(norm(v)===norm(q.a)){f.className='fb ok';f.textContent='Correcto!';api.ok()}else{f.className='fb ko';f.textContent='Non é «'+v.toLowerCase()+'»';setTimeout(api.ko,900)}});
+  const sp=h('div','');sp.style.flex='.6';b.appendChild(sp);
  },
  spin(s,q,b,api,retry){
   b.appendChild(h('p','ins j',s.ins));const sp=h('div','spin','🎡');b.appendChild(sp);
