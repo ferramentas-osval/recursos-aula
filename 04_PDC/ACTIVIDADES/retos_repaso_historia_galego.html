@@ -204,7 +204,7 @@ const R=[
  {sec:H,icon:'🏰',title:'Historia',sub:'A Idade Moderna e o humanismo'},
  {s:H,t:'order',title:'Liña do tempo',ins:'Tocade os feitos <b>do máis antigo ao máis recente</b>. Se vos equivocades, tocádeo outra vez para quitarlle o número.',
   qs:[{items:['Prehistoria','Idade Antiga','Idade Media','Idade Moderna','Idade Contemporánea'],sol:'Prehistoria → Idade Antiga → Idade Media → Idade Moderna → Idade Contemporánea.'},
-      {items:['Aparición da escritura (3000 a. C.)','Caída do Imperio romano (476)','Invento da imprenta (arredor de 1450)','Caída de Constantinopla (1453)','Chegada a América (1492)','Revolución francesa (1789)'],sol:'Escritura (3000 a. C.) → Imperio romano (476) → imprenta (1450) → Constantinopla (1453) → América (1492) → Revolución francesa (1789).'}]},
+      {items:['Aparición da escritura','Caída do Imperio romano','Invento da imprenta','Caída de Constantinopla','Chegada a América','Revolución francesa'],sol:'Escritura (3000 a. C.) → Imperio romano (476) → imprenta (1450) → Constantinopla (1453) → América (1492) → Revolución francesa (1789).'}]},
  {s:H,t:'num',title:'Calculadora do tempo',secs:90,ins:'Podedes usar papel. Escribide o resultado e premede <b>✔</b>.',
   qs:[{p:'A Idade Moderna vai de 1453 a 1789. Cantos anos durou?',a:336,sol:'1789 − 1453 = <b>336 anos</b>.'},
       {p:'Cantos anos pasaron entre o invento da imprenta (1450) e a chegada a América (1492)?',a:42,sol:'1492 − 1450 = <b>42 anos</b>.'},
@@ -223,7 +223,7 @@ const R=[
       {o:['comercio','mercantilismo','burgueses','monarquía feudal'],a:'monarquía feudal',sol:'<b>monarquía feudal</b>: é medieval; o resto, da Idade Moderna.'}]},
  {s:H,t:'hang',title:'A palabra oculta',ins:'O grupo vai tocando letras. Ten <b>6 vidas</b>; se as perde, rebote.',
   qs:[{w:'HUMANISMO',clue:'Movemento que pon o ser humano no centro',sol:'<b>HUMANISMO</b>'},
-      {w:'MERCANTILISMO',clue:'Un país é máis rico canto máis ouro e prata acumula',sol:'<b>MERCANTILISMO</b>'},
+      {w:'AMÉRICA',clue:'Colón chegou a ela en 1492',sol:'<b>AMÉRICA</b>'},
       {w:'CONSTANTINOPLA',clue:'A súa caída en 1453 abre a Idade Moderna',sol:'<b>CONSTANTINOPLA</b>'}]},
  {s:H,t:'clues',title:'Quen son?',ins:'Abride as pistas unha a unha. <b>Canto antes acertedes, máis puntos</b>: 3, 2 ou 1.',
   opts:['Dante','Petrarca','Boccaccio','Gutenberg','Os Medici','Os Reis Católicos'],
@@ -239,7 +239,7 @@ const R=[
       {w:'Petrarca escribiu o Decamerón para a súa amada Laura.',bad:'Decamerón',sol:'Non é o Decamerón, senón o <b>Cancioneiro</b>.'},
       {w:'A imprenta fixo que as ideas se espallasen máis lentamente.',bad:'lentamente',sol:'Non lentamente: <b>rapidamente</b>.'}]},
  {sec:GL,icon:'📚',title:'Lingua galega',sub:'A palabra, o substantivo e o adxectivo'},
- {s:GL,t:'anag',title:'Palabras revoltas',ins:'Escollede <b>o</b> ou <b>a</b> e escribide a palabra ben ordenada. Se pedides pista, o acerto vale 1 punto.',
+ {s:GL,t:'anag',title:'Palabras revoltas',ins:'Escollede <b>o</b> ou <b>a</b> e escribide a palabra ben ordenada. Se pedides pista ou letra, o acerto vale 1 punto.',
   qs:[{w:'VIAXE',art:'a',clue:'Imos de ___ de fin de curso',sol:'<b>a viaxe</b> (feminino, como os rematados en -axe).'},
       {w:'ÁRBORE',art:'a',clue:'Ten tronco, ramas e follas',sol:'<b>a árbore</b> (feminino).'},
       {w:'LEITE',art:'o',clue:'Bébese no almorzo',sol:'<b>o leite</b> (masculino; en castelán «la leche»).'},
@@ -409,7 +409,7 @@ const T={
   b.appendChild(f);
  },
  cipher(s,q,b,api){
-  b.appendChild(h('p','ins j',s.ins+` <b>Pista:</b> ${q.clue}.`));
+  b.appendChild(h('p','ins j',s.ins));b.appendChild(h('div','prompt',`<span style="color:var(--muted);font-size:34px">Pista:</span> ${q.clue}`)).style.fontSize='50px';
   b.appendChild(h('div','cipher',enc(q.w).map(n=>`<span>${n}</span>`).join('')));
   b.appendChild(h('div','code',ABC.map((c,i)=>`<span><b>${c}</b>${i+1}</span>`).join('')));
   let val='';const d=h('div','disp');const paint=()=>{d.innerHTML=q.w.split('').map((_,i)=>`<span>${val[i]||''}</span>`).join('')};paint();b.appendChild(d);
@@ -453,14 +453,15 @@ const T={
  anag(s,q,b,api){
   b.appendChild(h('p','ins j',s.ins));
   const W=q.w.split('');let mix=shuf(W);if(mix.join('')===q.w)mix=mix.reverse();
-  const top=h('div','',`<div class="prompt" style="font-size:30px;color:var(--muted)">Pista: ${q.clue}</div><div class="cipher" style="margin-top:8px">${mix.map(c=>`<span style="min-width:80px;font-size:52px">${c}</span>`).join('')}</div>`);b.appendChild(top);
+  const top=h('div','',`<div class="prompt" id="defn" style="font-size:34px;color:var(--muted);min-height:44px"></div><div class="cipher" style="margin-top:8px">${mix.map(c=>`<span style="min-width:80px;font-size:52px">${c}</span>`).join('')}</div>`);b.appendChild(top);
   let art='',val=W.map(()=>''),fixed=W.map(()=>false),pos=0,used=0;
-  const row=h('div','',`<div style="display:flex;align-items:center;justify-content:center;gap:22px"><div class="arts"><button class="tile" data-a="o">o</button><button class="tile" data-a="a">a</button></div><div class="disp" id="ad"></div><button class="btn gold" id="pista">💡 Pista</button></div>`);b.appendChild(row);
+  const row=h('div','',`<div style="display:flex;align-items:center;justify-content:center;gap:22px"><div class="arts"><button class="tile" data-a="o">o</button><button class="tile" data-a="a">a</button></div><div class="disp" id="ad"></div><div style="display:flex;flex-direction:column;gap:8px"><button class="btn gold" id="def">📖 Pista</button><button class="btn gold" id="pista">🔤 Letra</button></div></div>`);b.appendChild(row);
+  row.querySelector('#def').onclick=e=>{if(!top.querySelector('#defn').textContent){used++;top.querySelector('#defn').innerHTML='Pista: '+q.clue}e.target.disabled=true};
   const d=row.querySelector('#ad');
   const nextPos=()=>{pos=val.findIndex((v,i)=>!v&&!fixed[i]);if(pos<0)pos=W.length};
   const paint=()=>{d.innerHTML=W.map((_,i)=>`<span style="${fixed[i]?'color:var(--gold)':''}">${val[i]}</span>`).join('');row.querySelectorAll('[data-a]').forEach(t=>t.style.opacity=art&&t.dataset.a!==art?.3:1)};
   row.querySelectorAll('[data-a]').forEach(t=>t.onclick=()=>{art=t.dataset.a;paint()});
-  row.querySelector('#pista').onclick=()=>{const free=W.map((c,i)=>i).filter(i=>!fixed[i]&&val[i]!==W[i]);if(free.length<=1)return;const i=free[0];val[i]=W[i];fixed[i]=true;used++;nextPos();paint();row.querySelector('#pista').textContent='💡 Pista ('+used+')'};
+  row.querySelector('#pista').onclick=()=>{const free=W.map((c,i)=>i).filter(i=>!fixed[i]&&val[i]!==W[i]);if(free.length<=1)return;const i=free[0];val[i]=W[i];fixed[i]=true;used++;nextPos();paint();row.querySelector('#pista').textContent='🔤 Letra ('+W.filter((_,k)=>fixed[k]).length+')'};
   const f=h('div','fb');b.appendChild(f);
   keyboard(b,c=>{nextPos();if(pos<W.length){val[pos]=c;nextPos();paint()}},[['⌫',()=>{for(let i=W.length-1;i>=0;i--)if(val[i]&&!fixed[i]){val[i]='';break}nextPos();paint()},'w2 del'],['✔',()=>{
     if(!art){f.className='fb ko';f.textContent='Falta escoller o ou a';return}
@@ -512,17 +513,18 @@ const T={
   b.appendChild(bk);const c=h('button','btn','Comprobar');c.style.alignSelf='center';b.appendChild(c);paint();
   c.onclick=()=>{if(vals.filter(Boolean).length<ans.length)return;let ok=true;tx.querySelectorAll('.gap').forEach(e=>{const k=+e.dataset.g;const gd=vals[k]===ans[k];if(!gd)ok=false;e.classList.add(gd?'okc':'koc')});c.disabled=true;ok?api.ok():setTimeout(api.ko,1100)};
  },
- lock(s,q,b,api){
-  b.appendChild(h('p','ins j',s.ins));const vals=q.l.map(()=>'');let sel=0;
+ lock(s,q,b,api,retry){
+  b.appendChild(h('p','ins j',retry?'Rebote: as cifras en verde xa están ben. <b>Corrixide as vermellas</b> e abride o candado.':s.ins));
+  if(!retry)q._v=null;const keep=q.l.map((x,i)=>!!(retry&&q._v&&+q._v[i]===x[1]));const vals=q.l.map((x,i)=>keep[i]?q._v[i]:'');let sel=keep.indexOf(false);
   const w=h('div','lock');const lk=h('div','lk');const art=h('div','lockart');w.appendChild(lk);w.appendChild(art);b.appendChild(w);
   art.innerHTML=`<div class="pad">🔒</div><div class="digits"></div>`;
-  const paint=()=>{lk.innerHTML=q.l.map((x,i)=>`<button class="op ${i===sel?'sel':''}" data-i="${i}"><span class="dg">${vals[i]||'?'}</span><span>${x[0]}</span></button>`).join('');
+  const paint=()=>{lk.innerHTML=q.l.map((x,i)=>`<button class="op ${keep[i]?'okc':retry?'koc':''} ${i===sel?'sel':''}" data-i="${i}" ${keep[i]?'disabled':''}><span class="dg">${vals[i]||'?'}</span><span>${x[0]}</span></button>`).join('');
     lk.querySelectorAll('button').forEach(e=>e.onclick=()=>{sel=+e.dataset.i;paint()});
     art.querySelector('.digits').innerHTML=vals.map(v=>`<span>${v||'•'}</span>`).join('')};
   const np=h('div','numpad');np.style.gridTemplateColumns='repeat(5,76px)';
-  ['1','2','3','4','5','6','7','8','9','0'].forEach(c=>{const k=h('button','k',c);k.style.height='64px';k.onclick=()=>{vals[sel]=c;sel=Math.min(q.l.length-1,sel+1);paint()};np.appendChild(k)});art.appendChild(np);
+  ['1','2','3','4','5','6','7','8','9','0'].forEach(c=>{const k=h('button','k',c);k.style.height='64px';k.onclick=()=>{if(sel<0||keep[sel])return;vals[sel]=c;let n=sel+1;while(n<q.l.length&&keep[n])n++;if(n<q.l.length)sel=n;paint()};np.appendChild(k)});art.appendChild(np);
   const c=h('button','btn gold','🔓 Abrir');art.appendChild(c);paint();
-  c.onclick=()=>{if(vals.some(v=>!v))return;const ok=q.l.every((x,i)=>+vals[i]===x[1]);
+  c.onclick=()=>{if(vals.some(v=>!v))return;q._v=vals.slice();const ok=q.l.every((x,i)=>+vals[i]===x[1]);
     lk.querySelectorAll('button').forEach((e,i)=>e.classList.add(+vals[i]===q.l[i][1]?'okc':'koc'));const pad=art.querySelector('.pad');
     if(ok){pad.textContent='🔓';pad.style.transform='scale(1.2) rotate(-10deg)';api.ok(3)}else{pad.style.transform='rotate(12deg)';setTimeout(api.ko,1200)}};
  }
