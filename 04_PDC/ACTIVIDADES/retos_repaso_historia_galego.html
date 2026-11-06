@@ -346,7 +346,7 @@ function rGame(v,s){
    <div class="foot"><div class="dots">${s.qs.map((_,i)=>`<span></span>`).join('')}</div>
    <span class="qn">Pregunta <b>${st.qi+1}</b> de ${s.qs.length}</span><button class="btn alt" id="solB2">💡 Solución</button></div></div>`;
   const play={g:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
-  const paintWho=()=>{const w=$('#who');w.style.setProperty('--c',G[play.g].c);w.innerHTML=`<i></i>Xoga <b>${G[play.g].name}</b> · ${who(play.g)}`;drawTeams(play.g)};
+  const paintWho=()=>{const w=$('#who');w.style.setProperty('--c',G[play.g].c);w.innerHTML=`<i></i>Xoga <b>${G[play.g].name}</b>`;drawTeams(play.g)};
   const repaintDots=()=>v.querySelectorAll('.dots span').forEach((e,i)=>{e.className=(i===st.qi?'cur ':'')+(st.res[i]===true?'okd':st.res[i]===false?'kod':'')});
   paintWho();repaintDots();$('#tm').textContent=s.secs||45;
   if(!play.done) showTurn(play.g,()=>startTimer($('#tm'),s.secs||45)); else startTimer($('#tm'),s.secs||45);
@@ -362,14 +362,14 @@ function rGame(v,s){
 }
 function showTurn(g,go2){
   const ov=$('#stOv'),b=$('#stBox');b.style.setProperty('--c',G[g].c);
-  b.innerHTML=`<p style="font:600 34px var(--fd);color:var(--muted)">É a quenda de</p><h3 style="font-size:96px;line-height:1">${G[g].name}</h3><div class="sae"><span>Sae á pantalla</span><b>${who(g)}</b></div><button class="btn gold" id="stGo" style="font-size:40px;padding:16px 40px">▶ Empezar</button>`;
+  b.innerHTML=`<p style="font:600 34px var(--fd);color:var(--muted)">É a quenda de</p><h3 style="font-size:140px;line-height:1">${G[g].name}</h3><p style="color:var(--muted)">Pensade a resposta entre todo o grupo.</p><button class="btn gold" id="stGo" style="font-size:40px;padding:16px 40px">▶ Empezar</button>`;
   ov.classList.add('on');$('#stGo').onclick=()=>{ov.classList.remove('on');go2()};
 }
 function advanceTurn(){G[turn].k++;turn=(turn+1)%NG}
 function showSteal(g,go2){
   const ov=$('#stOv'),b=$('#stBox');stopTimer();
   b.style.setProperty('--c',G[g].c);
-  b.innerHTML=`<p style="font:600 34px var(--fd);color:var(--ko)">✘ Fallo · 🔁 Rebote para</p><h3 style="font-size:96px;line-height:1">${G[g].name}</h3><div class="sae"><span>Sae á pantalla</span><b>${who(g)}</b></div><p>Se acertades, levades <b>1 punto</b>.</p><button class="btn gold" id="stGo" disabled style="font-size:40px;padding:16px 40px">Esperade…</button>`;
+  b.innerHTML=`<p style="font:600 34px var(--fd);color:var(--ko)">✘ Fallo · 🔁 Rebote para</p><h3 style="font-size:140px;line-height:1">${G[g].name}</h3><p>Se acertades, levades <b>1 punto</b>.</p><button class="btn gold" id="stGo" disabled style="font-size:40px;padding:16px 40px">Esperade…</button>`;
   G[g].k++;ov.classList.add('on');
   setTimeout(()=>{const x=$('#stGo');if(!x)return;x.disabled=false;x.textContent='Responder ›';x.onclick=()=>{ov.classList.remove('on');go2()}},1800);
 }
