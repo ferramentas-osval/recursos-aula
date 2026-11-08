@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control de lectura · Por qué tiene que ser todo tan difícil</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+</style>
+<style>
+  :root{
+    --azul:#1795d4; --azul-osc:#0d5f8c; --tinta:#1f2a33; --gris:#5b6770;
+    --linea:#c9d6de; --fondo:#e9eef2; --papel:#ffffff; --sol:#f4a51c; --ok:#1f8a4c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--fondo);font-family:"Nunito","Segoe UI",Arial,sans-serif;color:var(--tinta);font-size:15px;line-height:1.45}
+  p,li,.just{text-align:justify}
+
+  /* Barra superior */
+  .barra{position:sticky;top:0;z-index:20;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+         padding:10px 16px;background:var(--azul-osc)}
+  .barra button{font:inherit;font-weight:800;border:none;border-radius:8px;padding:9px 18px;cursor:pointer;
+         background:#fff;color:var(--azul-osc)}
+  .barra button.sol{background:var(--sol);color:#2b1a00}
+  .barra button:hover{filter:brightness(.95)}
+
+  /* Hoja A4 */
+  .hoja{width:min(210mm,100%);margin:18px auto;background:var(--papel);padding:14mm 14mm 16mm;
+        box-shadow:0 2px 14px rgba(0,0,0,.12)}
+  @media (max-width:600px){.hoja{padding:18px 16px;margin:0}}
+
+  /* Cabecera */
+  .cab{display:flex;gap:18px;align-items:flex-start}
+  .cab .datos{flex:1;min-width:0}
+  .campo{display:flex;gap:8px;align-items:flex-end;font-size:19px;color:var(--azul);margin-bottom:10px}
+  .campo span{flex:1;border-bottom:1.5px solid var(--azul);height:22px}
+  .campo.peq{font-size:15px}
+  .tipo{color:var(--azul);font-size:20px;margin:14px 0 2px}
+  h1{color:var(--azul);font-size:30px;line-height:1.1;margin:0;font-weight:800}
+  .autor{color:var(--azul);font-size:24px;font-weight:900;margin-top:2px}
+  .eclipse{width:110px;flex:0 0 110px}
+
+  /* Secciones */
+  .sec{margin-top:22px;break-inside:auto}
+  .sec h2{display:flex;gap:10px;align-items:center;color:var(--azul);font-size:18px;margin:0 0 10px;font-weight:800}
+  .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--azul);color:#fff;display:flex;align-items:center;
+       justify-content:center;font-size:15px;font-weight:900}
+
+  /* Test */
+  ol.test{margin:0;padding-left:26px}
+  ol.test>li{font-weight:800;margin-bottom:8px;break-inside:avoid}
+  ol.test ol{list-style:none;padding-left:0;margin:3px 0 0;font-weight:400}
+  ol.test ol li{display:flex;gap:8px;align-items:flex-start;margin:2px 0;padding:1px 4px;border-radius:5px}
+  .letra{flex:0 0 auto;font-weight:700}
+  .caja{flex:0 0 13px;height:13px;border:1.5px solid var(--gris);border-radius:3px;margin-top:4px}
+  .txt{flex:1}
+
+  /* Líneas de escritura */
+  .lineas{margin-top:6px}
+  .lineas div{height:28px}
+
+  /* Escape room */
+  .escape{border:2px dashed var(--azul);border-radius:14px;padding:14px 16px;background:#f5fbff}
+  .escape .intro{margin:0 0 12px}
+  .pistas{display:grid;grid-template-columns:1fr;gap:10px}
+  .pista{display:flex;gap:12px;align-items:center;flex-wrap:wrap;break-inside:avoid}
+  .pista .n{flex:0 0 auto;font-weight:900;color:var(--azul-osc)}
+  .pista .t{flex:1 1 260px}
+  .casillas{display:flex;gap:3px}
+  .casillas i{width:25px;height:27px;border:1.5px solid var(--gris);border-radius:4px;display:flex;align-items:center;
+             justify-content:center;font-style:normal;font-weight:900;font-size:15px;background:#fff}
+  .casillas i.clave{background:#ffe7a8;border-color:var(--sol)}
+  .candado{display:flex;gap:16px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .candado svg{flex:0 0 52px}
+  .candado .casillas i{width:34px;height:38px;font-size:20px;border-color:var(--azul-osc);background:#ffe7a8}
+  .nota{font-size:13px;color:var(--gris)}
+
+  /* Crucigrama */
+  .cw-wrap{display:flex;flex-direction:column;gap:16px}
+  .defs{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+  @media (max-width:600px){.defs{grid-template-columns:1fr}}
+  .defs h3{margin:0 0 4px;font-size:15px;color:var(--azul-osc)}
+  .defs ol{margin:0 0 10px;padding-left:0;list-style:none}
+  .defs li{margin-bottom:4px;display:flex;gap:6px}
+  .defs li b{flex:0 0 22px}
+  .cw{flex:0 0 auto;display:grid;gap:0;margin:0 auto}
+  .cw div{width:32px;height:32px;position:relative}
+  .cw div.c{border:1.5px solid #333;background:#fff}
+  .cw sup{position:absolute;top:0;left:2px;font-size:9px;font-weight:800;line-height:1}
+  .cw .l{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--ok);font-size:15px}
+
+  /* Soluciones */
+  .sol-on .respuesta{display:block}
+  .respuesta{display:none;margin-top:8px;padding:8px 12px;border-left:4px solid var(--ok);background:#eaf7ef;
+             border-radius:4px;color:#134e2c;font-size:14px}
+  .sol-on ol.test ol li.ok{background:#d6f1e0;font-weight:700}
+  .sol-on ol.test ol li.ok .caja{background:var(--ok);border-color:var(--ok)}
+  .sol-on .casillas i[data-s]::after{content:attr(data-s);color:var(--ok)}
+  .cw .l{display:none}
+  .sol-on .cw .l{display:flex}
+  .aviso-sol{display:none;background:var(--ok);color:#fff;text-align:center;font-weight:800;padding:6px}
+  .sol-on .aviso-sol{display:block}
+
+  /* Ventana de la clave */
+  .velo{position:fixed;inset:0;background:rgba(10,30,45,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+  .velo.ver{display:flex}
+  .modal{background:#fff;border-radius:14px;padding:22px;width:min(380px,100%);text-align:center}
+  .modal h3{margin:0 0 10px;color:var(--azul-osc)}
+  .modal input{width:100%;font:inherit;font-size:18px;padding:10px;border:2px solid var(--linea);border-radius:8px;text-align:center}
+  .modal .bot{display:flex;gap:10px;margin-top:12px}
+  .modal button{flex:1;font:inherit;font-weight:800;padding:10px;border-radius:8px;border:none;cursor:pointer}
+  .modal .si{background:var(--azul);color:#fff}
+  .modal .no{background:#e4e9ed}
+  .modal .err{color:#c0392b;font-weight:700;min-height:1.3em;margin-top:6px}
+
+  /* Impresión */
+  @page{size:A4;margin:12mm}
+  @media print{
+    body{background:#fff;font-size:12px;line-height:1.32}
+    h1{font-size:24px}.autor{font-size:19px}.tipo{margin-top:6px}.eclipse{width:80px;flex-basis:80px}
+    .campo{margin-bottom:6px}.sec{margin-top:14px}
+    ol.test>li{margin-bottom:5px}
+    .sec-test{break-after:page}
+    .cw div{width:34px;height:34px}.cw sup{font-size:10px}
+    ol.test{columns:2;column-gap:8mm}
+    .cw div{width:36px;height:36px}
+    .barra,.velo,.aviso-sol{display:none!important}
+    .hoja{box-shadow:none;margin:0;padding:0;width:auto}
+    .salto{break-before:page}
+    .escape{background:#fff}
+    .casillas i.clave,.candado .casillas i{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#fff3cf}
+    .num{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  /* Puntuaciones */
+  .notas{display:flex;gap:10px;flex-wrap:wrap;border:1.5px solid var(--azul);border-radius:8px;padding:8px 12px;margin:4px 0 6px;color:var(--azul-osc);font-weight:700;font-size:14px}
+  .notas div{flex:1 1 auto;display:flex;gap:6px;align-items:flex-end;white-space:nowrap}
+  .notas span{flex:1;min-width:40px;height:20px;border-bottom:1.5px solid var(--azul)}
+  .notas div:last-child{font-weight:900}
+  .sec h2 .pts{margin-left:auto;order:8;flex:0 0 auto;font-size:13px;font-weight:800;color:var(--azul-osc);background:#e3f2fb;border-radius:20px;padding:2px 10px;white-space:nowrap}
+  .sec h2 .chk{margin-left:10px!important}
+  .pp{font-size:12px;font-weight:800;color:var(--azul-osc);white-space:nowrap}
+  @media print{.sec h2 .pts{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="barra">
+  <button onclick="window.print()">🖨️ Imprimir</button>
+  <button class="sol" id="btnSol" onclick="pedirClave()">🔒 Soluciones</button>
+</div>
+<div class="aviso-sol">Soluciones visibles</div>
+
+<main class="hoja" id="hoja">
+
+  <!-- CABECERA -->
+  <header class="cab">
+    <div class="datos">
+      <div class="campo">Alumno/a <span></span></div>
+      <div class="campo peq">Curso <span style="flex:.6"></span> Fecha <span style="flex:.6"></span></div>
+      <div class="notas"><div>Nota:<span></span></div><div>Descuento ortografía: −<span></span></div><div>Nota final:<span></span></div></div>
+      <div class="tipo">Control de lectura</div>
+      <h1>Por qué tiene que ser todo tan difícil</h1>
+      <div class="autor">Nando López</div>
+    </div>
+    <svg class="eclipse" viewBox="0 0 120 120" aria-hidden="true">
+      <defs><radialGradient id="g" cx="50%" cy="50%" r="50%">
+        <stop offset="55%" stop-color="#f4a51c"/><stop offset="100%" stop-color="#f4a51c" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="60" cy="60" r="58" fill="url(#g)"/>
+      <circle cx="60" cy="60" r="34" fill="#f7c14a"/>
+      <circle cx="68" cy="56" r="33" fill="#1f2a33"/>
+    </svg>
+  </header>
+
+  <!-- 1. TEST -->
+  <section class="sec sec-test">
+    <h2><span class="num">1</span>Responde a las siguientes cuestiones. Marca la respuesta correcta:</h2>
+    <ol class="test" id="test"></ol>
+  </section>
+
+  <!-- 2. REFLEXIÓN -->
+  <section class="sec">
+    <h2><span class="num">2</span>¿Te sientes identificado o identificada con alguno de los personajes? ¿Cuál te gustaría representar? ¿Por qué?</h2>
+    <div class="lineas"><div></div><div></div><div></div><div></div><div></div></div>
+    <div class="respuesta"><b>Respuesta personal.</b> Valorar que nombre un personaje concreto, explique en qué se parece a él o ella (su conflicto, su forma de ser o su secreto) y justifique por qué le gustaría representarlo.</div>
+  </section>
+
+  <!-- 3. ESCAPE ROOM -->
+  <section class="sec">
+    <h2><span class="num">3</span>Escape room: la caja del eclipse</h2>
+    <div class="escape">
+      <p class="intro">El día del eclipse, alguien ha cerrado con candado la caja donde el grupo guarda las gafas para mirar el sol. Para abrirla necesitáis una contraseña de cinco letras. Escribe el nombre del personaje de cada pista y copia en el candado la letra de la <b>casilla amarilla</b>, en el mismo orden.</p>
+      <div class="pistas" id="pistas"></div>
+      <div class="candado">
+        <svg viewBox="0 0 52 60" aria-hidden="true"><path d="M14 26V17a12 12 0 0 1 24 0v9" fill="none" stroke="#0d5f8c" stroke-width="6"/>
+          <rect x="4" y="25" width="44" height="33" rx="6" fill="#0d5f8c"/><circle cx="26" cy="40" r="5" fill="#fff"/><rect x="24" y="42" width="4" height="9" fill="#fff"/></svg>
+        <div><b>Contraseña:</b><div class="casillas" id="clavecaja" style="margin-top:4px"></div></div>
+      </div>
+      <p style="margin:14px 0 4px"><b>¿Qué tiene que ver esa palabra con la obra?</b> Explícalo en una o dos líneas.</p>
+      <div class="lineas"><div></div><div></div></div>
+      <div class="respuesta" id="solEscape"></div>
+    </div>
+  </section>
+
+  <!-- 4. CRUCIGRAMA -->
+  <section class="sec salto">
+    <h2><span class="num">4</span>Lee las definiciones y completa el crucigrama de la obra.</h2>
+    <div class="cw-wrap">
+      <div class="defs">
+        <div><h3>Horizontales →</h3><ol id="defH"></ol></div>
+        <div><h3>Verticales ↓</h3><ol id="defV"></ol></div>
+      </div>
+      <div class="cw" id="cw"></div>
+    </div>
+  </section>
+
+</main>
+
+<div class="velo" id="velo">
+  <div class="modal">
+    <h3>🔒 Soluciones</h3>
+    <input id="clave" type="password" placeholder="PIN" autocomplete="off">
+    <div class="err" id="err"></div>
+    <div class="bot"><button class="no" onclick="cerrar()">Cancelar</button><button class="si" onclick="comprobar()">Ver</button></div>
+  </div>
+</div>
+
+<script>window.__ENC={"id": "01_ESO/1_Y_2/OBRAS_LECTURA/prueba_lectura_por_que_tiene_que_ser_todo_tan_dificil.html", "i": "M2/Q6/tAuhheuE3/", "n": 150000, "c": "ILGtED/pSwGPnDEogP+qvFHkv3us6cwtjjq/a2oKPFcJ0P2D4tNnHytFkHMYqYEM4Ni80lnQtZqO8cICeqhJf3LTUSIxiCTEZBaC3PvVcpUEMqKPw8jA93ajKfRVgUgigvRQQA4hC58sRYzZ+vHRKhrvPInqhcJawpq1MHTs0LLAvG7uiW70qW/A5QpOHcOajakimk/nEukZVU9unnRmoIs37lfng8ttS49NPcg8uqAfT+/gBdwmGbS/WWrQDoswERV5CFlC+K6oQ+iYXXl2MIffUJgrPz5JNbmkMFK0qg=="};</script>
+<script>
+/* Las soluciones van cifradas (AES-GCM) con el PIN del profesor; no están en este código. */
+/* ===== 1. TEST ===== */
+const TEST = [
+  ['¿Qué le reprocha Celia a Vero al principio de la obra?',
+   ['Que no le da «likes» y que no escucha sus audios.','Que le ha contado su secreto a todo el grupo.','Que siempre llega tarde cuando quedan.']],
+  ['¿Por qué llegan tarde Vero y Alba en el acto 1?',
+   ['Porque se han quedado conversando ellas solas.','Porque se les ha hecho tarde tocando la guitarra y haciendo judo.','Porque se han quedado mirando sus móviles y no se han dado cuenta de la hora que es.']],
+  ['¿Quién no es capaz de guardar un secreto?',
+   ['Vero.','Álex.','Celia.']],
+  ['¿Cuál es el conflicto que vive Guille?',
+   ['Se siente presionado por sus padres y no se atreve a decírselo.','Está enamorado de Dani y tiene miedo a hablar con él.','Quiere vivir con su madre, pero no soporta al novio de ella.']],
+  ['¿Qué fenómeno atmosférico quiere ver Dani?',
+   ['Una lluvia de estrellas.','El paso de un cometa.','Un eclipse.']],
+  ['¿Cómo se siente Gertie respecto de sí misma?',
+   ['Muy segura y extrovertida. Se lleva el mundo por delante.','Simpática y divertida. Cree que le resulta muy sencillo hacer nuevas amigas.','Muy insegura. Se siente como una figurante en su propia vida.']],
+  ['¿De quién se ha enamorado Dani? ¿Es correspondido?',
+   ['De Álex, y parece que él le corresponde.','De Álex, pero a él no le gustan los chicos.','De Sergi, aunque no sabemos qué siente él.']],
+  ['¿Por qué los gemelos se llaman Gertie y Elliot?',
+   ['Por la peli E.T., que les encantaba a sus padres.','Por sus abuelos.','Porque a los padres les gustaban esos nombres.']],
+  ['¿Por qué Vero no se anima a tocar en el concurso?',
+   ['Porque no se siente lista para presentarse en público.','Porque en verdad no le gusta la música.','Porque no le gusta la canción que compuso Zhihan y no se atreve a decírselo.']],
+  ['¿Cuál es el plan de Álex?',
+   ['Convencer todos juntos a Vero para que se presente.','Grabar a Vero y mostrarle la grabación para que vea que es buena y se anime a participar en el concurso.','Organizar una fiesta de cumpleaños sorpresa para Gertie.']]
+];
+const L = 'abc';
+document.getElementById('test').innerHTML = TEST.map(([p, ops]) =>
+  `<li>${p}<ol>${ops.map((o, i) =>
+     `<li><span class="caja"></span><span class="letra">${L[i]})</span><span class="txt">${o}</span></li>`).join('')}</ol></li>`).join('');
+
+/* ===== 3. ESCAPE ROOM ===== */
+const PISTAS = [
+  ['Graba varios mensajes para Alba, pero nunca se atreve a enviarlos.', 6, 4],
+  ['Está obsesionado con el eclipse y reúne a sus amigos para verlo juntos.', 4, 4],
+  ['Cuando hablan de secretos, respeta el «no» de Raquel.', 4, 3],
+  ['Dice «no» para que los demás insistan y así no sentirse responsable.', 6, 1],
+  ['Es el hermano gemelo de Gertie.', 6, 1]
+];
+document.getElementById('pistas').innerHTML = PISTAS.map(([t, n, k], j) =>
+  `<div class="pista"><span class="n">Pista ${j + 1}</span><span class="t">${t}</span>
+   <span class="casillas">${Array.from({length: n}, (_, i) => `<i class="${i + 1 === k ? 'clave' : ''}"></i>`).join('')}</span></div>`).join('');
+document.getElementById('clavecaja').innerHTML = '<i></i>'.repeat(PISTAS.length);
+
+/* ===== 4. CRUCIGRAMA ===== */
+const CW = { h: 11, w: 11, palabras: [
+  [6, 0, 7, 'V', 'Mensajes de voz que los amigos se mandan por el móvil.'],
+  [5, 1, 0, 'V', 'Hay que llevarlas especiales para mirar el eclipse sin dañarse los ojos.'],
+  [8, 1, 3, 'H', 'Competición musical en la que Vero no se anima a tocar.'],
+  [6, 2, 2, 'V', 'Lo que pasó en él es el tema de los mensajes que Guille graba para Alba.'],
+  [6, 3, 5, 'H', 'Personaje que compuso la canción del concurso.'],
+  [7, 4, 4, 'V', 'Así son Gertie y su hermano.'],
+  [8, 5, 0, 'H', 'Casi todos los amigos del grupo guardan alguno.'],
+  [5, 5, 10, 'V', 'Años que tienen los protagonistas.'],
+  [7, 7, 4, 'H', 'Fenómeno que el grupo queda para ver junto.'],
+  [6, 9, 3, 'H', 'En el acto 5, cada personaje explica por qué tiene el suyo.']
+]};
+const CELDAS = [];
+(function () {
+  const celda = {}, inicio = {};
+  CW.palabras.forEach(([n, r, c, d], w) => {
+    for (let i = 0; i < n; i++) { const k = (d === 'H' ? [r, c + i] : [r + i, c]).join(','); (celda[k] = celda[k] || []).push([w, i]); }
+    inicio[r + ',' + c] = true;
+  });
+  const numero = {}; let n = 0;
+  for (let r = 0; r < CW.h; r++) for (let c = 0; c < CW.w; c++) if (inicio[r + ',' + c]) numero[r + ',' + c] = ++n;
+  const cont = document.getElementById('cw');
+  cont.style.gridTemplateColumns = `repeat(${CW.w}, auto)`;
+  let html = '';
+  for (let r = 0; r < CW.h; r++) for (let c = 0; c < CW.w; c++) {
+    const k = r + ',' + c;
+    if (celda[k]) { CELDAS.push(celda[k][0]); html += `<div class="c">${numero[k] ? `<sup>${numero[k]}</sup>` : ''}<span class="l"></span></div>`; }
+    else html += '<div></div>';
+  }
+  cont.innerHTML = html;
+  const lista = d => CW.palabras.map((p, w) => [p, w]).filter(([p]) => p[3] === d)
+    .sort((a, b) => numero[a[0][1] + ',' + a[0][2]] - numero[b[0][1] + ',' + b[0][2]])
+    .map(([[, r, c, , def], w]) => `<li><b>${numero[r + ',' + c]}.</b><span class="just">${def}<em class="sw" data-i="${w}"></em></span></li>`).join('');
+  document.getElementById('defH').innerHTML = lista('H');
+  document.getElementById('defV').innerHTML = lista('V');
+})();
+
+/* ===== SOLUCIONES (cifradas) ===== */
+const ENC = window.__ENC, TE = new TextEncoder();
+const b64 = s => Uint8Array.from(atob(s), ch => ch.charCodeAt(0));
+async function opn(k) { const pt = await crypto.subtle.decrypt({name: 'AES-GCM', iv: b64(ENC.i)}, k, b64(ENC.c)); return JSON.parse(new TextDecoder().decode(pt)); }
+async function dec(pin) {
+  const km = await crypto.subtle.importKey('raw', TE.encode(pin), 'PBKDF2', false, ['deriveKey']);
+  return opn(await crypto.subtle.deriveKey({name: 'PBKDF2', salt: TE.encode('recursos-aula:' + ENC.id), iterations: ENC.n, hash: 'SHA-256'}, km, {name: 'AES-GCM', length: 256}, false, ['decrypt']));
+}
+async function decK(raw) { return opn(await crypto.subtle.importKey('raw', b64(raw), 'AES-GCM', false, ['decrypt'])); }
+let SOL = null;
+function rellenar(S) {
+  SOL = S;
+  document.querySelectorAll('#test > li').forEach((li, i) => li.querySelectorAll('ol li')[S.test[i]].classList.add('ok'));
+  document.querySelectorAll('.pista').forEach((p, j) => p.querySelectorAll('.casillas i').forEach((e, i) => e.dataset.s = S.esc[j][i]));
+  const pal = PISTAS.map(([, , k], j) => S.esc[j][k - 1]).join('');
+  document.querySelectorAll('#clavecaja i').forEach((e, i) => e.dataset.s = pal[i]);
+  const nom = S.esc.map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' · ');
+  document.getElementById('solEscape').innerHTML = `<b>Solución:</b> ${nom} → <b>${pal}</b>.<br>Respuesta abierta: valorar que relacione la palabra con la obra; por ejemplo, que los personajes quieren sentirse libres para ser como son y para contar sus secretos sin miedo a lo que piensen los demás.`;
+  document.querySelectorAll('#cw .l').forEach((e, i) => { const [w, k] = CELDAS[i]; e.textContent = S.cw[w][k]; });
+}
+function mostrar() {
+  document.body.classList.add('sol-on');
+  document.querySelectorAll('.sw').forEach(e => { e.textContent = ' → ' + SOL.cw[e.dataset.i]; e.style.color = 'var(--ok)'; e.style.fontWeight = '800'; e.style.fontStyle = 'normal'; });
+  const b = document.getElementById('btnSol'); b.textContent = '🙈 Ocultar soluciones'; b.onclick = ocultar;
+}
+function ocultar() {
+  document.body.classList.remove('sol-on');
+  document.querySelectorAll('.sw').forEach(e => e.textContent = '');
+  const b = document.getElementById('btnSol'); b.textContent = SOL_LIBRES ? '👁️ Ver soluciones' : '🔒 Soluciones'; b.onclick = pedirClave;
+}
+let SOL_LIBRES = false;
+function pedirClave() {
+  if (SOL) return mostrar();
+  document.getElementById('velo').classList.add('ver');
+  document.getElementById('err').textContent = '';
+  const i = document.getElementById('clave'); i.value = ''; setTimeout(() => i.focus(), 50);
+}
+function cerrar() { document.getElementById('velo').classList.remove('ver'); }
+async function comprobar() {
+  try { rellenar(await dec(document.getElementById('clave').value.trim())); cerrar(); mostrar(); }
+  catch (e) { document.getElementById('err').textContent = 'PIN incorrecto'; }
+}
+document.getElementById('clave').addEventListener('keydown', e => { if (e.key === 'Enter') comprobar(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
+document.getElementById('velo').addEventListener('click', e => { if (e.target.id === 'velo') cerrar(); });
+/* Soluciones liberadas para todos por el profesor */
+fetch('https://ferramentas-osval.github.io/recursos-aula/assets/soluciones_liberadas.json?t=' + Date.now(), {cache: 'no-store'})
+  .then(r => r.json()).then(j => { const k = j[ENC.id]; if (k) decK(k).then(S => { rellenar(S); SOL_LIBRES = true; document.getElementById('btnSol').textContent = '👁️ Ver soluciones'; }); }).catch(() => {});
+</script>
+<script>
+/* ===== PUNTUACIONES (total 10) ===== */
+(function () {
+  const PTS = { 1: '4 puntos · 0,4 cada pregunta', 2: '1,5 puntos', 3: '2 puntos', 4: '2,5 puntos · 0,25 cada palabra' };
+  document.querySelectorAll('.sec h2').forEach(h => {
+    const n = h.querySelector('.num'); if (!n || !PTS[n.textContent.trim()]) return;
+    h.insertAdjacentHTML('beforeend', `<span class="pts">${PTS[n.textContent.trim()]}</span>`);
+  });
+  // Ejercicio 2 con apartados (versiones adaptadas)
+  const sub = ['0,25 p.', '0,5 p.', '0,75 p.'];
+  document.querySelectorAll('.guia > p').forEach((p, i) => sub[i] && p.insertAdjacentHTML('beforeend', ` <span class="pp">(${sub[i]})</span>`));
+  // Escape room
+  document.querySelectorAll('.pista .n').forEach(e => e.insertAdjacentHTML('beforeend', ' <span class="pp">(0,2)</span>'));
+  const cl = document.querySelector('.candado b'); if (cl) cl.insertAdjacentHTML('afterend', ' <span class="pp">(0,25 p.)</span>');
+  const esc = document.querySelectorAll('.escape > p'); const ult = esc[esc.length - 1];
+  if (ult && !ult.classList.contains('intro')) ult.insertAdjacentHTML('beforeend', ' <span class="pp">(0,75 p.)</span>');
+})();
+</script>
+<a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&amp;&amp;!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
