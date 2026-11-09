@@ -112,7 +112,7 @@ window.RECURSOS=[
       "n": "OBRAS DE LECTURA",
       "c": [
        {
-        "t": "Prueba de lectura: «Por qué tiene que ser todo tan difícil»",
+        "t": "Prueba de lectura: «Por qué tiene que ser todo tan difícil» (con soluciones)",
         "h": "01_ESO/1_Y_2/OBRAS_LECTURA/prueba_lectura_por_que_tiene_que_ser_todo_tan_dificil.html"
        }
       ]
