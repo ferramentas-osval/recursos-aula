@@ -189,12 +189,13 @@ function makeGroups(shuffle){
   for(let i=0;i<NG;i++) G.push({name:(old[i]&&old[i].name)||('Grupo '+'ABCD'[i]),c:COLS[i],pts:(old[i]&&old[i].pts)||0,mem:[],k:0});
   s.forEach((n,i)=>G[i%NG].mem.push(n));
 }
-makeGroups(true);
+if(/individual/i.test(location.search+location.hash)){NG=1}
+makeGroups(true);if(NG===1)G[0].name='Xogador/a';
 function who(g){const x=G[g];return x.mem.length?x.mem[x.k%x.mem.length]:''}
 function drawTeams(hl){
   const t=$('#teams');t.innerHTML='';const on=hl==null?turn:hl;
   G.forEach((g,i)=>{const d=document.createElement('div');d.className='team'+(i===on?' turn':'');d.style.setProperty('--c',g.c);
-    d.innerHTML=`<button class="m">−</button><span class="nm">${g.name}</span><span class="pt">${g.pts}</span><button>+</button>`;
+    d.innerHTML=NG===1?`<span class="nm">${g.name}</span><span class="pt">${g.pts}</span>`:`<button class="m">−</button><span class="nm">${g.name}</span><span class="pt">${g.pts}</span><button>+</button>`;if(NG===1){t.appendChild(d);return}
     d.querySelector('.m').onclick=()=>{g.pts=Math.max(0,g.pts-1);drawTeams(hl)};
     d.querySelector('button:last-child').onclick=()=>{g.pts++;drawTeams(hl)};t.appendChild(d)});
 }
@@ -301,7 +302,7 @@ document.addEventListener('keydown',e=>{
 
 let RC=0;
 function render(){
-  RC++;stopTimer();if(slides[cur].all)slides[cur].qs=slides[cur].all.slice(0,NG);if(slides[cur].qs&&!slides[cur].st)slides[cur].st={qi:0,res:[]};closeSol();$('#stOv').classList.remove('on');
+  RC++;stopTimer();if(slides[cur].all)slides[cur].qs=slides[cur].all.slice(0,NG===1?3:NG);if(slides[cur].qs&&!slides[cur].st)slides[cur].st={qi:0,res:[]};closeSol();$('#stOv').classList.remove('on');
   $('#count').textContent=(cur+1)+' / '+slides.length;$('#prev').disabled=cur===0;$('#next').disabled=cur===slides.length-1;
   {const s=slides[cur],nx=$('#next');const inQ=s.qs&&s.st&&s.st.qi<s.qs.length-1;const nxt=slides[cur+1];
    nx.className='nav '+(s.qs?(inQ?'q':'r'):'');nx.style.setProperty('--sub',s.s===H?'var(--hist)':'var(--gal)');
@@ -315,18 +316,22 @@ function render(){
 }
 
 function rCover(v){
+  const ind=NG===1;
   v.innerHTML=`<div class="cover"><div><h1>Retos de repaso</h1><p class="j">Historia (Idade Moderna e humanismo) e lingua galega (substantivo e adxectivo) en 14 retos distintos: cálculos, mensaxes secretas, palabra oculta, pistas, detective do erro, anagramas, ruleta, candado…</p>
-  <p class="j" style="font-size:27px;color:#cfd6e6">Acerto á primeira: <b style="color:var(--gold)">2 puntos</b>. Se fallades, <b style="color:var(--gold)">rebote</b> para o seguinte grupo, que pode levar <b style="color:var(--gold)">1 punto</b>. O turno vai rotando en cada pregunta.</p></div>
-  <div class="grp"><h3>Grupos <span class="chips">${[2,3,4].map(n=>`<button class="chip ${n===NG?'on':''}" data-n="${n}">${n}</button>`).join('')}<button class="chip" id="mix">🔀 Mesturar</button></span></h3><div id="gl" style="display:flex;flex-direction:column;gap:12px"></div>
-  <p class="j" style="font:700 21px var(--fb);color:#cfd6e6">Tocade un nome para pasar a persoa ao grupo seguinte. Tocade o nome do grupo para escribir outro.</p></div></div>`;
+  <p class="j" style="font-size:27px;color:#cfd6e6">${ind?'Acerto á primeira: <b style="color:var(--gold)">2 puntos</b>. Se fallas, tes un <b style="color:var(--gold)">segundo intento</b> que vale <b style="color:var(--gold)">1 punto</b>. Ao final verás cantas preguntas acertaches.':'Acerto á primeira: <b style="color:var(--gold)">2 puntos</b>. Se fallades, <b style="color:var(--gold)">rebote</b> para o seguinte grupo, que pode levar <b style="color:var(--gold)">1 punto</b>. O turno vai rotando en cada pregunta.'}</p></div>
+  <div class="grp"><h3>${ind?'Modo individual':'Grupos'} <span class="chips">${[2,3,4].map(n=>`<button class="chip ${n===NG?'on':''}" data-n="${n}">${n}</button>`).join('')}<button class="chip ${ind?'on':''}" data-n="1">👤 Individual</button>${ind?'':'<button class="chip" id="mix">🔀</button>'}</span></h3><div id="gl" style="display:flex;flex-direction:column;gap:12px"></div>
+  <p class="j" style="font:700 21px var(--fb);color:#cfd6e6">${ind?'Escribe o teu nome e preme a frecha da dereita para empezar. Podes facelo tamén na casa, desde o ordenador ou a tableta.':'Tocade un nome para pasar a persoa ao grupo seguinte. Tocade o nome do grupo para escribir outro. Se falta alguén ou se queredes xogar na casa, escollede «Individual».'}</p></div></div>`;
   const gl=v.querySelector('#gl');
-  G.forEach((g,i)=>{const d=document.createElement('div');d.className='gbox';d.style.setProperty('--c',g.c);
+  if(ind){const d=document.createElement('div');d.className='gbox';d.style.setProperty('--c',G[0].c);
+    d.innerHTML=`<input value="${G[0].name==='Xogador/a'?'':G[0].name}" maxlength="18" placeholder="O teu nome" style="font-size:44px;padding:10px 0">`;
+    d.querySelector('input').oninput=e=>{G[0].name=e.target.value||'Xogador/a';drawTeams()};gl.appendChild(d);}
+  else G.forEach((g,i)=>{const d=document.createElement('div');d.className='gbox';d.style.setProperty('--c',g.c);
     d.innerHTML=`<input value="${g.name}" maxlength="18"><div class="mem">${g.mem.map(m=>`<span>${m}</span>`).join('')}</div>`;
     d.querySelector('input').oninput=e=>{g.name=e.target.value||('Grupo '+'ABCD'[i]);drawTeams()};
     d.querySelectorAll('.mem span').forEach(sp=>sp.onclick=()=>{const n=sp.textContent;g.mem.splice(g.mem.indexOf(n),1);G[(i+1)%NG].mem.push(n);render()});
     gl.appendChild(d)});
-  v.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{NG=+b.dataset.n;makeGroups(true);turn=0;render()});
-  v.querySelector('#mix').onclick=()=>{makeGroups(true);render()};
+  v.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{const was=NG;NG=+b.dataset.n;G=[];makeGroups(true);if(NG===1)G[0].name='Xogador/a';turn=0;slides.forEach(x=>{if(x.st)x.st=null});render()});
+  const mx=v.querySelector('#mix');if(mx)mx.onclick=()=>{makeGroups(true);render()};
 }
 function rSec(v,s){
   const idx=slides.indexOf(s);const list=[];for(let k=idx+1;k<slides.length&&slides[k].s===s.title;k++)list.push(k);
@@ -334,6 +339,10 @@ function rSec(v,s){
   v.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>go(+b.dataset.k));
 }
 function rPod(v){
+  if(NG===1){let ok=0,tot=0;slides.forEach(x=>{if(x.qs){tot+=x.qs.length;if(x.st)ok+=x.st.res.filter(r=>r===true).length}});
+    const pc=tot?Math.round(ok/tot*100):0;const msg=pc>=80?'Excelente! Estás listo/a para o exame.':pc>=50?'Ben! Repasa os retos nos que fallaches.':'Volve repasar os apuntes e téntao outra vez.';
+    v.innerHTML=`<div class="sec"><div class="big">${pc>=80?'🏆':pc>=50?'👍':'📚'}</div><h1 style="font-size:80px">${G[0].name}</h1><p style="font-size:54px">Acertaches <b style="color:var(--gold)">${ok}</b> de ${tot} preguntas</p><p style="font-size:44px">${G[0].pts} puntos · ${pc} %</p><p>${msg}</p><button class="btn gold" id="again" style="font-size:34px">↺ Volver xogar</button></div>`;
+    v.querySelector('#again').onclick=()=>{G[0].pts=0;slides.forEach(x=>{if(x.st)x.st=null});go(0)};return}
   const arr=G.slice().sort((a,b)=>b.pts-a.pts);const ord=arr.length>=3?[arr[1],arr[0],arr[2],...arr.slice(3)]:[arr[1],arr[0]];
   const mx=Math.max(1,arr[0].pts),med=['🥇','🥈','🥉','4.º'];
   v.innerHTML=`<div class="sec"><h1 style="font-size:80px">🏆 Podio final</h1><div id="podium">${ord.map(g=>`<div class="col"><div class="nm">${med[arr.indexOf(g)]} ${g.name}</div><div class="blk" style="background:${g.c};color:#fff;height:${Math.max(16,g.pts/mx*100)}%">${g.pts}<small>puntos</small></div></div>`).join('')}</div></div>`;
@@ -349,16 +358,17 @@ function rGame(v,s){
    <div class="body" id="body"></div>
    <div class="foot"><div class="dots">${s.qs.map((_,i)=>`<span></span>`).join('')}</div>
    <span class="qn">${s.t==='lock'?'Candado de '+G[st.qi%NG].name+' ·':'Pregunta'} <b>${st.qi+1}</b> de ${s.qs.length}</span><button class="btn alt" id="solB2">💡 Solución</button></div></div>`;
-  const play={g:s.t==='lock'?st.qi%NG:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
+  const play={g:NG===1?0:s.t==='lock'?st.qi%NG:turn,att:1,done:st.res[st.qi]!=null};const rc=RC;const later=(fn,ms)=>setTimeout(()=>{if(rc===RC)fn()},ms);
   const paintWho=()=>{const w=$('#who');w.style.setProperty('--c',G[play.g].c);w.innerHTML=`<i></i>Xoga <b>${G[play.g].name}</b>`;drawTeams(play.g)};
   const repaintDots=()=>v.querySelectorAll('.dots span').forEach((e,i)=>{e.className=(i===st.qi?'cur ':'')+(st.res[i]===true?'okd':st.res[i]===false?'kod':'')});
   paintWho();repaintDots();$('#tm').textContent=s.secs||45;
-  if(!play.done) showTurn(play.g,()=>startTimer($('#tm'),s.secs||45)); else startTimer($('#tm'),s.secs||45);
+  if(!play.done&&NG>1) showTurn(play.g,()=>startTimer($('#tm'),s.secs||45)); else startTimer($('#tm'),s.secs||45);
   $('#solB2').onclick=()=>openSol('Solución · '+s.title,solOf(s,q));
   const api={
     ok(p){ if(play.done)return; play.done=true; stopTimer(); const pts=play.att===1?(p||2):1; G[play.g].pts+=pts; st.res[st.qi]=true; toast('✔ +'+pts+' '+G[play.g].name); advanceTurn(); drawTeams(play.g); repaintDots(); if(s.t!=='box')later(()=>openSol('Moi ben!',solOf(s,q)),1100)},
     end(){ if(play.done)return; play.done=true; stopTimer(); st.res[st.qi]=false; toast('✘ Sen puntos',true); advanceTurn(); repaintDots(); later(()=>openSol('Solución · '+s.title,solOf(s,q)),1100)},
     ko(){ if(play.done)return;
+      if(play.att===1&&NG===1&&s.t!=='hang'){ play.att=2; toast('Segundo intento (1 punto)',true); later(()=>{startTimer($('#tm'),s.secs||45); draw(true)},1300); return }
       if(play.att===1&&NG>1){ play.att=2; const ng=(play.g+1)%NG; showSteal(ng,()=>{play.g=ng; paintWho(); startTimer($('#tm'),s.secs||45); draw(true)}); }
       else { play.done=true; stopTimer(); st.res[st.qi]=false; toast('✘ Sen puntos',true); advanceTurn(); repaintDots(); later(()=>openSol('Solución · '+s.title,solOf(s,q)),1100)} }
   };
