@@ -134,6 +134,8 @@ button{font-family:var(--fd);cursor:pointer}
 .chips{display:flex;gap:10px}
 .chip{font:600 24px var(--fd);padding:8px 18px;border-radius:99px;background:#fff;color:var(--ink);border:4px solid transparent}
 .chip.on{background:var(--gold)}
+.chip.ind{background:var(--gold);color:var(--ink)}
+.chip.ind.on{border-color:#fff;box-shadow:0 0 0 3px var(--gold)}
 .sec{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;gap:18px;text-align:center}
 .sec .big{font-size:150px;line-height:1}
 .sec h1{font:700 100px var(--fd)}
@@ -319,7 +321,7 @@ function rCover(v){
   const ind=NG===1;
   v.innerHTML=`<div class="cover"><div><h1>Retos de repaso</h1><p class="j">Historia (Idade Moderna e humanismo) e lingua galega (substantivo e adxectivo) en 14 retos distintos: cálculos, mensaxes secretas, palabra oculta, pistas, detective do erro, anagramas, ruleta, candado…</p>
   <p class="j" style="font-size:27px;color:#cfd6e6">${ind?'Acerto á primeira: <b style="color:var(--gold)">2 puntos</b>. Se fallas, tes un <b style="color:var(--gold)">segundo intento</b> que vale <b style="color:var(--gold)">1 punto</b>. Ao final verás cantas preguntas acertaches.':'Acerto á primeira: <b style="color:var(--gold)">2 puntos</b>. Se fallades, <b style="color:var(--gold)">rebote</b> para o seguinte grupo, que pode levar <b style="color:var(--gold)">1 punto</b>. O turno vai rotando en cada pregunta.'}</p></div>
-  <div class="grp"><h3>${ind?'Modo individual':'Grupos'} <span class="chips">${[2,3,4].map(n=>`<button class="chip ${n===NG?'on':''}" data-n="${n}">${n}</button>`).join('')}<button class="chip ${ind?'on':''}" data-n="1">👤 Individual</button>${ind?'':'<button class="chip" id="mix">🔀</button>'}</span></h3><div id="gl" style="display:flex;flex-direction:column;gap:12px"></div>
+  <div class="grp"><h3>${ind?'Modo individual':'Grupos'} <span class="chips">${[2,3,4].map(n=>`<button class="chip ${n===NG?'on':''}" data-n="${n}">${n}</button>`).join('')}<button class="chip ind ${ind?'on':''}" data-n="1">👤 Individual</button>${ind?'':'<button class="chip" id="mix">🔀</button>'}</span></h3><div id="gl" style="display:flex;flex-direction:column;gap:12px"></div>
   <p class="j" style="font:700 21px var(--fb);color:#cfd6e6">${ind?'Escribe o teu nome e preme a frecha da dereita para empezar. Podes facelo tamén na casa, desde o ordenador ou a tableta.':'Tocade un nome para pasar a persoa ao grupo seguinte. Tocade o nome do grupo para escribir outro. Se falta alguén ou se queredes xogar na casa, escollede «Individual».'}</p></div></div>`;
   const gl=v.querySelector('#gl');
   if(ind){const d=document.createElement('div');d.className='gbox';d.style.setProperty('--c',G[0].c);
