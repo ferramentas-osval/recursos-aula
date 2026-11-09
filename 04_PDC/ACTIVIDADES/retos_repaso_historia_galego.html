@@ -64,6 +64,12 @@ button{font-family:var(--fd);cursor:pointer}
 .fld:focus{box-shadow:0 0 0 6px var(--gold)}
 .fld::placeholder{font-size:30px;color:#b8b2a2;font-weight:600}
 .fieldw .btn{height:110px;font-size:34px}
+.fieldw .kbtn{width:110px;padding:0;font-size:46px}.fieldw .kbtn.on{background:var(--gold);border-color:var(--gold)}
+.fld{touch-action:manipulation;-webkit-user-select:text!important;user-select:text!important}
+.oskb{position:absolute;left:0;right:0;bottom:0;background:#f1ece0;border-top:5px solid var(--sub);padding:10px 24px 16px;z-index:5;box-shadow:0 -10px 30px rgba(0,0,0,.15)}
+.k.w3{grid-column:span 3}.k.w7{grid-column:span 7}.k.okk{background:var(--sub);color:#fff;font-size:26px}
+.oskv{flex:1;margin-right:16px;height:60px;border:4px solid var(--sub);border-radius:14px;background:#fff;font:700 40px var(--fd);color:var(--ink);display:flex;align-items:center;justify-content:center}
+.oskh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font:600 26px var(--fd);color:var(--sub)}.oskh .btn{padding:4px 16px;font-size:24px}
 .kb{display:grid;grid-template-columns:repeat(14,1fr);gap:7px}
 .k{height:62px;border:3px solid var(--line);background:#fff;border-radius:12px;font:600 30px var(--fd);color:var(--ink)}
 .k:active{background:var(--sub);color:#fff}
@@ -409,13 +415,33 @@ function numpad(el,onKey){const np=h('div','numpad');
 
 /* ---- campo de escritura (teclado do proxector) ---- */
 function field(b,opts,onCheck){
-  const w=h('div','fieldw');const inp=document.createElement('input');inp.className='fld';inp.autocomplete='off';inp.spellcheck=false;
-  inp.setAttribute('autocapitalize','off');if(opts.num){inp.inputMode='numeric';inp.pattern='[0-9]*'}
+  const w=h('div','fieldw');const inp=document.createElement('input');
+  inp.type='text';inp.className='fld';inp.autocomplete='off';inp.spellcheck=false;
+  inp.setAttribute('autocorrect','off');inp.setAttribute('autocapitalize','off');inp.setAttribute('enterkeyhint','done');
+  inp.setAttribute('inputmode',opts.num?'numeric':'text');
   inp.placeholder=opts.ph||'Tocade aquí para escribir';if(opts.upper)inp.style.textTransform='uppercase';
-  const go=h('button','btn','✔ Comprobar');w.appendChild(inp);w.appendChild(go);b.appendChild(w);
+  const kbBtn=h('button','btn alt kbtn','⌨️');kbBtn.title='Mostrar teclado en pantalla';
+  const go=h('button','btn','✔ Comprobar');w.appendChild(inp);w.appendChild(kbBtn);w.appendChild(go);b.appendChild(w);
   const f=h('div','fb');b.appendChild(f);
-  const run=()=>{const v=inp.value.trim();if(!v)return;onCheck(v,f,inp)};
+  const run=()=>{const v=inp.value.trim();if(!v)return;closeKb();onCheck(v,f,inp)};
   go.onclick=run;inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();run()}};
+  /* foco explícito ao tocar (axuda a que apareza o teclado do sistema) */
+  const focusIt=()=>{setTimeout(()=>{inp.focus({preventScroll:true});try{inp.setSelectionRange(inp.value.length,inp.value.length)}catch(_){}},0)};
+  inp.addEventListener('pointerup',focusIt);inp.addEventListener('touchend',focusIt);
+  /* teclado en pantalla de reserva */
+  let pan=null;
+  function closeKb(){if(pan){pan.remove();pan=null;kbBtn.classList.remove('on')}}
+  kbBtn.onclick=()=>{if(pan)return closeKb();
+    const card=b.closest('.card');pan=h('div','oskb');kbBtn.classList.add('on');
+    const prev=h('div','oskv');const sync=()=>prev.textContent=inp.value||' ';const add=c=>{inp.value+=c;sync()};const del=()=>{inp.value=inp.value.slice(0,-1);sync()};
+    const head=h('div','oskh');head.appendChild(prev);sync();if(opts.upper)prev.style.textTransform='uppercase';const x=h('button','btn alt','✕');x.onclick=closeKb;head.appendChild(x);pan.appendChild(head);
+    if(opts.num){const np=h('div','numpad');['1','2','3','4','5','6','7','8','9','0','⌫','✔'].forEach(c=>{const k=h('button','k'+(c==='⌫'?' del':''),c);if(c==='✔'){k.style.background='var(--sub)';k.style.color='#fff'}k.onclick=()=>c==='⌫'?del():c==='✔'?run():add(c);np.appendChild(k)});pan.appendChild(np)}
+    else{const kb=h('div','kb');const mk=(lab,fn,cls)=>{const k=h('button','k '+(cls||''),lab);k.onclick=fn;kb.appendChild(k)};
+      'QWERTYUIOPÁÉÍÓ'.split('').forEach(c=>mk(c,()=>add(c.toLowerCase())));
+      'ASDFGHJKLÑÚ'.split('').forEach(c=>mk(c,()=>add(c.toLowerCase())));mk('⌫',del,'w3 del');
+      'ZXCVBNM'.split('').forEach(c=>mk(c,()=>add(c.toLowerCase())));mk('✔ Comprobar',run,'w7 okk');pan.appendChild(kb)}
+    card.appendChild(pan);
+  };
   return inp;
 }
 /* ---- tipos de reto ---- */
