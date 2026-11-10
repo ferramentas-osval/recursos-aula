@@ -71,10 +71,6 @@ window.RECURSOS=[
       "n": "PRESENTACIONES",
       "c": [
        {
-        "t": "Presentación la narración",
-        "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_narracion.html"
-       },
-       {
         "t": "Presentación ortografía 1",
         "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_ortografia_1.html"
        },
@@ -109,6 +105,10 @@ window.RECURSOS=[
        {
         "t": "Repaso vocabulario semana 2",
         "h": "01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html"
+       },
+       {
+        "t": "Presentación la narración",
+        "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_narracion.html"
        }
       ]
      },
