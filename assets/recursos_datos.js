@@ -351,6 +351,10 @@ window.RECURSOS=[
        {
         "t": "Presentación humanismo",
         "h": "04_PDC/PRESENTACIONES/HISTORIA/presentacion_humanismo.html"
+       },
+       {
+        "t": "Presentación arte renacentista",
+        "h": "04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html"
        }
       ]
      },
