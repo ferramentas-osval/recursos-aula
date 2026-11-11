@@ -406,6 +406,10 @@ window.RECURSOS=[
        {
         "t": "Presentación migracións na actualidade",
         "h": "04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_migracions_actualidade.html"
+       },
+       {
+        "t": "Presentación a actividade económica",
+        "h": "04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_actividade_economica.html"
        }
       ]
      },
