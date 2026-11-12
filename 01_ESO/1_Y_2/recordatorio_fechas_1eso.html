@@ -66,12 +66,19 @@ h1{
 .pestanas button:nth-child(2){transform:rotate(1deg)}
 .pestanas button[aria-selected="true"]{background:#fff6b8;border:2px solid var(--azul);color:var(--azul)}
 .pestanas button:hover{transform:rotate(0) scale(1.05)}
-/* pósit con la próxima cita */
+/* aviso de la próxima cita */
 .proxima{
-  background:#fff6b8;border-radius:3px;padding:12px 18px 14px;margin:0 0 26px;
-  box-shadow:3px 4px 0 rgba(0,0,0,.08);transform:rotate(-.6deg);
-  font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:clamp(18px,2.5vw,23px);line-height:1.35;text-align:justify;
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(135deg,#ffe3d3 0%,#ffd0bd 100%);
+  border:3px solid #ff7a45;border-radius:18px;padding:12px 20px 12px 12px;margin:0 0 28px;
+  box-shadow:4px 5px 0 rgba(255,122,69,.25);
+  font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:clamp(18px,2.5vw,23px);line-height:1.35;
 }
+.proxima svg{flex:0 0 auto;width:clamp(58px,9vw,84px);height:auto;transform-origin:30% 60%;animation:megafono 2.4s ease-in-out infinite}
+@keyframes megafono{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-8deg)}84%{transform:rotate(6deg)}92%{transform:rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.proxima svg{animation:none}}
+.proxima .txt{flex:1;text-align:justify}
+.proxima .eti{display:block;font-family:'Fredoka',system-ui,sans-serif;font-weight:700;font-size:.8em;letter-spacing:1.5px;color:#d9480f;text-transform:uppercase}
 .proxima b{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;color:var(--azul)}
 .proxima .cuenta{color:var(--rojo);font-weight:700;white-space:nowrap}
 /* bloques */
@@ -106,6 +113,8 @@ h1{
 .vacio{font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:22px;color:#777;text-align:center;padding:40px 0}
 .pie{text-align:center;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#888;font-size:14px;margin-top:20px}
 @media (max-width:600px){
+  .proxima .txt{text-align:left}
+  .proxima{gap:10px;padding:10px 14px 10px 8px}
   .hoja{padding:56px 6% 34px 13%}
   .cinta{width:40px;top:260px;height:170px;left:-8px}
   .anillas{top:-24px}
@@ -141,7 +150,7 @@ const EVALUACIONES = [
     bloques: [
       { titulo: "FECHA PRUEBA LECTURA", ptos: "0,50 ptos.",
         sub: "Por qué tiene que ser todo tan difícil", obra: true,
-        texto_fecha: "Viernes 6 de noviembre", fecha: "2026-11-06", centrada: true, hecho: false },
+        texto_fecha: "Viernes 6 de noviembre", fecha: "2026-11-06", centrada: true, hecho: true },
 
       { titulo: "FECHA 2ª PRUEBA LECTURA", ptos: "0,50 ptos.",
         sub: "Libre elección",
@@ -162,11 +171,12 @@ const EVALUACIONES = [
   { nombre: "2ª EVALUACIÓN", bloques: [] },
   { nombre: "3ª EVALUACIÓN", bloques: [] }
 ];
-const ACTUALIZADO = "6 de noviembre de 2026";
+const ACTUALIZADO = "12 de noviembre de 2026";
 /* ===================================================================== */
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MEGAFONO = '<svg viewBox="0 0 90 80" aria-hidden="true"><path d="M58 30 q10 10 0 20" fill="none" stroke="#d9480f" stroke-width="4" stroke-linecap="round"/><path d="M66 22 q18 18 0 36" fill="none" stroke="#d9480f" stroke-width="4" stroke-linecap="round" opacity=".7"/><path d="M74 14 q26 26 0 52" fill="none" stroke="#d9480f" stroke-width="4" stroke-linecap="round" opacity=".45"/><path d="M22 52 l6 18 q1 4 5 3 l6-2 q4-1 3-5 l-5-16z" fill="#4a5057"/><rect x="8" y="30" width="16" height="22" rx="4" fill="#1a2fd6"/><path d="M24 30 L52 12 Q56 10 56 15 L56 67 Q56 72 52 70 L24 52 Z" fill="#ff7a45" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/><path d="M28 34 L50 20" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/></svg>';
 const ANILLA = '<svg class="anilla" viewBox="0 0 34 64" aria-hidden="true"><defs><linearGradient id="met" x1="0" x2="1"><stop offset="0" stop-color="#5f666e"/><stop offset=".35" stop-color="#eef1f3"/><stop offset=".65" stop-color="#9aa2aa"/><stop offset="1" stop-color="#4a5057"/></linearGradient><linearGradient id="detras" x1="0" x2="1"><stop offset="0" stop-color="#3d4248"/><stop offset="1" stop-color="#7d848b"/></linearGradient><radialGradient id="agu" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#15181b"/><stop offset="1" stop-color="#4b5058"/></radialGradient></defs><ellipse cx="17" cy="50" rx="7" ry="6" fill="url(#agu)"/><path d="M19 8 C 27 5, 29 19, 27 30" fill="none" stroke="url(#detras)" stroke-width="5" stroke-linecap="butt"/><path d="M15 50 C 8 40, 8 13, 19 8" fill="none" stroke="url(#met)" stroke-width="5.5" stroke-linecap="round"/><path d="M13.5 44 C 10 34, 10 16, 17 11.5" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.3" stroke-linecap="round"/></svg>';
 function ponAnillas(){ const w = document.querySelector('.libreta').offsetWidth; const n = Math.max(6, Math.min(16, Math.round(w / 62))); document.getElementById('anillas').innerHTML = ANILLA.repeat(n); }
 ponAnillas(); addEventListener('resize', ponAnillas);
@@ -199,7 +209,7 @@ function pinta(i){
   const pend = pendientes(ev);
   const prox = pend[0] ? { ref: findRef(ev, pend[0]) } : null;
 
-  $('#proxima').innerHTML = prox ? `<div class="proxima">📌 Próxima cita: <b>${esc(pend[0].nombre.replace(/:.*/, ""))}</b> — ${esc(pend[0].texto_fecha || pend[0].plazo)} · <span class="cuenta">${cuenta(dias(pend[0].fecha))}</span></div>` : "";
+  $('#proxima').innerHTML = prox ? `<div class="proxima" role="status">${MEGAFONO}<div class="txt"><span class="eti">¡Atención! Próxima cita</span><b>${esc(pend[0].nombre.replace(/:.*/, ""))}</b> — ${esc(pend[0].texto_fecha || pend[0].plazo)} · <span class="cuenta">${cuenta(dias(pend[0].fecha))}</span></div></div>` : "";
 
   if (!ev.bloques.length){ $('#contenido').innerHTML = '<p class="vacio">Aún no hay fechas para esta evaluación ✏️</p>'; return; }
 
