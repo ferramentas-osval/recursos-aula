@@ -115,3 +115,8 @@ div.feature.f-tutoria{--tc:#d4a017;background:var(--paper);border:3px dashed var
 .parlinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .parlink{display:inline-block;white-space:nowrap;padding:.35em .85em;border-radius:20px;background:color-mix(in srgb,var(--cc) 14%,#fff);border:1px solid color-mix(in srgb,var(--cc) 40%,var(--line));color:inherit;text-decoration:none;font-weight:700;font-size:.9em}
 .parlink:hover{background:color-mix(in srgb,var(--cc) 28%,#fff)}
+
+/* tarjeta doble ancha */
+.card.par.ancha{grid-column:span 2}
+.card.par.ancha .parlinks{display:flex;flex-wrap:wrap;gap:8px}
+@media (max-width:560px){.card.par.ancha{grid-column:auto}}
