@@ -48,6 +48,7 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 - `apartados`: bloques con título, icono y lista de archivos concretos.
 - `quitar`: niveles de carpeta que no se muestran en los títulos.
 - `destacados` y `materias`: usados en PDC (horario y tutoría arriba, materias con icono y orden propio).
+- `partes`: divide la evaluación en partes (usado en PDC). La primera parte lleva la lista cerrada de archivos ya examinados (`archivos`); la parte con `resto:true` recoge automáticamente todo lo demás, así que **los recursos nuevos de PDC van solos a la segunda parte**. Al empezar una parte nueva, se pasan a la lista cerrada los archivos de la anterior.
 
 **Publicar**
 - Antes de subir: `git fetch` + `rebase` sobre `origin/main`, porque se trabaja desde varios chats.

@@ -333,15 +333,6 @@ window.RECURSOS=[
     "n": "PRESENTACIONES",
     "c": [
      {
-      "n": "COMUNICACIÓN",
-      "c": [
-       {
-        "t": "Presentación radio textos orales",
-        "h": "04_PDC/PRESENTACIONES/COMUNICACIÓN/presentacion_radio_textos_orales.html"
-       }
-      ]
-     },
-     {
       "n": "HISTORIA",
       "c": [
        {

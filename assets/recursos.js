@@ -24,8 +24,18 @@ const CATS={
      {h:'04_PDC/reparticion_ambito_linguistico_social_3eso_pdc.html',titulo:'Horario ámbito lingüístico y social',sub:'Materias por días y horas · 3.º ESO PDC',icon:'🗓️',tipo:'horario'},
      {carpeta:'Tutorías',titulo:'Tutoría',sub:'Vídeos, charlas, técnicas de estudio y juegos',icon:'💬',tipo:'tutoria'}],
     quitar:['Presentaciones'],
-    materias:{'Comunicación':'🎙️','Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒'},
-    evaluacion:'1ª evaluación'}},
+    materias:{'Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒'},
+    evaluacion:'1ª evaluación',
+    /* Partes da avaliación: a primeira (xa examinada) leva a lista pechada de recursos; todo o novo vai á segunda */
+    partes:[
+     {titulo:'Primera parte',sub:'Primeros dos exámenes (ya realizados)',icon:'✅',archivos:[
+      '04_PDC/PRESENTACIONES/HISTORIA/presentacion_introduccion_idade_moderna.html','04_PDC/PRESENTACIONES/HISTORIA/presentacion_humanismo.html',
+      '04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_lengua_sistema.html','04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_clases_palabras.html','04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_tilde.html',
+      '04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_tipos_palabras_substantivo_adxectivo.html',
+      '04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_estudo_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_distribucion_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_evolucion_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_migracions_actualidade.html',
+      '04_PDC/ACTIVIDADES/expediente_historia_geografia.html','04_PDC/ACTIVIDADES/ejercicios_tipos_frases.html','04_PDC/ACTIVIDADES/reto_substantivo_xenero_numero_clasificacion_semantica.html','04_PDC/ACTIVIDADES/fichas_repaso_historia_galego.html','04_PDC/ACTIVIDADES/retos_repaso_historia_galego.html',
+      '04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html','04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html']},
+     {titulo:'Segunda parte',sub:'Nuevas presentaciones, actividades y modelos de examen',icon:'🆕',resto:true}]}},
  'ACTIVIDADES LÚDICAS':{name:'Actividades lúdicas',icon:'🎲',col:'--c5',desc:'Bingos, banderas, pasatiempos, ruletas y juegos de vocabulario para aprender jugando.'},
  'ACTIVIDADES PERSONAJES HISTÓRICOS':{name:'Personajes históricos',icon:'🕵️',col:'--c6',desc:'Expedientes interactivos para investigar la vida de grandes personajes de la historia.'},
  'PROYECTOS COMPETENCIALES':{name:'Proyectos competenciales',icon:'📻',col:'--c7',desc:'Proyectos para aprender haciendo: radio, entrevistas y mucho más.'},
@@ -98,16 +108,24 @@ if(PAGE.mode==='course'){
   else{const sel=gs.filter(g=>g.path[0]===d.carpeta);gs=gs.filter(g=>g.path[0]!==d.carpeta);const fs=[].concat(...sel.map(g=>g.files));if(!fs.length)return;
    top+=`<div class="feature f-${d.tipo}" id="d${k}"><div class="fhead"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span></div><div class="grid">${fs.map(f=>card(f,'',I.name+' '+d.titulo)).join('')}</div></div>`}
   topChips.push(`<a class="chip" style="--cc:var(${I.col})" href="#d${k}">${d.titulo.split(' ')[0]}</a>`)});
- gs=ordenar(gs,L);
+ const PARTS=L.partes?L.partes.map(pt=>({pt,gs:[]})):null;
+ if(PARTS){const rest=PARTS.find(x=>x.pt.resto)||PARTS[PARTS.length-1];
+  gs.forEach(g=>g.files.forEach(f=>{const d=PARTS.find(x=>x.pt.archivos&&x.pt.archivos.includes(f.h))||rest;let t=d.gs.find(y=>y.path.join('|')===g.path.join('|'));if(!t){t={path:g.path,files:[]};d.gs.push(t)}t.files.push(f)}));
+  PARTS.forEach(x=>x.gs=ordenar(x.gs,L));gs=[].concat(...PARTS.map(x=>x.gs))}
+ else gs=ordenar(gs,L);
  // quitar el primer nivel si todos los grupos lo comparten (p. ej. «1º y 2º»)
  document.documentElement.style.setProperty('--cc',`var(${I.col})`);document.title=I.name+' · Recursos de aula';
  html+=`<header class="coursehead"><div class="hero"><div>${ALUM?'':`<a class="back" href="${ROOT}index.html">← Todos los recursos</a><br>`}<span class="kicker">Recursos de aula · Lengua y Literatura</span><h1>${I.name}</h1><p class="lead">${I.desc}</p><div class="stats">${stat(count(cat),'recursos')}${stat(gs.length,gs.length===1?'apartado':'apartados')}</div></div>
  <div class="bigicon"><div class="disc"></div><div class="disc2"></div><span class="orb float" style="width:22px;height:22px;top:10%;right:16%"></span><span class="orb float2" style="width:14px;height:14px;bottom:14%;left:12%"></span><span class="orb float" style="width:10px;height:10px;top:30%;left:6%;background:#fff"></span><span class="emo float">${I.icon}</span></div></div>${WAVE}</header>`;
- html+=`<div class="toolbar"><div class="searchrow"><label class="search">🔎<input id="q" type="search" placeholder="Buscar en ${I.name}…" autocomplete="off"></label><span id="count"></span></div><nav class="chips">${topChips.join('')}${gs.map((g,i)=>`<a class="chip" style="--cc:var(${I.col})" href="#g${i}">${g.path.length?g.path[g.path.length-1]:'General'}</a>`).join('')}</nav></div>`;
+ const chipsG=PARTS?PARTS.map((x,k)=>x.gs.length?`<a class="chip" style="--cc:var(${I.col})" href="#p${k}">${x.pt.icon||''} ${x.pt.titulo}</a>`:'').join(''):gs.map((g,i)=>`<a class="chip" style="--cc:var(${I.col})" href="#g${i}">${g.path.length?g.path[g.path.length-1]:'General'}</a>`).join('');
+ html+=`<div class="toolbar"><div class="searchrow"><label class="search">🔎<input id="q" type="search" placeholder="Buscar en ${I.name}…" autocomplete="off"></label><span id="count"></span></div><nav class="chips">${topChips.join('')}${chipsG}</nav></div>`;
  const gh=gs.map((g,i)=>groupHTML(g,I.name,g.ic).replace(/^<div class="group([^"]*)">/,`<div class="group$1" id="g${i}" style="scroll-margin-top:130px">`));
- const last=g=>g.path[g.path.length-1];let body='';
- for(let i=0;i<gs.length;i++){const par=(L.juntos||[]).find(p=>p[0]===last(gs[i]));
-  if(par&&gs[i+1]&&par[1]===last(gs[i+1])){body+=`<div class="pair">${gh[i]}${gh[i+1]}</div>`;i++}else body+=gh[i]}
+ const last=g=>g.path[g.path.length-1];
+ function bodyOf(a,b){let o='';for(let i=a;i<b;i++){const par=(L.juntos||[]).find(p=>p[0]===last(gs[i]));
+  if(par&&gs[i+1]&&i+1<b&&par[1]===last(gs[i+1])){o+=`<div class="pair">${gh[i]}${gh[i+1]}</div>`;i++}else o+=gh[i]}return o}
+ let body='';
+ if(PARTS){let a=0;PARTS.forEach((x,k)=>{const b=a+x.gs.length;if(b>a)body+=`<div class="parte" id="p${k}"><div class="partetag"><span class="pic">${x.pt.icon||''}</span><span><b>${x.pt.titulo}</b>${x.pt.sub?`<small>${x.pt.sub}</small>`:''}</span></div>${bodyOf(a,b)}</div>`;a=b})}
+ else body=bodyOf(0,gs.length);
  if(L.evaluacion)body=`<div class="eval"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
  html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${body}</section></main>`;
 }else{
@@ -125,7 +143,7 @@ const q=document.getElementById('q'),cnt=document.getElementById('count');const 
 const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 function filter(){const v=norm(q.value.trim());let shown=0;
  document.querySelectorAll('.card').forEach(c=>{const ok=!v||norm(c.dataset.t).includes(v);c.classList.toggle('hide',!ok);if(ok)shown++});
- document.querySelectorAll('.group,div.feature').forEach(g=>g.classList.toggle('hide',!g.querySelector('.card:not(.hide)')));
+ document.querySelectorAll('.group,div.feature,div.parte').forEach(g=>g.classList.toggle('hide',!g.querySelector('.card:not(.hide)')));
  document.querySelectorAll('section.cat').forEach(s=>s.classList.toggle('hide',!s.querySelector('.card:not(.hide)')));
  const cb=document.getElementById('coursesBlock');if(cb)cb.classList.toggle('hide',!!v);
  document.getElementById('empty').style.display=shown?'none':'block';cnt.textContent=v?`${shown} resultado${shown===1?'':'s'}`:`${all} recursos`}
