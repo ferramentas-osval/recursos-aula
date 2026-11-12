@@ -83,11 +83,11 @@ window.RECURSOS=[
         "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html"
        },
        {
-        "t": "Presentación comunicación",
+        "t": "TEMA 2. LA COMUNICACIÓN",
         "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html"
        },
        {
-        "t": "Presentación propiedades textuales (CCA)",
+        "t": "TEMA 3. PROPIEDADES TEXTUALES: CCA",
         "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html"
        },
        {
@@ -107,7 +107,7 @@ window.RECURSOS=[
         "h": "01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html"
        },
        {
-        "t": "Presentación la narración",
+        "t": "TEMA 4. TIPOS DE TEXTO. TEXTO NARRATIVO",
         "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_narracion.html"
        }
       ]
