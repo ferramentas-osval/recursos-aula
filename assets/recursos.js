@@ -37,7 +37,7 @@ const CATS={
     evaluacion:'1ª evaluación',
     /* Partes da avaliación: a primeira (xa examinada) leva a lista pechada de recursos; todo o novo vai á segunda */
     partes:[
-     {titulo:'Primera parte',sub:'Primeros dos exámenes (ya realizados)',icon:'✅',archivos:[
+     {titulo:'Primera parte',sub:'Dos primeros exámenes (ya realizados)',icon:'✅',archivos:[
       '04_PDC/PRESENTACIONES/HISTORIA/presentacion_introduccion_idade_moderna.html','04_PDC/PRESENTACIONES/HISTORIA/presentacion_humanismo.html',
       '04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_lengua_sistema.html','04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_clases_palabras.html','04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_tilde.html',
       '04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_tipos_palabras_substantivo_adxectivo.html','04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_formacion_palabras.html',
@@ -128,14 +128,14 @@ if(PAGE.mode==='course'){
  <div class="bigicon"><div class="disc"></div><div class="disc2"></div><span class="orb float" style="width:22px;height:22px;top:10%;right:16%"></span><span class="orb float2" style="width:14px;height:14px;bottom:14%;left:12%"></span><span class="orb float" style="width:10px;height:10px;top:30%;left:6%;background:#fff"></span><span class="emo float">${I.icon}</span></div></div>${WAVE}</header>`;
  const chipsG=PARTS?`<span class="chipgrupo" style="--cc:var(${I.col})"><a class="chipev" href="#ev">${L.evaluacion||'Evaluación'}</a>${PARTS.map((x,k)=>x.gs.length?`<a class="chip chipparte${k+1}" style="--cc:var(${I.col})" href="#p${k}">${x.pt.icon||''} ${x.pt.titulo}</a>`:'').join('')}</span>`:gs.map((g,i)=>`<a class="chip" style="--cc:var(${I.col})" href="#g${i}">${g.path.length?g.path[g.path.length-1]:'General'}</a>`).join('');
  html+=`<div class="toolbar"><div class="searchrow"><label class="search">🔎<input id="q" type="search" placeholder="Buscar en ${I.name}…" autocomplete="off"></label><span id="count"></span></div><nav class="chips">${topChips.join('')}${chipsG}</nav></div>`;
- const gh=gs.map((g,i)=>groupHTML(g,I.name,g.ic).replace(/^<div class="group([^"]*)">/,`<div class="group$1" id="g${i}" style="scroll-margin-top:130px">`));
+ const gh=gs.map((g,i)=>groupHTML(g,I.name,g.ic).replace(/^<div class="group([^"]*)">/,`<div class="group$1" id="g${i}">`));
  const last=g=>g.path[g.path.length-1];
  function bodyOf(a,b){let o='';for(let i=a;i<b;i++){const par=(L.juntos||[]).find(p=>p[0]===last(gs[i]));
   if(par&&gs[i+1]&&i+1<b&&par[1]===last(gs[i+1])){o+=`<div class="pair">${gh[i]}${gh[i+1]}</div>`;i++}else o+=gh[i]}return o}
  let body='';
  if(PARTS){let a=0;PARTS.forEach((x,k)=>{const b=a+x.gs.length;if(b>a)body+=`<div class="parte parte${k+1}" id="p${k}"><div class="partetag"><span class="pic">${x.pt.icon||''}</span><span><b>${x.pt.titulo}</b>${x.pt.sub?`<small>${x.pt.sub}</small>`:''}</span></div>${bodyOf(a,b)}</div>`;a=b})}
  else body=bodyOf(0,gs.length);
- if(L.evaluacion)body=`<div class="eval" id="ev" style="scroll-margin-top:130px"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
+ if(L.evaluacion)body=`<div class="eval" id="ev"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
  html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${body}</section></main>`;
 }else{
  let total=DATA.reduce((a,c)=>a+count(c),0);
@@ -157,4 +157,6 @@ function filter(){const v=norm(q.value.trim());let shown=0;
  const cb=document.getElementById('coursesBlock');if(cb)cb.classList.toggle('hide',!!v);
  document.getElementById('empty').style.display=shown?'none':'block';cnt.textContent=v?`${shown} resultado${shown===1?'':'s'}`:`${all} recursos`}
 q.addEventListener('input',filter);filter();
+/* que os saltos dos botóns non queden tapados pola barra fixa */
+const tbEl=document.querySelector('.toolbar');const setTb=()=>{if(tbEl)document.documentElement.style.setProperty('--tb',tbEl.offsetHeight+'px')};setTb();addEventListener('resize',setTb);
 })();

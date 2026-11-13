@@ -139,3 +139,9 @@ div.feature.f-tutoria{--tc:#d4a017;background:var(--paper);border:3px dashed var
 .chipgrupo .chip{padding:.35em .9em}
 .chip.chipparte1{background:#eef6ff;border-color:#9cc3ea}.chip.chipparte1:hover{border-color:#3b7fc4;color:#3b7fc4}
 .chip.chipparte2{background:#fff6e5;border-color:#efc77a}.chip.chipparte2:hover{border-color:#e09a1f;color:#b87a10}
+/* Saltos desde os botóns: deixar sitio para a barra fixa e a etiqueta da parte */
+.parte{scroll-margin-top:calc(var(--tb,150px) + 44px)!important}
+.eval[id]{scroll-margin-top:calc(var(--tb,150px) + 34px)!important}
+.group[id],.feature[id]{scroll-margin-top:calc(var(--tb,150px) + 16px)!important}
+.partetag{margin:10px 0 2px!important}.partetag b,.parte.parte1 .partetag b,.parte.parte2 .partetag b{background:transparent!important}
+.parte{scroll-margin-top:calc(var(--tb,150px) + 18px)!important}
