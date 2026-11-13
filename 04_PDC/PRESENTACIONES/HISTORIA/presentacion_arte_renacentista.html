@@ -203,10 +203,10 @@ body.choose .fr img,body.choose .mini img,body.choose .cmp img,body.choose #lb i
 #toast{position:fixed;left:50%;top:2vh;transform:translateX(-50%);z-index:85;background:var(--tinta);color:#ffe08a;border:2px solid var(--ouro);border-radius:.5em;padding:.35em .9em;font:700 clamp(14px,2.4vh,30px) Lexend,sans-serif;display:none}
 #pol{position:fixed;inset:0;z-index:75;background:rgba(15,6,8,.8);display:none;align-items:center;justify-content:center;flex-direction:column}
 #pol.on{display:flex}
-.pcard{background:#fbfaf6;padding:2.2vh 2.2vh 0;box-shadow:0 1.5vh 4vh rgba(0,0,0,.6);transform:rotate(var(--r,-3deg));animation:drop 1.6s cubic-bezier(.2,1.2,.4,1)}
+.pcard{background:#fbfaf6;padding:2.2vh 2.2vh 0;box-shadow:0 1.5vh 4vh rgba(0,0,0,.6);transform:rotate(var(--r,-3deg));animation:drop 1.1s cubic-bezier(.2,1.2,.4,1)}
 @keyframes drop{from{transform:translateY(-70vh) rotate(18deg);opacity:0}to{transform:rotate(var(--r,-3deg));opacity:1}}
 .pcard .ph{width:var(--pw);height:var(--ph);overflow:hidden;background:#111}
-.pcard .ph img{width:100%;height:100%;object-fit:cover;filter:brightness(.05) sepia(1) contrast(.5) blur(3px);transition:filter 9s cubic-bezier(.4,0,.3,1)}
+.pcard .ph img{width:100%;height:100%;object-fit:cover;filter:brightness(.05) sepia(1) contrast(.5) blur(3px);transition:filter 5.5s cubic-bezier(.4,0,.3,1)}
 .pcard.dev .ph img{filter:none}
 .pcard .pc{height:14vh;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:'Kalam',cursive;color:#1e3fa8;text-align:center;padding:0 1vh}
 .pcard .pc .t{font-size:3.2vh;line-height:1.1}
@@ -718,7 +718,7 @@ function show(src,cap,name){const ph=PC.querySelector('.ph'),im=ph.querySelector
  const ar=(tmp.naturalWidth||4)/(tmp.naturalHeight||3);const maxH=innerHeight*.66,maxW=innerWidth*.62;let h=maxH,w=h*Math.min(Math.max(ar,.75),1.5);if(w>maxW){w=maxW;h=w/Math.min(Math.max(ar,.75),1.5)}
  PC.style.setProperty('--pw',w+'px');PC.style.setProperty('--ph',h+'px');PC.style.setProperty('--r',(Math.random()*6-3).toFixed(1)+'deg');
  im.src=src;PC.querySelector('.t').textContent=cap.split(/\.\s/)[0].replace(/\.$/,'');const inp=PC.querySelector('input');inp.value=name||'';
- PC.classList.remove('dev');PC.style.animation='none';void PC.offsetWidth;PC.style.animation='';POL.classList.add('on');setTimeout(()=>PC.classList.add('dev'),editing>=0?0:1700);}
+ PC.classList.remove('dev');PC.style.animation='none';void PC.offsetWidth;PC.style.animation='';POL.classList.add('on');setTimeout(()=>PC.classList.add('dev'),editing>=0?0:1100);}
 function shoot(im){document.body.classList.remove('choose');T.style.display='none';sound();const f=$('#flash');f.classList.remove('on');void f.offsetWidth;f.classList.add('on');editing=-1;setTimeout(()=>show(im.src,capOf(im),''),350)}
 function closePol(){if(!POL.classList.contains('on'))return;const d={src:PC.querySelector('img').src,cap:PC.querySelector('.t').textContent,name:PC.querySelector('input').value.trim()};
  if(editing>=0)album[editing]=d;else album.push(d);POL.classList.remove('on');$('#albN').textContent=album.length;albB.style.display=album.length?'inline-block':'none';if(editing>=0)renderAlb();editing=-1}
