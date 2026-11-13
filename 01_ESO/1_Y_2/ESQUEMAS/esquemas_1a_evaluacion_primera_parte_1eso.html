@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>esquemas_1a_evaluacion_primera_parte_1eso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Bricolage+Grotesque:wght@600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ DISEÑO COMÚN DE LOS ESQUEMAS (no cambiar entre partes) ============ */
+:root{
+ --ink:#1f2633; --paper:#f6f2ea;
+ --lengua:#d9483b; --galego:#1f78b4; --xeo:#238b5e; --hist:#a8641c;
+ /* colores de las ramas: fondo claro + color fuerte */
+ --a1:#fff3c4; --b1:#c98a00;   /* amarillo */
+ --a2:#dcecff; --b2:#2f78c4;   /* azul */
+ --a3:#d9f3e2; --b3:#278a52;   /* verde */
+ --a4:#ffe0e8; --b4:#c7406a;   /* rosa */
+ --a5:#ebe2ff; --b5:#6e4fc4;   /* morado */
+ --a6:#ffe6d1; --b6:#d0661a;   /* naranja */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Atkinson Hyperlegible',Arial,sans-serif;font-size:18px;line-height:1.35;text-align:justify;hyphens:auto;-webkit-hyphens:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,h4{font-family:'Bricolage Grotesque','Atkinson Hyperlegible',sans-serif;text-align:left;line-height:1.1}
+b{font-weight:700}
+
+/* ---------- cabecera y navegación ---------- */
+.top{background:linear-gradient(135deg,#2f9e6e,#1f6f8b);color:#fff;padding:26px 3vw 30px}
+.top small{font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.top h1{font-size:clamp(28px,4vw,48px);margin:.15em 0 .2em}
+.top p{margin:0;font-size:1.05em;max-width:none}
+.barra{position:sticky;top:0;z-index:20;background:rgba(246,242,234,.96);backdrop-filter:blur(6px);border-bottom:2px solid #e3dccd;padding:10px 3vw;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barra a,.barra button{font:700 16px 'Atkinson Hyperlegible',sans-serif;border:0;border-radius:999px;padding:9px 16px;text-decoration:none;color:#fff;cursor:pointer;white-space:nowrap}
+.barra .imp{margin-left:auto;background:var(--ink)}
+.m-lengua{--m:var(--lengua)} .m-galego{--m:var(--galego)} .m-xeo{--m:var(--xeo)} .m-hist{--m:var(--hist)}
+.barra a{background:var(--m)}
+main{padding:10px 3vw 60px}
+
+/* ---------- índice ---------- */
+.indice{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 8px}
+.ind{background:#fff;border-radius:18px;border-top:10px solid var(--m);padding:14px 18px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.ind h3{margin:0 0 8px;color:var(--m);font-size:1.3em}
+.ind ol{margin:0;padding-left:1.3em}
+.ind a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--m)}
+.materia-tit{display:flex;align-items:center;gap:12px;margin:38px 0 6px;color:var(--m);font-size:clamp(24px,3vw,36px)}
+.materia-tit span{font-size:1.2em}
+
+/* ---------- el esquema ---------- */
+.esq{background:#fff;border-radius:24px;border-top:14px solid var(--m);box-shadow:0 4px 18px rgba(0,0,0,.08);padding:18px 24px 22px;margin:22px 0 30px;font-size:1em}
+.esq>header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.esq .num{flex:none;width:2.3em;height:2.3em;border-radius:50%;background:var(--m);color:#fff;display:grid;place-items:center;font:800 1.35em 'Bricolage Grotesque',sans-serif}
+.esq header small{display:block;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.06em;font-size:.78em}
+.esq h2{margin:0;font-size:1.85em}
+.esq .ico{margin-left:auto;font-size:2.2em}
+.esq .imp1{border:0;background:#eee6d6;border-radius:999px;padding:.35em .8em;font:700 .8em 'Atkinson Hyperlegible',sans-serif;cursor:pointer;color:var(--ink)}
+
+.raiz{display:table;margin:2px auto 0;background:var(--m);color:#fff;border-radius:22px;padding:.45em 1.4em;text-align:center;font:800 1.45em 'Bricolage Grotesque',sans-serif;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.raiz small{display:block;font:400 .62em 'Atkinson Hyperlegible',sans-serif;opacity:.95;margin-top:.15em}
+.tronco{width:4px;height:1em;background:var(--ink);margin:0 auto}
+.chips3{display:flex;justify-content:center;flex-wrap:wrap;gap:.5em;margin:.55em 0 0}
+.chip3{background:#f3eee4;border:2px solid #d9cfbc;border-radius:12px;padding:.25em .7em;font-size:.92em;text-align:left}
+
+.ramas{--g:.8em;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:var(--g);position:relative;padding-top:1.1em;align-items:stretch}
+.ramas::before{content:'';position:absolute;top:0;border-top:4px solid var(--ink);left:calc((100% - (var(--n) - 1)*var(--g))/(2*var(--n)));right:calc((100% - (var(--n) - 1)*var(--g))/(2*var(--n)))}
+.rama{position:relative;background:var(--a);border:3px solid var(--b);border-radius:16px;padding:0 .7em .6em;text-align:justify}
+.rama::before{content:'';position:absolute;top:calc(-1.1em - 3px);left:50%;margin-left:-2px;height:1.1em;border-left:4px solid var(--ink)}
+.rama>h3{margin:0 -.7em .45em;padding:.35em .5em;background:var(--b);color:#fff;border-radius:11px 11px 0 0;text-align:center;font-size:1.12em}
+.rama>h3 small{display:block;font:400 .72em 'Atkinson Hyperlegible',sans-serif;opacity:.95}
+.r1{--a:var(--a1);--b:var(--b1)} .r2{--a:var(--a2);--b:var(--b2)} .r3{--a:var(--a3);--b:var(--b3)}
+.r4{--a:var(--a4);--b:var(--b4)} .r5{--a:var(--a5);--b:var(--b5)} .r6{--a:var(--a6);--b:var(--b6)}
+.rama ul{list-style:none;margin:0;padding:0}
+.rama li{position:relative;padding-left:1em;margin:.28em 0}
+.rama li::before{content:'▸';position:absolute;left:0;color:var(--b);font-weight:700}
+.mini{background:#fff;border-radius:10px;border-left:6px solid var(--b);padding:.3em .55em;margin:.4em 0}
+.mini>b:first-child{color:var(--b)}
+.ej{display:inline-block;background:#fff;border:0;border-radius:6px;padding:0 .35em;font-family:'Kalam',cursive;font-weight:700;font-size:1.02em;line-height:1.3;color:color-mix(in srgb,var(--b,#555) 70%,#000);text-align:left}
+.ejb .ej,.mini .ej,.tab .ej,.par .ej,.chip3 .ej,.recuerda .ej,.ind .ej{background:color-mix(in srgb,var(--b,#999) 15%,#fff)}
+.ejb{margin-top:.45em;background:#fff;border:0;border-left:6px solid var(--b);border-radius:10px;padding:.3em .55em;font-size:.95em}
+.ejb::before{content:'✏️ ' attr(data-l) ' ';font-weight:700;color:var(--b)}
+u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;font-weight:700}
+.flecha{color:var(--b);font-weight:700}
+.recuerda{margin-top:.9em;background:#fff8d6;border:3px solid #f0c419;border-radius:14px;padding:.45em .9em}
+.recuerda::before{content:'💡 ' attr(data-l) ': ';font-weight:700;color:#9a7300}
+.formula{display:block;text-align:center;background:#fff;border-radius:8px;padding:.2em .4em;margin:.3em 0;font-weight:700;font-size:.95em}
+
+/* clases de palabras (colores fijos) */
+.cw{--c:#888}
+.c-sus{--c:#2f78c4}.c-det{--c:#6e4fc4}.c-adj{--c:#278a52}.c-pro{--c:#0f9aa8}.c-ver{--c:#d9483b}
+.c-adv{--c:#d0661a}.c-pre{--c:#7a6a52}.c-con{--c:#c7406a}.c-int{--c:#b08800}
+.frase-color{display:flex;flex-wrap:wrap;justify-content:center;gap:.35em .45em;margin:.7em 0 0;background:#f8f5ee;border-radius:14px;padding:.5em}
+.frase-color span{display:flex;flex-direction:column;align-items:center;border-bottom:5px solid var(--c);padding:0 .15em}
+.frase-color span b{font-size:1.25em;color:var(--c)}
+.frase-color span i{font-style:normal;font-size:.68em;font-weight:700;color:var(--c)}
+.clase{display:grid;grid-template-columns:auto 1fr;gap:.1em .5em;align-items:baseline;background:#fff;border-radius:10px;border-left:7px solid var(--c);padding:.25em .55em;margin:.35em 0}
+.clase b{color:var(--c);font-size:1.05em}
+.clase .ej{grid-column:1/-1;justify-self:start;background:color-mix(in srgb,var(--c) 14%,#fff);color:color-mix(in srgb,var(--c) 70%,#000)}
+
+/* tablas sencillas */
+.tab{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:10px;overflow:hidden;font-size:.92em;margin:.3em 0}
+.tab td,.tab th{padding:.22em .45em;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.tab th{background:var(--b);color:#fff}
+.diacr{display:grid;grid-template-columns:repeat(4,1fr);gap:.45em;margin-top:.4em}
+.par{background:#fff;border:2px solid var(--b5);border-radius:10px;padding:.25em .45em;font-size:.88em;text-align:left}
+.par b{color:var(--b5);font-size:1.15em}
+
+/* palabra descompuesta */
+.palabra{display:flex;justify-content:center;gap:3px;margin:.55em 0 0;font:800 1.7em 'Bricolage Grotesque',sans-serif}
+.palabra span{display:flex;flex-direction:column;align-items:center;padding:.05em .25em;border-radius:10px;background:var(--a);border:3px solid var(--b)}
+.palabra span i{font:700 .38em 'Atkinson Hyperlegible',sans-serif;font-style:normal;color:var(--b)}
+
+/* liña do tempo */
+.linea{display:grid;grid-template-columns:1.1fr .5fr 1.4fr 1fr 1fr .5fr 1.1fr;align-items:stretch;margin:.6em 0 0;font-size:.92em;text-align:center}
+.linea>div{padding:.35em .3em;color:#fff;font-weight:700;display:flex;flex-direction:column;justify-content:center}
+.linea .ext{background:#8b8b8b}.linea .ext:first-child{border-radius:12px 0 0 12px}.linea .ext:last-child{border-radius:0 12px 12px 0}
+.linea .fito{background:var(--ink);font-size:.9em}
+.linea .e1{background:var(--b1)}.linea .e2{background:var(--b4)}.linea .e3{background:var(--b2)}
+.linea small{font-weight:400;font-size:.8em}
+
+/* niveis (barras) */
+.nivel{display:grid;grid-template-columns:1fr auto;gap:.4em;align-items:center;margin:.25em 0;font-size:.95em}
+.nivel .bar{display:flex;gap:3px}
+.nivel .bar i{width:.85em;height:.85em;border-radius:3px;background:#fff;border:2px solid var(--b)}
+.nivel .bar i.on{background:var(--b)}
+.ciclo-n{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:#fff;color:var(--b);font-weight:800;margin-right:.2em}
+
+/* móbil */
+@media screen and (max-width:900px){
+ .indice{grid-template-columns:1fr 1fr}
+ .ramas{grid-template-columns:1fr!important}
+ .ramas::before,.rama::before{display:none}
+ .diacr{grid-template-columns:1fr 1fr}
+ .linea{grid-template-columns:1fr;gap:3px}.linea>div{border-radius:10px!important}
+ .esq h2{font-size:1.45em}
+}
+@media screen and (max-width:560px){.indice{grid-template-columns:1fr}body{font-size:16px}.esq{padding:14px 12px}}
+
+/* menú de impresión */
+#menuImp{position:fixed;inset:0;background:rgba(20,28,48,.55);display:none;place-items:center;z-index:50}
+#menuImp.on{display:grid}
+#menuImp .caja{background:#fff;border-radius:22px;padding:22px 26px;max-width:460px;width:92%;text-align:left}
+#menuImp h3{margin:0 0 6px;font-size:1.5em}
+#menuImp p{margin:0 0 12px}
+#menuImp button{display:block;width:100%;margin:8px 0;border:0;border-radius:14px;padding:12px;font:700 17px 'Atkinson Hyperlegible',sans-serif;color:#fff;cursor:pointer;background:var(--m,var(--ink));text-align:left}
+#menuImp .cerrar{background:#e9e3d6;color:var(--ink);text-align:center}
+
+/* ---------- impresión: un esquema por hoja A4 ---------- */
+.modo-imp .esq{width:190mm;margin:0;box-shadow:none}
+@page{size:A4;margin:10mm}
+@media print{
+ body{background:#fff}
+ .top,.barra,.indice,.materia-tit,#menuImp,.imp1,#volverPanel{display:none!important}
+ main{padding:0}
+ .esq{width:190mm;margin:0;box-shadow:none;break-after:page;page-break-after:always;break-inside:avoid}
+ .esq:last-of-type{break-after:auto}
+ .esq.noimp{display:none!important}
+ .ramas{grid-template-columns:repeat(var(--n),1fr)!important}
+ .ramas::before,.rama::before{display:block!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <small>1.º ESO · Lengua castellana y literatura</small>
+ <h1>🗺️ Esquemas · Primera parte</h1>
+ <p>Esquemas de todo lo que hemos estudiado en la primera parte de la 1.ª evaluación, ordenados por apartados. Cada esquema cabe en una hoja: puedes imprimirlos todos, solo los de un apartado o uno solo.</p>
+</header>
+
+<!-- Colores de los apartados (los de materia del CSS común):
+     m-galego (azul) = Comunicación y textos · m-lengua (rojo) = Lengua
+     m-xeo (verde) = Ortografía y vocabulario · m-hist (marrón) = Literatura y lecturas -->
+<nav class="barra">
+ <a class="m-galego" href="#comunicacion">💬 Comunicación y textos</a>
+ <a class="m-lengua" href="#lengua">🗣️ Lengua</a>
+ <a class="m-xeo" href="#ortografia">🔤 Ortografía y vocabulario</a>
+ <a class="m-hist" href="#literatura">📚 Literatura y lecturas</a>
+ <button class="imp" type="button" onclick="abrirMenu()">🖨️ Imprimir</button>
+</nav>
+
+<main>
+<section class="indice">
+ <div class="ind m-galego"><h3>💬 Comunicación y textos</h3><ol><li><a href="#e1">La comunicación</a></li><li><a href="#e2">Las propiedades textuales</a></li></ol></div>
+ <div class="ind m-lengua"><h3>🗣️ Lengua</h3><ol start="3"><li><a href="#e3">Las lenguas del mundo</a></li><li><a href="#e4">Las lenguas de España</a></li></ol></div>
+ <div class="ind m-xeo"><h3>🔤 Ortografía y vocabulario</h3><ol start="5"><li><a href="#e5">Vocabulario · semana 1</a></li><li><a href="#e6">Vocabulario · semana 2</a></li></ol></div>
+ <div class="ind m-hist"><h3>📚 Literatura y lecturas</h3><ol start="7"><li><a href="#e7">Nando López y su obra</a></li></ol></div>
+</section>
+
+<!-- =================================== COMUNICACIÓN Y TEXTOS =================================== -->
+<h2 class="materia-tit m-galego" id="comunicacion"><span>💬</span> Comunicación y textos</h2>
+
+<article class="esq m-galego" id="e1" data-mat="comunicacion">
+ <header><span class="num">1</span><div><small>Comunicación y textos</small><h2>La comunicación</h2></div><span class="ico">📡</span><button class="imp1" onclick="imprimir('#e1')">🖨️ Solo este</button></header>
+ <div class="raiz">LA COMUNICACIÓN<small>alguien transmite información a otra persona</small></div>
+ <div class="chips3"><span class="chip3">La abuela Marisa llama a su nieto Diego: <span class="ej" style="--b:#888">¿Vienes a comer mañana?</span></span></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r2"><h3>🧩 Elementos<small>¿qué hace falta?</small></h3>
+   <div class="mini"><b>Emisor</b>: quien envía el mensaje. <span class="ej">Marisa</span></div>
+   <div class="mini"><b>Receptor</b>: quien lo recibe. <span class="ej">Diego</span></div>
+   <div class="mini"><b>Mensaje</b>: lo que se dice. <span class="ej">¿Vienes a comer?</span></div>
+   <div class="mini"><b>Canal</b>: por dónde viaja. <span class="ej">el teléfono, el aire</span></div>
+   <div class="mini"><b>Código</b>: signos y reglas que comparten. <span class="ej">el castellano, los emoticonos</span></div>
+   <div class="mini"><b>Situación</b>: dónde, cuándo y qué relación hay. <span class="ej">en familia, con cariño</span></div></section>
+  <section class="rama r1"><h3>💬 Clases<small>¿con qué signos?</small></h3>
+   <div class="mini"><b>Verbal</b>: con palabras (signos lingüísticos).</div>
+   <ul><li><b>Oral</b>: se habla y se escucha. <span class="ej">una conversación, la radio</span></li>
+   <li><b>Escrita</b>: se escribe y se lee. <span class="ej">una noticia, un tuit</span></li></ul>
+   <div class="mini"><b>No verbal</b>: sin palabras: gestos, imágenes, colores, sonidos.</div>
+   <div class="ejb" data-l="Ejemplos:"><span class="ej">un semáforo</span> <span class="ej">una cara de susto</span> <span class="ej">un emoticono 😂</span> <span class="ej">el timbre del recreo</span></div></section>
+  <section class="rama r4"><h3>🎯 Funciones del lenguaje<small>¿para qué? · truco: MAPFRE</small></h3>
+   <div class="mini"><b>M</b>etalingüística → código: hablar de la lengua.<br><span class="ej">«Árbol» es una palabra llana.</span></div>
+   <div class="mini"><b>A</b>pelativa → receptor: órdenes y preguntas.<br><span class="ej">¿Puedes cerrar la ventana?</span></div>
+   <div class="mini"><b>P</b>oética → mensaje: lenguaje bonito.<br><span class="ej">Tus ojos son dos luceros.</span></div>
+   <div class="mini"><b>F</b>ática → canal: comprobar el contacto.<br><span class="ej">¿Me oyes?</span></div>
+   <div class="mini"><b>R</b>epresentativa → contexto: informar sin opinar.<br><span class="ej">Hoy el cielo está azul.</span></div>
+   <div class="mini"><b>E</b>xpresiva → emisor: sentimientos y opiniones.<br><span class="ej">¡Me encanta la clase de lengua!</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">en un mensaje puede haber varias funciones, pero siempre <b>predomina una</b>. Si mandas el mensaje por WhatsApp, cambia el <b>canal</b> (el móvil); si añades emoticonos, usas también un <b>código no verbal</b>.</div>
+</article>
+
+<article class="esq m-galego" id="e2" data-mat="comunicacion">
+ <header><span class="num">2</span><div><small>Comunicación y textos</small><h2>Las propiedades textuales</h2></div><span class="ico">🔱</span><button class="imp1" onclick="imprimir('#e2')">🖨️ Solo este</button></header>
+ <div class="raiz">LAS PROPIEDADES TEXTUALES<small>el tridente CCA: lo que necesita un texto para funcionar</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r1"><h3>🧠 Coherencia<small>las ideas</small></h3><ul>
+   <li><b>Un solo tema</b>: todo gira en torno al mismo asunto.</li>
+   <li><b>Ideas que se distinguen</b>: se ven las ideas principales.</li>
+   <li><b>Orden lógico</b>: las ideas siguen un orden claro.</li></ul>
+   <div class="ejb" data-l="Ejemplo:">un texto sobre mi fin de semana:<br><span class="ej">El sábado…</span> → <span class="ej">Los domingos…</span> → <span class="ej">Al final del fin de semana…</span><br>Si hablo de lo que hago <b>los martes</b>, me salgo del tema ✗</div></section>
+  <section class="rama r2"><h3>🔗 Cohesión<small>las uniones</small></h3>
+   <div class="mini"><b>Conectores</b>: unen las ideas.<br><span class="ej">en primer lugar, además, por eso, sin embargo</span></div>
+   <div class="mini"><b>Palabras que remiten</b> a otras.<br><span class="ej">casa, clase → espacio</span></div>
+   <div class="mini"><b>Sinónimos y palabras afines</b>: evitan repetir.<br><span class="ej">personas ciegas = personas con discapacidad visual</span></div>
+   <div class="mini"><b>Repeticiones</b>: solo de lo más importante.<br><span class="ej">mensaje… mensajes</span></div></section>
+  <section class="rama r3"><h3>🎯 Adecuación<small>la situación</small></h3><ul>
+   <li><b>Situación</b>: ¿dónde y en qué contexto?</li>
+   <li><b>Receptor</b>: ¿a quién me dirijo?</li>
+   <li><b>Intención</b>: ¿para qué hablo o escribo?</li></ul>
+   <div class="ejb" data-l="Ejemplo:">mismo tema, dos maneras:<br>a unos médicos → <span class="ej">erupción, febril</span><br>a un niño enfermo → <span class="ej">granos, fiebre, te pican</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda"><b>Coherencia</b> = qué digo y en qué orden. <b>Cohesión</b> = cómo lo uno. <b>Adecuación</b> = a quién se lo digo y cómo. Sin las tres, un texto es un montón de frases sueltas.</div>
+</article>
+
+<!-- =================================== LENGUA =================================== -->
+<h2 class="materia-tit m-lengua" id="lengua"><span>🗣️</span> Lengua</h2>
+
+<article class="esq m-lengua" id="e3" data-mat="lengua">
+ <header><span class="num">3</span><div><small>Lengua · Tema 1</small><h2>Las lenguas del mundo</h2></div><span class="ico">🌍</span><button class="imp1" onclick="imprimir('#e3')">🖨️ Solo este</button></header>
+ <div class="raiz">LAS LENGUAS DEL MUNDO<small>lenguaje, lenguas y escritura</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r2"><h3>🗣️ Lenguaje y lenguas</h3>
+   <div class="mini"><b>Lenguaje</b>: capacidad innata para comunicarnos. ¡Todos lo tenemos!</div>
+   <div class="mini"><b>Lengua</b>: sistema de elementos + reglas que usa una comunidad.<br><span class="ej">gallego, castellano, japonés</span></div>
+   <ul><li>Con pocas piezas y reglas hacemos <b>mensajes infinitos</b>. Por eso un niño inventa <span class="ej">¡No cabo!</span></li></ul>
+   <div class="mini"><b>Lenguas orales</b>: sonidos, boca y oído.</div>
+   <div class="mini"><b>Lenguas de signos</b>: manos, rostro y vista.<br><span class="ej">LSE (española), LSC (catalana)</span></div>
+   <ul><li>No hay una lengua de signos universal.</li></ul></section>
+  <section class="rama r3"><h3>🌐 Lenguas del mundo</h3><ul>
+   <li>Hay <b>más de 7.000</b> lenguas.</li>
+   <li>Las más habladas: <span class="ej">inglés, chino mandarín, español</span></li></ul>
+   <div class="mini"><b>Oficial</b>: la usan las instituciones de un Estado.<br><span class="ej">castellano, en toda España</span></div>
+   <div class="mini"><b>Cooficial</b>: comparte la oficialidad en un territorio.<br><span class="ej">gallego, en Galicia</span></div>
+   <div class="mini"><b>Familia</b>: lenguas con un origen común. La nuestra es la <b>indoeuropea</b>: románicas, germánicas, eslavas, célticas, helénica e indoarias.</div>
+   <div class="ejb" data-l="Ejemplo:">románicas: <span class="ej">noche, noite, notte, nuit</span><br>germánicas: <span class="ej">night, Nacht</span></div></section>
+  <section class="rama r6"><h3>✍️ La escritura</h3><ul>
+   <li>Es la <b>representación gráfica</b> de una lengua.</li>
+   <li>No todas las lenguas tienen escritura.</li>
+   <li>Nació hacia el <b>3500 a. C.</b> en Mesopotamia: marca el paso de la <b>Prehistoria</b> a la <b>Historia</b>.</li></ul>
+   <div class="mini"><b>1 signo = 1 palabra</b><br><span class="ej">山 = montaña (chino)</span></div>
+   <div class="mini"><b>1 signo = 1 sonido</b>: los alfabetos.<br><span class="ej">latino, griego, cirílico, árabe</span></div>
+   <span class="formula">fenicio → griego → latino<br>(nuestro alfabeto)</span></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda"><b>lenguaje</b> = la capacidad que tenemos todos; <b>lengua</b> = el sistema concreto de cada comunidad. <span class="ej">El portugués es una lengua que se parece al gallego.</span></div>
+</article>
+
+<article class="esq m-lengua" id="e4" data-mat="lengua">
+ <header><span class="num">4</span><div><small>Lengua · Tema 1</small><h2>Las lenguas de España</h2></div><span class="ico">🗺️</span><button class="imp1" onclick="imprimir('#e4')">🖨️ Solo este</button></header>
+ <div class="raiz">LAS LENGUAS DE ESPAÑA<small>España es un Estado plurilingüe: tiene varias lenguas oficiales</small></div>
+ <div class="chips3"><span class="chip3"><span class="ej" style="--b:#888">Buenos días · Bos días · Bon dia · Egun on</span></span><span class="chip3">También es oficial el <b>aranés</b> (Valle de Arán)</span></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r1"><h3>🇪🇸 Castellano</h3><ul>
+   <li><b>Dónde</b>: oficial en todo el Estado.</li>
+   <li><b>Origen</b>: latín. Nace en Cantabria y el norte de Burgos → baja al sur → llega a América.</li></ul>
+   <div class="ejb" data-l="Así se dice:"><span class="ej">Buenos días</span></div></section>
+  <section class="rama r2"><h3>🐚 Gallego</h3><ul>
+   <li><b>Dónde</b>: Galicia.</li>
+   <li><b>Origen</b>: latín. Nace en el noroeste. Era la misma lengua que el portugués hasta el final de la Edad Media.</li></ul>
+   <div class="ejb" data-l="Así se dice:"><span class="ej">Bos días</span></div></section>
+  <section class="rama r4"><h3>🌊 Catalán</h3><ul>
+   <li><b>Dónde</b>: Cataluña, Baleares y Comunidad Valenciana (allí se llama <b>valenciano</b>).</li>
+   <li><b>Origen</b>: latín. Nace en el noreste → Levante y Baleares.</li></ul>
+   <div class="ejb" data-l="Así se dice:"><span class="ej">Bon dia</span></div></section>
+  <section class="rama r5"><h3>⛰️ Euskera</h3><ul>
+   <li><b>Dónde</b>: País Vasco y Navarra.</li>
+   <li><b>Origen</b>: <b>prerromana</b>, no viene del latín. No se parece a ninguna otra lengua.</li></ul>
+   <div class="ejb" data-l="Así se dice:"><span class="ej">Egun on</span></div></section>
+ </div>
+ <div class="rama r3" style="margin-top:.9em"><h3>🗣️ Variedades del castellano<small>no todos hablamos igual</small></h3>
+  <div class="diacr">
+   <div class="par" style="border-color:var(--b3)"><b style="color:var(--b3)">Septentrional</b><br>mitad norte. No aspira la <b>-s</b> final de sílaba.<br><span class="ej">los niños</span></div>
+   <div class="par" style="border-color:var(--b3)"><b style="color:var(--b3)">Meridional</b><br>sur y Canarias.<br>aspiración <span class="ej">loh niñoh</span><br>seseo <span class="ej">sapato</span><br>ceceo <span class="ej">zeñora</span></div>
+   <div class="par" style="border-color:var(--b3)"><b style="color:var(--b3)">De contacto</b><br>zonas con dos lenguas: influye la otra lengua.<br><span class="ej">en Galicia: un cafeciño</span></div>
+   <div class="par" style="border-color:var(--b3)"><b style="color:var(--b3)">¿Cómo lo llamas tú?</b><br>lluvia fina:<br><span class="ej">orvallo, sirimiri, calabobos, llovizna</span></div>
+  </div></div>
+ <div class="recuerda" data-l="Recuerda">gallego, catalán y castellano son lenguas <b>romances</b> (hijas del latín); el euskera, no. Todos hablamos una variedad y <b>ninguna es más correcta que otra</b>.</div>
+</article>
+
+<!-- =================================== ORTOGRAFÍA Y VOCABULARIO =================================== -->
+<h2 class="materia-tit m-xeo" id="ortografia"><span>🔤</span> Ortografía y vocabulario</h2>
+
+<article class="esq m-xeo" id="e5" data-mat="ortografia">
+ <header><span class="num">5</span><div><small>Ortografía y vocabulario</small><h2>Vocabulario · semana 1</h2></div><span class="ico">📖</span><button class="imp1" onclick="imprimir('#e5')">🖨️ Solo este</button></header>
+ <div class="raiz">VOCABULARIO · SEMANA 1<small>12 palabras: qué significan, sinónimos y cómo se escriben (en amarillo, las letras difíciles)</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r1"><h3>🔇 Con h</h3>
+   <div class="mini"><b><u class="t">h</u>ip<u class="t">é</u>r<u class="t">b</u>ole</b>: exagerar al hablar.<br><span class="ej">exageración</span></div>
+   <div class="mini"><b>desa<u class="t">h</u>o<u class="t">g</u>o</b>: alivio de una pena. <span class="flecha">→</span> des + ahogo<br><span class="ej">alivio, descanso</span></div>
+   <div class="mini"><b>in<u class="t">h</u><u class="t">ó</u>spito</b>: sitio donde no se puede vivir a gusto.<br><span class="ej">hostil, inhabitable</span></div></section>
+  <section class="rama r2"><h3>🅱️ b / v</h3>
+   <div class="mini"><b>ad<u class="t">v</u>er<u class="t">b</u>io</b>: palabra que modifica al verbo, al adjetivo o a otro adverbio. <span class="flecha">→</span> primero v, después b</div>
+   <div class="mini"><b>es<u class="t">b</u>elto</b>: alto y delgado.<br><span class="ej">delgado, estilizado</span></div>
+   <div class="mini"><b><u class="t">v</u>a<u class="t">ll</u>a</b>: cercado de un terreno. <span class="flecha">→</span> ≠ vaya (ir) ≠ baya (fruto)<br><span class="ej">cercado</span></div>
+   <div class="mini"><b><u class="t">v</u>islum<u class="t">b</u>rar</b>: ver algo a lo lejos o intuirlo. <span class="flecha">→</span> tras m, b<br><span class="ej">entrever, atisbar</span></div></section>
+  <section class="rama r3"><h3>🌀 g / c</h3>
+   <div class="mini"><b>ur<u class="t">g</u>en<u class="t">c</u>ia</b>: algo que hay que resolver ya.<br><span class="ej">emergencia, premura</span></div>
+   <div class="mini"><b>apo<u class="t">g</u>eo</b>: el mejor momento de algo. <span class="flecha">→</span> ge, no je<br><span class="ej">culminación, esplendor</span></div>
+   <div class="mini"><b>e<u class="t">s</u>par<u class="t">c</u>ir</b>: separar lo que estaba junto. <span class="flecha">→</span> s, no x<br><span class="ej">dispersar, difundir</span></div></section>
+  <section class="rama r5"><h3>🔤 z / y</h3>
+   <div class="mini"><b>perspica<u class="t">z</u></b>: listo, que entiende rápido. <span class="flecha">→</span> plural: perspicaces<br><span class="ej">agudo, sagaz</span></div>
+   <div class="mini"><b><u class="t">y</u>a<u class="t">c</u>imiento</b>: lugar con minerales o restos antiguos. <span class="flecha">→</span> de yacer<br><span class="ej">depósito, filón</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">busca la <b>familia</b> de la palabra: <span class="ej">yacer → yacimiento</span> <span class="ej">ahogo → desahogo</span>. Y las <b>esdrújulas</b> llevan siempre tilde: <span class="ej">hipérbole, inhóspito</span>.</div>
+</article>
+
+<article class="esq m-xeo" id="e6" data-mat="ortografia">
+ <header><span class="num">6</span><div><small>Ortografía y vocabulario</small><h2>Vocabulario · semana 2</h2></div><span class="ico">📖</span><button class="imp1" onclick="imprimir('#e6')">🖨️ Solo este</button></header>
+ <div class="raiz">VOCABULARIO · SEMANA 2<small>12 palabras: qué significan, sinónimos y cómo se escriben (en amarillo, las letras difíciles)</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r1"><h3>✖️ Con x</h3>
+   <div class="mini"><b>e<u class="t">x</u>pl<u class="t">í</u>cito</b>: dicho con claridad. <span class="flecha">→</span> ex + pl<br><span class="ej">claro, expreso</span></div>
+   <div class="mini"><b>e<u class="t">x</u>traescolar</b>: fuera del horario de clase. <span class="flecha">→</span> extra- siempre con x<br><span class="ej">complementario</span></div>
+   <div class="mini"><b>e<u class="t">x</u>i<u class="t">g</u>ir</b>: pedir con fuerza lo que es tuyo. <span class="flecha">→</span> pero: exijo<br><span class="ej">reclamar, demandar</span></div></section>
+  <section class="rama r2"><h3>🔇 ¿Con h o sin h?</h3>
+   <div class="mini"><b>co<u class="t">h</u>esi<u class="t">ó</u>n</b>: unión fuerte entre las partes. <span class="flecha">→</span> como adhesión<br><span class="ej">unión</span></div>
+   <div class="mini"><b>bu<u class="t">h</u>ardilla</b>: habitación bajo el tejado.<br><span class="ej">desván, ático</span></div>
+   <div class="mini"><b><u class="t">o</u>quedad</b>: hueco. <span class="flecha">→</span> ¡trampa! hueco lleva h; oquedad, no<br><span class="ej">hueco, cavidad</span></div></section>
+  <section class="rama r3"><h3>🔤 y / j</h3>
+   <div class="mini"><b><u class="t">y</u>a<u class="t">c</u>er</b>: estar tendido.<br><span class="ej">reposar, descansar</span></div>
+   <div class="mini"><b>conser<u class="t">j</u>e</b>: persona que cuida un edificio. <span class="flecha">→</span> -je, como garaje<br><span class="ej">portero, vigilante</span></div>
+   <div class="mini"><b>atra<u class="t">y</u>ente</b>: que atrae. <span class="flecha">→</span> como atrayendo<br><span class="ej">atractivo</span></div></section>
+  <section class="rama r5"><h3>🕵️ Letras escondidas</h3>
+   <div class="mini"><b><u class="t">ps</u>ic<u class="t">ó</u>logo</b>: profesional de la mente. <span class="flecha">→</span> la p no suena<br><span class="ej">terapeuta</span></div>
+   <div class="mini"><b>obstru<u class="t">cc</u>i<u class="t">ó</u>n</b>: algo que impide el paso. <span class="flecha">→</span> -cción<br><span class="ej">bloqueo, atasco</span></div>
+   <div class="mini"><b>in<u class="t">v</u>ersi<u class="t">ó</u>n</b>: dinero que se pone en un negocio. <span class="flecha">→</span> n + v<br><span class="ej">desembolso</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">las palabras que empiezan por <b>extra-</b> y por <b>ex- + pl / pr</b> se escriben con <b>x</b>: <span class="ej">extraescolar, explícito, expresar</span>.</div>
+</article>
+
+<!-- =================================== LITERATURA Y LECTURAS =================================== -->
+<h2 class="materia-tit m-hist" id="literatura"><span>📚</span> Literatura y lecturas</h2>
+
+<article class="esq m-hist" id="e7" data-mat="literatura">
+ <header><span class="num">7</span><div><small>Literatura y lecturas</small><h2>Nando López y su obra</h2></div><span class="ico">🌑</span><button class="imp1" onclick="imprimir('#e7')">🖨️ Solo este</button></header>
+ <div class="raiz">«POR QUÉ TIENE QUE SER TODO TAN DIFÍCIL»<small>Nando López · teatro · Loqueleo, 2021</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r6"><h3>✍️ El autor<small>novelista, dramaturgo y profe de Lengua</small></h3><ul>
+   <li>Nació en <b>Barcelona</b> en <b>1977</b>.</li>
+   <li>Es doctor en <b>Filología Hispánica</b>: experto en lengua y literatura.</li>
+   <li>Fue <b>profesor de Lengua</b> en institutos.</li>
+   <li>Le apasiona el <b>teatro</b>.</li>
+   <li>Ha escrito más de <b>treinta libros</b>.</li></ul>
+   <div class="ejb" data-l="Premio:">Gran Angular 2020 con <span class="ej">La versión de Eric</span></div></section>
+  <section class="rama r2"><h3>🌑 La obra<small>¿de qué va?</small></h3><ul>
+   <li><b>Teatro</b>: comedia dramática.</li>
+   <li>Una semana, un grupo de amigos de <b>13 años</b> y un <b>eclipse</b>.</li>
+   <li>Todos guardan algún <b>secreto</b>… que puede salir a la luz.</li></ul>
+   <div class="mini"><b>Personajes</b>:<br><span class="ej">Dani</span> organiza ver el eclipse.<br><span class="ej">Guille</span> graba un audio y no lo envía.<br><span class="ej">Celia</span> no sabe guardar un secreto.<br><span class="ej">Alba</span> sabe escuchar.<br>Y también <span class="ej">Raquel, Álex, Vero…</span></div></section>
+  <section class="rama r3"><h3>🎭 Cómo se lee el teatro<small>es un texto para representar</small></h3>
+   <div class="mini"><b>Diálogo</b>: lo que dicen los personajes (texto principal).<br><span class="ej">DANI. — ¿Y si os digo…?</span></div>
+   <div class="mini"><b>Acotaciones</b>: lugar, tiempo y gestos (texto secundario, en cursiva).<br><span class="ej">(Bajando la voz)</span></div>
+   <div class="mini"><b>Obra coral</b>: no hay un único protagonista.</div>
+   <div class="mini"><b>Diálogos simultáneos</b>: varias conversaciones a la vez.</div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">los temas de la obra: <b>la amistad</b>, <b>los secretos</b>, <b>decir lo que sientes</b>, <b>las redes sociales</b> y <b>ser el nuevo</b>.</div>
+</article>
+</main>
+
+<div id="menuImp" onclick="if(event.target===this)cerrarMenu()">
+ <div class="caja">
+  <h3>🖨️ ¿Qué quieres imprimir?</h3>
+  <p>Cada esquema sale en una hoja A4.</p>
+  <button style="--m:var(--ink)" onclick="imprimir('todo')">📚 Todos los esquemas</button>
+  <button class="m-galego" onclick="imprimir('comunicacion')">💬 Solo Comunicación y textos</button>
+  <button class="m-lengua" onclick="imprimir('lengua')">🗣️ Solo Lengua</button>
+  <button class="m-xeo" onclick="imprimir('ortografia')">🔤 Solo Ortografía y vocabulario</button>
+  <button class="m-hist" onclick="imprimir('literatura')">📚 Solo Literatura y lecturas</button>
+  <button class="cerrar" onclick="cerrarMenu()">Cancelar</button>
+ </div>
+</div>
+
+<script>
+function abrirMenu(){document.getElementById('menuImp').classList.add('on')}
+function cerrarMenu(){document.getElementById('menuImp').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarMenu()});
+const ESQ=[...document.querySelectorAll('.esq')];
+/* Ajusta cada esquema para que quepa en una hoja A4 (190 × 277 mm) */
+function ajustar(){
+ const mm=96/25.4, alto=258*mm;
+ document.body.classList.add('modo-imp');
+ ESQ.forEach(a=>{let fs=18;a.style.fontSize=fs+'px';while(a.scrollHeight>alto&&fs>9){fs-=.25;a.style.fontSize=fs+'px'}});
+}
+function restaurar(){document.body.classList.remove('modo-imp');ESQ.forEach(a=>{a.style.fontSize='';a.classList.remove('noimp')})}
+let preparado=false;
+function imprimir(que){
+ cerrarMenu();
+ ESQ.forEach(a=>a.classList.toggle('noimp',!(que==='todo'||a.dataset.mat===que||('#'+a.id)===que)));
+ ajustar();preparado=true;
+ setTimeout(()=>{window.print()},60);
+}
+window.addEventListener('beforeprint',()=>{if(!preparado)ajustar()});
+window.addEventListener('afterprint',()=>{preparado=false;restaurar()});
+</script>
+<a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>

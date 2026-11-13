@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>esquemas_1a_evaluacion_segunda_parte_1eso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Bricolage+Grotesque:wght@600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ DISEÑO COMÚN DE LOS ESQUEMAS (no cambiar entre partes) ============ */
+:root{
+ --ink:#1f2633; --paper:#f6f2ea;
+ --lengua:#d9483b; --galego:#1f78b4; --xeo:#238b5e; --hist:#a8641c;
+ /* colores de las ramas: fondo claro + color fuerte */
+ --a1:#fff3c4; --b1:#c98a00;   /* amarillo */
+ --a2:#dcecff; --b2:#2f78c4;   /* azul */
+ --a3:#d9f3e2; --b3:#278a52;   /* verde */
+ --a4:#ffe0e8; --b4:#c7406a;   /* rosa */
+ --a5:#ebe2ff; --b5:#6e4fc4;   /* morado */
+ --a6:#ffe6d1; --b6:#d0661a;   /* naranja */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Atkinson Hyperlegible',Arial,sans-serif;font-size:18px;line-height:1.35;text-align:justify;hyphens:auto;-webkit-hyphens:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,h4{font-family:'Bricolage Grotesque','Atkinson Hyperlegible',sans-serif;text-align:left;line-height:1.1}
+b{font-weight:700}
+
+/* ---------- cabecera y navegación ---------- */
+.top{background:linear-gradient(135deg,#2f9e6e,#1f6f8b);color:#fff;padding:26px 3vw 30px}
+.top small{font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.top h1{font-size:clamp(28px,4vw,48px);margin:.15em 0 .2em}
+.top p{margin:0;font-size:1.05em;max-width:none}
+.barra{position:sticky;top:0;z-index:20;background:rgba(246,242,234,.96);backdrop-filter:blur(6px);border-bottom:2px solid #e3dccd;padding:10px 3vw;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barra a,.barra button{font:700 16px 'Atkinson Hyperlegible',sans-serif;border:0;border-radius:999px;padding:9px 16px;text-decoration:none;color:#fff;cursor:pointer;white-space:nowrap}
+.barra .imp{margin-left:auto;background:var(--ink)}
+.m-lengua{--m:var(--lengua)} .m-galego{--m:var(--galego)} .m-xeo{--m:var(--xeo)} .m-hist{--m:var(--hist)}
+.barra a{background:var(--m)}
+main{padding:10px 3vw 60px}
+
+/* ---------- índice ---------- */
+.indice{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 8px}
+.ind{background:#fff;border-radius:18px;border-top:10px solid var(--m);padding:14px 18px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.ind h3{margin:0 0 8px;color:var(--m);font-size:1.3em}
+.ind ol{margin:0;padding-left:1.3em}
+.ind a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--m)}
+.materia-tit{display:flex;align-items:center;gap:12px;margin:38px 0 6px;color:var(--m);font-size:clamp(24px,3vw,36px)}
+.materia-tit span{font-size:1.2em}
+
+/* ---------- el esquema ---------- */
+.esq{background:#fff;border-radius:24px;border-top:14px solid var(--m);box-shadow:0 4px 18px rgba(0,0,0,.08);padding:18px 24px 22px;margin:22px 0 30px;font-size:1em}
+.esq>header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.esq .num{flex:none;width:2.3em;height:2.3em;border-radius:50%;background:var(--m);color:#fff;display:grid;place-items:center;font:800 1.35em 'Bricolage Grotesque',sans-serif}
+.esq header small{display:block;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.06em;font-size:.78em}
+.esq h2{margin:0;font-size:1.85em}
+.esq .ico{margin-left:auto;font-size:2.2em}
+.esq .imp1{border:0;background:#eee6d6;border-radius:999px;padding:.35em .8em;font:700 .8em 'Atkinson Hyperlegible',sans-serif;cursor:pointer;color:var(--ink)}
+
+.raiz{display:table;margin:2px auto 0;background:var(--m);color:#fff;border-radius:22px;padding:.45em 1.4em;text-align:center;font:800 1.45em 'Bricolage Grotesque',sans-serif;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.raiz small{display:block;font:400 .62em 'Atkinson Hyperlegible',sans-serif;opacity:.95;margin-top:.15em}
+.tronco{width:4px;height:1em;background:var(--ink);margin:0 auto}
+.chips3{display:flex;justify-content:center;flex-wrap:wrap;gap:.5em;margin:.55em 0 0}
+.chip3{background:#f3eee4;border:2px solid #d9cfbc;border-radius:12px;padding:.25em .7em;font-size:.92em;text-align:left}
+
+.ramas{--g:.8em;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:var(--g);position:relative;padding-top:1.1em;align-items:stretch}
+.ramas::before{content:'';position:absolute;top:0;border-top:4px solid var(--ink);left:calc((100% - (var(--n) - 1)*var(--g))/(2*var(--n)));right:calc((100% - (var(--n) - 1)*var(--g))/(2*var(--n)))}
+.rama{position:relative;background:var(--a);border:3px solid var(--b);border-radius:16px;padding:0 .7em .6em;text-align:justify}
+.rama::before{content:'';position:absolute;top:calc(-1.1em - 3px);left:50%;margin-left:-2px;height:1.1em;border-left:4px solid var(--ink)}
+.rama>h3{margin:0 -.7em .45em;padding:.35em .5em;background:var(--b);color:#fff;border-radius:11px 11px 0 0;text-align:center;font-size:1.12em}
+.rama>h3 small{display:block;font:400 .72em 'Atkinson Hyperlegible',sans-serif;opacity:.95}
+.r1{--a:var(--a1);--b:var(--b1)} .r2{--a:var(--a2);--b:var(--b2)} .r3{--a:var(--a3);--b:var(--b3)}
+.r4{--a:var(--a4);--b:var(--b4)} .r5{--a:var(--a5);--b:var(--b5)} .r6{--a:var(--a6);--b:var(--b6)}
+.rama ul{list-style:none;margin:0;padding:0}
+.rama li{position:relative;padding-left:1em;margin:.28em 0}
+.rama li::before{content:'▸';position:absolute;left:0;color:var(--b);font-weight:700}
+.mini{background:#fff;border-radius:10px;border-left:6px solid var(--b);padding:.3em .55em;margin:.4em 0}
+.mini>b:first-child{color:var(--b)}
+.ej{display:inline-block;background:#fff;border:0;border-radius:6px;padding:0 .35em;font-family:'Kalam',cursive;font-weight:700;font-size:1.02em;line-height:1.3;color:color-mix(in srgb,var(--b,#555) 70%,#000);text-align:left}
+.ejb .ej,.mini .ej,.tab .ej,.par .ej,.chip3 .ej,.recuerda .ej,.ind .ej{background:color-mix(in srgb,var(--b,#999) 15%,#fff)}
+.ejb{margin-top:.45em;background:#fff;border:0;border-left:6px solid var(--b);border-radius:10px;padding:.3em .55em;font-size:.95em}
+.ejb::before{content:'✏️ ' attr(data-l) ' ';font-weight:700;color:var(--b)}
+u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;font-weight:700}
+.flecha{color:var(--b);font-weight:700}
+.recuerda{margin-top:.9em;background:#fff8d6;border:3px solid #f0c419;border-radius:14px;padding:.45em .9em}
+.recuerda::before{content:'💡 ' attr(data-l) ': ';font-weight:700;color:#9a7300}
+.formula{display:block;text-align:center;background:#fff;border-radius:8px;padding:.2em .4em;margin:.3em 0;font-weight:700;font-size:.95em}
+
+/* clases de palabras (colores fijos) */
+.cw{--c:#888}
+.c-sus{--c:#2f78c4}.c-det{--c:#6e4fc4}.c-adj{--c:#278a52}.c-pro{--c:#0f9aa8}.c-ver{--c:#d9483b}
+.c-adv{--c:#d0661a}.c-pre{--c:#7a6a52}.c-con{--c:#c7406a}.c-int{--c:#b08800}
+.frase-color{display:flex;flex-wrap:wrap;justify-content:center;gap:.35em .45em;margin:.7em 0 0;background:#f8f5ee;border-radius:14px;padding:.5em}
+.frase-color span{display:flex;flex-direction:column;align-items:center;border-bottom:5px solid var(--c);padding:0 .15em}
+.frase-color span b{font-size:1.25em;color:var(--c)}
+.frase-color span i{font-style:normal;font-size:.68em;font-weight:700;color:var(--c)}
+.clase{display:grid;grid-template-columns:auto 1fr;gap:.1em .5em;align-items:baseline;background:#fff;border-radius:10px;border-left:7px solid var(--c);padding:.25em .55em;margin:.35em 0}
+.clase b{color:var(--c);font-size:1.05em}
+.clase .ej{grid-column:1/-1;justify-self:start;background:color-mix(in srgb,var(--c) 14%,#fff);color:color-mix(in srgb,var(--c) 70%,#000)}
+
+/* tablas sencillas */
+.tab{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:10px;overflow:hidden;font-size:.92em;margin:.3em 0}
+.tab td,.tab th{padding:.22em .45em;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.tab th{background:var(--b);color:#fff}
+.diacr{display:grid;grid-template-columns:repeat(4,1fr);gap:.45em;margin-top:.4em}
+.par{background:#fff;border:2px solid var(--b5);border-radius:10px;padding:.25em .45em;font-size:.88em;text-align:left}
+.par b{color:var(--b5);font-size:1.15em}
+
+/* palabra descompuesta */
+.palabra{display:flex;justify-content:center;gap:3px;margin:.55em 0 0;font:800 1.7em 'Bricolage Grotesque',sans-serif}
+.palabra span{display:flex;flex-direction:column;align-items:center;padding:.05em .25em;border-radius:10px;background:var(--a);border:3px solid var(--b)}
+.palabra span i{font:700 .38em 'Atkinson Hyperlegible',sans-serif;font-style:normal;color:var(--b)}
+
+/* liña do tempo */
+.linea{display:grid;grid-template-columns:1.1fr .5fr 1.4fr 1fr 1fr .5fr 1.1fr;align-items:stretch;margin:.6em 0 0;font-size:.92em;text-align:center}
+.linea>div{padding:.35em .3em;color:#fff;font-weight:700;display:flex;flex-direction:column;justify-content:center}
+.linea .ext{background:#8b8b8b}.linea .ext:first-child{border-radius:12px 0 0 12px}.linea .ext:last-child{border-radius:0 12px 12px 0}
+.linea .fito{background:var(--ink);font-size:.9em}
+.linea .e1{background:var(--b1)}.linea .e2{background:var(--b4)}.linea .e3{background:var(--b2)}
+.linea small{font-weight:400;font-size:.8em}
+
+/* niveis (barras) */
+.nivel{display:grid;grid-template-columns:1fr auto;gap:.4em;align-items:center;margin:.25em 0;font-size:.95em}
+.nivel .bar{display:flex;gap:3px}
+.nivel .bar i{width:.85em;height:.85em;border-radius:3px;background:#fff;border:2px solid var(--b)}
+.nivel .bar i.on{background:var(--b)}
+.ciclo-n{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:#fff;color:var(--b);font-weight:800;margin-right:.2em}
+
+/* móbil */
+@media screen and (max-width:900px){
+ .indice{grid-template-columns:1fr 1fr}
+ .ramas{grid-template-columns:1fr!important}
+ .ramas::before,.rama::before{display:none}
+ .diacr{grid-template-columns:1fr 1fr}
+ .linea{grid-template-columns:1fr;gap:3px}.linea>div{border-radius:10px!important}
+ .esq h2{font-size:1.45em}
+}
+@media screen and (max-width:560px){.indice{grid-template-columns:1fr}body{font-size:16px}.esq{padding:14px 12px}}
+
+/* menú de impresión */
+#menuImp{position:fixed;inset:0;background:rgba(20,28,48,.55);display:none;place-items:center;z-index:50}
+#menuImp.on{display:grid}
+#menuImp .caja{background:#fff;border-radius:22px;padding:22px 26px;max-width:460px;width:92%;text-align:left}
+#menuImp h3{margin:0 0 6px;font-size:1.5em}
+#menuImp p{margin:0 0 12px}
+#menuImp button{display:block;width:100%;margin:8px 0;border:0;border-radius:14px;padding:12px;font:700 17px 'Atkinson Hyperlegible',sans-serif;color:#fff;cursor:pointer;background:var(--m,var(--ink));text-align:left}
+#menuImp .cerrar{background:#e9e3d6;color:var(--ink);text-align:center}
+
+/* ---------- impresión: un esquema por hoja A4 ---------- */
+.modo-imp .esq{width:190mm;margin:0;box-shadow:none}
+@page{size:A4;margin:10mm}
+@media print{
+ body{background:#fff}
+ .top,.barra,.indice,.materia-tit,#menuImp,.imp1,#volverPanel{display:none!important}
+ main{padding:0}
+ .esq{width:190mm;margin:0;box-shadow:none;break-after:page;page-break-after:always;break-inside:avoid}
+ .esq:last-of-type{break-after:auto}
+ .esq.noimp{display:none!important}
+ .ramas{grid-template-columns:repeat(var(--n),1fr)!important}
+ .ramas::before,.rama::before{display:block!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <small>1.º ESO · Lengua castellana y literatura</small>
+ <h1>🗺️ Esquemas · Segunda parte</h1>
+ <p>Esquemas de lo que estamos estudiando en la segunda parte de la 1.ª evaluación, ordenados por apartados. Cada esquema cabe en una hoja: puedes imprimirlos todos, solo los de un apartado o uno solo.</p>
+</header>
+
+<!-- Colores de los apartados (los de materia del CSS común):
+     m-galego (azul) = Comunicación y textos · m-lengua (rojo) = Lengua
+     m-xeo (verde) = Ortografía y vocabulario · m-hist (marrón) = Literatura y lecturas -->
+<nav class="barra">
+ <a class="m-galego" href="#comunicacion">💬 Comunicación y textos</a>
+ <a class="m-xeo" href="#ortografia">🔤 Ortografía y vocabulario</a>
+ <button class="imp" type="button" onclick="abrirMenu()">🖨️ Imprimir</button>
+</nav>
+
+<main>
+<style>@media screen and (min-width:901px){.indice{grid-template-columns:repeat(2,1fr)}}</style>
+<section class="indice">
+ <div class="ind m-galego"><h3>💬 Comunicación y textos</h3><ol><li><a href="#e1">La narración</a></li></ol></div>
+ <div class="ind m-xeo"><h3>🔤 Ortografía y vocabulario</h3><ol start="2"><li><a href="#e2">Ortografía 1</a></li></ol></div>
+</section>
+
+<!-- =================================== COMUNICACIÓN Y TEXTOS =================================== -->
+<h2 class="materia-tit m-galego" id="comunicacion"><span>💬</span> Comunicación y textos</h2>
+
+<article class="esq m-galego" id="e1" data-mat="comunicacion">
+ <header><span class="num">1</span><div><small>Comunicación y textos · Tema 4</small><h2>La narración</h2></div><span class="ico">📖</span><button class="imp1" onclick="imprimir('#e1')">🖨️ Solo este</button></header>
+ <div class="raiz">LA NARRACIÓN<small>relato de unos sucesos reales o imaginarios que les ocurren a unos personajes en un espacio y un tiempo</small></div>
+ <div class="chips3"><span class="chip3">⚡ sucesos + 🧍 personajes + 📍 espacio + 🕰️ tiempo = <b>narración</b></span><span class="chip3"><span class="ej" style="--b:#888">cuentos, novelas, noticias, cómics, películas, videojuegos</span></span></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r2"><h3>📄 El texto<small>y sus modalidades</small></h3><ul>
+   <li><b>Texto</b>: mensaje con sentido completo en una situación concreta. Puede ser oral o escrito.</li>
+   <li>Según su <b>intención</b> hay seis modalidades. Truco: <b>DEP ADN</b>.</li></ul>
+   <table class="tab">
+    <tr><th>Modalidad → sirve para…</th></tr>
+    <tr><td><b>D</b>escripción → decir cómo es<br><span class="ej">Tiene los ojos verdes.</span></td></tr>
+    <tr><td><b>E</b>xposición → informar<br><span class="ej">El agua hierve a 100 grados.</span></td></tr>
+    <tr><td><b>P</b>rescripción → decir qué hacer<br><span class="ej">Bate dos huevos.</span></td></tr>
+    <tr><td><b>A</b>rgumentación → convencer<br><span class="ej">Necesitamos más recreo.</span></td></tr>
+    <tr><td><b>D</b>iálogo → conversar<br><span class="ej">—¿Vienes? —¡Claro!</span></td></tr>
+    <tr><td><b>N</b>arración → contar sucesos<br><span class="ej">Había una vez…</span></td></tr>
+   </table></section>
+  <section class="rama r1"><h3>🧱 Estructura<small>planteamiento ➜ nudo ➜ desenlace</small></h3>
+   <div class="mini"><b>1. Planteamiento</b>: presenta a los personajes, el lugar y el tiempo.<br><span class="ej">Había una vez tres cerditos…</span></div>
+   <div class="mini"><b>2. Nudo</b>:<br><b>conflicto</b> = el problema que pone en marcha la historia.<br><span class="ej">Un día apareció el lobo.</span><br><b>acciones desencadenadas</b> = lo que pasa por culpa del problema.<br><span class="ej">El lobo derribó dos casas.</span></div>
+   <div class="mini"><b>3. Desenlace</b>: cómo se resuelve.<br><span class="ej">Se salvaron en la casa de ladrillo.</span></div></section>
+  <section class="rama r4"><h3>🎰 Elementos<small>los cinco carretes</small></h3>
+   <div class="mini"><b>🎙️ Narrador</b>: quien lo cuenta.<br>interno (1.ª persona) <span class="ej">Somos cinco hermanos.</span><br>externo (3.ª persona) <span class="ej">Raskólnikov estaba angustiado.</span></div>
+   <div class="mini"><b>🧍 Personajes</b>: protagonistas, secundarios y antagonista (el que pone obstáculos). <span class="ej">el lobo</span></div>
+   <div class="mini"><b>⚡ Acción</b>: los hechos, en un orden.</div>
+   <div class="mini"><b>📍 Espacio</b>: los lugares. <span class="ej">el bosque</span></div>
+   <div class="mini"><b>🕰️ Tiempo</b>: los momentos. <span class="ej">un día, el sábado</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">para no olvidar las modalidades: «<b>D</b>escanse <b>E</b>n <b>P</b>az el <b>ADN</b>». Y el <b>nudo</b> tiene dos partes: el conflicto y las acciones desencadenadas.</div>
+</article>
+
+<!-- =================================== ORTOGRAFÍA Y VOCABULARIO =================================== -->
+<h2 class="materia-tit m-xeo" id="ortografia"><span>🔤</span> Ortografía y vocabulario</h2>
+
+<article class="esq m-xeo" id="e2" data-mat="ortografia">
+ <header><span class="num">2</span><div><small>Ortografía y vocabulario</small><h2>Ortografía 1</h2></div><span class="ico">✍️</span><button class="imp1" onclick="imprimir('#e2')">🖨️ Solo este</button></header>
+ <div class="raiz">ORTOGRAFÍA 1<small>las reglas que practicamos con «Por qué tiene que ser todo tan difícil»</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r1"><h3>✍️ Tildes con truco</h3>
+   <div class="mini"><b>Adverbios en -mente</b>: tilde si el adjetivo ya la tenía.<br><span class="ej">rápido → rápidamente</span> <span class="ej">lento → lentamente</span></div>
+   <div class="mini"><b>Pronombres pegados</b>: la palabra crece y puede pasar a esdrújula.<br><span class="ej">corrigiendo + la → corrigiéndola</span><br>Ojo: <span class="ej">dime, dale, vete</span> son llanas: sin tilde.</div>
+   <div class="mini"><b>Hiatos</b>: si la <b>i</b> o la <b>u</b> es tónica, siempre tilde.<br><span class="ej">tío, había, oímos</span><br>Diptongo, sin tilde: <span class="ej">miedo, audio</span></div></section>
+  <section class="rama r2"><h3>🎯 Tilde diacrítica<small>distingue palabras iguales</small></h3>
+   <table class="tab">
+    <tr><th>Con tilde</th><th>Sin tilde</th></tr>
+    <tr><td><span class="ej">tú</span> (persona)</td><td><span class="ej">tu guitarra</span></td></tr>
+    <tr><td><span class="ej">él</span> (persona)</td><td><span class="ej">el audio</span></td></tr>
+    <tr><td><span class="ej">a mí</span></td><td><span class="ej">mi móvil</span></td></tr>
+    <tr><td><span class="ej">sí</span> (afirmación)</td><td><span class="ej">si vienes…</span></td></tr>
+    <tr><td><span class="ej">yo sé</span> (saber)</td><td><span class="ej">se ríen</span></td></tr>
+    <tr><td><span class="ej">que me dé</span> (dar)</td><td><span class="ej">la tienda de…</span></td></tr>
+    <tr><td><span class="ej">un té</span> (bebida)</td><td><span class="ej">te veo</span></td></tr>
+    <tr><td><span class="ej">más</span> (cantidad)</td><td><span class="ej">mas</span> (= pero)</td></tr>
+    <tr><td><span class="ej">aún</span> (= todavía)</td><td><span class="ej">aun</span> (= incluso)</td></tr>
+   </table>
+   <div class="mini"><b>qué, cómo, dónde, cuándo, quién</b>: tilde si preguntan o exclaman.<br><span class="ej">No sé dónde meterme.</span> <span class="ej">¡Qué difícil!</span></div></section>
+  <section class="rama r4"><h3>❓ ¿Por qué o porque?</h3>
+   <div class="mini"><b>por qué</b> → para preguntar.<br><span class="ej">¿Por qué tiene que ser todo tan difícil?</span></div>
+   <div class="mini"><b>porque</b> → para dar la causa.<br><span class="ej">No vino porque tenía fiebre.</span></div>
+   <div class="mini"><b>porqué</b> → el motivo; va con artículo.<br><span class="ej">el porqué de los vistos</span></div>
+   <div class="mini"><b>por que</b> → = por el que, por la cual.<br><span class="ej">la razón por que no vino</span></div></section>
+ </div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r3"><h3>👂 Suenan igual</h3>
+   <div class="mini"><b>echo</b> (echar) / <b>hecho</b> (hacer)<br><span class="ej">echa de menos</span> <span class="ej">hechos una furia</span></div>
+   <div class="mini"><b>a ver</b> (mirar) / <b>haber</b> (verbo)<br><span class="ej">A ver si viene.</span> <span class="ej">Podrías haberme llamado.</span></div>
+   <div class="mini"><b>ahí</b> (lugar) · <b>hay</b> (haber) · <b>ay</b> (dolor)</div>
+   <div class="mini"><b>a</b> (preposición) · <b>ha</b> (haber) · <b>ah</b> (sorpresa) <span class="ej">Raquel ha guardado el secreto.</span></div>
+   <div class="mini"><b>vaya</b> (ir) · <b>valla</b> (cerca) · <b>baya</b> (fruto)<br><b>botar</b> (un balón) · <b>votar</b> (elegir)</div></section>
+  <section class="rama r5"><h3>✂️ ¿Junto o separado?<small>si dudas, sustituye</small></h3>
+   <div class="mini"><b>también</b> / <b>tan bien</b> (= muy bien)</div>
+   <div class="mini"><b>tampoco</b> / <b>tan poco</b> (= muy poco)</div>
+   <div class="mini"><b>sino</b> / <b>si no</b> (= en caso de que no)<br><span class="ej">No es miedo, sino respeto.</span> <span class="ej">Si no vas, tocará solo.</span></div>
+   <div class="mini"><b>Siempre separadas</b>: <span class="ej">a regañadientes, de repente, sobre todo</span></div>
+   <div class="mini"><b>Siempre junta</b>: <span class="ej">apenas</span></div></section>
+  <section class="rama r6"><h3>🔠 Mayúsculas, cursiva y raya</h3>
+   <div class="mini"><b>Mayúscula</b>: nombres propios.<br><span class="ej">Raquel, Sócrates, Beethoven</span></div>
+   <div class="mini"><b>Minúscula</b>: días, meses y nombres comunes.<br><span class="ej">el miércoles, el gimnasio</span></div>
+   <div class="mini"><b>Cursiva</b>: palabras extranjeras.<br><span class="ej"><i>pack</i>, <i>gif</i></span> pero <span class="ej">wasap</span></div>
+   <div class="mini"><b>Raya</b>: diálogos de novela.<br><span class="ej">—No pienso ir —dijo Vero—. No estoy preparada.</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">primero busca la <b>sílaba tónica</b> y después aplica la regla. Y si dudas entre dos formas, <b>sustituye</b>: tan bien = muy bien; si no = en caso de que no.</div>
+</article>
+</main>
+
+<div id="menuImp" onclick="if(event.target===this)cerrarMenu()">
+ <div class="caja">
+  <h3>🖨️ ¿Qué quieres imprimir?</h3>
+  <p>Cada esquema sale en una hoja A4.</p>
+  <button style="--m:var(--ink)" onclick="imprimir('todo')">📚 Todos los esquemas</button>
+  <button class="m-galego" onclick="imprimir('comunicacion')">💬 Solo Comunicación y textos</button>
+  <button class="m-xeo" onclick="imprimir('ortografia')">🔤 Solo Ortografía y vocabulario</button>
+  <button class="cerrar" onclick="cerrarMenu()">Cancelar</button>
+ </div>
+</div>
+
+<script>
+function abrirMenu(){document.getElementById('menuImp').classList.add('on')}
+function cerrarMenu(){document.getElementById('menuImp').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarMenu()});
+const ESQ=[...document.querySelectorAll('.esq')];
+/* Ajusta cada esquema para que quepa en una hoja A4 (190 × 277 mm) */
+function ajustar(){
+ const mm=96/25.4, alto=258*mm;
+ document.body.classList.add('modo-imp');
+ ESQ.forEach(a=>{let fs=18;a.style.fontSize=fs+'px';while(a.scrollHeight>alto&&fs>9){fs-=.25;a.style.fontSize=fs+'px'}});
+}
+function restaurar(){document.body.classList.remove('modo-imp');ESQ.forEach(a=>{a.style.fontSize='';a.classList.remove('noimp')})}
+let preparado=false;
+function imprimir(que){
+ cerrarMenu();
+ ESQ.forEach(a=>a.classList.toggle('noimp',!(que==='todo'||a.dataset.mat===que||('#'+a.id)===que)));
+ ajustar();preparado=true;
+ setTimeout(()=>{window.print()},60);
+}
+window.addEventListener('beforeprint',()=>{if(!preparado)ajustar()});
+window.addEventListener('afterprint',()=>{preparado=false;restaurar()});
+</script>
+<a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
