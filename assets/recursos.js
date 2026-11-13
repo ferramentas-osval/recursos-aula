@@ -165,4 +165,12 @@ function filter(){const v=norm(q.value.trim());let shown=0;
 q.addEventListener('input',filter);filter();
 /* que os saltos dos botóns non queden tapados pola barra fixa */
 const tbEl=document.querySelector('.toolbar');const setTb=()=>{if(tbEl)document.documentElement.style.setProperty('--tb',tbEl.offsetHeight+'px')};setTb();addEventListener('resize',setTb);
+/* Volver ao panel desde os recursos: o panel garda a súa dirección (con ?alumnado se a leva) e a posición do scroll;
+   o botón «⌂ Panel» de cada recurso volve exactamente a esta páxina e ao mesmo sitio */
+const AQUI=location.href.split('#')[0];
+try{const m=AQUI.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);if(m&&PAGE.mode==='course')localStorage.setItem('panel:'+m[1],AQUI)}catch(e){}
+const SK='scroll:'+AQUI;const gardar=()=>{try{sessionStorage.setItem(SK,String(Math.round(scrollY)))}catch(e){}};
+addEventListener('pagehide',gardar);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')gardar()});
+document.addEventListener('click',e=>{if(e.target.closest('a[href]'))gardar()},true);
+try{const y=+sessionStorage.getItem(SK);if(y&&!location.hash){if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>scrollTo(0,y));setTimeout(()=>scrollTo(0,y),250)}}catch(e){}
 })();

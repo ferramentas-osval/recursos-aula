@@ -63,7 +63,11 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 
 ## Botón «⌂ Panel»
 
-Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) que vuelve a la página de su apartado (`../…/0X_APARTADO/index.html`). Si el recurso se abrió en pestaña nueva, cierra la pestaña y vuelve al panel. Copiar el bloque de cualquier recurso existente.
+Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) con `href` a la página de su apartado (`../…/0X_APARTADO/index.html`). **Copiar el bloque entero, con su `onclick`, de cualquier recurso existente (p. ej. `04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html`); no escribirlo a mano.**
+
+Cómo funciona (pensado para el aula virtual, donde los enlaces a veces se abren en la misma ventana y no hay botón «atrás»):
+- Cada panel de curso guarda en el navegador su dirección exacta, incluido `?alumnado`, y la posición del scroll.
+- Al pulsar «⌂ Panel»: si el recurso se abrió en pestaña nueva, la cierra y vuelve a la del panel; si se abrió en la misma ventana, vuelve atrás al panel en el mismo sitio; si se abrió directamente (sin pasar por el panel), va al último panel visitado de ese curso o, si no hay ninguno, al `href`.
 
 ## Soluciones protegidas con PIN y liberadas para todos
 
