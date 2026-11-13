@@ -169,62 +169,27 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
 </header>
 
 <!-- Colores de los apartados (los de materia del CSS común):
-     m-galego (azul) = Comunicación y textos · m-xeo (verde) = Lengua y ortografía · m-hist (marrón) = Ciencias sociales
+     m-galego (azul) = Comunicación y textos · m-hist (marrón) = Ciencias sociales · m-xeo (verde) = Lengua y ortografía (al final)
      Dentro de cada apartado, los esquemas siguen el orden de las presentaciones en el panel de FPB. -->
 <nav class="barra">
  <a class="m-galego" href="#comunicacion">💬 Comunicación</a>
- <a class="m-xeo" href="#ortografia">🔤 Ortografía</a>
  <a class="m-hist" href="#sociales">🌍 Sociales</a>
+ <a class="m-xeo" href="#ortografia">🔤 Ortografía</a>
  <button class="imp" type="button" onclick="abrirMenu()">🖨️ Imprimir</button>
 </nav>
 
 <main>
 <section class="indice">
- <div class="ind m-galego"><h3>💬 Comunicación y textos</h3><ol><li><a href="#e1">Comunicar como un profesional</a></li><li><a href="#e2">Los tipos de texto</a></li><li><a href="#e3">La carta de reclamación</a></li><li><a href="#e4">Coherencia, cohesión y adecuación</a></li><li><a href="#e5">La comunicación</a></li></ol></div>
- <div class="ind m-xeo"><h3>🔤 Lengua y ortografía</h3><ol start="6"><li><a href="#e6">La ortografía del taller</a></li></ol></div>
- <div class="ind m-hist"><h3>🌍 Ciencias sociales</h3><ol start="7"><li><a href="#e7">La 2.ª Guerra Mundial e Italia</a></li><li><a href="#e8">Mitos griegos y romanos</a></li></ol></div>
+ <div class="ind m-galego"><h3>💬 Comunicación y textos</h3><ol><li><a href="#e1">Los tipos de texto</a></li><li><a href="#e2">La carta de reclamación</a></li><li><a href="#e3">Coherencia, cohesión y adecuación</a></li><li><a href="#e4">La comunicación</a></li></ol></div>
+ <div class="ind m-hist"><h3>🌍 Ciencias sociales</h3><ol start="5"><li><a href="#e5">La 2.ª Guerra Mundial e Italia</a></li><li><a href="#e6">Mitos griegos y romanos</a></li></ol></div>
+ <div class="ind m-xeo"><h3>🔤 Lengua y ortografía</h3><ol start="7"><li><a href="#e7">La ortografía del taller</a></li></ol></div>
 </section>
 
 <!-- =================================== COMUNICACIÓN Y TEXTOS =================================== -->
 <h2 class="materia-tit m-galego" id="comunicacion"><span>💬</span> Comunicación y textos</h2>
 
 <article class="esq m-galego" id="e1" data-mat="comunicacion">
- <header><span class="num">1</span><div><small>Comunicación y textos</small><h2>Comunicar como un profesional</h2></div><span class="ico">🔧</span><button class="imp1" onclick="imprimir('#e1')">🖨️ Solo este</button></header>
- <div class="raiz">PRIMERA SEMANA EN EL TALLER<small>leer, hablar y escribir bien es otra herramienta del oficio</small></div>
- <div class="chips3"><span class="chip3">Explicarse mal es un problema tan real como no saber usar una llave.</span></div>
- <div class="tronco"></div>
- <div class="ramas" style="--n:3">
-  <section class="rama r2"><h3>📖 Leer y comprender<small>la nota del encargado</small></h3>
-   <div class="mini"><b>Localizar</b>: el dato está escrito.<br><span class="ej">Abre a las 16:00.</span></div>
-   <div class="mini"><b>Calcular</b>: operar con los datos.<br><span class="ej">de 8 a 14 + de 16 a 19 = 9 horas</span></div>
-   <div class="mini"><b>Inferir</b>: no lo dice, pero lo sugiere.<br><span class="ej">«Aquí se aprende preguntando» → pregunta.</span></div>
-   <div class="mini"><b>Aplicar</b>: llevar una norma a un caso nuevo.<br><span class="ej">¿Amoladora sin gafas? No.</span></div>
-   <ul><li>Truco: vuelve al texto y <b>subraya el dato</b>.</li></ul></section>
-  <section class="rama r1"><h3>📞 Teléfono y 💬 WhatsApp<small>con el cliente, de usted</small></h3>
-   <div class="mini"><b>Al teléfono</b>: saluda y di quién eres → escucha y <b>anota</b> → <b>repite</b> los datos → di qué harás y cuándo → despídete.<br><span class="ej">Taller Sangriña, buenos días, ¿dígame?</span></div>
-   <ul><li>Anota: nombre, teléfono, matrícula, modelo, avería y cita.</li></ul>
-   <div class="mini"><b>WhatsApp</b>: saludo → dato clave → pregunta → despedida.<br><span class="ej">Buenas tardes, Javier. Le confirmo la cita de mañana a las 10:00. Un saludo.</span></div>
-   <ul><li>Frases completas, sin abreviaturas ni «jajas».</li><li>Revisa la ortografía antes de enviar. ✗ <span class="ej">ey kdamos mñn?</span></li></ul></section>
-  <section class="rama r3"><h3>📋 El parte de trabajo<small>contar lo que se ha hecho</small></h3><ul>
-   <li>Texto <b>técnico</b>: ordenado, exacto y sin opiniones.</li>
-   <li>Las acciones, con <b>sustantivos</b>:</li></ul>
-   <span class="formula">revisar → revisión · sustituir → sustitución<br>comprobar → comprobación · probar → prueba</span>
-   <ul><li>Usa <b>1.º, 2.º…</b> o <b>primero, después, por último</b>.</li>
-   <li>Di la <b>pieza</b>, el <b>lado</b> y el <b>motivo</b>.</li></ul>
-   <div class="ejb" data-l="Ejemplo:"><span class="ej">2.º Sustitución del disco delantero izquierdo por desgaste.</span></div></section>
- </div>
- <div class="rama r4" style="margin-top:.9em"><h3>🗣️ Mismo taller, tres personas, tres formas de hablar</h3>
-  <div class="diacr">
-   <div class="par" style="border-color:var(--b4)"><b style="color:var(--b4)">🧑‍💼 Cliente</b><br>usted, tono tranquilo; escucha y da una solución.<br><span class="ej">Entiendo su enfado y siento las molestias.</span></div>
-   <div class="par" style="border-color:var(--b4)"><b style="color:var(--b4)">👔 Jefe/a</b><br>respeto; di la verdad, discúlpate y comprométete.<br><span class="ej">Perdona el retraso; no volverá a pasar.</span></div>
-   <div class="par" style="border-color:var(--b4)"><b style="color:var(--b4)">🤝 Compañero/a</b><br>tú y tono cercano… sin olvidar la seguridad.<br><span class="ej">Claro, voy. Doblamos las rodillas, ¿vale?</span></div>
-   <div class="par" style="border-color:var(--b4)"><b style="color:var(--b4)">💡 La clave</b><br>hablar bien no es hablar «fino»: es hablar <b>adecuado</b> a la persona y a la situación.</div>
-  </div></div>
- <div class="recuerda" data-l="Recuerda">antes de hablar o escribir, mira la situación: <b>¿con quién hablo?</b> y <b>¿cómo?</b> Al cliente, siempre de <b>usted</b> y con frases completas.</div>
-</article>
-
-<article class="esq m-galego" id="e2" data-mat="comunicacion">
- <header><span class="num">2</span><div><small>Comunicación y textos</small><h2>Los tipos de texto</h2></div><span class="ico">⚙️</span><button class="imp1" onclick="imprimir('#e2')">🖨️ Solo este</button></header>
+ <header><span class="num">1</span><div><small>Comunicación y textos</small><h2>Los tipos de texto</h2></div><span class="ico">⚙️</span><button class="imp1" onclick="imprimir('#e1')">🖨️ Solo este</button></header>
  <div class="raiz">LOS TIPOS DE TEXTO<small>según lo que quieren conseguir</small></div>
  <div class="chips3"><span class="chip3">Elegir el tipo de texto es como elegir la llave: con la equivocada, el tornillo no sale.</span></div>
  <div class="tronco"></div>
@@ -248,8 +213,8 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
  <div class="recuerda" data-l="Recuerda">pregúntate <b>para qué</b> sirve el texto: ¿cuenta, describe, da órdenes, informa, convence o conversa? Muchos textos <b>mezclan tipos</b>: <span class="ej">un anuncio describe y convence</span>.</div>
 </article>
 
-<article class="esq m-galego" id="e3" data-mat="comunicacion">
- <header><span class="num">3</span><div><small>Comunicación y textos</small><h2>La carta de reclamación</h2></div><span class="ico">✉️</span><button class="imp1" onclick="imprimir('#e3')">🖨️ Solo este</button></header>
+<article class="esq m-galego" id="e2" data-mat="comunicacion">
+ <header><span class="num">2</span><div><small>Comunicación y textos</small><h2>La carta de reclamación</h2></div><span class="ico">✉️</span><button class="imp1" onclick="imprimir('#e2')">🖨️ Solo este</button></header>
  <div class="raiz">LA CARTA DE RECLAMACIÓN<small>quejarse por escrito, con datos y con educación</small></div>
  <div class="chips3"><span class="chip3">Ferruccio Lamborghini reclama a Enzo Ferrari por el embrague de su coche.</span></div>
  <div class="tronco"></div>
@@ -286,8 +251,8 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
  <div class="recuerda" data-l="Recuerda">una buena reclamación tiene <b>todas las partes</b>, <b>datos</b> y una <b>petición clara</b>. Con educación se consigue más que con insultos.</div>
 </article>
 
-<article class="esq m-galego" id="e4" data-mat="comunicacion">
- <header><span class="num">4</span><div><small>Comunicación y textos</small><h2>Coherencia, cohesión y adecuación</h2></div><span class="ico">🔱</span><button class="imp1" onclick="imprimir('#e4')">🖨️ Solo este</button></header>
+<article class="esq m-galego" id="e3" data-mat="comunicacion">
+ <header><span class="num">3</span><div><small>Comunicación y textos</small><h2>Coherencia, cohesión y adecuación</h2></div><span class="ico">🔱</span><button class="imp1" onclick="imprimir('#e3')">🖨️ Solo este</button></header>
  <div class="raiz">LAS PROPIEDADES DEL TEXTO<small>lo que necesita un texto para funcionar, como las piezas de un motor</small></div>
  <div class="tronco"></div>
  <div class="ramas" style="--n:3">
@@ -315,8 +280,8 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
  <div class="recuerda" data-l="Recuerda"><b>Coherencia</b> = qué digo y en qué orden. <b>Cohesión</b> = cómo lo uno. <b>Adecuación</b> = a quién se lo digo y cómo. <span class="ej">Si Hefesto le diera órdenes a Zeus, sería inadecuado.</span></div>
 </article>
 
-<article class="esq m-galego" id="e5" data-mat="comunicacion">
- <header><span class="num">5</span><div><small>Comunicación y textos</small><h2>La comunicación</h2></div><span class="ico">📡</span><button class="imp1" onclick="imprimir('#e5')">🖨️ Solo este</button></header>
+<article class="esq m-galego" id="e4" data-mat="comunicacion">
+ <header><span class="num">4</span><div><small>Comunicación y textos</small><h2>La comunicación</h2></div><span class="ico">📡</span><button class="imp1" onclick="imprimir('#e4')">🖨️ Solo este</button></header>
  <div class="raiz">LA COMUNICACIÓN<small>cada situación pide su forma de hablar</small></div>
  <div class="chips3"><span class="chip3">Mensaje: <span class="ej" style="--b:#888">Hay que cambiar el embrague: 600 € y dos días.</span></span></div>
  <div class="tronco"></div>
@@ -355,43 +320,11 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
  <div class="recuerda" data-l="Recuerda">en un mensaje se mezclan funciones, pero <b>siempre manda una</b>. Hablar bien es hablar de forma <b>adecuada</b>: <span class="ej">«Son 600 € en total. Si quiere, le explico qué incluye».</span></div>
 </article>
 
-<!-- =================================== LENGUA Y ORTOGRAFÍA =================================== -->
-<h2 class="materia-tit m-xeo" id="ortografia"><span>🔤</span> Lengua y ortografía</h2>
-
-<article class="esq m-xeo" id="e6" data-mat="ortografia">
- <header><span class="num">6</span><div><small>Lengua y ortografía</small><h2>La ortografía del taller</h2></div><span class="ico">✍️</span><button class="imp1" onclick="imprimir('#e6')">🖨️ Solo este</button></header>
- <div class="raiz">ESCRIBIR SIN FALTAS<small>en los partes, en los wasaps y en los correos (en amarillo, las letras difíciles)</small></div>
- <div class="tronco"></div>
- <div class="ramas" style="--n:3">
-  <section class="rama r4"><h3>⚠️ Palabras que se confunden</h3>
-   <div class="mini"><b>a ver</b> (mirar) · <b>haber</b> (verbo)<br><span class="ej">A ver si arranca.</span></div>
-   <div class="mini"><b>por qué</b> (pregunta) · <b>porque</b> (respuesta)<br><span class="ej">¿Por qué suena? Porque está gastado.</span></div>
-   <div class="mini"><b>sino</b> (contraste) · <b>si no</b> (condición)<br><span class="ej">No es la batería, sino el alternador.</span></div>
-   <div class="mini"><b>ahí</b> (lugar) · <b>hay</b> (haber) · <b>¡ay!</b><br><span class="ej">Ahí están las llaves.</span></div>
-   <div class="mini"><b>haya</b> (haber) · <b>halla</b> (encontrar)<br><span class="ej">Espero que haya piezas.</span></div>
-   <div class="mini"><b>hecho</b> (hacer) · <b>echo</b> (echar)<br><span class="ej">He hecho el presupuesto. Echo aceite.</span></div></section>
-  <section class="rama r2"><h3>🔤 b/v · g/j · h</h3>
-   <div class="mini"><b>Tras m, b</b>: <span class="ej">bom<u class="t">b</u>illa</span> · <b>tras n, v</b>: <span class="ej">en<u class="t">v</u>ase</span></div>
-   <div class="mini"><b>bu-, bur-, bus-</b> con b: <span class="ej"><u class="t">b</u>ujía</span></div>
-   <div class="mini"><b>-aje</b> con j: <span class="ej">gara<u class="t">j</u>e, aprendiza<u class="t">j</u>e</span></div>
-   <div class="mini"><b>-ger, -gir</b> con g: <span class="ej">reco<u class="t">g</u>er, ele<u class="t">g</u>ir</span></div>
-   <div class="mini"><b>hue-, hie-</b> con h: <span class="ej"><u class="t">h</u>ueco, <u class="t">h</u>ierro</span></div>
-   <div class="mini"><b>hidr-, hiper-, homo-</b>: <span class="ej"><u class="t">h</u>omologado</span></div>
-   <div class="ejb" data-l="A memorizar:"><span class="ej">e<u class="t">j</u>e, <u class="t">h</u>ollín, pro<u class="t">h</u>ibido</span> · sin h: <span class="ej">embrague, abierto</span></div></section>
-  <section class="rama r1"><h3>✍️ La tilde<small>mira la sílaba que suena más fuerte</small></h3>
-   <div class="mini"><b>Agudas</b> (la última): tilde si acaban en <b>n, s o vocal</b>.<br><span class="ej">reparaci<u class="t">ó</u>n</span> <span class="ej">taller</span> ✗</div>
-   <div class="mini"><b>Llanas</b> (la penúltima): tilde si acaban en <b>otra letra</b>.<br><span class="ej">f<u class="t">á</u>cil</span> <span class="ej">cliente</span> ✗</div>
-   <div class="mini"><b>Esdrújulas</b>: <b>siempre</b> tilde.<br><span class="ej">r<u class="t">á</u>pido, n<u class="t">ú</u>mero, mec<u class="t">á</u>nico</span></div>
-   <div class="mini"><b>Hiato</b> con í / ú: lleva tilde.<br><span class="ej">aver<u class="t">í</u>a</span></div></section>
- </div>
- <div class="recuerda" data-l="Recuerda">el verbo <b>haber</b> siempre lleva <b>h</b>: <span class="ej">hemos, haya, ha hecho</span>. Y antes de enviar un parte o un wasap, <b>revisa la ortografía</b>.</div>
-</article>
-
 <!-- =================================== CIENCIAS SOCIALES =================================== -->
 <h2 class="materia-tit m-hist" id="sociales"><span>🌍</span> Ciencias sociales</h2>
 
-<article class="esq m-hist" id="e7" data-mat="sociales">
- <header><span class="num">7</span><div><small>Ciencias sociales</small><h2>La 2.ª Guerra Mundial e Italia</h2></div><span class="ico">🚜</span><button class="imp1" onclick="imprimir('#e7')">🖨️ Solo este</button></header>
+<article class="esq m-hist" id="e5" data-mat="sociales">
+ <header><span class="num">5</span><div><small>Ciencias sociales</small><h2>La 2.ª Guerra Mundial e Italia</h2></div><span class="ico">🚜</span><button class="imp1" onclick="imprimir('#e5')">🖨️ Solo este</button></header>
  <div class="raiz">LA 2.ª GUERRA MUNDIAL E ITALIA<small>de la guerra a los tractores… y a los deportivos</small></div>
  <div class="linea">
   <div class="ext">1916<small>Ferruccio nace, hijo de agricultores</small></div>
@@ -428,8 +361,8 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
  <div class="recuerda" data-l="Recuerda">tras la guerra, Italia se recuperó con <b>paz</b>, la <b>república</b>, el <b>Plan Marshall</b> y empresas que crearon empleo. <span class="ej">El orgullo herido es bueno si te empuja a mejorar.</span></div>
 </article>
 
-<article class="esq m-hist" id="e8" data-mat="sociales">
- <header><span class="num">8</span><div><small>Ciencias sociales</small><h2>Mitos griegos y romanos</h2></div><span class="ico">🏛️</span><button class="imp1" onclick="imprimir('#e8')">🖨️ Solo este</button></header>
+<article class="esq m-hist" id="e6" data-mat="sociales">
+ <header><span class="num">6</span><div><small>Ciencias sociales</small><h2>Mitos griegos y romanos</h2></div><span class="ico">🏛️</span><button class="imp1" onclick="imprimir('#e6')">🖨️ Solo este</button></header>
  <div class="raiz">DIOSES, ORGULLO Y MOTORES<small>los mitos griegos (y sus nombres en Roma) siguen vivos</small></div>
  <div class="tronco"></div>
  <div class="ramas" style="--n:3">
@@ -456,6 +389,38 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
  </div>
  <div class="recuerda" data-l="Recuerda"><b>Némesis</b> no castiga el éxito, sino el <b>exceso</b>. <span class="ej">«El orgullo es como un motor: bien ajustado te lleva lejos; pasado de vueltas, revienta».</span></div>
 </article>
+
+<!-- =================================== LENGUA Y ORTOGRAFÍA =================================== -->
+<h2 class="materia-tit m-xeo" id="ortografia"><span>🔤</span> Lengua y ortografía</h2>
+
+<article class="esq m-xeo" id="e7" data-mat="ortografia">
+ <header><span class="num">7</span><div><small>Lengua y ortografía</small><h2>La ortografía del taller</h2></div><span class="ico">✍️</span><button class="imp1" onclick="imprimir('#e7')">🖨️ Solo este</button></header>
+ <div class="raiz">ESCRIBIR SIN FALTAS<small>en los partes, en los wasaps y en los correos (en amarillo, las letras difíciles)</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r4"><h3>⚠️ Palabras que se confunden</h3>
+   <div class="mini"><b>a ver</b> (mirar) · <b>haber</b> (verbo)<br><span class="ej">A ver si arranca.</span></div>
+   <div class="mini"><b>por qué</b> (pregunta) · <b>porque</b> (respuesta)<br><span class="ej">¿Por qué suena? Porque está gastado.</span></div>
+   <div class="mini"><b>sino</b> (contraste) · <b>si no</b> (condición)<br><span class="ej">No es la batería, sino el alternador.</span></div>
+   <div class="mini"><b>ahí</b> (lugar) · <b>hay</b> (haber) · <b>¡ay!</b><br><span class="ej">Ahí están las llaves.</span></div>
+   <div class="mini"><b>haya</b> (haber) · <b>halla</b> (encontrar)<br><span class="ej">Espero que haya piezas.</span></div>
+   <div class="mini"><b>hecho</b> (hacer) · <b>echo</b> (echar)<br><span class="ej">He hecho el presupuesto. Echo aceite.</span></div></section>
+  <section class="rama r2"><h3>🔤 b/v · g/j · h</h3>
+   <div class="mini"><b>Tras m, b</b>: <span class="ej">bom<u class="t">b</u>illa</span> · <b>tras n, v</b>: <span class="ej">en<u class="t">v</u>ase</span></div>
+   <div class="mini"><b>bu-, bur-, bus-</b> con b: <span class="ej"><u class="t">b</u>ujía</span></div>
+   <div class="mini"><b>-aje</b> con j: <span class="ej">gara<u class="t">j</u>e, aprendiza<u class="t">j</u>e</span></div>
+   <div class="mini"><b>-ger, -gir</b> con g: <span class="ej">reco<u class="t">g</u>er, ele<u class="t">g</u>ir</span></div>
+   <div class="mini"><b>hue-, hie-</b> con h: <span class="ej"><u class="t">h</u>ueco, <u class="t">h</u>ierro</span></div>
+   <div class="mini"><b>hidr-, hiper-, homo-</b>: <span class="ej"><u class="t">h</u>omologado</span></div>
+   <div class="ejb" data-l="A memorizar:"><span class="ej">e<u class="t">j</u>e, <u class="t">h</u>ollín, pro<u class="t">h</u>ibido</span> · sin h: <span class="ej">embrague, abierto</span></div></section>
+  <section class="rama r1"><h3>✍️ La tilde<small>mira la sílaba que suena más fuerte</small></h3>
+   <div class="mini"><b>Agudas</b> (la última): tilde si acaban en <b>n, s o vocal</b>.<br><span class="ej">reparaci<u class="t">ó</u>n</span> <span class="ej">taller</span> ✗</div>
+   <div class="mini"><b>Llanas</b> (la penúltima): tilde si acaban en <b>otra letra</b>.<br><span class="ej">f<u class="t">á</u>cil</span> <span class="ej">cliente</span> ✗</div>
+   <div class="mini"><b>Esdrújulas</b>: <b>siempre</b> tilde.<br><span class="ej">r<u class="t">á</u>pido, n<u class="t">ú</u>mero, mec<u class="t">á</u>nico</span></div>
+   <div class="mini"><b>Hiato</b> con í / ú: lleva tilde.<br><span class="ej">aver<u class="t">í</u>a</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">el verbo <b>haber</b> siempre lleva <b>h</b>: <span class="ej">hemos, haya, ha hecho</span>. Y antes de enviar un parte o un wasap, <b>revisa la ortografía</b>.</div>
+</article>
 </main>
 
 <div id="menuImp" onclick="if(event.target===this)cerrarMenu()">
@@ -464,8 +429,8 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
   <p>Cada esquema sale en una hoja A4.</p>
   <button style="--m:var(--ink)" onclick="imprimir('todo')">📚 Todos los esquemas</button>
   <button class="m-galego" onclick="imprimir('comunicacion')">💬 Solo Comunicación y textos</button>
-  <button class="m-xeo" onclick="imprimir('ortografia')">🔤 Solo Lengua y ortografía</button>
   <button class="m-hist" onclick="imprimir('sociales')">🌍 Solo Ciencias sociales</button>
+  <button class="m-xeo" onclick="imprimir('ortografia')">🔤 Solo Lengua y ortografía</button>
   <button class="cerrar" onclick="cerrarMenu()">Cancelar</button>
  </div>
 </div>
