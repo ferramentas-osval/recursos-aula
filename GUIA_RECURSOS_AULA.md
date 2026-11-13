@@ -80,5 +80,5 @@ Solo las fichas (no las presentaciones) llevan arriba un botón para imprimirlas
 
 - Carpeta `04_PDC/ESQUEMAS/`, un archivo por parte: `esquemas_1a_evaluacion_primera_parte.html`, `esquemas_1a_evaluacion_segunda_parte.html`… En el panel salen en el subapartado «🗺️ Esquemas» de su parte.
 - Se actualizan cuando el profesor lo pida, a partir del esquema final de cada presentación. Un bloque por materia (Lengua, Galego, Xeografía, Historia), cada materia en su lengua.
-- **Mismo diseño siempre**: copiar la plantilla de `esquemas_1a_evaluacion_primera_parte.html` (raíz de color de la materia, ramas de colores con conectores, ejemplos en recuadros discontinuos, «Recuerda/Lembra» al final). Alumnado con dificultades: frases cortas, muchos ejemplos.
+- **Mismo diseño siempre**: copiar la plantilla de `esquemas_1a_evaluacion_primera_parte.html` (raíz de color de la materia, ramas de colores con conectores, ejemplos en letra manuscrita de color dentro de una etiqueta suave, sin bordes discontinuos, «Recuerda/Lembra» al final). Alumnado con dificultades: frases cortas, muchos ejemplos.
 - Botón «🖨️ Imprimir» (todo, una materia o «Solo este»); cada esquema se ajusta solo a una hoja A4.

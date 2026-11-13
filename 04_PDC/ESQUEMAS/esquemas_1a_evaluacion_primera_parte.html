@@ -75,8 +75,9 @@ main{padding:10px 3vw 60px}
 .rama li::before{content:'▸';position:absolute;left:0;color:var(--b);font-weight:700}
 .mini{background:#fff;border-radius:10px;border-left:6px solid var(--b);padding:.3em .55em;margin:.4em 0}
 .mini>b:first-child{color:var(--b)}
-.ej{display:inline-block;background:#fff;border:2px dashed var(--b,#999);border-radius:8px;padding:0 .35em;font-family:'Kalam',cursive;font-size:1.02em;line-height:1.3;color:#18324f;text-align:left}
-.ejb{margin-top:.45em;background:#fff;border:2px dashed var(--b);border-radius:10px;padding:.3em .55em;font-size:.95em}
+.ej{display:inline-block;background:#fff;border:0;border-radius:6px;padding:0 .35em;font-family:'Kalam',cursive;font-weight:700;font-size:1.02em;line-height:1.3;color:color-mix(in srgb,var(--b,#555) 70%,#000);text-align:left}
+.ejb .ej,.mini .ej,.tab .ej,.par .ej,.chip3 .ej,.recuerda .ej,.ind .ej{background:color-mix(in srgb,var(--b,#999) 15%,#fff)}
+.ejb{margin-top:.45em;background:#fff;border:0;border-left:6px solid var(--b);border-radius:10px;padding:.3em .55em;font-size:.95em}
 .ejb::before{content:'✏️ ' attr(data-l) ' ';font-weight:700;color:var(--b)}
 u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;font-weight:700}
 .flecha{color:var(--b);font-weight:700}
@@ -94,7 +95,7 @@ u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;fo
 .frase-color span i{font-style:normal;font-size:.68em;font-weight:700;color:var(--c)}
 .clase{display:grid;grid-template-columns:auto 1fr;gap:.1em .5em;align-items:baseline;background:#fff;border-radius:10px;border-left:7px solid var(--c);padding:.25em .55em;margin:.35em 0}
 .clase b{color:var(--c);font-size:1.05em}
-.clase .ej{grid-column:1/-1;border-color:var(--c)}
+.clase .ej{grid-column:1/-1;justify-self:start;background:color-mix(in srgb,var(--c) 14%,#fff);color:color-mix(in srgb,var(--c) 70%,#000)}
 
 /* tablas sencillas */
 .tab{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:10px;overflow:hidden;font-size:.92em;margin:.3em 0}
