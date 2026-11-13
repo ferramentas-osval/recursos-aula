@@ -31,7 +31,7 @@ const CATS={
      {titulo:'Primera parte',sub:'Primeros dos exámenes (ya realizados)',icon:'✅',archivos:[
       '04_PDC/PRESENTACIONES/HISTORIA/presentacion_introduccion_idade_moderna.html','04_PDC/PRESENTACIONES/HISTORIA/presentacion_humanismo.html',
       '04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_lengua_sistema.html','04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_clases_palabras.html','04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_tilde.html',
-      '04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_tipos_palabras_substantivo_adxectivo.html',
+      '04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_tipos_palabras_substantivo_adxectivo.html','04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_formacion_palabras.html',
       '04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_estudo_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_distribucion_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_evolucion_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_migracions_actualidade.html',
       '04_PDC/ACTIVIDADES/expediente_historia_geografia.html','04_PDC/ACTIVIDADES/ejercicios_tipos_frases.html','04_PDC/ACTIVIDADES/reto_substantivo_xenero_numero_clasificacion_semantica.html','04_PDC/ACTIVIDADES/fichas_repaso_historia_galego.html','04_PDC/ACTIVIDADES/retos_repaso_historia_galego.html',
       '04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html','04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html']},
@@ -124,7 +124,7 @@ if(PAGE.mode==='course'){
  function bodyOf(a,b){let o='';for(let i=a;i<b;i++){const par=(L.juntos||[]).find(p=>p[0]===last(gs[i]));
   if(par&&gs[i+1]&&i+1<b&&par[1]===last(gs[i+1])){o+=`<div class="pair">${gh[i]}${gh[i+1]}</div>`;i++}else o+=gh[i]}return o}
  let body='';
- if(PARTS){let a=0;PARTS.forEach((x,k)=>{const b=a+x.gs.length;if(b>a)body+=`<div class="parte" id="p${k}"><div class="partetag"><span class="pic">${x.pt.icon||''}</span><span><b>${x.pt.titulo}</b>${x.pt.sub?`<small>${x.pt.sub}</small>`:''}</span></div>${bodyOf(a,b)}</div>`;a=b})}
+ if(PARTS){let a=0;PARTS.forEach((x,k)=>{const b=a+x.gs.length;if(b>a)body+=`<div class="parte parte${k+1}" id="p${k}"><div class="partetag"><span class="pic">${x.pt.icon||''}</span><span><b>${x.pt.titulo}</b>${x.pt.sub?`<small>${x.pt.sub}</small>`:''}</span></div>${bodyOf(a,b)}</div>`;a=b})}
  else body=bodyOf(0,gs.length);
  if(L.evaluacion)body=`<div class="eval"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
  html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${body}</section></main>`;
