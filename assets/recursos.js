@@ -33,7 +33,7 @@ const CATS={
      {h:'04_PDC/reparticion_ambito_linguistico_social_3eso_pdc.html',titulo:'Horario ámbito lingüístico y social',sub:'Materias por días y horas · 3.º ESO PDC',icon:'🗓️',tipo:'horario'},
      {carpeta:'Tutorías',titulo:'Tutoría',sub:'Vídeos, charlas, técnicas de estudio y juegos',icon:'💬',tipo:'tutoria'}],
     quitar:['Presentaciones'],
-    materias:{'Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒'},
+    materias:{'Lengua y literatura castellanas':'📖','Lingua e literatura galegas':'📗','Xeografía':'🌍','Historia':'🏛️','Actividades':'✏️','Apuntes y modelos de exámenes':'📒','Esquemas':'🗺️'},
     evaluacion:'1ª evaluación',
     /* Partes da avaliación: a primeira (xa examinada) leva a lista pechada de recursos; todo o novo vai á segunda */
     partes:[
@@ -43,7 +43,8 @@ const CATS={
       '04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_tipos_palabras_substantivo_adxectivo.html','04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_formacion_palabras.html',
       '04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_estudo_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_distribucion_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_evolucion_poboacion.html','04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_migracions_actualidade.html',
       '04_PDC/ACTIVIDADES/expediente_historia_geografia.html','04_PDC/ACTIVIDADES/ejercicios_tipos_frases.html','04_PDC/ACTIVIDADES/reto_substantivo_xenero_numero_clasificacion_semantica.html','04_PDC/ACTIVIDADES/fichas_repaso_historia_galego.html','04_PDC/ACTIVIDADES/retos_repaso_historia_galego.html',
-      '04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html','04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html']},
+      '04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html','04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html',
+      '04_PDC/ESQUEMAS/esquemas_1a_evaluacion_primera_parte.html']},
      {titulo:'Segunda parte',sub:'Nuevas presentaciones, actividades y modelos de examen',icon:'🆕',resto:true}]}},
  'ACTIVIDADES LÚDICAS':{name:'Actividades lúdicas',icon:'🎲',col:'--c5',desc:'Bingos, banderas, pasatiempos, ruletas y juegos de vocabulario para aprender jugando.'},
  'ACTIVIDADES PERSONAJES HISTÓRICOS':{name:'Personajes históricos',icon:'🕵️',col:'--c6',desc:'Expedientes interactivos para investigar la vida de grandes personajes de la historia.'},
@@ -53,7 +54,7 @@ const KEEP={BACH:'Bach.',PDC:'PDC',ESO:'ESO',LCL:'LCL',FPB:'FPB'};
 const nice=s=>s.split(' ').map((w,i)=>KEEP[w]||(i===0?w.charAt(0)+w.slice(1).toLowerCase():w.toLowerCase())).join(' ').replace(/\bY\b/g,'y');
 const folderOf=c=>{let h=null;(function f(n){if(h)return;if(n.h)h=n.h;else n.c.forEach(f)})(c);return h.split('/')[0]};
 function kind(h){const f=h.split('/').pop().toLowerCase();
- if(/^apuntes/.test(f))return['📒','Apuntes'];if(/^prueba_lectura/.test(f))return['📖','Prueba de lectura'];if(/^modelo_examen|^primer_parcial/.test(f))return['📝','Modelo de examen'];if(/presentacion/.test(f))return['🎞️','Presentación'];if(/^unidad/.test(f))return['📘','Unidad didáctica'];
+ if(/^apuntes/.test(f))return['📒','Apuntes'];if(/^esquemas/.test(f))return['🗺️','Esquemas'];if(/^prueba_lectura/.test(f))return['📖','Prueba de lectura'];if(/^modelo_examen|^primer_parcial/.test(f))return['📝','Modelo de examen'];if(/presentacion/.test(f))return['🎞️','Presentación'];if(/^unidad/.test(f))return['📘','Unidad didáctica'];
  if(/taller|prompt|promts|epl2r/.test(f))return['🛠️','Taller'];if(/bingo|atlas|bandera|pasaporte|pasatiempo|ruleta|vocabulario/.test(f))return['🎲','Juego'];
  if(/expediente/.test(f))return['🕵️','Expediente'];if(/tutoria/.test(f))return['💬','Tutoría'];
  if(/actividad|ejercicio|reto|soluciones|sujeto/.test(f))return['✏️','Actividad'];return['📄','Recurso']}

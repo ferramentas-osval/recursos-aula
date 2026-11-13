@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>esquemas_1a_evaluacion_primera_parte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Bricolage+Grotesque:wght@600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ DISEÑO COMÚN DE LOS ESQUEMAS (no cambiar entre partes) ============ */
+:root{
+ --ink:#1f2633; --paper:#f6f2ea;
+ --lengua:#d9483b; --galego:#1f78b4; --xeo:#238b5e; --hist:#a8641c;
+ /* colores de las ramas: fondo claro + color fuerte */
+ --a1:#fff3c4; --b1:#c98a00;   /* amarillo */
+ --a2:#dcecff; --b2:#2f78c4;   /* azul */
+ --a3:#d9f3e2; --b3:#278a52;   /* verde */
+ --a4:#ffe0e8; --b4:#c7406a;   /* rosa */
+ --a5:#ebe2ff; --b5:#6e4fc4;   /* morado */
+ --a6:#ffe6d1; --b6:#d0661a;   /* naranja */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Atkinson Hyperlegible',Arial,sans-serif;font-size:18px;line-height:1.35;text-align:justify;hyphens:auto;-webkit-hyphens:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,h4{font-family:'Bricolage Grotesque','Atkinson Hyperlegible',sans-serif;text-align:left;line-height:1.1}
+b{font-weight:700}
+
+/* ---------- cabecera y navegación ---------- */
+.top{background:linear-gradient(135deg,#2f9e6e,#1f6f8b);color:#fff;padding:26px 3vw 30px}
+.top small{font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.top h1{font-size:clamp(28px,4vw,48px);margin:.15em 0 .2em}
+.top p{margin:0;font-size:1.05em;max-width:none}
+.barra{position:sticky;top:0;z-index:20;background:rgba(246,242,234,.96);backdrop-filter:blur(6px);border-bottom:2px solid #e3dccd;padding:10px 3vw;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barra a,.barra button{font:700 16px 'Atkinson Hyperlegible',sans-serif;border:0;border-radius:999px;padding:9px 16px;text-decoration:none;color:#fff;cursor:pointer;white-space:nowrap}
+.barra .imp{margin-left:auto;background:var(--ink)}
+.m-lengua{--m:var(--lengua)} .m-galego{--m:var(--galego)} .m-xeo{--m:var(--xeo)} .m-hist{--m:var(--hist)}
+.barra a{background:var(--m)}
+main{padding:10px 3vw 60px}
+
+/* ---------- índice ---------- */
+.indice{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 8px}
+.ind{background:#fff;border-radius:18px;border-top:10px solid var(--m);padding:14px 18px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.ind h3{margin:0 0 8px;color:var(--m);font-size:1.3em}
+.ind ol{margin:0;padding-left:1.3em}
+.ind a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--m)}
+.materia-tit{display:flex;align-items:center;gap:12px;margin:38px 0 6px;color:var(--m);font-size:clamp(24px,3vw,36px)}
+.materia-tit span{font-size:1.2em}
+
+/* ---------- el esquema ---------- */
+.esq{background:#fff;border-radius:24px;border-top:14px solid var(--m);box-shadow:0 4px 18px rgba(0,0,0,.08);padding:18px 24px 22px;margin:22px 0 30px;font-size:1em}
+.esq>header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.esq .num{flex:none;width:2.3em;height:2.3em;border-radius:50%;background:var(--m);color:#fff;display:grid;place-items:center;font:800 1.35em 'Bricolage Grotesque',sans-serif}
+.esq header small{display:block;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.06em;font-size:.78em}
+.esq h2{margin:0;font-size:1.85em}
+.esq .ico{margin-left:auto;font-size:2.2em}
+.esq .imp1{border:0;background:#eee6d6;border-radius:999px;padding:.35em .8em;font:700 .8em 'Atkinson Hyperlegible',sans-serif;cursor:pointer;color:var(--ink)}
+
+.raiz{display:table;margin:2px auto 0;background:var(--m);color:#fff;border-radius:22px;padding:.45em 1.4em;text-align:center;font:800 1.45em 'Bricolage Grotesque',sans-serif;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.raiz small{display:block;font:400 .62em 'Atkinson Hyperlegible',sans-serif;opacity:.95;margin-top:.15em}
+.tronco{width:4px;height:1em;background:var(--ink);margin:0 auto}
+.chips3{display:flex;justify-content:center;flex-wrap:wrap;gap:.5em;margin:.55em 0 0}
+.chip3{background:#f3eee4;border:2px solid #d9cfbc;border-radius:12px;padding:.25em .7em;font-size:.92em;text-align:left}
+
+.ramas{--g:.8em;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:var(--g);position:relative;padding-top:1.1em;align-items:stretch}
+.ramas::before{content:'';position:absolute;top:0;border-top:4px solid var(--ink);left:calc((100% - (var(--n) - 1)*var(--g))/(2*var(--n)));right:calc((100% - (var(--n) - 1)*var(--g))/(2*var(--n)))}
+.rama{position:relative;background:var(--a);border:3px solid var(--b);border-radius:16px;padding:0 .7em .6em;text-align:justify}
+.rama::before{content:'';position:absolute;top:calc(-1.1em - 3px);left:50%;margin-left:-2px;height:1.1em;border-left:4px solid var(--ink)}
+.rama>h3{margin:0 -.7em .45em;padding:.35em .5em;background:var(--b);color:#fff;border-radius:11px 11px 0 0;text-align:center;font-size:1.12em}
+.rama>h3 small{display:block;font:400 .72em 'Atkinson Hyperlegible',sans-serif;opacity:.95}
+.r1{--a:var(--a1);--b:var(--b1)} .r2{--a:var(--a2);--b:var(--b2)} .r3{--a:var(--a3);--b:var(--b3)}
+.r4{--a:var(--a4);--b:var(--b4)} .r5{--a:var(--a5);--b:var(--b5)} .r6{--a:var(--a6);--b:var(--b6)}
+.rama ul{list-style:none;margin:0;padding:0}
+.rama li{position:relative;padding-left:1em;margin:.28em 0}
+.rama li::before{content:'▸';position:absolute;left:0;color:var(--b);font-weight:700}
+.mini{background:#fff;border-radius:10px;border-left:6px solid var(--b);padding:.3em .55em;margin:.4em 0}
+.mini>b:first-child{color:var(--b)}
+.ej{display:inline-block;background:#fff;border:2px dashed var(--b,#999);border-radius:8px;padding:0 .35em;font-family:'Kalam',cursive;font-size:1.02em;line-height:1.3;color:#18324f;text-align:left}
+.ejb{margin-top:.45em;background:#fff;border:2px dashed var(--b);border-radius:10px;padding:.3em .55em;font-size:.95em}
+.ejb::before{content:'✏️ ' attr(data-l) ' ';font-weight:700;color:var(--b)}
+u.t{text-decoration:none;background:#ffe14d;border-radius:4px;padding:0 .08em;font-weight:700}
+.flecha{color:var(--b);font-weight:700}
+.recuerda{margin-top:.9em;background:#fff8d6;border:3px solid #f0c419;border-radius:14px;padding:.45em .9em}
+.recuerda::before{content:'💡 ' attr(data-l) ': ';font-weight:700;color:#9a7300}
+.formula{display:block;text-align:center;background:#fff;border-radius:8px;padding:.2em .4em;margin:.3em 0;font-weight:700;font-size:.95em}
+
+/* clases de palabras (colores fijos) */
+.cw{--c:#888}
+.c-sus{--c:#2f78c4}.c-det{--c:#6e4fc4}.c-adj{--c:#278a52}.c-pro{--c:#0f9aa8}.c-ver{--c:#d9483b}
+.c-adv{--c:#d0661a}.c-pre{--c:#7a6a52}.c-con{--c:#c7406a}.c-int{--c:#b08800}
+.frase-color{display:flex;flex-wrap:wrap;justify-content:center;gap:.35em .45em;margin:.7em 0 0;background:#f8f5ee;border-radius:14px;padding:.5em}
+.frase-color span{display:flex;flex-direction:column;align-items:center;border-bottom:5px solid var(--c);padding:0 .15em}
+.frase-color span b{font-size:1.25em;color:var(--c)}
+.frase-color span i{font-style:normal;font-size:.68em;font-weight:700;color:var(--c)}
+.clase{display:grid;grid-template-columns:auto 1fr;gap:.1em .5em;align-items:baseline;background:#fff;border-radius:10px;border-left:7px solid var(--c);padding:.25em .55em;margin:.35em 0}
+.clase b{color:var(--c);font-size:1.05em}
+.clase .ej{grid-column:1/-1;border-color:var(--c)}
+
+/* tablas sencillas */
+.tab{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:10px;overflow:hidden;font-size:.92em;margin:.3em 0}
+.tab td,.tab th{padding:.22em .45em;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.tab th{background:var(--b);color:#fff}
+.diacr{display:grid;grid-template-columns:repeat(4,1fr);gap:.45em;margin-top:.4em}
+.par{background:#fff;border:2px solid var(--b5);border-radius:10px;padding:.25em .45em;font-size:.88em;text-align:left}
+.par b{color:var(--b5);font-size:1.15em}
+
+/* palabra descompuesta */
+.palabra{display:flex;justify-content:center;gap:3px;margin:.55em 0 0;font:800 1.7em 'Bricolage Grotesque',sans-serif}
+.palabra span{display:flex;flex-direction:column;align-items:center;padding:.05em .25em;border-radius:10px;background:var(--a);border:3px solid var(--b)}
+.palabra span i{font:700 .38em 'Atkinson Hyperlegible',sans-serif;font-style:normal;color:var(--b)}
+
+/* liña do tempo */
+.linea{display:grid;grid-template-columns:1.1fr .5fr 1.4fr 1fr 1fr .5fr 1.1fr;align-items:stretch;margin:.6em 0 0;font-size:.92em;text-align:center}
+.linea>div{padding:.35em .3em;color:#fff;font-weight:700;display:flex;flex-direction:column;justify-content:center}
+.linea .ext{background:#8b8b8b}.linea .ext:first-child{border-radius:12px 0 0 12px}.linea .ext:last-child{border-radius:0 12px 12px 0}
+.linea .fito{background:var(--ink);font-size:.9em}
+.linea .e1{background:var(--b1)}.linea .e2{background:var(--b4)}.linea .e3{background:var(--b2)}
+.linea small{font-weight:400;font-size:.8em}
+
+/* niveis (barras) */
+.nivel{display:grid;grid-template-columns:1fr auto;gap:.4em;align-items:center;margin:.25em 0;font-size:.95em}
+.nivel .bar{display:flex;gap:3px}
+.nivel .bar i{width:.85em;height:.85em;border-radius:3px;background:#fff;border:2px solid var(--b)}
+.nivel .bar i.on{background:var(--b)}
+.ciclo-n{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:#fff;color:var(--b);font-weight:800;margin-right:.2em}
+
+/* móbil */
+@media screen and (max-width:900px){
+ .indice{grid-template-columns:1fr 1fr}
+ .ramas{grid-template-columns:1fr!important}
+ .ramas::before,.rama::before{display:none}
+ .diacr{grid-template-columns:1fr 1fr}
+ .linea{grid-template-columns:1fr;gap:3px}.linea>div{border-radius:10px!important}
+ .esq h2{font-size:1.45em}
+}
+@media screen and (max-width:560px){.indice{grid-template-columns:1fr}body{font-size:16px}.esq{padding:14px 12px}}
+
+/* menú de impresión */
+#menuImp{position:fixed;inset:0;background:rgba(20,28,48,.55);display:none;place-items:center;z-index:50}
+#menuImp.on{display:grid}
+#menuImp .caja{background:#fff;border-radius:22px;padding:22px 26px;max-width:460px;width:92%;text-align:left}
+#menuImp h3{margin:0 0 6px;font-size:1.5em}
+#menuImp p{margin:0 0 12px}
+#menuImp button{display:block;width:100%;margin:8px 0;border:0;border-radius:14px;padding:12px;font:700 17px 'Atkinson Hyperlegible',sans-serif;color:#fff;cursor:pointer;background:var(--m,var(--ink));text-align:left}
+#menuImp .cerrar{background:#e9e3d6;color:var(--ink);text-align:center}
+
+/* ---------- impresión: un esquema por hoja A4 ---------- */
+.modo-imp .esq{width:190mm;margin:0;box-shadow:none}
+@page{size:A4;margin:10mm}
+@media print{
+ body{background:#fff}
+ .top,.barra,.indice,.materia-tit,#menuImp,.imp1,#volverPanel{display:none!important}
+ main{padding:0}
+ .esq{width:190mm;margin:0;box-shadow:none;break-after:page;page-break-after:always;break-inside:avoid}
+ .esq:last-of-type{break-after:auto}
+ .esq.noimp{display:none!important}
+ .ramas{grid-template-columns:repeat(var(--n),1fr)!important}
+ .ramas::before,.rama::before{display:block!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <small>3.º ESO PDC · Ámbito lingüístico y social · 1.ª evaluación</small>
+ <h1>🗺️ Esquemas · Primera parte</h1>
+ <p>Esquemas de todo lo que hemos estudiado en los dos primeros exámenes, ordenados por materias. Cada esquema cabe en una hoja: puedes imprimirlos todos, solo los de una materia o uno solo.</p>
+</header>
+
+<nav class="barra">
+ <a class="m-lengua" href="#lengua">📖 Lengua</a>
+ <a class="m-galego" href="#galego">📗 Galego</a>
+ <a class="m-xeo" href="#xeo">🌍 Xeografía</a>
+ <a class="m-hist" href="#hist">🏛️ Historia</a>
+ <button class="imp" type="button" onclick="abrirMenu()">🖨️ Imprimir</button>
+</nav>
+
+<main>
+<section class="indice">
+ <div class="ind m-lengua"><h3>📖 Lengua castellana</h3><ol><li><a href="#e1">La lengua es un sistema</a></li><li><a href="#e2">Las clases de palabras</a></li><li><a href="#e3">La tilde</a></li></ol></div>
+ <div class="ind m-galego"><h3>📗 Lingua galega</h3><ol start="4"><li><a href="#e4">O substantivo</a></li><li><a href="#e5">O adxectivo</a></li><li><a href="#e6">Formación de palabras</a></li></ol></div>
+ <div class="ind m-xeo"><h3>🌍 Xeografía</h3><ol start="7"><li><a href="#e7">O estudo da poboación</a></li><li><a href="#e8">A distribución da poboación</a></li><li><a href="#e9">A evolución da poboación</a></li><li><a href="#e10">As migracións</a></li></ol></div>
+ <div class="ind m-hist"><h3>🏛️ Historia</h3><ol start="11"><li><a href="#e11">A Idade Moderna</a></li><li><a href="#e12">O humanismo</a></li></ol></div>
+</section>
+
+<!-- =================================== LENGUA =================================== -->
+<h2 class="materia-tit m-lengua" id="lengua"><span>📖</span> Lengua castellana</h2>
+
+<article class="esq m-lengua" id="e1" data-mat="lengua">
+ <header><span class="num">1</span><div><small>Lengua castellana</small><h2>La lengua es un sistema</h2></div><span class="ico">🧱</span><button class="imp1" onclick="imprimir('#e1')">🖨️ Solo este</button></header>
+ <div class="raiz">LA LENGUA ES UN SISTEMA<small>un código de signos + reglas para combinarlos, organizado en niveles</small></div>
+ <div class="chips3"><span class="chip3"><b>Signos</b> = las piezas (sonidos, palabras)</span><span class="chip3"><b>Reglas</b> = cómo se montan: <span class="ej" style="--b:#888">el mundo</span>, nunca <span class="ej" style="--b:#888">mundo el</span></span><span class="chip3"><b>Niveles</b> = los pisos de la torre</span></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r1"><h3>🔊 Nivel fónico<small>cómo suena</small></h3><ul>
+   <li><b>Fonemas</b>: los sonidos, entre barras <span class="ej">/m/</span></li>
+   <li><b>Grafías</b>: las letras que los escriben <span class="ej">m</span></li>
+   <li><b>Entonación</b>: cambia el mensaje.</li></ul>
+   <div class="ejb" data-l="Ejemplos:">mundo → <span class="ej">/m/ /u/ /n/ /d/ /o/</span><br><span class="ej">Vaya mundo.</span> enunciativa<br><span class="ej">¿Vaya mundo?</span> interrogativa<br><span class="ej">¡Vaya mundo!</span> exclamativa</div></section>
+  <section class="rama r2"><h3>🧩 Nivel morfosintáctico<small>forma y combinación</small></h3><ul>
+   <li><b>Palabra</b> = lexema + morfemas: <span class="ej">mund-o</span> <span class="ej">mund-ial</span></li>
+   <li>Morfemas <b>flexivos</b> (género y número) y <b>derivativos</b> (palabras nuevas).</li>
+   <li><b>Categoría gramatical</b>: sustantivo, adjetivo, verbo…</li>
+   <li><b>Frases</b>: f. nominal <span class="ej">el mundo</span>, f. preposicional <span class="ej">de los ricos</span>, f. sustantiva, f. adjetiva y f. adverbial.</li>
+   <li><b>Predicado</b>: el verbo <span class="ej">acumulan</span></li>
+   <li><b>Oraciones</b>: simples y compuestas.</li></ul></section>
+  <section class="rama r3"><h3>💬 Nivel léxico-semántico<small>qué significa</small></h3><ul>
+   <li>Significado <b>denotativo</b> (el del diccionario) y <b>connotativo</b> (el que añadimos): <span class="ej">corazón</span> = órgano / amor.</li>
+   <li><b>Relaciones</b>:<br>polisemia <span class="ej">banco</span> (asiento / dinero)<br>sinonimia <span class="ej">mundo = planeta</span><br>antonimia <span class="ej">riqueza ≠ pobreza</span></li>
+   <li><b>Origen</b>: cultismos, préstamos <span class="ej">fútbol</span>, neologismos <span class="ej">tuitear</span>, tecnicismos <span class="ej">fonema</span>.</li></ul></section>
+  <section class="rama r4"><h3>📄 Nivel discursivo<small>el texto</small></h3><ul>
+   <li><b>Texto</b>: unidad completa de comunicación, con sentido y dentro de un contexto.</li></ul>
+   <div class="mini"><b>Coherencia</b>: un tema claro y las ideas en orden.</div>
+   <div class="mini"><b>Cohesión</b>: partes bien unidas con conectores, sinónimos y pronombres.</div>
+   <div class="mini"><b>Adecuación</b>: encaja con la situación (a quién, dónde y para qué).</div></section>
+ </div>
+ <div class="recuerda" data-l="Recuerda">con los sonidos formamos <b>palabras</b>; con las palabras, <b>frases</b>; con las frases, <b>oraciones</b>, y con las oraciones, <b>textos</b>. Un montón de ladrillos no es una casa.</div>
+</article>
+
+<article class="esq m-lengua" id="e2" data-mat="lengua">
+ <header><span class="num">2</span><div><small>Lengua castellana</small><h2>Las clases de palabras</h2></div><span class="ico">🎨</span><button class="imp1" onclick="imprimir('#e2')">🖨️ Solo este</button></header>
+ <div class="raiz">CLASES DE PALABRAS<small>todas las palabras pertenecen a una de estas nueve clases</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:2">
+  <section class="rama r2"><h3>🔄 Variables<small>cambian de forma: <span style="font-family:Kalam">niño / niña / niños · canto / cantamos</span></small></h3>
+   <div class="clase c-sus"><b>sustantivo</b><span>nombra personas, animales, cosas e ideas.</span><span class="ej">casa, Lucía, alegría</span></div>
+   <div class="clase c-det"><b>determinante</b><span>acompaña al sustantivo y lo concreta.</span><span class="ej">el, esta, mi, dos</span></div>
+   <div class="clase c-adj"><b>adjetivo</b><span>expresa cualidades del sustantivo.</span><span class="ej">alto, verde, feliz</span></div>
+   <div class="clase c-pro"><b>pronombre</b><span>sustituye al sustantivo.</span><span class="ej">yo, ella, nosotros</span></div>
+   <div class="clase c-ver"><b>verbo</b><span>expresa acciones, procesos o estados.</span><span class="ej">corre, crece, está</span></div></section>
+  <section class="rama r6"><h3>🧱 Invariables<small>siempre igual: <span style="font-family:Kalam">aquí, con, pero</span></small></h3>
+   <div class="clase c-adv"><b>adverbio</b><span>indica circunstancias: lugar, tiempo, modo, cantidad…</span><span class="ej">aquí, hoy, bien, mucho</span></div>
+   <div class="clase c-pre"><b>preposición</b><span>relaciona unas palabras con otras.</span><span class="ej">a, con, de, en, por</span></div>
+   <div class="clase c-con"><b>conjunción</b><span>une palabras u oraciones.</span><span class="ej">y, o, pero, porque</span></div>
+   <div class="clase c-int"><b>interjección</b><span>expresa emociones.</span><span class="ej">¡ay!, ¡uf!, ¡olé!</span></div></section>
+ </div>
+ <div class="frase-color">
+  <span class="c-int"><b>¡Uf!</b><i>interjección</i></span><span class="c-det"><b>Mi</b><i>determinante</i></span><span class="c-sus"><b>hermana</b><i>sustantivo</i></span><span class="c-adj"><b>pequeña</b><i>adjetivo</i></span><span class="c-ver"><b>corre</b><i>verbo</i></span><span class="c-adv"><b>mucho</b><i>adverbio</i></span><span class="c-pre"><b>por</b><i>preposición</i></span><span class="c-det"><b>el</b><i>determinante</i></span><span class="c-sus"><b>parque</b><i>sustantivo</i></span><span class="c-con"><b>y</b><i>conjunción</i></span><span class="c-pro"><b>nosotros</b><i>pronombre</i></span><span class="c-pro"><b>la</b><i>pronombre</i></span><span class="c-ver"><b>seguimos</b><i>verbo</i></span>
+ </div>
+ <div class="recuerda" data-l="Truco">si puedes cambiarle el género, el número o la persona, la palabra es <b>variable</b>. Si no cambia nunca, es <b>invariable</b>.</div>
+</article>
+
+<article class="esq m-lengua" id="e3" data-mat="lengua">
+ <header><span class="num">3</span><div><small>Lengua castellana</small><h2>La tilde</h2></div><span class="ico">✍️</span><button class="imp1" onclick="imprimir('#e3')">🖨️ Solo este</button></header>
+ <div class="raiz">LA TILDE<small>1.º busca la sílaba tónica · 2.º mira cómo acaba la palabra · 3.º aplica la regla</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r1"><h3>🔎 Sílaba tónica<small>la que suena más fuerte</small></h3>
+   <div class="mini"><b>Agudas</b>: la última.<br><span class="ej">fe-li-ci-<u class="t">dad</u></span></div>
+   <div class="mini"><b>Llanas</b>: la penúltima.<br><span class="ej"><u class="t">ca</u>-lle</span></div>
+   <div class="mini"><b>Esdrújulas</b>: la antepenúltima.<br><span class="ej"><u class="t">cál</u>-cu-lo</span></div>
+   <div class="mini"><b>Sobresdrújulas</b>: la anterior.<br><span class="ej">re-<u class="t">tí</u>-ra-se-lo</span></div></section>
+  <section class="rama r2"><h3>📏 Reglas generales<small>¿cuándo lleva tilde?</small></h3>
+   <div class="mini"><b>Agudas</b>: si acaban en <b>vocal, -n o -s</b>.<br><span class="ej">café, camión, compás</span></div>
+   <div class="mini"><b>Llanas</b>: si <b>no</b> acaban en vocal, -n o -s.<br><span class="ej">árbol, lápiz, cárcel</span></div>
+   <div class="mini"><b>Esdrújulas y sobresdrújulas</b>: <b>siempre</b>.<br><span class="ej">rápido, dígaselo</span></div></section>
+  <section class="rama r3"><h3>🔗 Vocales juntas<small>diptongos, triptongos e hiatos</small></h3>
+   <div class="mini"><b>Diptongos y triptongos</b>: reglas generales. La tilde va en la vocal abierta (a, e, o).<br><span class="ej">huésped, salió, averiguáis</span></div>
+   <div class="mini"><b>Hiatos</b>: reglas generales <span class="ej">león</span>, pero si la tónica es <b>i</b> o <b>u</b>, <b>siempre</b> tilde.<br><span class="ej">María, Raúl, sonreír</span></div></section>
+  <section class="rama r4"><h3>⭐ Casos especiales<small>¡ojo con estos!</small></h3>
+   <div class="mini"><b>Interrogativas y exclamativas</b>: siempre tilde.<br><span class="ej">¿Dónde vives? ¡Qué frío!</span></div>
+   <div class="mini"><b>Sin tilde</b>: los demostrativos y <i>solo</i>.<br><span class="ej">este, ese, aquel, solo</span></div>
+   <div class="mini"><b>Compuestas</b>: juntas, reglas generales <span class="ej">duodécimo</span>; con guion, cada una la suya <span class="ej">teórico-práctico</span>.</div>
+   <div class="mini"><b>-mente</b>: tilde si la tiene el adjetivo.<br><span class="ej">débil → débilmente</span></div></section>
+ </div>
+ <div class="rama r5" style="margin-top:.9em"><h3>🎭 Tilde diacrítica<small>distingue palabras que se escriben igual</small></h3>
+  <div class="diacr">
+   <div class="par"><b>el</b> artículo: <span class="ej">el coche</span><br><b>él</b> pronombre: <span class="ej">él come</span></div>
+   <div class="par"><b>mi</b> determinante: <span class="ej">mi casa</span><br><b>mí</b> pronombre: <span class="ej">para mí</span></div>
+   <div class="par"><b>tu</b> determinante: <span class="ej">tu libro</span><br><b>tú</b> pronombre: <span class="ej">tú sabes</span></div>
+   <div class="par"><b>mas</b> = pero: <span class="ej">quiso, mas no pudo</span><br><b>más</b> cantidad: <span class="ej">más agua</span></div>
+   <div class="par"><b>si</b> condición: <span class="ej">si llueve</span><br><b>sí</b> afirmación: <span class="ej">dijo que sí</span></div>
+   <div class="par"><b>de</b> preposición: <span class="ej">vaso de agua</span><br><b>dé</b> verbo dar: <span class="ej">que me dé</span></div>
+   <div class="par"><b>se</b> pronombre: <span class="ej">se peina</span><br><b>sé</b> verbo saber: <span class="ej">no lo sé</span></div>
+   <div class="par"><b>te</b> pronombre: <span class="ej">te llamo</span><br><b>té</b> bebida: <span class="ej">un té</span></div>
+  </div></div>
+</article>
+
+<!-- =================================== GALEGO =================================== -->
+<h2 class="materia-tit m-galego" id="galego"><span>📗</span> Lingua galega</h2>
+
+<article class="esq m-galego" id="e4" data-mat="galego">
+ <header><span class="num">4</span><div><small>Lingua galega</small><h2>O substantivo</h2></div><span class="ico">🏷️</span><button class="imp1" onclick="imprimir('#e4')">🖨️ Solo este</button></header>
+ <div class="chips3" style="margin:0 0 .6em"><span class="chip3"><b>A palabra polo significado:</b> léxicas <span class="ej" style="--b:#888">casa, branca, xogar</span> · gramaticais <span class="ej" style="--b:#888">estas, con, e</span></span><span class="chip3"><b>Pola forma:</b> variables <span class="ej" style="--b:#888">gato, feliz, amo</span> · invariables <span class="ej" style="--b:#888">alí, en, pero</span></span></div>
+ <div class="raiz">O SUBSTANTIVO<small>nomea obxectos, persoas, animais e ideas · é unha palabra léxica e variable</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r4"><h3>♀️♂️ Xénero<small>masculino / feminino</small></h3>
+   <div class="mini"><b>Variables</b>: <span class="ej">oso / osa</span> <span class="ej">home / muller</span></div>
+   <div class="mini"><b>Invariables</b>: <span class="ej">o lapis</span> <span class="ej">a ponte</span></div>
+   <table class="tab"><tr><th colspan="2">Formación do feminino</th></tr>
+    <tr><td>-o / -e átonos → <b>-a</b></td><td><span class="ej">fillo / filla</span></td></tr>
+    <tr><td>-eu → <b>-ía</b></td><td><span class="ej">xudeu / xudía</span></td></tr>
+    <tr><td>vogal tónica ou consoante (agás -n) → <b>+ -a</b></td><td><span class="ej">avó / avoa</span> <span class="ej">profesor / profesora</span></td></tr>
+    <tr><td>-ón → <b>-oa</b> (-ona se é aumentativo ou despectivo)</td><td><span class="ej">bretón / bretoa</span> <span class="ej">abusón / abusona</span></td></tr>
+    <tr><td>-án → <b>-á</b> (-ana se é aumentativo ou despectivo)</td><td><span class="ej">alemán / alemá</span> <span class="ej">folgazán / folgazana</span></td></tr></table></section>
+  <section class="rama r2"><h3>🔢 Número<small>singular / plural</small></h3>
+   <div class="mini"><span class="ej">o alumno</span> → <span class="ej">os alumnos</span></div>
+   <table class="tab"><tr><th colspan="2">Formación do plural</th></tr>
+    <tr><td>vogal, ditongo ou outra consoante → <b>+ -s</b></td><td><span class="ej">cadro / cadros</span> <span class="ej">tren / trens</span></td></tr>
+    <tr><td>-r, -z e agudas en -s → <b>+ -es</b></td><td><span class="ej">xogador / xogadores</span> <span class="ej">raíz / raíces</span></td></tr>
+    <tr><td>-l en monosílabas e graves → <b>+ -es</b></td><td><span class="ej">ril / riles</span> <span class="ej">fácil / fáciles</span></td></tr>
+    <tr><td>-l en polisílabas agudas → <b>-is</b></td><td><span class="ej">canal / canais</span> <span class="ej">mandil / mandís</span></td></tr>
+    <tr><td>graves e esdrúxulas en -s, e todas en -x → <b>invariables</b></td><td><span class="ej">o lapis / os lapis</span> <span class="ej">o tórax / os tórax</span></td></tr></table></section>
+  <section class="rama r3"><h3>🌳 Clasificación semántica<small>segundo o que designan</small></h3>
+   <div class="mini"><b>Comúns</b> <span class="ej">rapaza, paz, cidade</span>
+    <div class="mini" style="margin-left:.4em"><b>Concretos</b> (vense, tócanse) <span class="ej">can, reloxo</span>
+     <div class="mini" style="margin-left:.4em"><b>Contables</b> <span class="ej">flor, casa</span>
+      <div class="mini" style="margin-left:.4em"><b>Individuais</b> <span class="ej">prato, árbore</span></div>
+      <div class="mini" style="margin-left:.4em"><b>Colectivos</b> <span class="ej">rabaño, arboredo</span></div></div>
+     <div class="mini" style="margin-left:.4em"><b>Non contables</b> <span class="ej">vento, leite</span></div></div>
+    <div class="mini" style="margin-left:.4em"><b>Abstractos</b> (ideas) <span class="ej">xustiza, solidariedade</span></div></div>
+   <div class="mini"><b>Propios</b> (con maiúscula) <span class="ej">Uxía, Baiona, Miño</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra">nos substantivos invariables, o xénero e o número vémolos no artigo: <span class="ej" style="--b:#c98a00">o lapis / os lapis</span>.</div>
+</article>
+
+<article class="esq m-galego" id="e5" data-mat="galego">
+ <header><span class="num">5</span><div><small>Lingua galega</small><h2>O adxectivo</h2></div><span class="ico">🌈</span><button class="imp1" onclick="imprimir('#e5')">🖨️ Solo este</button></header>
+ <div class="raiz">O ADXECTIVO<small>modifica o substantivo e expresa as súas calidades</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r4"><h3>🤝 Concordancia<small>vai sempre cun substantivo</small></h3>
+   <ul><li>Toma o <b>xénero</b> e o <b>número</b> do substantivo.</li></ul>
+   <div class="ejb" data-l="Exemplo:"><span class="ej">un edificio rehabilitado</span><br><span class="ej">uns edificios rehabilitados</span><br><span class="ej">unha casa rehabilitada</span></div></section>
+  <section class="rama r2"><h3>🗂️ Clases<small>segundo a calidade</small></h3>
+   <div class="mini"><b>Explicativos</b>: din unha calidade que o substantivo xa ten.<br><span class="ej">neve fría</span> <span class="ej">pedra dura</span></div>
+   <div class="mini"><b>Especificativos</b>: distinguen ese substantivo dos demais.<br><span class="ej">coche amarelo</span> <span class="ej">rapaz louro</span></div></section>
+  <section class="rama r5"><h3>📶 Graos<small>canta calidade ten</small></h3>
+   <div class="mini"><b>Positivo</b>: <span class="ej">lixeira</span></div>
+   <div class="mini"><b>Comparativo</b>: <span class="ej">máis lixeira ca</span></div>
+   <div class="mini"><b>Superlativo</b>: <span class="ej">lixeirísima</span></div></section>
+ </div>
+ <div class="rama r5" style="margin-top:.9em"><h3>🛠️ Formación dos graos</h3>
+  <table class="tab"><tr><th>Grao</th><th>Como se forma</th><th>Exemplo</th></tr>
+   <tr><td rowspan="3"><b>Comparativo</b></td><td>de igualdade: <b>tan … coma / como</b></td><td><span class="ej">tan lixeira coma a túa</span></td></tr>
+   <tr><td>de superioridade: <b>máis … ca / que / do que</b></td><td><span class="ej">máis lixeira ca a túa</span></td></tr>
+   <tr><td>de inferioridade: <b>menos … ca / que / do que</b></td><td><span class="ej">menos lixeira ca a túa</span></td></tr>
+   <tr><td rowspan="2"><b>Superlativo</b></td><td>absoluto: <b>moi</b>, <b>-ísimo</b>, <b>-érrimo</b></td><td><span class="ej">moi lixeira, lixeirísima, aspérrima</span></td></tr>
+   <tr><td>relativo: <b>o / a máis (menos) … de</b></td><td><span class="ej">a máis lixeira do mercado</span></td></tr></table></div>
+ <div class="recuerda" data-l="Lembra">en galego comparamos con <b>ca</b> e <b>coma</b>: <span class="ej" style="--b:#c98a00">máis alta ca ti</span>, <span class="ej" style="--b:#c98a00">tan alta coma ti</span>.</div>
+</article>
+
+<article class="esq m-galego" id="e6" data-mat="galego">
+ <header><span class="num">6</span><div><small>Lingua galega</small><h2>Formación de palabras</h2></div><span class="ico">🧩</span><button class="imp1" onclick="imprimir('#e6')">🖨️ Solo este</button></header>
+ <div class="raiz">CONSTITUÍNTES DA PALABRA<small>as palabras están feitas de pezas: o lexema e os morfemas</small></div>
+ <div class="palabra"><span class="r6">en<i>prefixo</i></span><span class="r1">cabez<i>lexema</i></span><span class="r6">onadiñ<i>sufixos</i></span><span class="r2">a<i>flexivo</i></span></div>
+ <div class="tronco" style="margin-top:.4em"></div>
+ <div class="ramas" style="--n:3">
+  <section class="rama r1"><h3>❤️ Lexema ou raíz<small>significado léxico · obrigado</small></h3>
+   <ul><li>É a parte que leva o <b>significado</b> da palabra.</li><li>Está en <b>todas</b> as palabras.</li></ul>
+   <div class="ejb" data-l="Exemplos:"><span class="ej"><b>pastel</b>-eiro</span> <span class="ej"><b>lat</b>-a</span> <span class="ej"><b>mund</b>-o</span></div></section>
+  <section class="rama r2"><h3>🔁 Morfemas flexivos<small>xénero e número</small></h3>
+   <ul><li><b>Non</b> crean palabras novas: só cambian a forma da mesma palabra.</li></ul>
+   <div class="ejb" data-l="Exemplos:"><span class="ej">pasteleir-<b>o</b> / pasteleir-<b>a</b></span><br><span class="ej">lata-<b>s</b></span></div></section>
+  <section class="rama r6"><h3>🆕 Morfemas derivativos<small>forman palabras novas</small></h3>
+   <div class="mini"><b>Prefixos</b>: <b>antes</b> do lexema. <b>Non</b> cambian a categoría.<br><span class="ej">director → <b>vice</b>director</span><br><b>in- / des-</b> negación <span class="ej">inútil</span> · <b>re-</b> repetición <span class="ej">reler</span> · <b>pre- / ante-</b> antes <span class="ej">prever</span> · <b>sub- / so-</b> debaixo <span class="ej">subsolo</span> · <b>super- / sobre-</b> por riba · <b>extra-</b> fóra · <b>trans-</b> a través · <b>anti- / contra-</b> oposición <span class="ej">antirroubo</span></div>
+   <div class="mini"><b>Sufixos</b>: <b>despois</b> do lexema. <b>Poden</b> cambiar a categoría.<br><span class="ej">area (s.) → are<b>al</b> (s.)</span> <span class="ej">xogar (v.) → xog<b>ador</b> (s.)</span><br><b>-eiro, -ada, -al, -dor, -nte, -ble, -idade, -iño, -ón, -azo, -ucho</b></div></section>
+ </div>
+ <div class="recuerda" data-l="Truco">busca a parte que se repite na familia de palabras: <span class="ej" style="--b:#c98a00"><b>pan</b>, <b>pan</b>adeiro, em<b>pan</b>ada</span> → o lexema é <b>pan</b>.</div>
+</article>
+
+<!-- =================================== XEOGRAFÍA =================================== -->
+<h2 class="materia-tit m-xeo" id="xeo"><span>🌍</span> Xeografía</h2>
+
+<article class="esq m-xeo" id="e7" data-mat="xeo">
+ <header><span class="num">7</span><div><small>Xeografía</small><h2>O estudo da poboación</h2></div><span class="ico">📊</span><button class="imp1" onclick="imprimir('#e7')">🖨️ Solo este</button></header>
+ <div class="raiz">O ESTUDO DA POBOACIÓN<small>a ciencia que a estuda chámase <b>demografía</b></small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r1"><h3>📋 O censo<small>de onde saen os datos</small></h3>
+   <ul><li>Lista oficial dos habitantes dun territorio.</li><li>Faise <b>cada 10 anos</b>, aproximadamente.</li><li>Recolle datos demográficos, económicos e sociais.</li><li>Fontes: <b>INE</b> (España) e <b>IGE</b> (Galicia).</li></ul></section>
+  <section class="rama r2"><h3>👶🕯️ Natalidade e mortalidade<small>taxas en ‰ (por mil)</small></h3>
+   <div class="mini"><b>Natalidade</b>: nacementos nun ano.<span class="formula">TN = nados vivos ÷ poboación × 1000</span><span class="ej">8.000 ÷ 1.000.000 × 1000 = 8 ‰</span></div>
+   <div class="mini"><b>Fecundidade</b>: fillos por muller (15-49 anos).</div>
+   <div class="mini"><b>Mortalidade</b>: defuncións nun ano.<span class="formula">TM = falecidos ÷ poboación × 1000</span></div>
+   <div class="mini"><b>Mortalidade infantil</b>: falecidos con menos de 1 ano ÷ nados vivos × 1000.</div></section>
+  <section class="rama r3"><h3>📈 Crecemento e esperanza de vida</h3>
+   <div class="mini"><b>Crecemento natural</b><span class="formula">TN − TM</span><span class="ej">8 ‰ − 10 ‰ = −2 ‰ → perde poboación</span></div>
+   <div class="mini"><b>Crecemento real</b><span class="formula">natural + saldo migratorio</span></div>
+   <div class="mini"><b>Esperanza de vida</b>: anos que se espera vivir. Xunto coa mortalidade infantil, indica o <b>desenvolvemento</b> dun país.</div></section>
+  <section class="rama r4"><h3>👥 Estrutura<small>como é a poboación</small></h3>
+   <div class="mini"><b>Por sexo</b>: mulleres e homes → detectar desigualdades.</div>
+   <div class="mini"><b>Por idade</b>:<br>nova <span class="ej">0-14</span> · adulta <span class="ej">15-64</span> · anciá <span class="ej">65+</span></div>
+   <div class="mini"><b>Por traballo</b>:<br><b>Activa</b>: ocupada (por conta propia ou asalariada) ou parada.<br><b>Inactiva</b>: estudantes, xubilados, labores do fogar…</div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra">se morre máis xente da que nace, o crecemento natural é <b>negativo</b>.</div>
+</article>
+
+<article class="esq m-xeo" id="e8" data-mat="xeo">
+ <header><span class="num">8</span><div><small>Xeografía</small><h2>A distribución da poboación</h2></div><span class="ico">🗺️</span><button class="imp1" onclick="imprimir('#e8')">🖨️ Solo este</button></header>
+ <div class="raiz">A DISTRIBUCIÓN DA POBOACIÓN<small>onde vive a xente e por que</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r3"><h3>⛰️ Condicionantes físicos</h3><ul>
+   <li><b>Relevo</b> → chairas e vales.</li>
+   <li><b>Clima</b> → temperado, sen extremos.</li>
+   <li><b>Auga e recursos</b> → xunto aos ríos; madeira, minerais.</li>
+   <li><b>Chan fértil</b> → concas fluviais.</li></ul>
+   <div class="ejb" data-l="Exemplo:">moita xente vive no val do Miño.</div></section>
+  <section class="rama r6"><h3>🏙️ Condicionantes humanos</h3><ul>
+   <li><b>Históricos</b> → <span class="ej">Mesopotamia, Exipto</span></li>
+   <li><b>Económicos</b> → cidades, <span class="ej">Europa, Xapón</span></li>
+   <li><b>Políticos</b> → <span class="ej">Brasilia</span></li>
+   <li><b>Zonas difíciles</b> → sociedades pequenas e nómades.</li></ul></section>
+  <section class="rama r2"><h3>🧮 Densidade de poboación<small>habitantes por km²</small></h3>
+   <span class="formula">Poboación ÷ Superficie (km²) = hab/km²</span>
+   <div class="ejb" data-l="Exemplo:">Galicia: <span class="ej">2.700.000 ÷ 29.575 ≈ 91 hab/km²</span></div></section>
+  <section class="rama r4"><h3>🌐 No mundo</h3>
+   <div class="mini"><b>Máis poboadas</b>: leste e sueste asiático, Europa, costa leste dos EUA.</div>
+   <div class="mini"><b>Menos poboadas</b>: desertos e estepas, selvas, zonas polares e altitudes elevadas.</div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra">a xente vive onde é <b>fácil vivir</b> (bo clima, auga, chan fértil) e onde hai <b>traballo</b>.</div>
+</article>
+
+<article class="esq m-xeo" id="e9" data-mat="xeo">
+ <header><span class="num">9</span><div><small>Xeografía</small><h2>A evolución da poboación</h2></div><span class="ico">⏳</span><button class="imp1" onclick="imprimir('#e9')">🖨️ Solo este</button></header>
+ <div class="raiz">A EVOLUCIÓN DA POBOACIÓN<small>como cambia o número de habitantes ao longo do tempo</small></div>
+ <div class="chips3"><span class="chip3">Depende de: <b>👶 natalidade</b></span><span class="chip3"><b>🕯️ mortalidade</b></span><span class="chip3"><b>🧳 migracións</b></span></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r6"><h3><span class="ciclo-n">1</span>Ciclo antigo<small>da Antigüidade ao século XVIII</small></h3>
+   <div class="nivel"><span>Natalidade moi alta</span><span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+   <div class="nivel"><span>Mortalidade moi alta</span><span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+   <div class="nivel"><span><b>Crecemento moi baixo</b></span><span class="bar"><i class="on"></i><i></i><i></i><i></i></span></div>
+   <div class="ejb" data-l="Por que?">sen anticonceptivos, fillos para traballar no campo; fame, pouca hixiene, sen medicamentos, epidemias.</div></section>
+  <section class="rama r1"><h3><span class="ciclo-n">2</span>Ciclo de transición<small>desde o século XVIII</small></h3>
+   <div class="nivel"><span>Natalidade alta</span><span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+   <div class="nivel"><span>Mortalidade descende</span><span class="bar"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+   <div class="nivel"><span><b>Crecemento moi alto</b></span><span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+   <div class="ejb" data-l="Por que?">avances científicos e Revolución industrial.</div></section>
+  <section class="rama r2"><h3><span class="ciclo-n">3</span>Ciclo moderno<small>século XX, países desenvolvidos</small></h3>
+   <div class="nivel"><span>Natalidade moi baixa</span><span class="bar"><i class="on"></i><i></i><i></i><i></i></span></div>
+   <div class="nivel"><span>Mortalidade baixa</span><span class="bar"><i class="on"></i><i></i><i></i><i></i></span></div>
+   <div class="nivel"><span><b>Crecemento baixo</b></span><span class="bar"><i class="on"></i><i></i><i></i><i></i></span></div>
+   <div class="ejb" data-l="Por que?">anticonceptivos, a muller no traballo, familias pequenas.</div></section>
+  <section class="rama r5"><h3><span class="ciclo-n">4</span>Ciclo regresivo<small>hoxe, moitos países desenvolvidos</small></h3>
+   <div class="nivel"><span>Moi poucos nacementos</span><span class="bar"><i class="on"></i><i></i><i></i><i></i></span></div>
+   <div class="nivel"><span>Mortalidade sobe</span><span class="bar"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+   <div class="nivel"><span><b>Crecemento 0 ou negativo</b></span><span class="bar"><i></i><i></i><i></i><i></i></span></div>
+   <div class="ejb" data-l="Por que?">a poboación envellece: hai moitos anciáns. Exemplo: Galicia.</div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra">os cadradiños indican canto: <b>4 = moi alto</b>, <b>0 = nada</b>. O crecemento depende da diferenza entre nacementos e defuncións.</div>
+</article>
+
+<article class="esq m-xeo" id="e10" data-mat="xeo">
+ <header><span class="num">10</span><div><small>Xeografía</small><h2>As migracións na actualidade</h2></div><span class="ico">🧳</span><button class="imp1" onclick="imprimir('#e10')">🖨️ Solo este</button></header>
+ <div class="raiz">AS MIGRACIÓNS<small>desprazamentos de persoas dun lugar a outro para vivir nel</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r2"><h3>📚 Conceptos básicos</h3>
+   <div class="mini"><b>Emigrante</b>: deixa o seu lugar de orixe.</div>
+   <div class="mini"><b>Inmigrante</b>: establécese nun lugar novo.</div>
+   <div class="mini"><b>Emisor</b>: lugar que se abandona. <b>Receptor</b>: lugar ao que se vai.</div>
+   <div class="mini"><b>Saldo migratorio</b>:<span class="formula">inmigrantes − emigrantes</span><span class="ej">500 − 200 = +300</span></div></section>
+  <section class="rama r1"><h3>🗂️ Tipos</h3>
+   <div class="mini"><b>Polo tempo</b>: temporais <span class="ej">a vendima en Francia</span> ou definitivas.</div>
+   <div class="mini"><b>Pola vontade</b>: voluntarias ou forzadas <span class="ej">fuxir dunha guerra</span></div>
+   <div class="mini"><b>Polo lugar</b>: interiores <span class="ej">da aldea a Vigo</span> ou exteriores <span class="ej">de Galicia a Suíza</span></div></section>
+  <section class="rama r4"><h3>❓ Causas</h3>
+   <div class="mini"><b>Socioeconómicas</b> (as máis importantes): traballo, educación, sanidade…</div>
+   <div class="mini"><b>Políticas</b>: guerras e réximes → exiliados e refuxiados.</div>
+   <div class="mini"><b>Naturais</b>: terremotos, inundacións, tsunamis.</div></section>
+  <section class="rama r3"><h3>⚖️ Consecuencias</h3>
+   <div class="mini"><b>Países emisores</b>:<br>➖ perden xente nova e formada.<br>➕ menos superpoboación; reciben diñeiro dos emigrantes.</div>
+   <div class="mini"><b>Países receptores</b>:<br>➕ rexuvenecen; crecemento económico e cultural.<br>➖ saturación de servizos, problemas de integración, xenofobia e racismo.</div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra"><b>e</b>migrante = <b>sae</b> (como <b>e</b>xit); <b>in</b>migrante = <b>entra</b> (como <b>in</b>).</div>
+</article>
+
+<!-- =================================== HISTORIA =================================== -->
+<h2 class="materia-tit m-hist" id="hist"><span>🏛️</span> Historia</h2>
+
+<article class="esq m-hist" id="e11" data-mat="hist">
+ <header><span class="num">11</span><div><small>Historia</small><h2>A Idade Moderna</h2></div><span class="ico">⛵</span><button class="imp1" onclick="imprimir('#e11')">🖨️ Solo este</button></header>
+ <div class="raiz">IDADE MODERNA · 1453 – 1789<small>vén despois da crise da Baixa Idade Media (peste negra, fame e guerras)</small></div>
+ <div class="linea">
+  <div class="ext">Idade Media</div>
+  <div class="fito">1453<small>caída de Constantinopla</small></div>
+  <div class="e1">Renacemento<small>séculos XV-XVI</small></div>
+  <div class="e2">Barroco<small>século XVII</small></div>
+  <div class="e3">Ilustración<small>século XVIII</small></div>
+  <div class="fito">1789<small>Revolución francesa</small></div>
+  <div class="ext">Idade Contemporánea</div>
+ </div>
+ <div class="chips3"><span class="chip3">🇪🇸 En España, o inicio márcao a <b>chegada a América (1492)</b>.</span></div>
+ <div class="tronco" style="margin-top:.5em"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r3"><h3>👨‍👩‍👧 Demografía</h3><ul>
+   <li><b>Aumenta</b> a poboación: Europa recupérase da peste.</li>
+   <li>As <b>cidades</b> medran.</li>
+   <li><b>Migracións transoceánicas</b> (a América).</li></ul>
+   <div class="ejb" data-l="Resultado:">máis man de obra.</div></section>
+  <section class="rama r1"><h3>💰 Economía</h3><ul>
+   <li><b>Comercio por mar</b>.</li>
+   <li><b>Mercantilismo</b>: a riqueza dun país está no ouro e na prata que acumula.</li>
+   <li><b>Capitalismo</b> comercial e financeiro.</li></ul>
+   <div class="ejb" data-l="Resultado:">máis riqueza nas cidades.</div></section>
+  <section class="rama r4"><h3>🎩 Sociedade</h3><ul>
+   <li><b>Auxe dos burgueses</b>: comerciantes e banqueiros das cidades.</li>
+   <li><b>Humanismo</b>: novas ideas.</li></ul>
+   <div class="ejb" data-l="Resultado:">os burgueses apoian aos reis.</div></section>
+  <section class="rama r5"><h3>👑 Política</h3><ul>
+   <li><b>Monarcas autoritarios</b>.</li>
+   <li>Os reis teñen <b>máis poder</b> sobre os nobres.</li></ul>
+   <div class="ejb" data-l="Exemplo:">os Reis Católicos.</div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra">a Idade Moderna está <b>entre</b> a Idade Media e a Idade Contemporánea: empeza en <b>1453</b> e remata en <b>1789</b>.</div>
+</article>
+
+<article class="esq m-hist" id="e12" data-mat="hist">
+ <header><span class="num">12</span><div><small>Historia</small><h2>O humanismo</h2></div><span class="ico">📜</span><button class="imp1" onclick="imprimir('#e12')">🖨️ Solo este</button></header>
+ <div class="raiz">O HUMANISMO<small>o ser humano no centro do Universo</small></div>
+ <div class="tronco"></div>
+ <div class="ramas" style="--n:4">
+  <section class="rama r2"><h3>❓ Que é</h3><ul>
+   <li>Movemento <b>europeo</b> e un novo modo de pensar e de vivir.</li>
+   <li>Idea central: o <b>ser humano</b> no centro do Universo.</li>
+   <li>Inspirado na <b>Antigüidade clásica</b> (Grecia e Roma).</li>
+   <li>Dura ata finais do <b>século XVI</b>.</li></ul></section>
+  <section class="rama r1"><h3>✒️ Autores italianos</h3>
+   <div class="mini"><b>Dante</b>: <i>Divina comedia</i>. Bases do italiano.</div>
+   <div class="mini"><b>Petrarca</b>: <i>Cancioneiro</i>. Amor por Laura.</div>
+   <div class="mini"><b>Boccaccio</b>: <i>Decamerón</i>. Inspirado na peste de 1348.</div></section>
+  <section class="rama r4"><h3>⭐ Características</h3><ul>
+   <li><b>Antropocentrismo</b>: liberdade e razón.<br><span class="ej">antes: Deus no centro (teocentrismo)</span></li>
+   <li>Renacemento da cultura <b>grecolatina</b>.</li>
+   <li>Avance da <b>técnica</b> e da <b>ciencia</b>.</li>
+   <li>Valor das <b>linguas vernáculas</b> <span class="ej">italiano, castelán, galego…</span></li></ul></section>
+  <section class="rama r3"><h3>📢 Como se expandiu</h3>
+   <div class="mini"><b>Imprenta</b>: as ideas viaxan máis rápido.</div>
+   <div class="mini"><b>Academias</b>: reunións de sabios.</div>
+   <div class="mini"><b>Mecenas</b>: ricos que pagan aos artistas <span class="ej">os Medici</span></div>
+   <div class="mini"><b>Universidades</b>: <span class="ej">Santiago, Alcalá…</span></div></section>
+ </div>
+ <div class="recuerda" data-l="Lembra"><b>antropo</b> = ser humano → antropocentrismo; <b>teo</b> = deus → teocentrismo.</div>
+</article>
+</main>
+
+<div id="menuImp" onclick="if(event.target===this)cerrarMenu()">
+ <div class="caja">
+  <h3>🖨️ ¿Qué quieres imprimir?</h3>
+  <p>Cada esquema sale en una hoja A4.</p>
+  <button style="--m:var(--ink)" onclick="imprimir('todo')">📚 Todos los esquemas</button>
+  <button class="m-lengua" onclick="imprimir('lengua')">📖 Solo Lengua castellana</button>
+  <button class="m-galego" onclick="imprimir('galego')">📗 Solo Lingua galega</button>
+  <button class="m-xeo" onclick="imprimir('xeo')">🌍 Solo Xeografía</button>
+  <button class="m-hist" onclick="imprimir('hist')">🏛️ Solo Historia</button>
+  <button class="cerrar" onclick="cerrarMenu()">Cancelar</button>
+ </div>
+</div>
+
+<script>
+function abrirMenu(){document.getElementById('menuImp').classList.add('on')}
+function cerrarMenu(){document.getElementById('menuImp').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarMenu()});
+const ESQ=[...document.querySelectorAll('.esq')];
+/* Ajusta cada esquema para que quepa en una hoja A4 (190 × 277 mm) */
+function ajustar(){
+ const mm=96/25.4, alto=258*mm;
+ document.body.classList.add('modo-imp');
+ ESQ.forEach(a=>{let fs=18;a.style.fontSize=fs+'px';while(a.scrollHeight>alto&&fs>9){fs-=.25;a.style.fontSize=fs+'px'}});
+}
+function restaurar(){document.body.classList.remove('modo-imp');ESQ.forEach(a=>{a.style.fontSize='';a.classList.remove('noimp')})}
+let preparado=false;
+function imprimir(que){
+ cerrarMenu();
+ ESQ.forEach(a=>a.classList.toggle('noimp',!(que==='todo'||a.dataset.mat===que||('#'+a.id)===que)));
+ ajustar();preparado=true;
+ setTimeout(()=>{window.print()},60);
+}
+window.addEventListener('beforeprint',()=>{if(!preparado)ajustar()});
+window.addEventListener('afterprint',()=>{preparado=false;restaurar()});
+</script>
+<a id="volverPanel" href="../../04_PDC/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="if(window.opener&&!window.opener.closed){try{window.opener.focus();window.close();return false}catch(e){}}">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
