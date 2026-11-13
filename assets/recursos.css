@@ -133,3 +133,9 @@ div.feature.f-tutoria{--tc:#d4a017;background:var(--paper);border:3px dashed var
 .parte.parte1{background:#eef6ff;border-color:#9cc3ea}.parte.parte1 .partetag .pic{background:#3b7fc4}.parte.parte1 .partetag b{background:#eef6ff}
 .parte.parte2{background:#fff6e5;border-color:#efc77a}.parte.parte2 .partetag .pic{background:#e09a1f}.parte.parte2 .partetag b{background:#fff6e5}
 .parte.parte1 .group.materia h3 .mic{background:#3b7fc4}.parte.parte2 .group.materia h3 .mic{background:#e09a1f}
+/* Botón de evaluación que agrupa los de cada parte */
+.chipgrupo{flex:none;display:inline-flex;align-items:center;gap:6px;padding:4px 5px 4px 4px;border-radius:30px;background:color-mix(in srgb,var(--cc) 12%,var(--paper));border:2px solid color-mix(in srgb,var(--cc) 45%,transparent)}
+.chipev{font-weight:800;font-size:.9em;padding:.4em .9em;border-radius:30px;background:var(--cc);color:#fff;text-decoration:none;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.chipgrupo .chip{padding:.35em .9em}
+.chip.chipparte1{background:#eef6ff;border-color:#9cc3ea}.chip.chipparte1:hover{border-color:#3b7fc4;color:#3b7fc4}
+.chip.chipparte2{background:#fff6e5;border-color:#efc77a}.chip.chipparte2:hover{border-color:#e09a1f;color:#b87a10}

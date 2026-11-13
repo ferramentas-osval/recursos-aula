@@ -117,7 +117,7 @@ if(PAGE.mode==='course'){
  document.documentElement.style.setProperty('--cc',`var(${I.col})`);document.title=I.name+' · Recursos de aula';
  html+=`<header class="coursehead"><div class="hero"><div>${ALUM?'':`<a class="back" href="${ROOT}index.html">← Todos los recursos</a><br>`}<span class="kicker">Recursos de aula · Lengua y Literatura</span><h1>${I.name}</h1><p class="lead">${I.desc}</p><div class="stats">${stat(count(cat),'recursos')}${stat(gs.length,gs.length===1?'apartado':'apartados')}</div></div>
  <div class="bigicon"><div class="disc"></div><div class="disc2"></div><span class="orb float" style="width:22px;height:22px;top:10%;right:16%"></span><span class="orb float2" style="width:14px;height:14px;bottom:14%;left:12%"></span><span class="orb float" style="width:10px;height:10px;top:30%;left:6%;background:#fff"></span><span class="emo float">${I.icon}</span></div></div>${WAVE}</header>`;
- const chipsG=PARTS?PARTS.map((x,k)=>x.gs.length?`<a class="chip" style="--cc:var(${I.col})" href="#p${k}">${x.pt.icon||''} ${x.pt.titulo}</a>`:'').join(''):gs.map((g,i)=>`<a class="chip" style="--cc:var(${I.col})" href="#g${i}">${g.path.length?g.path[g.path.length-1]:'General'}</a>`).join('');
+ const chipsG=PARTS?`<span class="chipgrupo" style="--cc:var(${I.col})"><a class="chipev" href="#ev">${L.evaluacion||'Evaluación'}</a>${PARTS.map((x,k)=>x.gs.length?`<a class="chip chipparte${k+1}" style="--cc:var(${I.col})" href="#p${k}">${x.pt.icon||''} ${x.pt.titulo}</a>`:'').join('')}</span>`:gs.map((g,i)=>`<a class="chip" style="--cc:var(${I.col})" href="#g${i}">${g.path.length?g.path[g.path.length-1]:'General'}</a>`).join('');
  html+=`<div class="toolbar"><div class="searchrow"><label class="search">🔎<input id="q" type="search" placeholder="Buscar en ${I.name}…" autocomplete="off"></label><span id="count"></span></div><nav class="chips">${topChips.join('')}${chipsG}</nav></div>`;
  const gh=gs.map((g,i)=>groupHTML(g,I.name,g.ic).replace(/^<div class="group([^"]*)">/,`<div class="group$1" id="g${i}" style="scroll-margin-top:130px">`));
  const last=g=>g.path[g.path.length-1];
@@ -126,7 +126,7 @@ if(PAGE.mode==='course'){
  let body='';
  if(PARTS){let a=0;PARTS.forEach((x,k)=>{const b=a+x.gs.length;if(b>a)body+=`<div class="parte parte${k+1}" id="p${k}"><div class="partetag"><span class="pic">${x.pt.icon||''}</span><span><b>${x.pt.titulo}</b>${x.pt.sub?`<small>${x.pt.sub}</small>`:''}</span></div>${bodyOf(a,b)}</div>`;a=b})}
  else body=bodyOf(0,gs.length);
- if(L.evaluacion)body=`<div class="eval"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
+ if(L.evaluacion)body=`<div class="eval" id="ev" style="scroll-margin-top:130px"><h2 class="evaltag">${L.evaluacion}</h2>${body}</div>`;
  html+=`<main><section class="cat" style="--cc:var(${I.col})">${top}${body}</section></main>`;
 }else{
  let total=DATA.reduce((a,c)=>a+count(c),0);
