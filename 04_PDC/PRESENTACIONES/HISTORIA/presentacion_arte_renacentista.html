@@ -629,7 +629,7 @@ const S=[...document.querySelectorAll('.slide')];let cur=0;
 const $=s=>document.querySelector(s);
 function show(i){i=Math.max(0,Math.min(S.length-1,i));S[cur].classList.remove('on');cur=i;S[cur].classList.add('on');S[cur].scrollTop=0;closeModal();if(typeof closeLB=='function')closeLB();fit(S[cur]);const sl=S[cur];[150,500,1200].forEach(d=>setTimeout(()=>{if(S[cur]===sl)fit(sl)},d));
 $('#ctr').textContent=(cur+1)+' / '+S.length;$('#bar').style.width=((cur+1)/S.length*100)+'%';
-$('#prev').disabled=cur==0;$('#next').disabled=cur==S.length-1;if(S[cur].querySelector('#sch'))replay();setTimeout(()=>S[cur].querySelectorAll('input:not([type=number]),select').forEach(el=>{if(typeof shrink=='function')shrink(el)}),300);}
+$('#prev').disabled=cur==0;$('#next').disabled=cur==S.length-1;if(S[cur].querySelector('#sch'))replay();if(window.__updCam)window.__updCam();setTimeout(()=>S[cur].querySelectorAll('input:not([type=number]),select').forEach(el=>{if(typeof shrink=='function')shrink(el)}),300);}
 window.show=show;
 $('#prev').onclick=()=>show(cur-1);$('#next').onclick=()=>show(cur+1);
 const MO=$('#modal'),MC=$('#mcard');
@@ -722,8 +722,8 @@ function show(src,cap,name){const ph=PC.querySelector('.ph'),im=ph.querySelector
 function shoot(im){document.body.classList.remove('choose');T.style.display='none';sound();const f=$('#flash');f.classList.remove('on');void f.offsetWidth;f.classList.add('on');editing=-1;setTimeout(()=>show(im.src,capOf(im),''),350)}
 function closePol(){if(!POL.classList.contains('on'))return;const d={src:PC.querySelector('img').src,cap:PC.querySelector('.t').textContent,name:PC.querySelector('input').value.trim()};
  if(editing>=0)album[editing]=d;else album.push(d);POL.classList.remove('on');$('#albN').textContent=album.length;albB.style.display=album.length?'inline-block':'none';if(editing>=0)renderAlb();editing=-1}
-function updCam(){const n=cands().length;cam.style.display=n?'':'none';if(!n&&document.body.classList.contains('choose')){document.body.classList.remove('choose');T.style.display='none'}}
-const _ob=new MutationObserver(updCam);[MO,LB,...S].forEach(x=>_ob.observe(x,{attributes:true,attributeFilter:['class']}));_ob.observe($('#mb'),{childList:true});updCam();
+function updCam(){const n=cur===0?0:cands().length;cam.style.display=n?'':'none';if(!n&&document.body.classList.contains('choose')){document.body.classList.remove('choose');T.style.display='none'}}
+const _ob=new MutationObserver(updCam);[MO,LB,...S].forEach(x=>_ob.observe(x,{attributes:true,attributeFilter:['class']}));_ob.observe($('#mb'),{childList:true});window.__updCam=updCam;updCam();
 cam.onclick=e=>{e.stopPropagation();if(document.body.classList.contains('choose')){document.body.classList.remove('choose');T.style.display='none';return}
  const c=cands();if(!c.length){cam.classList.remove('no');void cam.offsetWidth;cam.classList.add('no');toast('Nesta sala non hai ningunha obra para fotografar',2200);return}
  if(c.length==1)return shoot(c[0]);document.body.classList.add('choose');toast('📷 Toca a obra que queres fotografar')};
