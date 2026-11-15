@@ -329,6 +329,10 @@ window.RECURSOS=[
       "h": "04_PDC/ACTIVIDADES/reto_substantivo_xenero_numero_clasificacion_semantica.html"
      },
      {
+      "t": "Boletín: a actividade económica",
+      "h": "04_PDC/ACTIVIDADES/boletin_actividade_economica.html"
+     },
+     {
       "t": "Fichas de repaso: historia e galego (con apuntes)",
       "h": "04_PDC/ACTIVIDADES/fichas_repaso_historia_galego.html"
      },
