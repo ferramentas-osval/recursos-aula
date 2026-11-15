@@ -69,6 +69,17 @@ Toda presentación lleva antes de `</body>` el bloque de `tools/ir_a_diapositiva
 - Para añadirlo o actualizarlo: copiar el bloque entero del archivo de `tools/`; si ya existe, sustituirlo (no duplicarlo).
 - Desde la consola o desde otro script: `irADiapositiva(n)` (n empieza en 1).
 
+## Aviso «🗺️ Esta teoría está resumida no esquema final» (todas las presentaciones con esquema final)
+
+En la última diapositiva de cada bloque de teoría aparece abajo un aviso amarillo con el título del esquema y su número de diapositiva, un botón «Ir ao esquema →» / «Ir al esquema →» y ✕ para cerrarlo. En la diapositiva del esquema, el mismo aviso ofrece «↩ Volver á/a la diapositiva N».
+
+- Bloque en `tools/aviso_esquema.html` (entre `<!--avisoesq:inicio-->` y `<!--avisoesq:fin-->`), **después** del bloque «Ir a diapositiva», que necesita. Antes del bloque va la configuración propia de cada presentación:
+  `<script>window.AVISO_ESQUEMA={"lingua":"gl","avisos":[{"diapo":6,"esquema":24,"titulo":"Galicia na Idade Media"}]};</script>`
+  (`lingua` `gl` o `es`, según la lengua de la presentación; diapositivas numeradas desde 1; opcional `"marxe":96` para subir el aviso si la presentación tiene una barra propia abajo).
+- Si el aviso tapa contenido, la diapositiva se reduce un poco desde arriba mientras se ve el aviso (o se le deja el hueco con la clase `con-aviso`, como en Galicia na Idade Media).
+- Para añadirlo o actualizarlo: copiar el bloque entero de `tools/`; si ya existe, sustituirlo (no duplicarlo).
+- **Norma fija:** toda presentación nueva con esquema final lo lleva. No lo llevan las que no tienen esquema ni resumen final.
+
 ## Botón «⌂ Panel»
 
 Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) con `href` a la página de su apartado (`../…/0X_APARTADO/index.html`). **Copiar el bloque entero, con su `onclick`, de cualquier recurso existente (p. ej. `04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html`); no escribirlo a mano.**
