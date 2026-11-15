@@ -61,6 +61,14 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 - Actividades lúdicas: `…/ACTIVIDADES_LUDICAS/` · Personajes históricos: `…/ACTIVIDADES_PERSONAJES_HISTORICOS/`
 - Proyectos competenciales: `…/PROYECTOS_COMPETENCIALES/` · Talleres: `…/TALLERES_Y_TECNICAS_DE_ESTUDIO/`
 
+## Botón «▦ Ir a diapositiva» (todas las presentaciones)
+
+Toda presentación lleva antes de `</body>` el bloque de `tools/ir_a_diapositiva.html` (entre `<!--irdiapo:inicio-->` y `<!--irdiapo:fin-->`). Muestra junto a «⌂ Panel» un botón «▦ n / total»; al pulsarlo se abre una ventana con todas las diapositivas numeradas y su título, y un campo para escribir el número. Se cierra con ✕, pulsando fuera o con Esc.
+
+- Funciona con cualquier motor: detecta las diapositivas (`.slide`, `.diapo`, `[data-slide]`, `#stage > section`, o los arrays `slides`/`S`/`diapos`) y llega a la elegida simulando las flechas del teclado (si se atasca, prueba `goTo`/`go`/`ir`/`show`/`mostrar`).
+- Para añadirlo o actualizarlo: copiar el bloque entero del archivo de `tools/`; si ya existe, sustituirlo (no duplicarlo).
+- Desde la consola o desde otro script: `irADiapositiva(n)` (n empieza en 1).
+
 ## Botón «⌂ Panel»
 
 Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) con `href` a la página de su apartado (`../…/0X_APARTADO/index.html`). **Copiar el bloque entero, con su `onclick`, de cualquier recurso existente (p. ej. `04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html`); no escribirlo a mano.**

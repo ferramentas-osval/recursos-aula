@@ -418,5 +418,86 @@ document.fonts?.ready.then(() => { if(slides[cur]?.type==='words') fitWords(); }
 build(); render();
 </script>
 <a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+<!--irdiapo:inicio-->
+<style>
+#irdBtn{position:fixed;left:84px;bottom:8px;z-index:2147483600;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;border:none;cursor:pointer;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+#irdBtn:hover{opacity:1}
+#irdOv{position:fixed;inset:0;z-index:2147483601;background:rgba(15,22,35,.7);display:none;align-items:center;justify-content:center;padding:3vh 3vw;font-family:system-ui,Arial,sans-serif}
+#irdOv.on{display:flex}
+#irdBox{background:#fff;color:#1d2b36;border-radius:20px;width:100%;max-height:92vh;overflow:auto;padding:16px 20px 20px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#irdBox h3{margin:0 44px 10px 0;font-size:clamp(18px,2.2vw,30px);text-align:left}
+#irdX{position:absolute;top:10px;right:12px;width:38px;height:38px;border-radius:50%;border:none;background:#1d2b36;color:#fff;font-size:18px;cursor:pointer}
+#irdGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+#irdGrid button{display:flex;gap:10px;align-items:center;text-align:left;border:2px solid #d9dde3;background:#f6f7f9;border-radius:12px;padding:8px 10px;cursor:pointer;font:500 clamp(13px,1.15vw,18px)/1.2 system-ui,Arial,sans-serif;color:#1d2b36;min-height:52px}
+#irdGrid button b{flex:none;min-width:2em;height:2em;border-radius:50%;background:#1d2b36;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05em}
+#irdGrid button span{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#irdGrid button.cur{border-color:#f2c230;background:#fdf4d6}
+#irdGrid button:hover{border-color:#2f7fb5}
+#irdNum{display:flex;gap:8px;align-items:center;margin:0 0 12px;font-size:clamp(14px,1.3vw,20px)}
+#irdNum input{width:5em;font:inherit;padding:6px 8px;border:2px solid #1d2b36;border-radius:8px}
+#irdNum button{font:inherit;font-weight:700;border:none;border-radius:8px;padding:7px 14px;background:#2e9a4b;color:#fff;cursor:pointer}
+@media print{#irdBtn,#irdOv{display:none!important}}
+</style>
+<button id="irdBtn" type="button" title="Ir a unha diapositiva">▦ <span id="irdLbl"></span></button>
+<div id="irdOv"><div id="irdBox"><button id="irdX" type="button" aria-label="Pechar">✕</button><h3>Ir á diapositiva…</h3><div id="irdNum">Número: <input id="irdIn" type="number" min="1"><button id="irdGo" type="button">Ir</button></div><div id="irdGrid"></div></div></div>
+<script>
+(function(){
+  var G=function(n){try{return (0,eval)('typeof '+n+'!=="undefined"?'+n+':undefined')}catch(e){return undefined}};
+  var SEL='.slide, .diapo, [data-slide], #stage > section';
+  function domSlides(){
+    var all=[].slice.call(document.querySelectorAll(SEL)).filter(function(e){return !e.closest('#irdOv')});
+    return all.filter(function(e){var p=e.parentElement&&e.parentElement.closest(SEL);return !p&&!e.classList.contains('extra')});
+  }
+  function vis(e){var cb=/\b(on|active|activa|current|actual|visible|show)\b/.test(e.className)?1e9:0;var s=getComputedStyle(e);if(s.display==='none'||s.visibility==='hidden')return cb;var r=e.getBoundingClientRect();if(r.width<2||r.height<2)return 0;
+    var ix=Math.max(0,Math.min(r.right,innerWidth)-Math.max(r.left,0)),iy=Math.max(0,Math.min(r.bottom,innerHeight)-Math.max(r.top,0));
+    return ix*iy*(parseFloat(s.opacity)||0)+cb}
+  function arr(){var a=['slides','S','diapos','DIAPOSITIVAS','SLIDES'];for(var i=0;i<a.length;i++){var v=G(a[i]);if(Array.isArray(v)&&v.length>1)return v}return null}
+  function idxVar(){var a=['cur','actual','current','idx','index'];for(var i=0;i<a.length;i++){var v=G(a[i]);if(typeof v==='number')return v}return null}
+  function state(){
+    var d=domSlides();
+    if(d.length>1){var best=-1,bv=0;d.forEach(function(e,i){var v=vis(e);if(v>bv){bv=v;best=i}});return {n:d.length,i:best,els:d}}
+    var a=arr(),c=idxVar();if(a&&c!==null)return {n:a.length,i:c,list:a};
+    return null;
+  }
+  function title(st,i){
+    if(st.els){var e=st.els[i],h=e.querySelector('h1,h2,h3,.titulo,.title');var t='';if(h){var c=h.cloneNode(true);[].forEach.call(c.querySelectorAll('.tag,.num,.pax,.badge,.chip,.pill'),function(x){x.remove()});[].forEach.call(c.querySelectorAll('br'),function(x){x.replaceWith(' ')});t=c.textContent;if(t.trim().length<3)t=h.textContent}else t=e.textContent||'';return t.replace(/\s+/g,' ').trim().slice(0,80)}
+    var o=st.list[i];if(o&&typeof o==='object'){var t2=o.title||o.t||o.titulo||o.tit||o.h||o.word||o.palabra;if(typeof t2==='string')return t2.replace(/<[^>]+>/g,'').slice(0,80)}
+    return '';
+  }
+  function key(k,c){var ev=new KeyboardEvent('keydown',{key:k,code:k,keyCode:c,which:c,bubbles:true,cancelable:true});document.body.dispatchEvent(ev)}
+  var busy=false;
+  function goTo(t){
+    var st=state();if(!st||busy)return;t=Math.max(0,Math.min(st.n-1,t));
+    if(!st.els){var fs=['goTo','go','ir','show','mostrar'];for(var k=0;k<fs.length;k++){var fn=G(fs[k]);if(typeof fn==='function'){try{fn(t)}catch(e){}var s1=state();if(s1&&s1.i===t){upd();return}}}}
+    busy=true;
+    var t0=Date.now(),stuck=0,last=st.i,wait=0;
+    (function loop(){
+      var s=state();if(!s||s.i===t||Date.now()-t0>15000){busy=false;upd();return}
+      if(s.i<0&&++wait<12){setTimeout(loop,60);return}
+      if(s.i===last)stuck++;else{stuck=0;last=s.i}
+      if(stuck===4){var fs2=['goTo','go','ir','show','mostrar'];for(var k=0;k<fs2.length;k++){var f2=G(fs2[k]);if(typeof f2==='function'){try{f2(t)}catch(e){}var s4=state();if(s4&&s4.i===t){busy=false;upd();return}}}}
+      var n=0;while(n<40){var s2=state();if(!s2||s2.i===t||(s2.i<0&&wait<12))break;if(s2.i<t)key('ArrowRight',39);else key('ArrowLeft',37);n++;var s3=state();if(s3&&s3.i===s2.i&&n>3)break}
+      setTimeout(loop,stuck>2?250:30);
+    })();
+  }
+  var ov=document.getElementById('irdOv'),grid=document.getElementById('irdGrid'),inp=document.getElementById('irdIn'),lbl=document.getElementById('irdLbl'),btn=document.getElementById('irdBtn');
+  function upd(){var st=state();if(!st){btn.style.display='none';return}btn.style.display='';lbl.textContent=(st.i+1)+' / '+st.n}
+  function open(){var st=state();if(!st)return;grid.innerHTML='';
+    for(var i=0;i<st.n;i++){(function(i){var b=document.createElement('button');b.type='button';if(i===st.i)b.className='cur';b.innerHTML='<b>'+(i+1)+'</b><span></span>';b.querySelector('span').textContent=title(st,i)||'Diapositiva '+(i+1);b.onclick=function(){close();setTimeout(function(){goTo(i)},30)};grid.appendChild(b)})(i)}
+    inp.max=st.n;inp.value='';ov.classList.add('on');setTimeout(function(){inp.focus()},50);}
+  function close(){ov.classList.remove('on')}
+  btn.onclick=function(e){e.stopPropagation();open()};
+  document.getElementById('irdX').onclick=close;
+  ov.addEventListener('click',function(e){if(e.target===ov)close()});
+  function goIn(){var v=parseInt(inp.value,10);if(v>0){close();setTimeout(function(){goTo(v-1)},30)}}
+  document.getElementById('irdGo').onclick=goIn;
+  window.addEventListener('keydown',function(e){if(!ov.classList.contains('on'))return;e.stopImmediatePropagation();if(e.key==='Escape')close();if(e.key==='Enter'&&e.target===inp)goIn()},true);
+  ['click','touchstart','touchend','mousedown','pointerdown'].forEach(function(t){ov.addEventListener(t,function(e){e.stopPropagation()})});
+  btn.addEventListener('touchstart',function(e){e.stopPropagation()},{passive:true});btn.addEventListener('touchend',function(e){e.stopPropagation()});
+  window.irADiapositiva=function(n){goTo(n-1)};
+  setInterval(upd,400);setTimeout(upd,300);
+})();
+</script>
+<!--irdiapo:fin-->
 </body>
 </html>
