@@ -333,6 +333,10 @@ window.RECURSOS=[
       "h": "04_PDC/ACTIVIDADES/boletin_actividade_economica.html"
      },
      {
+      "t": "Boletín: a arte renacentista",
+      "h": "04_PDC/ACTIVIDADES/boletin_arte_renacentista.html"
+     },
+     {
       "t": "Fichas de repaso: historia e galego (con apuntes)",
       "h": "04_PDC/ACTIVIDADES/fichas_repaso_historia_galego.html"
      },
