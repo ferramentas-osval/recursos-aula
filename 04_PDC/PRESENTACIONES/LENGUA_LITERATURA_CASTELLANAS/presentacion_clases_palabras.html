@@ -725,7 +725,7 @@ show(0);
 <div id="irdOv"><div id="irdBox"><button id="irdX" type="button" aria-label="Pechar">✕</button><h3>Ir á diapositiva…</h3><div id="irdNum">Número: <input id="irdIn" type="number" min="1"><button id="irdGo" type="button">Ir</button></div><div id="irdGrid"></div></div></div>
 <script>
 (function(){
-  var G=function(n){try{return (0,eval)('typeof '+n+'!=="undefined"?'+n+':undefined')}catch(e){return undefined}};
+  var G=function(n){if(n.indexOf('__')===0)return window[n];try{return (0,eval)('typeof '+n+'!=="undefined"?'+n+':undefined')}catch(e){return undefined}};
   var SEL='.slide, .diapo, [data-slide], #stage > section';
   function domSlides(){
     var all=[].slice.call(document.querySelectorAll(SEL)).filter(function(e){return !e.closest('#irdOv')});
@@ -751,7 +751,7 @@ show(0);
   var busy=false;
   function goTo(t){
     var st=state();if(!st||busy)return;t=Math.max(0,Math.min(st.n-1,t));
-    if(!st.els){var fs=['goTo','go','ir','show','mostrar'];for(var k=0;k<fs.length;k++){var fn=G(fs[k]);if(typeof fn==='function'){try{fn(t)}catch(e){}var s1=state();if(s1&&s1.i===t){upd();return}}}}
+    var fs=['__go','__mostrar','__show','__goTo','__ir','goTo','go','ir','show','mostrar','irA','goToSlide','showSlide'];for(var k=0;k<fs.length;k++){var fn=G(fs[k]);if(typeof fn==='function'&&fn.length<=2){try{fn(t)}catch(e){}var s1=state();if(s1&&s1.i===t){upd();return}}}
     busy=true;
     var t0=Date.now(),stuck=0,last=st.i,wait=0;
     (function loop(){
@@ -759,7 +759,7 @@ show(0);
       if(s.i<0&&++wait<12){setTimeout(loop,60);return}
       if(s.i===last)stuck++;else{stuck=0;last=s.i}
       if(stuck===4){var fs2=['goTo','go','ir','show','mostrar'];for(var k=0;k<fs2.length;k++){var f2=G(fs2[k]);if(typeof f2==='function'){try{f2(t)}catch(e){}var s4=state();if(s4&&s4.i===t){busy=false;upd();return}}}}
-      var n=0;while(n<40){var s2=state();if(!s2||s2.i===t||(s2.i<0&&wait<12))break;if(s2.i<t)key('ArrowRight',39);else key('ArrowLeft',37);n++;var s3=state();if(s3&&s3.i===s2.i&&n>3)break}
+      var n=0;while(n<80){var s2=state();if(!s2||s2.i===t||(s2.i<0&&wait<12))break;if(s2.i<t)key('ArrowRight',39);else key('ArrowLeft',37);n++;var s3=state();if(s3&&s3.i===s2.i&&n>40)break}
       setTimeout(loop,stuck>2?250:30);
     })();
   }
