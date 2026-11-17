@@ -141,6 +141,8 @@ h1{
    DATOS DEL RECORDATORIO
    - fecha: AAAA-MM-DD (sirve para la cuenta atrás y la "próxima cita")
    - hecho: true  -> aparece tachado con el sello "¡Hecha!"
+   - AUTOMÁTICO: al día siguiente de su fecha, cada prueba se tacha sola.
+     Si una prueba se aplaza, cambia su fecha (o pon hecho: false para que no se tache).
    - actual: la evaluación que se abre por defecto
    ===================================================================== */
 const EVALUACIONES = [
@@ -155,25 +157,30 @@ const EVALUACIONES = [
       { titulo: "FECHA 2ª PRUEBA LECTURA", ptos: "0,50 ptos.",
         sub: "Libre elección",
         nota: "Me enviáis un mensaje por el aula virtual con el título del libro del que queréis hacer la prueba y os envío kahoot o quizizz (también podéis hacer exposición oral).",
-        plazo: "hasta el viernes 13 de noviembre", fecha: "2026-11-13", hecho: false },
+        plazo: "hasta el viernes 13 de noviembre", fecha: "2026-11-13", hecho: true },
 
       { titulo: "FECHAS PRUEBAS EVALUACIÓN",
         pruebas: [
           { titulo: "PRUEBA 1: Reto lenguas", ptos: "0,25 ptos.", texto_fecha: "Viernes 2 de octubre",  fecha: "2026-10-02", hecho: true },
           { titulo: "PRUEBA 2",               ptos: "0,25 ptos.", texto_fecha: "Viernes 23 de octubre", fecha: "2026-10-23", hecho: true },
-          { titulo: "PRUEBA 3",               ptos: "0,25 ptos.", texto_fecha: "Viernes 27 de noviembre", fecha: "2026-11-27", hecho: false }
+          { titulo: "PRUEBA 3",               ptos: "0,25 ptos.", texto_fecha: "Viernes 27 de noviembre", fecha: "2026-11-27" }
         ] },
 
       { titulo: "FECHA PRIMER EXAMEN",  ptos: "4 ptos.", texto_fecha: "Viernes 30 de octubre", fecha: "2026-10-30", hecho: true },
-      { titulo: "FECHA SEGUNDO EXAMEN", ptos: "4 ptos.", texto_fecha: "Viernes 4 de diciembre", fecha: "2026-12-04", hecho: false }
+      { titulo: "FECHA SEGUNDO EXAMEN", ptos: "4 ptos.", texto_fecha: "Viernes 4 de diciembre", fecha: "2026-12-04" }
     ]
   },
   { nombre: "2ª EVALUACIÓN", bloques: [] },
   { nombre: "3ª EVALUACIÓN", bloques: [] }
 ];
-const ACTUALIZADO = "12 de noviembre de 2026";
+const ACTUALIZADO = "17 de noviembre de 2026";
 /* ===================================================================== */
 
+/* tachado automático: lo que ya pasó se marca como hecho, salvo hecho: false explícito */
+(function(){ const h = new Date(); h.setHours(0,0,0,0);
+  const pasado = x => x.fecha && new Date(x.fecha + "T00:00:00") < h;
+  EVALUACIONES.forEach(ev => ev.bloques.forEach(b => (b.pruebas || [b]).forEach(x => { if (x.hecho === undefined && pasado(x)) x.hecho = true; })));
+})();
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const MEGAFONO = '<svg viewBox="0 0 90 80" aria-hidden="true"><path d="M58 30 q10 10 0 20" fill="none" stroke="#d9480f" stroke-width="4" stroke-linecap="round"/><path d="M66 22 q18 18 0 36" fill="none" stroke="#d9480f" stroke-width="4" stroke-linecap="round" opacity=".7"/><path d="M74 14 q26 26 0 52" fill="none" stroke="#d9480f" stroke-width="4" stroke-linecap="round" opacity=".45"/><path d="M22 52 l6 18 q1 4 5 3 l6-2 q4-1 3-5 l-5-16z" fill="#4a5057"/><rect x="8" y="30" width="16" height="22" rx="4" fill="#1a2fd6"/><path d="M24 30 L52 12 Q56 10 56 15 L56 67 Q56 72 52 70 L24 52 Z" fill="#ff7a45" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/><path d="M28 34 L50 20" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/></svg>';
