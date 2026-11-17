@@ -76,6 +76,7 @@ En la última diapositiva de cada bloque de teoría aparece abajo un aviso amari
 - Bloque en `tools/aviso_esquema.html` (entre `<!--avisoesq:inicio-->` y `<!--avisoesq:fin-->`), **después** del bloque «Ir a diapositiva», que necesita. Antes del bloque va la configuración propia de cada presentación:
   `<script>window.AVISO_ESQUEMA={"lingua":"gl","avisos":[{"diapo":6,"esquema":24,"titulo":"Galicia na Idade Media"}]};</script>`
   (`lingua` `gl` o `es`, según la lengua de la presentación; diapositivas numeradas desde 1; opcional `"marxe":96` para subir el aviso si la presentación tiene una barra propia abajo).
+- El aviso se puede **arrastrar** (asa ⠿) a cualquier sitio de la pantalla (la posición se mantiene durante la sesión) y **minimizar** (▁) a un botón redondo 🗺️ que, al pulsarlo, lleva al esquema (en el esquema es ↩ y devuelve a la diapositiva). El minimizado queda guardado en ese navegador.
 - Si el aviso tapa contenido, la diapositiva se reduce un poco desde arriba mientras se ve el aviso (o se le deja el hueco con la clase `con-aviso`, como en Galicia na Idade Media).
 - Para añadirlo o actualizarlo: copiar el bloque entero de `tools/`; si ya existe, sustituirlo (no duplicarlo).
 - **Norma fija:** toda presentación nueva con esquema final lo lleva. No lo llevan las que no tienen esquema ni resumen final.

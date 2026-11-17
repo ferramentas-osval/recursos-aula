@@ -888,23 +888,36 @@ h1,h2,h3,h4{text-align:left}
 #avEsq button:hover{background:#d9483b}
 #avEsq .x{background:transparent;color:#7a6200;padding:.2em .45em}
 #avEsq .x:hover{background:#f0c419;color:#3a2d00}
+#avEsq.mov{transform:none}
+#avEsq .g{cursor:grab;touch-action:none;color:#9a7d00;font-size:1.15em;line-height:1;padding:0 .1em;user-select:none}
+#avEsq.drag,#avEsq.drag .g{cursor:grabbing;user-select:none}
+#avEsq .c{display:none}
+#avEsq.min{padding:0;gap:0;width:auto;cursor:pointer;touch-action:none}
+#avEsq.min>*{display:none}
+#avEsq.min .c{display:block;font-size:1.5em;line-height:1;padding:.35em .45em}
+#avEsq.min:hover{background:#ffe98a}
 @keyframes avEsqIn{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){#avEsq.on{animation:none}}
 @media print{#avEsq{display:none!important}}
 </style>
-<div id="avEsq" role="note"><span id="avEsqT"></span><button type="button" id="avEsqB"></button><button type="button" class="x" id="avEsqX" aria-label="Pechar">✕</button></div>
+<div id="avEsq" role="note"><span class="g" id="avEsqG" title="Arrastrar / Mover">⠿</span><span id="avEsqT"></span><button type="button" id="avEsqB"></button><button type="button" class="x" id="avEsqM" title="Minimizar" aria-label="Minimizar">▁</button><button type="button" class="x" id="avEsqX" title="Pechar / Cerrar" aria-label="Pechar">✕</button><span class="c" id="avEsqC"></span></div>
 <script>
 /* Aviso «vai ao esquema final». Configuración, antes deste bloque:
    window.AVISO_ESQUEMA={lingua:'gl'|'es', avisos:[{diapo:6, esquema:24, titulo:'Galicia na Idade Media'}, …]}
    diapo = última diapositiva dun bloque de teoría; esquema = diapositiva do esquema final con esa teoría (numeradas desde 1).
    Opcional: marxe:70 sobe o aviso 70 px (se a presentación ten unha barra propia abaixo).
+   O aviso pódese arrastrar (⠿) e minimizar (▁) a un botón 🗺️ que leva ao esquema (↩ volve); a posición dura a sesión e o minimizado queda gardado.
    Se o aviso tapa contido, a diapositiva redúcese un pouco desde arriba mentres se ve o aviso.
    Necesita o bloque «Ir a diapositiva» (tools/ir_a_diapositiva.html), que debe ir antes. */
 (function(){
   var C=window.AVISO_ESQUEMA||{},ES=(C.lingua||'gl')==='es',A=C.avisos||[];
   var av=document.getElementById('avEsq'),T=document.getElementById('avEsqT'),B=document.getElementById('avEsqB');
   var volta=null,destino=null,t0=0,pechado={};
-  var ultimo=null;
+  var ultimo=null,M=document.getElementById('avEsqM'),CH=document.getElementById('avEsqC'),pos=null,mini=false,arrastrou=false;
+  try{mini=localStorage.getItem('avEsqMin')==='1';pos=JSON.parse(sessionStorage.getItem('avEsqPos')||'null')}catch(e){}
+  function aplicaPos(){if(pos){av.classList.add('mov');av.style.left=pos.x+'px';av.style.top=pos.y+'px';av.style.bottom='auto';encadra()}}
+  function encadra(){if(!pos)return;var r=av.getBoundingClientRect(),x=Math.max(4,Math.min(pos.x,innerWidth-r.width-4)),y=Math.max(4,Math.min(pos.y,innerHeight-r.height-4));av.style.left=x+'px';av.style.top=y+'px'}
+  function ponMini(v){mini=v;av.classList.toggle('min',v);try{localStorage.setItem('avEsqMin',v?'1':'0')}catch(e){}if(v)restaura();else encaixa();encadra()}
   /* Conta os puntos do aviso que caen enriba de texto ou imaxes */
   function tapa(el){if(!el)return 0;var r=av.getBoundingClientRect(),c=0,x,y,L,e,i,k,t,q;av.style.visibility='hidden';
     for(i=1;i<=4;i++)for(k=1;k<=11;k++){x=r.left+r.width*k/12;y=r.top+r.height*i/5;L=document.elementsFromPoint(x,y);e=null;
@@ -919,7 +932,10 @@ h1,h2,h3,h4{text-align:left}
       var v=Math.max(0,Math.min(r.right,innerWidth)-Math.max(r.left,0))*Math.max(0,Math.min(r.bottom,innerHeight)-Math.max(r.top,0));if(v>mv){mv=v;m=e}});return m}
   function restaura(){if(enc){enc.style.scale='';enc.style.transformOrigin='';enc=null}}
   /* Se o aviso tapa contido, reduce un pouco a diapositiva (desde arriba) ata deixarlle sitio */
-  function mostra(id){if(ultimo!==id){ultimo=id;restaura();av.classList.add('on');if(C.marxe)av.style.bottom='calc('+C.marxe+'px + env(safe-area-inset-bottom,0px))'}encaixa()}
+  function mostra(id){if(ultimo!==id){ultimo=id;restaura();av.classList.add('on');av.classList.toggle('min',mini);
+      if(pos)aplicaPos();else if(C.marxe)av.style.bottom='calc('+C.marxe+'px + env(safe-area-inset-bottom,0px))';
+      CH.textContent=/^v/.test(id)?'↩':'🗺️';CH.title=(T.textContent?T.textContent+' ':'')+B.textContent}
+    if(!mini&&!pos)encaixa()}
   function encaixa(){var el=enc||diapoActual();if(!el||!tapa(el))return;enc=el;el.style.transformOrigin='50% 0';
     for(var k=(+el.style.scale||1)-.03;k>=.79;k-=.03){el.style.scale=k.toFixed(2);if(!tapa(el))break}}
   function cur(){var l=document.getElementById('irdLbl');if(l){var m=(l.textContent||'').match(/(\d+)\s*\/\s*(\d+)/);if(m)return +m[1]}return 0}
@@ -939,7 +955,17 @@ h1,h2,h3,h4{text-align:left}
     av.classList.remove('on');ultimo=null;restaura();
   }
   document.getElementById('avEsqX').onclick=function(){var n=cur();pechado[n]=1;pechado['v'+n]=1;av.classList.remove('on');ultimo=null;restaura()};
-  ['click','touchstart','touchend','pointerdown','mousedown','keydown'].forEach(function(t){av.addEventListener(t,function(e){e.stopPropagation()})});
+  ['click','touchstart','touchmove','touchend','pointerdown','pointermove','pointerup','mousedown','mouseup','keydown'].forEach(function(t){av.addEventListener(t,function(e){e.stopPropagation()})});
+  M.onclick=function(e){e.stopPropagation();ponMini(true)};
+  var dx,dy,sx,sy,arr=false;
+  av.addEventListener('pointerdown',function(e){var deMan=e.target.id==='avEsqG'||av.classList.contains('min')||e.target===av||e.target.id==='avEsqT';if(!deMan||e.button>0)return;
+    var r=av.getBoundingClientRect();dx=e.clientX-r.left;dy=e.clientY-r.top;sx=e.clientX;sy=e.clientY;arr=true;arrastrou=false;try{av.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault()});
+  av.addEventListener('pointermove',function(e){if(!arr)return;if(!arrastrou&&Math.abs(e.clientX-sx)+Math.abs(e.clientY-sy)<6)return;
+    if(!arrastrou){arrastrou=true;av.classList.add('drag','mov');restaura()}pos={x:e.clientX-dx,y:e.clientY-dy};av.style.bottom='auto';av.style.left=pos.x+'px';av.style.top=pos.y+'px';encadra()});
+  function solta(){if(!arr)return;arr=false;av.classList.remove('drag');if(arrastrou){try{sessionStorage.setItem('avEsqPos',JSON.stringify(pos))}catch(_){}}}
+  av.addEventListener('pointerup',solta);av.addEventListener('pointercancel',solta);
+  av.addEventListener('click',function(e){if(!av.classList.contains('min'))return;if(arrastrou){arrastrou=false;return}B.click()});
+  addEventListener('resize',encadra);
   window.avisoEsquema=upd;setInterval(upd,300);setTimeout(upd,200);
 })();
 </script>
