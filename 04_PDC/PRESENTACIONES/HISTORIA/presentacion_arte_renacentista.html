@@ -224,6 +224,43 @@ body.choose .fr img,body.choose .mini img,body.choose .cmp img,body.choose #lb i
 .matabs{display:flex;gap:.4em;margin-bottom:.45em;flex-wrap:wrap;justify-content:center}
 .matab{font:inherit;font-weight:800;font-size:.85em;border:2px solid var(--ouro);background:rgba(43,29,23,.6);color:var(--crema);border-radius:99px;padding:.3em .9em;cursor:pointer}
 .matab.on{background:var(--ouro);color:#3a2706}
+/* esquemas visuais */
+.esq{gap:.5em}
+.an{opacity:0;animation:pop .5s forwards}
+.restart .an{animation:none}
+.slide.measure .an{opacity:1}
+.eroot{align-self:center;background:linear-gradient(160deg,#f3d98f,var(--ouro) 45%,var(--ouro2));color:#3a2706;font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:1.5em;padding:.15em 1.2em;border-radius:.3em;box-shadow:0 4px 10px rgba(0,0,0,.4);margin-bottom:.5em}
+.en{position:relative;margin-bottom:.5em}
+.nodo,.star,.ob{background:var(--crema);color:var(--tinta);border-radius:.45em;box-shadow:0 .3em .8em rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column}
+.nh{color:#fff;font-weight:800;text-align:center;padding:.3em .4em;font-size:1.05em;line-height:1.15}
+.nh small{display:block;font-weight:600;font-size:.72em;opacity:.9}
+.chs{display:flex;flex-wrap:wrap;gap:.3em;justify-content:center;padding:.4em}
+.ch{background:#fff;color:var(--tinta);border:2px solid #e2cfa4;border-radius:99px;padding:.1em .6em;font-weight:700;font-size:.92em;text-align:center}
+.chs.top{padding:0 0 .5em}.chs.top .ch{background:var(--crema);color:var(--tinta);border-color:var(--ouro);font-size:1em}
+.nimg{display:flex;justify-content:center;padding:.4em .4em 0}
+.nimg img,.duo img,.oi img{display:block;border:.18em solid var(--ouro);box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:zoom-in;object-fit:cover}
+.nimg img{height:7em;max-width:100%}
+.nimg.big img{height:15.5em}
+.cap{text-align:center;font-size:.85em;color:var(--suave);margin-top:.15em}
+.star .chs{margin-top:auto}
+.obs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.5em}
+.ob{flex-direction:column;align-items:center;justify-content:center;padding:.3em}
+.oi{flex:none;padding:.1em}.oi img{height:6.2em;max-width:100%}
+.ot{display:flex;flex-direction:column;align-items:center;text-align:center;padding:.2em .2em 0;line-height:1.15;min-width:0}
+.ot .arte{font-size:.7em;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--lapis)}
+.ot b{font-size:1.05em}.ot i{font-size:.85em;color:var(--suave)}
+.g3c{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,.75fr);gap:.6em;align-items:stretch}
+.duo{display:flex;gap:.4em;justify-content:center;padding:.45em .4em 0}
+.duo figure{margin:0;display:flex;flex-direction:column;align-items:center;min-width:0}
+.duo img{height:9em;max-width:100%}
+.duo figcaption{font-size:.8em;font-style:italic;color:var(--suave);margin-top:.15em;text-align:center}
+.star.small .nimg img{height:9em}
+.fo{align-items:stretch}
+.big-ic{font-size:3.6em;text-align:center;line-height:1.2;padding-top:.15em}
+.kw{text-align:center;font-weight:800;font-family:'Playfair Display',Georgia,serif;color:var(--muro);font-size:1.1em;margin-top:.25em}
+.fo .nodo:last-child .chs{padding:.15em .4em .3em}
+.gal{margin-top:.6em;background:var(--crema);color:var(--tinta);border-radius:.45em;padding:.35em .7em;box-shadow:0 .3em .8em rgba(0,0,0,.35);display:flex;flex-wrap:wrap;align-items:center;gap:.3em}
+.gal .chs{padding:0;justify-content:flex-start}
 #lock{position:fixed;right:.7vw;bottom:.9vh;z-index:45;border:none;background:none;font-size:clamp(14px,1.3vw,22px);opacity:.35;cursor:pointer}
 .pinrow{display:flex;gap:.4em;align-items:center}
 .pinrow input{flex:1;font:inherit;padding:.25em .4em;border:2px solid var(--tinta);border-radius:.3em}
@@ -594,22 +631,62 @@ body.choose .fr img,body.choose .mini img,body.choose .cmp img,body.choose #lb i
   </div>
 </section>
 
-<!-- 24 ESQUEMA -->
+<!-- 24 ESQUEMA XERAL -->
 <section class="slide">
-  <div class="hd"><div class="tt"><div class="sala">Saída do museo</div><h2>Esquema <em>final</em></h2></div><span class="tipo t-esq">Esquema</span></div>
-  <div class="body">
-  <div class="sch" id="sch">
-    <div class="root" style="animation-delay:.1s">A arte renacentista</div>
-    <div class="rows">
-      <div class="row" style="animation-delay:0.4s"><div class="h" style="background:#8a6a2a">Orixe<small>Italia</small></div><div class="lst"><span>Admiración polas ruínas da antiga Roma</span><span>Crecemento da burguesía</span><span>Conquista turca de Constantinopla</span><span>Humanismo</span></div></div>
-      <div class="row" style="animation-delay:0.7s"><div class="h" style="background:var(--verde)">Claves<small>artísticas</small></div><div class="lst"><span>Elementos grecorromanos</span><span>Temas mitolóxicos e cristiáns</span><span>Medida humana: canon e proporción</span><span>Natureza, perspectiva e volume</span></div></div>
-      <div class="row" style="animation-delay:1.0s"><div class="h" style="background:var(--lapis)">Quattrocento<small>s. XV · Florencia</small></div><div class="lst"><span>Mecenas: os Medici</span><span><b>Arquitectura:</b> Brunelleschi (dobre cúpula); pazos Pitti e Rucellai</span><span><b>Escultura:</b> Ghiberti, Donatello, Verrocchio</span><span><b>Pintura:</b> Botticelli; composición triangular</span></div></div>
-      <div class="row" style="animation-delay:1.3s"><div class="h" style="background:#7a2533">Cinquecento<small>s. XVI · Roma</small></div><div class="lst"><span><b>Arquitectura:</b> San Pedro (Bramante e Miguel Anxo)</span><span><b>Miguel Anxo:</b> Moisés, Capela Sixtina</span><span><b>Leonardo:</b> <i>sfumato</i>, <i>A Gioconda</i></span><span><b>Rafael:</b> <i>madonne</i>, <i>A Escola de Atenas</i></span></div></div>
-      <div class="row" style="animation-delay:1.6s"><div class="h" style="background:var(--terra)">Fóra de Italia<small>e Venecia</small></div><div class="lst"><span><b>Venecia:</b> coloristas (Tiziano, Giorgione, Tintoretto)</span><span><b>Flandres:</b> o Bosco</span><span><b>Alemaña:</b> Durero</span><span><b>España:</b> isabelino, plateresco e herreriano; madeira policromada; o Greco</span></div></div>
+  <div class="hd"><div class="tt"><div class="sala">Saída do museo · 1 de 4</div><h2>Esquema <em>xeral</em></h2></div><span class="tipo t-esq">Esquema</span></div>
+  <div class="body"><div class="sch esq">
+    <div class="eroot an" style="animation-delay:.1s">🎨 A arte renacentista</div>
+    <div class="g2 en">
+      <div class="nodo an" style="animation-delay:0.35s"><div class="nh" style="background:#8a6a2a">Orixe · Italia</div><div class="chs"><span class="ch">🏛️ Ruínas de Roma</span><span class="ch">💰 Burguesía</span><span class="ch">⚔️ Constantinopla</span><span class="ch">🧠 Humanismo</span></div></div>
+      <div class="nodo an" style="animation-delay:0.60s"><div class="nh" style="background:var(--verde)">Claves artísticas</div><div class="chs"><span class="ch">🏛️ Grecorromano</span><span class="ch">🌊 Mitoloxía e ✝️ relixión</span><span class="ch">📏 Proporción</span><span class="ch">🔺 Perspectiva</span></div></div>
     </div>
-  </div>
-  <div><button class="btn" style="margin-top:.6em" onclick="replay()">↻ Repetir animación</button></div>
-  </div>
+    <div class="g3 en">
+      <div class="nodo an" style="animation-delay:0.85s"><div class="nh" style="background:var(--lapis)">Quattrocento<small>s. XV · Florencia</small></div><div class="nimg"><img class="esqimg" data-from="O nacemento de Venus" alt="O nacemento de Venus"></div><div class="chs"><span class="ch">💰 Mecenas: Medici</span><span class="ch">🌊 Botticelli</span></div></div>
+      <div class="nodo an" style="animation-delay:1.10s"><div class="nh" style="background:#7a2533">Cinquecento<small>s. XVI · Roma</small></div><div class="nimg"><img class="esqimg" data-from="A Creación de Adán" alt="A Creación de Adán"></div><div class="chs"><span class="ch">🗿 Miguel Anxo</span><span class="ch">🖌️ Leonardo</span><span class="ch">🎨 Rafael</span></div></div>
+      <div class="nodo an" style="animation-delay:1.35s"><div class="nh" style="background:var(--terra)">Fóra de Italia<small>Venecia · Flandres · Alemaña · España</small></div><div class="nimg"><img class="esqimg" data-from="O xardín das delicias" alt="O xardín das delicias"></div><div class="chs"><span class="ch">🌷 o Bosco</span><span class="ch">🦏 Durero</span><span class="ch">🎨 o Greco</span></div></div>
+    </div>
+  </div></div>
+</section>
+<!-- 25 ESQUEMA QUATTROCENTO -->
+<section class="slide">
+  <div class="hd"><div class="tt"><div class="sala era">Quattrocento<small>Saída do museo · 2 de 4</small></div><h2>Esquema: <em>século XV</em></h2></div><span class="tipo t-esq">Esquema</span></div>
+  <div class="body"><div class="sch esq">
+    <div class="chs top an" style="animation-delay:.1s"><span class="ch">📍 Florencia</span><span class="ch">💰 Mecenas: os Medici</span><span class="ch">🏛️ Volven as formas romanas</span></div>
+    <div class="split" style="grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:stretch">
+      <div class="star an" style="animation-delay:0.35s">
+        <div class="nh" style="background:var(--lapis)">⭐ Sandro Botticelli</div>
+        <div class="nimg big"><img class="esqimg" data-from="O nacemento de Venus" alt="O nacemento de Venus"></div>
+        <div class="cap"><i>O nacemento de Venus</i></div>
+        <div class="chs"><span class="ch">🌊 Mitoloxía</span><span class="ch">💃 Figuras danzantes</span><span class="ch">🧣 Teas vaporosas</span><span class="ch">🔺 Composición triangular</span></div>
+      </div>
+      <div class="obs"><div class="ob an" style="animation-delay:0.60s"><div class="oi"><img class="esqimg" data-from="Catedral de Santa María das Flores" alt="Cúpula de Santa María das Flores"></div><div class="ot"><span class="arte">Arquitectura</span><b>Brunelleschi</b><i>Cúpula de Santa María das Flores</i></div></div><div class="ob an" style="animation-delay:0.85s"><div class="oi"><img class="esqimg" data-from="Portas do Paraíso" alt="Portas do Paraíso"></div><div class="ot"><span class="arte">Escultura</span><b>Ghiberti</b><i>Portas do Paraíso</i></div></div><div class="ob an" style="animation-delay:1.10s"><div class="oi"><img class="esqimg" data-from="O capitán Colleoni" alt="O capitán Colleoni"></div><div class="ot"><span class="arte">Escultura</span><b>Verrocchio</b><i>O capitán Colleoni</i></div></div><div class="ob an" style="animation-delay:1.35s"><div class="oi"><img class="esqimg" data-from="Resurrección de Xesucristo" alt="Resurrección de Xesucristo"></div><div class="ot"><span class="arte">Pintura</span><b>Fra Angélico</b><i>Resurrección de Xesucristo</i></div></div></div>
+    </div>
+  </div></div>
+</section>
+<!-- 26 ESQUEMA CINQUECENTO -->
+<section class="slide">
+  <div class="hd"><div class="tt"><div class="sala era">Cinquecento<small>Saída do museo · 3 de 4</small></div><h2>Esquema: <em>século XVI</em></h2></div><span class="tipo t-esq">Esquema</span></div>
+  <div class="body"><div class="sch esq">
+    <div class="chs top an" style="animation-delay:.1s"><span class="ch">📍 Roma</span><span class="ch">⛪ San Pedro: Bramante e Miguel Anxo</span></div>
+    <div class="g3c">
+      <div class="star an" style="animation-delay:0.35s"><div class="nh" style="background:#7a2533">⭐ Miguel Anxo</div><div class="duo"><figure><img class="esqimg" data-from="Obra B" alt="Moisés"><figcaption>Moisés</figcaption></figure><figure><img class="esqimg" data-from="A Creación de Adán" alt="A Creación de Adán"><figcaption>A Creación de Adán</figcaption></figure></div><div class="chs"><span class="ch">🗿 Mármore</span><span class="ch">💪 Forza e volume</span><span class="ch">⚡ <i>Terribilità</i></span><span class="ch">🎨 Capela Sixtina</span></div></div>
+      <div class="star an" style="animation-delay:0.60s"><div class="nh" style="background:#7a2533">⭐ Leonardo da Vinci</div><div class="duo"><figure><img class="esqimg" data-from="Obra C" alt="A Gioconda"><figcaption>A Gioconda</figcaption></figure><figure><img class="esqimg" data-from="Virxe das Rochas" alt="Virxe das Rochas"><figcaption>Virxe das Rochas</figcaption></figure></div><div class="chs"><span class="ch">🌫️ <i>Sfumato</i></span><span class="ch">🌗 Claroscuro</span><span class="ch">🍷 <i>A última cea</i></span></div></div>
+      <div class="star small an" style="animation-delay:0.85s"><div class="nh" style="background:#9a6a2a">Rafael Sanzio</div><div class="nimg"><img class="esqimg" data-from="Obra A" alt="A bela xardineira"></div><div class="cap"><i>A bela xardineira</i></div><div class="chs"><span class="ch">👩‍🍼 <i>Madonne</i></span><span class="ch">🎨 Debuxo e cor</span></div></div>
+    </div>
+  </div></div>
+</section>
+<!-- 27 ESQUEMA FÓRA DE ITALIA -->
+<section class="slide">
+  <div class="hd"><div class="tt"><div class="sala">Saída do museo · 4 de 4</div><h2>Esquema: <em>fóra de Italia</em></h2></div><span class="tipo t-esq">Esquema</span></div>
+  <div class="body"><div class="sch esq">
+    <div class="g4 fo" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr)">
+      <div class="nodo an" style="animation-delay:0.35s"><div class="nh" style="background:#2c7a8a">🛶 Venecia</div><div class="big-ic">🎨</div><div class="kw">Grandes coloristas</div><div class="chs"><span class="ch">Tiziano</span><span class="ch">Giorgione</span><span class="ch">Tintoretto</span></div></div>
+      <div class="nodo an" style="animation-delay:0.60s"><div class="nh" style="background:#5d7a2a">🌷 Flandres</div><div class="nimg"><img class="esqimg" data-from="O xardín das delicias" alt="O xardín das delicias"></div><div class="kw">O Bosco</div><div class="chs"><span class="ch">😏 Sátira dos vicios</span></div></div>
+      <div class="nodo an" style="animation-delay:0.85s"><div class="nh" style="background:#4b5f73">🇩🇪 Alemaña</div><div class="big-ic">🦏</div><div class="kw">Durero</div><div class="chs"><span class="ch">🖋️ Gravador</span><span class="ch"><i>O cabaleiro e a morte</i></span></div></div>
+      <div class="nodo an" style="animation-delay:1.10s"><div class="nh" style="background:var(--terra)">🏰 España</div><div class="kw">Arquitectura</div><div class="chs"><span class="ch">Isabelino</span><span class="ch">Plateresco</span><span class="ch">Herreriano</span></div><div class="kw">Escultura</div><div class="chs"><span class="ch">🪵 Madeira policromada</span></div><div class="kw">Pintura</div><div class="chs"><span class="ch">o Greco: figuras alongadas</span></div></div>
+    </div>
+    <div class="gal an" style="animation-delay:1.35s"><b>📍 Galicia:</b> <div class="chs"><span class="ch">Colexio de Fonseca</span><span class="ch">Hospital Real</span><span class="ch">San Martiño Pinario</span><span class="ch">Santa María (Pontevedra)</span><span class="ch">Colexio do Cardeal (Monforte)</span></div></div>
+  </div></div>
 </section>
 
 </div>
@@ -636,7 +713,7 @@ const S=[...document.querySelectorAll('.slide')];let cur=0;
 const $=s=>document.querySelector(s);
 function show(i){i=Math.max(0,Math.min(S.length-1,i));S[cur].classList.remove('on');cur=i;S[cur].classList.add('on');S[cur].scrollTop=0;closeModal();if(typeof closeLB=='function')closeLB();fit(S[cur]);const sl=S[cur];[150,500,1200].forEach(d=>setTimeout(()=>{if(S[cur]===sl)fit(sl)},d));
 $('#ctr').textContent=(cur+1)+' / '+S.length;$('#bar').style.width=((cur+1)/S.length*100)+'%';
-$('#prev').disabled=cur==0;$('#next').disabled=cur==S.length-1;if(S[cur].querySelector('#sch'))replay();if(window.__updCam)window.__updCam();setTimeout(()=>S[cur].querySelectorAll('input:not([type=number]),select').forEach(el=>{if(typeof shrink=='function')shrink(el)}),300);}
+$('#prev').disabled=cur==0;$('#next').disabled=cur==S.length-1;if(S[cur].querySelector('.sch'))replay();if(window.__updCam)window.__updCam();setTimeout(()=>S[cur].querySelectorAll('input:not([type=number]),select').forEach(el=>{if(typeof shrink=='function')shrink(el)}),300);}
 window.show=show;
 $('#prev').onclick=()=>show(cur-1);$('#next').onclick=()=>show(cur+1);
 const MO=$('#modal'),MC=$('#mcard');
@@ -644,7 +721,7 @@ const LB=$('#lb');
 function openLB(im){const ar0=im.closest('.maobra')||im.closest('.art'),lab=ar0&&ar0.querySelector('.lab');const li=LB.querySelector('img');li.src=im.src;const nw=im.naturalWidth||im.width,nh=im.naturalHeight||im.height,k=Math.min(innerWidth*.96/nw,innerHeight*.86/nh);li.style.width=Math.round(nw*k)+'px';li.style.height=Math.round(nh*k)+'px';LB.querySelector('img').alt=im.alt;const c=LB.querySelector('.lc');c.innerHTML=lab?lab.innerHTML.replace(/<select[\s\S]*?<\/select>/g,''):im.alt;c.style.display=c.textContent.trim()?'':'none';LB.classList.add('on')}
 function closeLB(){LB.classList.remove('on')}
 document.querySelectorAll('.fr img').forEach(im=>im.addEventListener('click',e=>{e.stopPropagation();openLB(im)}));
-document.addEventListener('click',e=>{const im=e.target.closest('.cmp img, .mini img');if(im){e.stopPropagation();openLB(im)}});
+document.addEventListener('click',e=>{const im=e.target.closest('.cmp img, .mini img, img.esqimg');if(im){e.stopPropagation();openLB(im)}});
 LB.addEventListener('click',e=>{if(e.target===LB||e.target.classList.contains('lx'))closeLB()});
 document.addEventListener('keydown',e=>{if(LB.classList.contains('on')){if(e.key==='Escape')closeLB();e.stopImmediatePropagation();return}},true);
 document.addEventListener('keydown',e=>{if(MO.classList.contains('on')){if(e.key=='Escape')closeModal();return;}if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName))return;if(e.key=='ArrowRight'||e.key==' '||e.key=='PageDown'){e.preventDefault();show(cur+1)}if(e.key=='ArrowLeft'||e.key=='PageUp')show(cur-1);if(e.key=='Home')show(0);if(e.key=='End')show(S.length-1);});
@@ -658,7 +735,9 @@ window.fit=fit;
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{fit(S[cur]);if(MO.classList.contains('on'))fitModal();},100)});
 document.fonts&&document.fonts.ready.then(()=>fit(S[cur]));
 document.querySelectorAll('img').forEach(im=>{if(!im.complete)im.addEventListener('load',()=>fit(S[cur]))});
-function replay(){const s=$('#sch');s.classList.add('restart');void s.offsetWidth;s.classList.remove('restart');}
+function replay(){const s=S[cur];s.classList.add('restart');void s.offsetWidth;s.classList.remove('restart');}
+/* imaxes dos esquemas: reutilizan as das diapositivas (sen duplicar) */
+document.querySelectorAll('img.esqimg').forEach(i=>{const o=[...document.querySelectorAll('img:not(.esqimg)')].find(x=>x.alt===i.dataset.from);if(o)i.src=o.src});
 
 /* comprobación sen revelar as respostas no código */
 const TE=new TextEncoder();
