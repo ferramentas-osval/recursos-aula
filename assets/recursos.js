@@ -174,3 +174,11 @@ addEventListener('pagehide',gardar);document.addEventListener('visibilitychange'
 document.addEventListener('click',e=>{if(e.target.closest('a[href]'))gardar()},true);
 try{const y=+sessionStorage.getItem(SK);if(y&&!location.hash){if('scrollRestoration' in history)history.scrollRestoration='manual';requestAnimationFrame(()=>scrollTo(0,y));setTimeout(()=>scrollTo(0,y),250)}}catch(e){}
 })();
+/* Recursos con las soluciones ya liberadas para todos: etiqueta «✅ Con soluciones» */
+(function(){const R=(window.PAGE&&PAGE.root)||'';
+  fetch(R+'assets/soluciones_liberadas.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(j=>{const L=Object.keys(j);if(!L.length)return;
+    const marca=()=>document.querySelectorAll('a.card[href],.card.par').forEach(c=>{if(c.querySelector('.solok'))return;
+      const hs=c.matches('a')?[c.getAttribute('href')]:[...c.querySelectorAll('a.parlink')].map(a=>a.getAttribute('href'));
+      if(hs.some(h=>h&&L.some(k=>h.split('?')[0].endsWith(k)))){const b=document.createElement('span');b.className='solok';b.textContent='✅ Con soluciones';c.appendChild(b)}});
+    marca();new MutationObserver(marca).observe(document.body,{childList:true,subtree:true})}).catch(()=>{});
+})();
