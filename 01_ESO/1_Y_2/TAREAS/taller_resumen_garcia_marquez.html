@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de Resumen — García Márquez</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7f2;
+    --ink: #1a1612;
+    --muted: #6b6258;
+    --accent: #c0392b;
+    --accent2: #2c6e49;
+    --accent3: #1d4e89;
+    --warm: #e8ddd0;
+    --card: #ffffff;
+    --border: #d4c8b8;
+    --phase1: #e8f4f8;
+    --phase2: #fef9e7;
+    --phase3: #eafaf1;
+    --phase4: #fdf2f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 113%; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Jost', 'Century Gothic', 'Questrial', 'Trebuchet MS', sans-serif;
+    font-size: 19px;
+    line-height: 1.75;
+    min-height: 100vh;
+    text-align: justify;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 18px,
+      rgba(255,255,255,.04) 18px, rgba(255,255,255,.04) 19px
+    );
+  }
+  .header-tag {
+    display: inline-block;
+    font-size: .75rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: #c9a96e; margin-bottom: .75rem;
+  }
+  header h1 {
+    font-family: 'Jost', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2; margin-bottom: .5rem;
+  }
+  header p { color: rgba(255,255,255,.65); font-style: italic; font-size: .95rem; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── INTRO BOX ── */
+  .intro-box {
+    background: var(--warm);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px 8px 8px 4px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: .95rem; color: #3d342b;
+    text-align: justify;
+  }
+  .intro-box strong { color: var(--accent); }
+
+  /* ── MEDIA: IMAGEN + VÍDEO ── */
+  .media-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .portrait-wrap {
+    flex-shrink: 0;
+    width: 90px; height: 120px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 3px solid var(--warm);
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  }
+  .portrait-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .media-text { flex: 1; min-width: 220px; }
+  .media-text p { font-size: .88rem; color: var(--muted); margin-bottom: .6rem; }
+  .video-link {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--accent); color: #fff;
+    text-decoration: none;
+    font-size: .85rem; font-weight: 600;
+    padding: .55rem 1.1rem; border-radius: 6px;
+    transition: background .2s;
+  }
+  .video-link:hover { background: #a5312a; }
+
+  /* ── PROGRESS ── */
+  .progress-wrap { margin-bottom: 2.5rem; }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: .8rem; color: var(--muted);
+    margin-bottom: .4rem; font-weight: 600;
+    letter-spacing: .05em; text-transform: uppercase;
+  }
+  .progress-bar-bg { background: var(--border); border-radius: 99px; height: 8px; overflow: hidden; }
+  .progress-bar-fill {
+    background: linear-gradient(90deg, var(--accent2), var(--accent3));
+    height: 100%; border-radius: 99px; width: 0%; transition: width .6s ease;
+  }
+
+  /* ── TEXT CARD ── */
+  .text-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem; margin-bottom: 2.5rem;
+  }
+  .text-card-label {
+    display: inline-block;
+    background: var(--ink); color: #fff;
+    font-size: .7rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    padding: .25rem .75rem; border-radius: 3px; margin-bottom: 1rem;
+  }
+  .text-card p {
+    margin-bottom: .85rem;
+    font-size: .97rem;
+    text-align: justify;
+  }
+  .text-card p:last-of-type { margin-bottom: 0; }
+  .text-source { margin-top: 1.2rem; font-size: .83rem; color: var(--muted); font-style: italic; }
+
+  /* ── LINE NUMBERS ── */
+  .text-numbered-dynamic {
+    display: flex;
+    gap: .75rem;
+    position: relative;
+  }
+  .num-gutter {
+    position: relative;
+    width: 2.2rem;
+    flex-shrink: 0;
+  }
+  .num-gutter .ln-mark {
+    position: absolute;
+    right: 0;
+    left: 0;
+    text-align: right;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--accent3);
+    line-height: 1.6625rem;
+    user-select: none;
+  }
+  .text-flow { flex: 1; font-size: .95rem; line-height: 1.6625rem; min-width: 0; }
+  .text-flow p { text-align: justify; margin: 0 0 .9rem; }
+  .text-flow p:last-child { margin-bottom: 0; }
+
+  /* ── PHASES ── */
+  .phase {
+    border-radius: 12px; margin-bottom: 2rem;
+    overflow: hidden; border: 1.5px solid var(--border);
+    transition: border-color .3s;
+  }
+  .phase.active { border-color: var(--accent3); }
+  .phase.done   { border-color: var(--accent2); }
+
+  .phase-header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.5rem; background: var(--card);
+    cursor: pointer; user-select: none;
+  }
+  .phase-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--warm); border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jost', sans-serif; font-size: 1rem;
+    font-weight: 700; color: var(--muted); flex-shrink: 0; transition: all .3s;
+  }
+  .phase.active .phase-num { background: var(--accent3); border-color: var(--accent3); color: #fff; }
+  .phase.done   .phase-num { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+  .phase-title-wrap { flex: 1; }
+  .phase-title { font-family: 'Jost', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+  .phase-subtitle { font-size: .8rem; color: var(--muted); font-style: italic; }
+
+  .phase-status {
+    font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; padding: .2rem .65rem;
+    border-radius: 99px; background: var(--warm); color: var(--muted);
+  }
+  .phase.active .phase-status { background: #ddeeff; color: var(--accent3); }
+  .phase.done   .phase-status { background: #d4edda; color: var(--accent2); }
+
+  .phase-body {
+    padding: 0 1.5rem 0; max-height: 0;
+    overflow: hidden; transition: max-height .6s ease, padding .3s;
+    background: var(--card);
+  }
+  .phase-body.open { padding: 0 1.5rem 1.5rem; max-height: 6000px; }
+
+  /* ── HINTS ── */
+  .hint {
+    border-radius: 8px; padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem; font-size: .92rem;
+    text-align: justify;
+  }
+  .hint-blue   { background: var(--phase1); border-left: 3px solid var(--accent3); }
+  .hint-yellow { background: var(--phase2); border-left: 3px solid #e6a817; }
+  .hint-green  { background: var(--phase3); border-left: 3px solid var(--accent2); }
+  .hint-red    { background: var(--phase4); border-left: 3px solid var(--accent); }
+  .hint strong { font-weight: 600; }
+  .hint ul { margin: .5rem 0 0 1.2rem; }
+  .hint ul li { margin-bottom: .3rem; text-align: justify; }
+
+  /* ── TASK BLOCKS ── */
+  .task-block {
+    background: var(--bg); border: 1px dashed var(--border);
+    border-radius: 8px; padding: 1.2rem; margin-bottom: 1.2rem;
+  }
+  .task-label {
+    font-size: .75rem; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: .6rem;
+  }
+  .task-question { font-size: .97rem; margin-bottom: .8rem; color: var(--ink); text-align: justify; }
+  .task-question ul { margin: .4rem 0 0 1.2rem; }
+  .task-question ul li { margin-bottom: .25rem; text-align: justify; }
+
+  /* ── TEXTAREA ── */
+  textarea {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 6px;
+    background: #fff; font-family: 'Jost', sans-serif;
+    font-size: .93rem; line-height: 1.7; color: var(--ink);
+    padding: .8rem 1rem; resize: vertical;
+    transition: border-color .2s, box-shadow .2s; outline: none;
+    text-align: justify;
+  }
+  textarea:focus { border-color: var(--accent3); box-shadow: 0 0 0 3px rgba(29,78,137,.1); }
+  .char-count { text-align: right; font-size: .75rem; color: var(--muted); margin-top: .3rem; }
+
+  /* ── EXAMPLE TOGGLE ── */
+  .example-toggle {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: none; border: 1.5px solid var(--accent3);
+    color: var(--accent3); font-family: 'Jost', sans-serif;
+    font-size: .83rem; font-weight: 600;
+    padding: .35rem .9rem; border-radius: 99px;
+    cursor: pointer; margin-top: .4rem;
+    transition: background .2s, color .2s;
+  }
+  .example-toggle:hover { background: var(--accent3); color: #fff; }
+
+  .example-box {
+    display: none; background: #eef4fb;
+    border: 1px solid #b8d0ee; border-radius: 8px;
+    padding: 1rem 1.2rem; margin-top: .75rem;
+    font-size: .9rem; color: #1d3557;
+    font-style: italic; text-align: justify;
+  }
+  .example-box.visible { display: block; }
+  .example-box strong { font-style: normal; font-weight: 600; color: var(--accent3); }
+  .example-box .conector {
+    background: #ffe08a; color: #5a3d00;
+    font-style: normal; font-weight: 600;
+    padding: .05rem .4rem; border-radius: 4px;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin: .5rem 0 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: .7rem;
+    font-size: .93rem; padding: .4rem 0;
+    border-bottom: 1px solid var(--border);
+    text-align: justify;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    margin-top: .28rem; width: 16px; height: 16px;
+    accent-color: var(--accent2); flex-shrink: 0; cursor: pointer;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: var(--ink); color: #fff; border: none;
+    font-family: 'Jost', sans-serif; font-size: .9rem;
+    font-weight: 600; padding: .7rem 1.8rem; border-radius: 6px;
+    cursor: pointer; transition: background .2s, transform .1s; letter-spacing: .04em;
+  }
+  .btn-primary:hover { background: #333; transform: translateY(-1px); }
+  .btn-green {
+    background: var(--accent2); color: #fff; border: none;
+    font-family: 'Jost', sans-serif; font-size: .9rem;
+    font-weight: 600; padding: .7rem 1.8rem; border-radius: 6px;
+    cursor: pointer; transition: background .2s; letter-spacing: .04em;
+  }
+  .btn-green:hover { background: #245138; }
+  .btn-row { display: flex; gap: 1rem; margin-top: 1.2rem; flex-wrap: wrap; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  /* ── CUATRO PUNTOS CARDINALES ── */
+  .cardinal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .8rem;
+    margin: 1rem 0 1.2rem;
+  }
+  @media(max-width:560px){ .cardinal-grid { grid-template-columns: 1fr; } }
+  .cardinal-card {
+    border-radius: 8px; padding: .85rem 1rem;
+    font-size: .9rem; text-align: justify;
+  }
+  .c-brevedad  { background: #dbeafe; border-left: 3px solid #1d4e89; }
+  .c-concision { background: #dcfce7; border-left: 3px solid #2c6e49; }
+  .c-claridad  { background: #fef9e7; border-left: 3px solid #e6a817; }
+  .c-novedad   { background: #fce7f3; border-left: 3px solid #9d174d; }
+  .cardinal-card strong { font-weight: 700; display: block; margin-bottom: .2rem; }
+
+  /* ── NORMAS DOS COLUMNAS ── */
+  .normas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  @media(max-width:560px){ .normas-grid { grid-template-columns: 1fr; } }
+  .normas-col { background: var(--bg); border-radius: 8px; padding: .85rem 1rem; font-size: .87rem; }
+  .normas-col-title {
+    font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; margin-bottom: .6rem; padding-bottom: .4rem;
+    border-bottom: 2px solid;
+  }
+  .normas-col.no .normas-col-title  { color: var(--accent);  border-color: var(--accent); }
+  .normas-col.si .normas-col-title  { color: var(--accent2); border-color: var(--accent2); }
+  .normas-col ul { list-style: none; }
+  .normas-col ul li {
+    padding: .3rem 0; border-bottom: 1px solid var(--border);
+    text-align: justify; line-height: 1.5;
+  }
+  .normas-col ul li:last-child { border-bottom: none; }
+  .normas-col.no ul li::before { content: '✗ '; color: var(--accent); font-weight: 700; }
+  .normas-col.si ul li::before { content: '✓ '; color: var(--accent2); font-weight: 700; }
+
+  /* ── PÁRRAFO HIGHLIGHT ── */
+  .parr-label {
+    display: inline-block;
+    background: var(--ink); color: #fff;
+    font-size: .65rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: .1rem .5rem; border-radius: 3px;
+    margin-bottom: .4rem; vertical-align: middle;
+  }
+  .parr-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: .9rem 1.1rem;
+    margin-bottom: .8rem; font-size: .91rem;
+    text-align: justify; line-height: 1.7;
+  }
+  .parr-block textarea {
+    margin-top: .6rem; min-height: 60px;
+    background: #faf7f2; font-size: .88rem;
+  }
+
+  /* ── TEMA FORMULA ── */
+  .tema-formula {
+    display: flex; align-items: center; gap: .6rem;
+    flex-wrap: wrap;
+    background: var(--ink); color: #fff;
+    border-radius: 8px; padding: .8rem 1.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    margin: 1rem 0;
+  }
+  .tema-formula .op { color: #c9a96e; font-size: 1.1rem; }
+
+  /* ── FINAL PANEL ── */
+  .final-panel {
+    background: var(--ink); color: #fff;
+    border-radius: 12px; padding: 2rem;
+    text-align: center; display: none;
+  }
+  .final-panel.visible { display: block; }
+  .final-panel h2 { font-family: 'Jost', sans-serif; font-size: 1.5rem; margin-bottom: .75rem; }
+  .final-panel p { color: rgba(255,255,255,.75); font-size: .95rem; margin-bottom: 1.2rem; text-align: center; }
+  .final-score { font-family: 'Jost', sans-serif; font-size: 3rem; color: #c9a96e; line-height: 1; margin-bottom: .3rem; }
+  .final-label { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .1em; text-transform: uppercase; }
+
+  html { scroll-behavior: smooth; }
+.header-text { margin-top:.4rem; font-weight:600; }
+  .text-title { font-size:1.35rem; line-height:1.25; margin:.4rem 0 .15rem; }
+  .text-author { font-size:.95rem; color:var(--muted); font-weight:600; margin-bottom:.9rem; }
+  .media-card { margin-top:.8rem; }
+
+  /* ── LÍNEAS FIJAS (idénticas en pantalla, proyector, PDF y Word) ── */
+  .text-numbered-dynamic { display:block; position:relative; padding-left:2.4rem; }
+  .text-flow { font-size:15px; line-height:1.75; }
+  .text-flow .para { margin:0 0 .9rem; }
+  .text-flow .para:last-child { margin-bottom:0; }
+  .ln { display:block; position:relative; white-space:nowrap; text-align:justify; text-align-last:justify; }
+  .ln.end { text-align-last:left; }
+  .ln::before { content:attr(data-n); position:absolute; left:-2.4rem; width:1.9rem; text-align:right; font-size:.72rem; font-weight:700; color:var(--accent3); display:none; user-select:none; }
+  body.show-nums .ln[data-n$="0"]::before, body.show-nums .ln[data-n$="5"]::before { display:block; }
+  body:not(.show-nums) [data-parr-range] { display:none; }
+  .tool-bar { display:flex; gap:.6rem; flex-wrap:wrap; margin:.8rem 0 1.1rem; }
+  .tool-btn { font:inherit; font-size:.85rem; font-weight:600; padding:.45rem .9rem; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); cursor:pointer; }
+  .tool-btn:hover { background:#f3efe8; }
+  .print-head { display:none; }
+  #fabPrint { position:fixed; top:10px; right:10px; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,.2); }
+  @media print {
+    @page { size:A4; margin:8mm 12mm 11mm; @top-center { content:''; } @bottom-center { content: counter(page); font:9pt Arial,sans-serif; color:#555; } }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    html, body { background:#fff !important; font-size:9.5pt; line-height:1.35; }
+    header, #topBar, .intro-box, .progress-wrap, .tool-bar, .text-card-label, .text-card .media-card, .text-card .hint,
+    .btn-row, .example-toggle, .example-box, .char-count, .phase-status, .final-panel, [data-parr-range], .phase-num,
+    .phase-subtitle, .cardinal-grid, .divider, #body1 .hint-blue, #body1 .hint-green, #body2 .hint-green, #body4 .hint-blue,
+    #bodyInfo .hint-yellow, #body5 .hint-green, #body3 .hint-blue, #phase1, #body2 .hint-yellow, #bodyInfo > p { display:none !important; }
+    .container { max-width:none; padding:0; }
+    .text-card { border:none; padding:0; margin:0 0 3mm; box-shadow:none; }
+    .print-head { display:block; font-size:9.5pt; margin-bottom:2mm; }
+    .text-card { display:flex !important; flex-direction:column; }
+    .text-card .print-head { order:-1; }
+    .text-title { font-size:13pt; margin:2mm 0 0; }
+    .text-author { margin-bottom:2mm; font-size:9pt; }
+    .text-source { margin-top:2mm; font-size:8pt; }
+    .text-numbered-dynamic { padding-left:12mm; }
+    .ln::before { display:none !important; }
+    .text-flow { line-height:1.4; font-size:var(--pfs, 11px) !important; }
+    .text-flow .para { margin-bottom:2.2mm; }
+    .phase { border:none; border-radius:0; overflow:visible; margin-bottom:2.5mm; }
+    .phase-header { display:block !important; padding:1mm 0; border-bottom:1.2px solid #333; break-after:avoid-page; background:none !important; }
+    .phase-title { font-size:11pt; }
+    .phase-body, .phase-body.open { max-height:none !important; overflow:visible !important; padding:1.5mm 0 0 !important; background:none !important; }
+    .hint { padding:1.5mm 2.5mm; margin:1mm 0; font-size:9pt; }
+    .parr-block { break-inside:avoid; padding:1.5mm 0 !important; border:none !important; background:none !important; margin:0 0 1mm !important; }
+    .parr-block p, .task-block p, .task-question { margin:.5mm 0 !important; font-size:9pt !important; }
+    .task-block { padding:0 !important; border:none !important; background:none !important; margin:0 !important; }
+    .task-block textarea, .task-question { break-inside:avoid; }
+    .task-label { margin:1mm 0 .5mm !important; }
+    .normas-grid, .checklist { font-size:8.5pt; }
+    .normas-grid { gap:3mm; }
+    .normas-grid li, .normas-col div { padding:.4mm 0 !important; }
+    .checklist { column-count:2; column-gap:6mm; break-inside:avoid; }
+    .checklist li { break-inside:avoid; padding:.6mm 0; border:none; }
+    textarea { border:none !important; border-radius:0; padding:0; resize:none; overflow:hidden; height:auto;
+      min-height:12mm; line-height:5.8mm; font-size:9.5pt;
+      background:none !important; }
+    textarea::placeholder { color:#bbb; font-size:8.5pt; }
+    #body2 { column-count:2; column-gap:6mm; }
+    #body2 > .hint, #body2 > p, #body2 > div:not(.parr-block) { column-span:all; }
+    #body2 .parr-block { break-inside:avoid; }
+    #t5_resumen { min-height:74mm; }
+    #t5_auto { min-height:9mm; }
+    #t2_tema { min-height:12mm; }
+    #t2_q1, #t2_q2 { min-height:12mm; }
+    #t35_parte1, #t35_parte2, #t35_parte3 { min-height:12mm; }
+  }
+
+  /* ── BARRA SUPERIOR, CANDADO Y OPCIONES DE IMPRESIÓN ── */
+  #topBar { position:fixed; top:10px; right:10px; z-index:60; display:flex; gap:.4rem; flex-wrap:wrap; justify-content:flex-end; }
+  #topBar .tool-btn { box-shadow:0 2px 8px rgba(0,0,0,.2); }
+  #lockPop { position:fixed; top:52px; right:10px; z-index:61; background:#fff; border:1px solid var(--border); border-radius:10px; padding:.7rem .8rem; box-shadow:0 6px 20px rgba(0,0,0,.25); display:none; font-size:.85rem; }
+  #lockPop.open { display:block; }
+  #lockPop input { font:inherit; padding:.35rem .5rem; border:1px solid #999; border-radius:6px; width:9rem; }
+  #lockMsg { color:#b00020; margin-top:.3rem; min-height:1em; }
+  body.locked .example-toggle, body.locked .example-box, body.locked #btnNums, body.locked .tool-bar, body.locked [data-parr-range], body.locked #teacherPanel { display:none !important; }
+  .lock-note { display:none; font-size:.8rem; color:#7a6a4a; margin:.3rem 0 0; }
+  body.locked .lock-note { display:block; }
+  #teacherPanel { max-width:none; margin:2rem 0 3rem; padding:1.2rem 1.4rem; background:#fff; border:2px dashed #b8a37a; border-radius:12px; text-align:justify; font-size:.92rem; }
+  #teacherPanel h2 { font-size:1.05rem; margin:1.2rem 0 .4rem; border-bottom:1px solid #999; }
+  #teacherPanel table { width:100%; border-collapse:collapse; margin:.4rem 0; } #teacherPanel td, #teacherPanel th { border:1px solid #bbb; padding:.3rem .5rem; text-align:left; vertical-align:top; }
+  #teacherPanel .box { border:1.5px solid #555; padding:.5rem .8rem; margin:.6rem 0; background:#f6f6f6; }
+  #printOpt2 { display:none; }
+  .print-h1 { display:none; }
+  @media print {
+    @page fichaB { size:A4; margin:12mm 14mm 14mm; @top-center{content:''} @bottom-center{content:counter(page); font:10pt Verdana,'DejaVu Sans',sans-serif; color:#555} @bottom-right{content:"AB"; font:7pt Verdana,sans-serif; color:#999} }
+    #topBar, #lockPop, #teacherPanel, .lock-note { display:none !important; }
+    .print-h1 { display:block; font-size:16pt; font-weight:700; margin:0 0 1mm; }
+    body:not(.print-opt2) #printOpt2 { display:none !important; }
+    body.print-opt2 > *:not(#printOpt2) { display:none !important; }
+    body.print-opt2 { background:#fbf6e9 !important; }
+    body.print-opt2 #printOpt2 { display:block !important; page:fichaB; }
+  }
+#printOpt2 *{box-sizing:border-box}
+#printOpt2{margin:0;background:#fbf6e9;color:#1d1d1d;font-family:Verdana,'DejaVu Sans',Arial,sans-serif;font-size:12pt;line-height:1.7;text-align:left}
+#printOpt2 .page{max-width:none;padding:0 4mm}
+#printOpt2 h1{font-size:19pt;margin:0 0 2mm;line-height:1.25}
+#printOpt2 h2{font-size:15pt;margin:0 0 2mm;padding:2mm 3mm;background:#2b2b2b;color:#fff;border-radius:3px;line-height:1.3}
+#printOpt2 .sub{font-size:10.5pt;color:#444;margin:0 0 3mm}
+#printOpt2 .name{margin:2mm 0 4mm;font-size:11pt}
+#printOpt2 .tip{border-left:4px solid #3b7dd8;background:#e9f1fc;padding:2mm 3mm;margin:2mm 0 3mm;font-size:11.5pt;line-height:1.6}
+#printOpt2 .warn{border-left:4px solid #d9a21b;background:#fff3d1;padding:2mm 3mm;margin:2mm 0 3mm;font-size:11.5pt;line-height:1.6}
+#printOpt2 .task{margin:0 0 4mm}
+#printOpt2 .th{display:flex;align-items:center;gap:3mm;margin:0 0 2mm;font-weight:700;font-size:13.5pt;border-bottom:2px solid #2b2b2b;padding-bottom:1mm;break-after:avoid}
+#printOpt2 .th .n{background:#2b2b2b;color:#fff;border-radius:50%;width:8mm;height:8mm;display:inline-flex;align-items:center;justify-content:center;font-size:12pt;flex:none}
+#printOpt2 .th .t{margin-left:auto;font-weight:400;font-size:10.5pt;white-space:nowrap}
+#printOpt2 .done{font-weight:400;font-size:10.5pt;white-space:nowrap}
+#printOpt2 .box{display:inline-block;width:5.5mm;height:5.5mm;border:1.6px solid #222;border-radius:1mm;vertical-align:-1mm;background:#fff;margin-right:1.5mm}
+#printOpt2 .text .p{display:flex;gap:3mm;margin:0 0 3mm}
+#printOpt2 .text .pn{flex:none;width:8mm;height:8mm;border-radius:50%;background:#3b7dd8;color:#fff;font-weight:700;font-size:11pt;display:flex;align-items:center;justify-content:center;margin-top:1mm}
+#printOpt2 .text .pt div{margin:0 0 1.2mm}
+#printOpt2 .src{font-size:9.5pt;color:#555;margin-top:2mm}
+#printOpt2 .item{break-inside:avoid;margin:0 0 3mm}
+#printOpt2 .item .q{font-weight:700;font-size:12pt}
+#printOpt2 .ex{font-size:10.5pt;color:#444;margin:0 0 1mm;line-height:1.5}
+#printOpt2 .ans{border:1.6px solid #888;border-radius:2mm;background:#fff;min-height:14mm;margin:1mm 0}
+#printOpt2 .ans.big{min-height:66mm}
+#printOpt2 .row{display:flex;gap:4mm;align-items:stretch;margin:0 0 3mm;break-inside:avoid}
+#printOpt2 .row .lab{flex:none;width:30mm;font-weight:700}
+#printOpt2 .opts{font-size:12pt;margin:1mm 0}
+#printOpt2 .opts span{display:inline-block;margin-right:5mm}
+#printOpt2 .chips span{display:inline-block;background:#fff;border:1.4px solid #888;border-radius:10mm;padding:0 3mm;margin:0 2mm 2mm 0;font-size:11pt}
+#printOpt2 .chk{list-style:none;padding:0;margin:0}
+#printOpt2 .chk li{margin:0 0 2mm}
+#printOpt2 .pb{break-before:page}
+
+  .example-box mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0 .05rem; font-style:normal; }
+  .example-box p { margin:.4rem 0; }
+  textarea.sol-on { overflow:hidden; resize:none; color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; }
+</style>
+</head>
+<body class="locked">
+<div id="topBar">
+  <button class="tool-btn" id="btnLock" onclick="toggleLock()" title="Soluciones y ejemplos (profesor)">🔒 Soluciones</button>
+  <button class="tool-btn" onclick="printOpt(1)" title="Imprimir o guardar como PDF">🖨️ Opción 1</button>
+  <button class="tool-btn" onclick="printOpt(2)" title="Imprimir o guardar como PDF">🖨️ Opción 2</button>
+</div>
+<div id="lockPop"><label>Código del profesor:<br><input type="password" id="lockCode" onkeydown="if(event.key==='Enter')tryUnlock()"></label> <button class="tool-btn" onclick="tryUnlock()">Abrir</button><div id="lockMsg"></div></div>
+
+<header>
+  <div class="header-tag">Lengua Castellana y Literatura · ESO</div>
+  <h1>El Resumen<br><em>Taller guiado paso a paso</em></h1>
+  <p>Volvemos a practicar el resumen: sigue las cinco fases que ya conoces.</p>
+  <p class="header-text">Texto de trabajo: «Algo muy grave va a suceder en este pueblo» · Gabriel García Márquez</p>
+</header>
+
+<div class="container">
+
+  <div class="intro-box">
+    <strong>¿Cómo funciona este taller?</strong> Ya has hecho un taller de resumen y ya sabes lo que es un buen resumen, pero resumir se aprende practicando, así que lo repetiremos varias veces a lo largo del curso. Un texto narrativo (un cuento, una novela, una leyenda, una biografía…) <strong>cuenta hechos</strong>, normalmente en el orden en que suceden. Antes de empezar, repasa las claves de un buen resumen. Después, recuerda que debes seguir las <strong>cinco fases</strong>: leer el texto con atención (una lectura rápida y otra detenida, subrayando los datos importantes), localizar la idea principal de cada párrafo, dividir el texto en tres partes, identificar el tema y, por último, redactar el resumen en un único párrafo, con tus propias palabras.
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Progreso</span>
+      <span id="progress-text">0 / 5 fases</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- ══ TEXTO ══ -->
+  <div class="text-card">
+    <div class="text-card-label">Texto para resumir</div>
+
+    <div class="media-card">
+      <div class="media-text">
+        <p><strong>Gabriel García Márquez</strong> (Aracataca, Colombia, 1927 – México, 2014), Premio Nobel de Literatura en 1982, inventó <strong>Macondo</strong>, el pueblo imaginario de su novela <em>Cien años de soledad</em>. De ahí toma su nombre el <strong>Macondo Park</strong>, la ciudad efímera que Shakira ha levantado en Madrid para su serie de conciertos. El cuento que vas a resumir también ocurre en un pueblo. <strong>Antes de leer, piensa:</strong> ¿has oído alguna vez un rumor que creció tanto que acabó pareciendo verdad?</p>
+        <a class="video-link" href="https://youtu.be/cVcBNOUk-xo?si=i73CG2WrY3YHpKas" target="_blank" rel="noopener">▶ Ver vídeo: Shakira y el Macondo Park en Madrid</a>
+      </div>
+    </div>
+
+    <h2 class="text-title">«Algo muy grave va a suceder en este pueblo»</h2>
+    <div class="text-author">Gabriel García Márquez</div>
+
+    <div class="print-head"><div class="print-h1">Taller de resumen</div>Nombre y apellidos: ______________________________ Curso: ________ Fecha: __________<br><em>Lee el texto, subraya los datos importantes y numera las líneas de 5 en 5 en el margen izquierdo.</em></div>
+    <div class="hint hint-yellow" style="margin-top:1rem;">
+      <strong>📝 Antes de leer:</strong> numera las líneas del texto de 5 en 5, escribiendo los números en el margen izquierdo. Después el profesor mostrará los números para corregir.
+    </div>
+    <div class="tool-bar">
+      <button class="tool-btn" id="btnNums" onclick="toggleNums()">🔢 Mostrar números de línea</button>
+    </div>
+
+    <div class="text-numbered-dynamic" id="textNumbered"><div class="text-flow" id="textFlow">
+<div class="para"><div class="ln" data-n="1">Imagínese usted un pueblo muy pequeño donde hay una señora vieja que tiene dos hijos,</div><div class="ln" data-n="2">uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de</div><div class="ln" data-n="3">preocupación. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero he</div><div class="ln end" data-n="4">amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo”.</div></div>
+<div class="para"><div class="ln" data-n="5">El hijo se va a jugar al billar, y en el momento en que va a tirar una carambola</div><div class="ln" data-n="6">sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se</div><div class="ln" data-n="7">ríen. Él se ríe. Tira la carambola y no la hace. Paga su peso y todos le preguntan qué</div><div class="ln" data-n="8">pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero me ha quedado la</div><div class="ln" data-n="9">preocupación de una cosa que me dijo mi madre esta mañana sobre algo grave que va a</div><div class="ln end" data-n="10">suceder a este pueblo”.</div></div>
+<div class="para"><div class="ln" data-n="11">Todos se ríen de él, y el que se ha ganado su peso regresa a su casa, donde está con su</div><div class="ln end" data-n="12">mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div class="ln end" data-n="13">–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div class="ln end" data-n="14">–¿Y por qué es un tonto?</div><div class="ln" data-n="15">–Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá</div><div class="ln end" data-n="16">amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div class="ln end" data-n="17">Y su madre le dice:</div><div class="ln end" data-n="18">–No te burles de los presentimientos de los viejos porque a veces salen...</div></div>
+<div class="para"><div class="ln" data-n="19">Una pariente oye esto y va a comprar carne. Ella le dice al carnicero: “Deme un kilo de</div><div class="ln" data-n="20">carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque andan</div><div class="ln" data-n="21">diciendo que algo grave va a pasar y lo mejor es estar preparado”. El carnicero</div><div class="ln" data-n="22">despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice:</div><div class="ln" data-n="23">“Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a</div><div class="ln" data-n="24">pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo</div><div class="ln" data-n="25">varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer</div><div class="ln" data-n="26">largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca,</div><div class="ln" data-n="27">se vende toda y se va esparciendo el rumor. Llega el momento en que todo el mundo en el</div><div class="ln end" data-n="28">pueblo está esperando que pase algo.</div></div>
+<div class="para"><div class="ln end" data-n="29">Se paralizan las actividades y de pronto a las dos de la tarde, alguien dice:</div><div class="ln end" data-n="30">–¿Se ha dado cuenta del calor que está haciendo?</div><div class="ln end" data-n="31">–¡Pero si en este pueblo siempre ha hecho calor!</div><div class="ln" data-n="32">Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y</div><div class="ln end" data-n="33">tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div class="ln end" data-n="34">–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div class="ln end" data-n="35">–Pero a las dos de la tarde es cuando hace más calor.</div><div class="ln end" data-n="36">–Sí, pero no tanto calor como ahora.</div><div class="ln" data-n="37">Al pueblo desierto, a la plaza desierta, baja de pronto un pajarito y se corre la voz:</div><div class="ln end" data-n="38">“Hay un pajarito en la plaza”. Y viene todo el mundo espantado a ver el pajarito.</div><div class="ln end" data-n="39">–Pero señores, siempre ha habido pajaritos que bajan.</div><div class="ln end" data-n="40">–Sí, pero nunca a esta hora.</div></div>
+<div class="para"><div class="ln" data-n="41">Llega un momento de tal tensión para los habitantes del pueblo, que todos están</div><div class="ln end" data-n="42">desesperados por irse y no tienen el valor de hacerlo.</div><div class="ln end" data-n="43">–Yo sí soy muy macho –grita uno–. Yo me voy.</div><div class="ln" data-n="44">Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la</div><div class="ln" data-n="45">calle central donde todo el pueblo lo ve. Hasta que todos dicen: “Si éste se atreve,</div><div class="ln" data-n="46">pues nosotros también nos vamos”. Y empiezan a desmantelar literalmente el pueblo. Se</div><div class="ln end" data-n="47">llevan las cosas, los animales, todo.</div></div>
+<div class="para"><div class="ln" data-n="48">Y uno de los últimos que abandona el pueblo, dice: “Que no venga la desgracia a caer</div><div class="ln" data-n="49">sobre lo que queda de nuestra casa”, y entonces la incendia y otros incendian también</div><div class="ln" data-n="50">sus casas. Huyen en un tremendo y verdadero pánico, como en un éxodo de guerra, y en</div><div class="ln" data-n="51">medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su</div><div class="ln end" data-n="52">lado: “¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?”</div></div>
+</div></div>
+
+    <div class="text-source">«Algo muy grave va a suceder en este pueblo», de Gabriel García Márquez (publicado en Magazín Dominical, Caracas, 3 de mayo de 1970)</div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ANTES DE EMPEZAR — QUÉ ES UN BUEN RESUMEN
+  ══════════════════════════════════════ -->
+  <div class="phase info" id="phaseInfo">
+    <div class="phase-header" onclick="togglePhase('Info')">
+      <div class="phase-num">i</div>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Repaso: ¿qué es un buen resumen?</div>
+        <div class="phase-subtitle">Recuerda las cuatro claves y las normas esenciales</div>
+      </div>
+    </div>
+    <div class="phase-body open" id="bodyInfo">
+
+      <div class="hint hint-blue">
+        <strong>📋 Recuerda.</strong> Resumir es contar, con <strong>tus propias palabras</strong> y de forma <strong>breve, ordenada y clara</strong>, lo esencial de un texto en un único párrafo. Alguien que no haya leído el texto original debe poder entender, solo con tu resumen, de qué o de quién trata y qué es lo más importante que le sucede. La extensión debe rondar el <strong>25-30 % del texto original</strong>.
+      </div>
+
+      <div class="hint hint-yellow">
+        <strong>🧭 En un texto narrativo</strong> lo esencial son los <strong>hechos más importantes</strong>: quién es el protagonista, qué hace, cuándo y por qué es relevante. Los datos secundarios (fechas exactas, nombres propios, cifras, diálogos literales, anécdotas curiosas) casi siempre se pueden eliminar del resumen.
+      </div>
+
+      <!-- Cuatro puntos cardinales -->
+      <p style="font-weight:600; margin-bottom:.7rem; font-size:.95rem;">Recuerda los cuatro puntos cardinales de un buen resumen:</p>
+      <div class="cardinal-grid">
+        <div class="cardinal-card c-brevedad">
+          <strong>BREVEDAD</strong>
+          Siempre es un texto más corto que el original. Elimina lo accesorio.
+        </div>
+        <div class="cardinal-card c-concision">
+          <strong>CONCISIÓN</strong>
+          Solo la información esencial: sin fechas exactas, anécdotas ni datos sueltos.
+        </div>
+        <div class="cardinal-card c-claridad">
+          <strong>CLARIDAD</strong>
+          Texto cohesionado y coherente. Usa conectores para unir las ideas.
+        </div>
+        <div class="cardinal-card c-novedad">
+          <strong>NOVEDAD</strong>
+          Crea un texto nuevo con tus propias palabras. No copies frases del original.
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Normas -->
+      <p style="font-weight:600; margin-bottom:.7rem; font-size:.95rem;">Normas de redacción (ya las conoces):</p>
+      <div class="normas-grid">
+        <div class="normas-col no">
+          <div class="normas-col-title">✗ Lo que NO debes hacer</div>
+          <ul>
+            <li>Usar primera persona: «yo creo», «me parece».</li>
+            <li>Copiar literalmente frases ni diálogos del texto original.</li>
+            <li>Incluir fechas exactas, cifras o anécdotas secundarias.</li>
+            <li>Empezar con «Este texto trata de…» o «En este texto…».</li>
+            <li>Dar tu opinión sobre los hechos que se cuentan.</li>
+            <li>Enumerar todos los datos en el mismo orden que el original sin sintetizar.</li>
+          </ul>
+        </div>
+        <div class="normas-col si">
+          <div class="normas-col-title">✓ ¡Bien hecho!</div>
+          <ul>
+            <li>Escribe en tercera persona y mantén el mismo tiempo verbal en todo el resumen (el cuento está en presente: usa el presente).</li>
+            <li>Usa sinónimos para las palabras clave del texto.</li>
+            <li>Agrupa varios hechos concretos bajo una idea general.</li>
+            <li>Respeta el orden cronológico de los hechos.</li>
+            <li>Usa conectores textuales: «En primer lugar,», «A continuación,», «Finalmente,».</li>
+            <li>Redacta en un único párrafo de extensión ajustada al 25-30 % del original.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       FASE 1 — LECTURA
+  ══════════════════════════════════════ -->
+  <div class="phase" id="phase1">
+    <div class="phase-header" onclick="togglePhase(1)">
+      <div class="phase-num">1</div>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Lee el texto con atención</div>
+        <div class="phase-subtitle">Una lectura rápida y otra detenida, subrayando los datos importantes</div>
+      </div>
+      <div class="phase-status" id="status1">En curso</div>
+    </div>
+    <div class="phase-body open" id="body1">
+
+      <div class="hint hint-yellow">
+        <strong>📝 Como ya sabes:</strong> antes de leer y subrayar, numera las líneas del texto de 5 en 5. Así podrás localizar con precisión cualquier dato o idea durante todo el taller.
+      </div>
+
+      <div class="hint hint-blue">
+        <strong>👀 Primera lectura (rápida).</strong> Lee el texto entero de principio a fin, sin detenerte, para hacerte una idea general: ¿de quién habla? ¿de qué trata a grandes rasgos?
+      </div>
+
+      <div class="hint hint-green">
+        <strong>🔍 Segunda lectura (detenida).</strong> Vuelve a leer, ahora párrafo a párrafo y con calma. <strong>Subraya los datos importantes</strong> (quién, qué hizo, cuándo, dónde y por qué) y no subrayes los detalles secundarios. Si hay palabras que no entiendas, búscalas en el diccionario.
+      </div>
+
+      <button class="example-toggle" onclick="toggleExample('ex1_sub')">💡 Ver ejemplo de subrayado</button>
+<div class="example-box" id="ex1_sub" style="font-style:normal;">
+<strong>Ejemplo de subrayado (solo lo importante):</strong>
+<p style="margin:.4rem 0;"><strong>1.</strong> Imagínese usted un pueblo muy pequeño donde hay <mark>una señora vieja</mark> que tiene dos hijos, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de <mark>preocupación</mark>. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero <mark>he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo</mark>”.</p><p style="margin:.4rem 0;"><strong>2.</strong> <mark>El hijo se va a jugar al billar</mark>, y en el momento en que va a tirar una carambola sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se ríen. Él se ríe. <mark>Tira la carambola y no la hace</mark>. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero <mark>me ha quedado la preocupación de una cosa que me dijo mi madre</mark> esta mañana sobre algo grave que va a suceder a este pueblo”.</p><p style="margin:.4rem 0;"><strong>3.</strong> <mark>Todos se ríen de él</mark>, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:<br>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.<br>–¿Y por qué es un tonto?<br>–<mark>Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo</mark>.<br>Y su madre le dice:<br>–<mark>No te burles de los presentimientos de los viejos porque a veces salen...</mark></p><p style="margin:.4rem 0;"><strong>4.</strong> <mark>Una pariente oye esto y va a comprar carne</mark>. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque <mark>andan diciendo que algo grave va a pasar y lo mejor es estar preparado</mark>”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y <mark>se va esparciendo el rumor</mark>. Llega el momento en que <mark>todo el mundo en el pueblo está esperando que pase algo</mark>.</p><p style="margin:.4rem 0;"><strong>5.</strong> <mark>Se paralizan las actividades</mark> y de pronto a las dos de la tarde, alguien dice:<br>–<mark>¿Se ha dado cuenta del calor que está haciendo?</mark><br>–¡Pero si en este pueblo siempre ha hecho calor!<br>Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.<br>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.<br>–Pero a las dos de la tarde es cuando hace más calor.<br>–Sí, pero no tanto calor como ahora.<br>Al pueblo desierto, a la plaza desierta, <mark>baja de pronto un pajarito</mark> y se corre la voz: “Hay un pajarito en la plaza”. Y <mark>viene todo el mundo espantado</mark> a ver el pajarito.<br>–Pero señores, siempre ha habido pajaritos que bajan.<br>–Sí, pero nunca a esta hora.</p><p style="margin:.4rem 0;"><strong>6.</strong> <mark>Llega un momento de tal tensión</mark> para los habitantes del pueblo, que <mark>todos están desesperados por irse y no tienen el valor de hacerlo</mark>.<br>–Yo sí soy muy macho –grita uno–. <mark>Yo me voy</mark>.<br>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “<mark>Si éste se atreve, pues nosotros también nos vamos</mark>”. Y empiezan a desmantelar literalmente el pueblo. <mark>Se llevan las cosas, los animales, todo.</mark></p><p style="margin:.4rem 0;"><strong>7.</strong> Y uno de los últimos que <mark>abandona el pueblo</mark>, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces <mark>la incendia y otros incendian también sus casas</mark>. <mark>Huyen en un tremendo y verdadero pánico</mark>, como en un éxodo de guerra, y en medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su lado: “<mark>¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?</mark>”</p>
+<p style="margin:.6rem 0 0;"><strong>Se deja sin subrayar</strong> lo que ambienta pero no cambia la historia: las edades de los hijos, el nombre de Dámaso, «a las dos de la tarde», los músicos con los instrumentos remendados con brea y las cantidades de carne.</p>
+</div>
+      <div class="btn-row">
+        <button class="btn-green" onclick="completePhase(1)">✅ He leído y subrayado, siguiente fase →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       FASE 2 — IDEAS POR PÁRRAFO
+  ══════════════════════════════════════ -->
+  <div class="phase" id="phase2">
+    <div class="phase-header" onclick="togglePhase(2)">
+      <div class="phase-num">2</div>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Idea principal de cada párrafo</div>
+        <div class="phase-subtitle">Estructura del texto e ideas esenciales</div>
+      </div>
+      <div class="phase-status" id="status2">Pendiente</div>
+    </div>
+    <div class="phase-body" id="body2">
+
+      <div class="hint hint-green">
+        <strong>🗂️ Localiza los hechos clave, no los detalles.</strong> Apóyate en lo que has subrayado en la lectura. Este cuento tiene <strong>siete párrafos</strong> y cada uno recoge un momento distinto de la historia. Fíjate en cómo avanza lo que ocurre de un párrafo al siguiente: el diálogo sirve para contar hechos, y es el hecho (no las palabras exactas) lo que debes anotar.
+      </div>
+
+      <div class="hint hint-blue">
+        <strong>✍️ Cómo se formula una idea principal:</strong> como una <strong>frase nominal desarrollada</strong>, es decir, un sustantivo (o varios) acompañado de sus complementos y <strong>sin verbos conjugados</strong>. Más adelante profundizaremos en por qué las ideas principales se formulan así. Por ejemplo: «Llegada de un forastero misterioso al pueblo…» en lugar de «Un forastero misterioso llega al pueblo…».
+      </div>
+
+      <div class="hint hint-yellow" style="font-size:.88rem;">
+        <strong>⚠️ Recuerda:</strong> anota junto a cada párrafo el hecho principal, <em>no</em> las fechas exactas, ni los nombres de lugares concretos, ni las anécdotas curiosas (como las edades de los hijos o el nombre de Dámaso). Usa siempre tus propias palabras. Evita los verbos conjugados.
+      </div>
+
+      <!-- Párrafo 1 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 1 · <span data-parr-range="1">líneas 1-4</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Imagínese usted un pueblo muy pequeño donde hay… […] muy grave va a sucederle a este pueblo”.</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p1" data-solution="Presentimiento de una anciana sobre una desgracia en su pueblo." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p1','c3_p1')"></textarea>
+        <div class="char-count" id="c3_p1">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p1')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p1">
+          <strong>Descartado como detalle:</strong> las edades de los hijos y el momento del desayuno.
+        </div>
+      </div>
+
+      <!-- Párrafo 2 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 2 · <span data-parr-range="2">líneas 5-10</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">El hijo se va a jugar al billar,… […] grave que va a suceder a este pueblo”.</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p2" data-solution="Derrota del hijo en el billar por la preocupación del presagio." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p2','c3_p2')"></textarea>
+        <div class="char-count" id="c3_p2">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p2')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p2">
+          <strong>Descartado como detalle:</strong> el peso apostado y los detalles de la carambola.
+        </div>
+      </div>
+
+      <!-- Párrafo 3 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 3 · <span data-parr-range="3">líneas 11-18</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Todos se ríen de él, y el que… […] presentimientos de los viejos porque a veces salen...</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p3" data-solution="Burla del ganador y advertencia de su madre sobre los presentimientos." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p3','c3_p3')"></textarea>
+        <div class="char-count" id="c3_p3">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p3')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p3">
+          <strong>Descartado como detalle:</strong> el nombre de Dámaso y los parientes que están en la casa.
+        </div>
+      </div>
+
+      <!-- Párrafo 4 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 4 · <span data-parr-range="4">líneas 19-28</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Una pariente oye esto y va a comprar… […] en el pueblo está esperando que pase algo.</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p4" data-solution="Propagación del rumor y acaparamiento de carne en el pueblo." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p4','c3_p4')"></textarea>
+        <div class="char-count" id="c3_p4">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p4')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p4">
+          <strong>Descartado como detalle:</strong> las cantidades de carne y el diálogo con el carnicero.
+        </div>
+      </div>
+
+      <!-- Párrafo 5 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 5 · <span data-parr-range="5">líneas 29-40</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Se paralizan las actividades y de pronto a… […] que bajan. –Sí, pero nunca a esta hora.</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p5" data-solution="Temor ante hechos normales: el calor y un pajarito." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p5','c3_p5')"></textarea>
+        <div class="char-count" id="c3_p5">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p5')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p5">
+          <strong>Descartado como detalle:</strong> la hora (las dos de la tarde) y los músicos con instrumentos remendados con brea.
+        </div>
+      </div>
+
+      <!-- Párrafo 6 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 6 · <span data-parr-range="6">líneas 41-47</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Llega un momento de tal tensión para los… […] pueblo. Se llevan las cosas, los animales, todo.</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p6" data-solution="Tensión insoportable y marcha del primer vecino, seguido por los demás." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p6','c3_p6')"></textarea>
+        <div class="char-count" id="c3_p6">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p6')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p6">
+          <strong>Descartado como detalle:</strong> las palabras del vecino que se marcha y lo que carga en la carreta.
+        </div>
+      </div>
+
+      <!-- Párrafo 7 -->
+      <div class="parr-block">
+        <div>
+          <span class="parr-label">Párrafo 7 · <span data-parr-range="7">líneas 48-52</span></span>
+        </div>
+        <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Y uno de los últimos que abandona el… […] muy grave iba a suceder en este pueblo?”</p>
+        <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
+        <textarea rows="2" id="t3_p7" data-solution="Éxodo del pueblo entre incendios y pánico, y cumplimiento del presagio." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p7','c3_p7')"></textarea>
+        <div class="char-count" id="c3_p7">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex3_p7')">💡 Ver ejemplo</button>
+        <div class="example-box" id="ex3_p7">
+          <strong>Descartado como detalle:</strong> las palabras exactas de los vecinos al incendiar sus casas.
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-green" onclick="completePhase(2)">✅ Completar esta fase →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       FASE 3 — DIVISIÓN EN TRES PARTES
+  ══════════════════════════════════════ -->
+  <div class="phase" id="phase3">
+    <div class="phase-header" onclick="togglePhase(3)">
+      <div class="phase-num">3</div>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Divide el texto en tres partes</div>
+        <div class="phase-subtitle">Planteamiento, nudo y desenlace</div>
+      </div>
+      <div class="phase-status" id="status3">Pendiente</div>
+    </div>
+    <div class="phase-body" id="body3">
+
+      <div class="hint hint-blue">
+        <strong>🧩 Además de identificar la idea de cada párrafo,</strong> es útil ver cómo se organiza el texto en su conjunto. La mayoría de los textos narrativos (cuentos, novelas, leyendas…) se pueden dividir en <strong>tres grandes partes</strong>: el <strong>planteamiento</strong> (se presenta la situación inicial y a los personajes), el <strong>nudo</strong> (aparece el conflicto y se desencadenan las acciones) y el <strong>desenlace</strong> (el conflicto se resuelve o la historia termina). Cada parte puede agrupar uno o varios párrafos.
+      </div>
+
+      <div class="task-block">
+        <div class="task-label">✏️ Tarea — Marca las tres partes</div>
+        <div class="task-question">Vuelve a mirar los 7 párrafos que has trabajado en la fase anterior y decide cómo se agrupan en las tres partes del texto. Para cada parte, escribe <strong>si es el planteamiento, el nudo o el desenlace</strong>, qué líneas abarca y de qué trata:</div>
+
+        <p style="font-size:.9rem; margin-bottom:.3rem; font-weight:600;">Parte 1 — ¿Planteamiento, nudo o desenlace? (¿qué líneas? ¿de qué trata?)</p>
+        <textarea rows="2" id="t35_parte1" data-solution="Es el planteamiento: líneas 1-4 (párrafo 1). Presenta la situación inicial: una señora vieja con el presentimiento de que algo muy grave va a suceder en su pueblo." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte1','c35_parte1')"></textarea>
+        <div class="char-count" id="c35_parte1">0 caracteres</div>
+
+        <p style="font-size:.9rem; margin:.8rem 0 .3rem; font-weight:600;">Parte 2 — ¿Planteamiento, nudo o desenlace? (¿qué líneas? ¿de qué trata?)</p>
+        <textarea rows="2" id="t35_parte2" data-solution="Es el nudo: líneas 5-47 (párrafos 2 a 6). Aparece el conflicto y se desencadenan las acciones: la burla al hijo, la propagación del rumor, el miedo colectivo y la marcha del primer vecino." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte2','c35_parte2')"></textarea>
+        <div class="char-count" id="c35_parte2">0 caracteres</div>
+
+        <p style="font-size:.9rem; margin:.8rem 0 .3rem; font-weight:600;">Parte 3 — ¿Planteamiento, nudo o desenlace? (¿qué líneas? ¿de qué trata?)</p>
+        <textarea rows="2" id="t35_parte3" data-solution="Es el desenlace: líneas 48-52 (párrafo 7). Trata de la huida de todo el pueblo y del cumplimiento del presagio." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte3','c35_parte3')"></textarea>
+        <div class="char-count" id="c35_parte3">0 caracteres</div>
+
+        <button class="example-toggle" onclick="toggleExample('ex35_partes')">💡 Ver propuesta</button>
+        <div class="example-box" id="ex35_partes">
+          Otras divisiones razonadas también son válidas: lo importante es justificar por qué esos párrafos forman un bloque con sentido propio.
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-green" onclick="completePhase(3)">✅ Completar esta fase →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       FASE 4 — TEMA E IDEA GENERAL
+  ══════════════════════════════════════ -->
+  <div class="phase" id="phase4">
+    <div class="phase-header" onclick="togglePhase(4)">
+      <div class="phase-num">4</div>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Identifica el tema</div>
+        <div class="phase-subtitle">La idea central del texto expresada en una frase nominal breve</div>
+      </div>
+      <div class="phase-status" id="status4">Pendiente</div>
+    </div>
+    <div class="phase-body" id="body4">
+
+      <div class="hint hint-yellow">
+        Ya has leído el texto, has localizado la idea de cada párrafo y has visto cómo se organiza: ahora puedes formular el tema. <strong>🎯 En un cuento, el tema no es solo «un pueblo» o «una anciana».</strong> Debe recoger también <strong>qué es lo más importante que ocurre</strong>. Para encontrarlo, responde a estas dos preguntas: <em>¿de quién o de qué trata el texto?</em> y <em>¿qué es lo más importante que se cuenta?</em>
+      </div>
+
+      <div class="tema-formula">
+        <span>TEMA</span>
+        <span class="op">=</span>
+        <span>SUSTANTIVO</span>
+        <span class="op">+</span>
+        <span>MODIFICADOR/ES</span>
+        <span style="color:rgba(255,255,255,.5); font-family:'Jost',sans-serif; font-size:.8rem; font-weight:400;">(frase nominal breve, máx. dos líneas)</span>
+      </div>
+
+      <div class="hint hint-blue" style="margin-bottom:1rem;">
+        <strong>Posibles sustantivos de partida:</strong> el poder de… · la historia de… · el miedo a… · la propagación de… · el efecto de… · el retrato de…
+      </div>
+
+      <div class="task-block">
+        <div class="task-label">✏️ Tarea 2.1 — Dos preguntas clave</div>
+        <div class="task-question">Antes de formular el tema, responde brevemente a estas dos preguntas:</div>
+        <p style="font-size:.9rem; margin-bottom:.4rem; font-weight:600;">¿De quién o de qué trata el texto?</p>
+        <textarea rows="2" id="t2_q1" data-solution="El texto trata de un pueblo cuyos habitantes, a partir del presentimiento de una anciana, acaban huyendo presos del pánico." placeholder="El texto trata sobre…" oninput="updateCount('t2_q1','c2_q1')"></textarea>
+        <div class="char-count" id="c2_q1">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex2_q1')">💡 Ver posible respuesta</button>
+        <p style="font-size:.9rem; margin:.8rem 0 .4rem; font-weight:600;">¿Qué es lo más importante que se cuenta (cómo empieza, cómo se desarrolla, cómo termina)?</p>
+        <textarea rows="2" id="t2_q2" data-solution="Se cuenta cómo un simple presentimiento se convierte en rumor, se extiende de boca en boca y provoca el miedo colectivo, hasta que todo el pueblo lo abandona." placeholder="El texto destaca…" oninput="updateCount('t2_q2','c2_q2')"></textarea>
+        <div class="char-count" id="c2_q2">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex2_q2')">💡 Ver posible respuesta</button>
+      </div>
+
+      <div class="task-block">
+        <div class="task-label">✏️ Tarea 2.2 — Formula el tema</div>
+        <div class="task-question">Con las respuestas anteriores, escribe el tema del texto en una <strong>frase nominal breve</strong> (sin verbo conjugado).</div>
+        <textarea rows="2" id="t2_tema" data-solution="El poder del rumor: del presentimiento de una anciana al pánico colectivo y al abandono de todo un pueblo." placeholder="El poder de…" oninput="updateCount('t2_tema','c2_tema')"></textarea>
+        <div class="char-count" id="c2_tema">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex2_tema')">💡 Ver ejemplo resuelto</button>
+        <div class="example-box" id="ex2_tema">
+          <strong>¿Por qué no basta con «Un pueblo» o «Una anciana»?</strong> Porque no dice nada de lo que ocurre en el cuento. El tema debe recoger el contenido: qué pasa y a dónde conduce, no solo quién o dónde.
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-green" onclick="completePhase(4)">✅ Completar esta fase →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       FASE 5 — REDACTAR EL RESUMEN
+  ══════════════════════════════════════ -->
+  <div class="phase" id="phase5">
+    <div class="phase-header" onclick="togglePhase(5)">
+      <div class="phase-num">5</div>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Redacta el resumen</div>
+        <div class="phase-subtitle">Un único párrafo con tus propias palabras</div>
+      </div>
+      <div class="phase-status" id="status5">Pendiente</div>
+    </div>
+    <div class="phase-body" id="body5">
+
+      <div class="hint hint-blue">
+        <strong>✍️ Ahora reúne todo lo que has trabajado.</strong> Combina las ideas principales de cada párrafo en un único texto cohesionado. El orden debe seguir el orden cronológico del texto original (primero el presentimiento, después el rumor, al final la huida). Usa conectores para enlazar las ideas y evita repetir las palabras exactas del texto.
+      </div>
+
+      <div class="hint hint-green" style="font-size:.88rem;">
+        <strong>Conectores útiles para organizar un resumen narrativo:</strong><br>
+        <span style="display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem;">
+          <span style="background:#fff; border:1px solid var(--border); padding:.2rem .6rem; border-radius:99px; font-size:.82rem;">En primer lugar,</span>
+          <span style="background:#fff; border:1px solid var(--border); padding:.2rem .6rem; border-radius:99px; font-size:.82rem;">Durante…</span>
+          <span style="background:#fff; border:1px solid var(--border); padding:.2rem .6rem; border-radius:99px; font-size:.82rem;">A continuación,</span>
+          <span style="background:#fff; border:1px solid var(--border); padding:.2rem .6rem; border-radius:99px; font-size:.82rem;">Más tarde,</span>
+          <span style="background:#fff; border:1px solid var(--border); padding:.2rem .6rem; border-radius:99px; font-size:.82rem;">Sin embargo,</span>
+          <span style="background:#fff; border:1px solid var(--border); padding:.2rem .6rem; border-radius:99px; font-size:.82rem;">Finalmente,</span>
+        </span>
+      </div>
+
+
+      <div class="task-block">
+        <div class="task-label">✏️ Tu resumen</div>
+        <div class="task-question">Escribe aquí el resumen del texto en un único párrafo. Ten en cuenta que el texto original tiene unas <strong><span data-total-lines>60</span> líneas</strong>; el resumen debería tener entre <strong><span data-resumen-range>15 y 18</span> líneas</strong> aproximadamente (25-30 % del original).</div>
+        <textarea id="t5_resumen" data-solution="Una anciana amanece con el presentimiento de que algo muy grave va a suceder en su pueblo y se lo cuenta a sus hijos. Poco después, su hijo pierde una apuesta de billar por la preocupación y los demás se burlan de él, aunque algunos se toman en serio el presagio. A continuación, el rumor se extiende y los vecinos acaparan comida mientras todo el pueblo espera la desgracia. Entonces, hechos normales, como el calor o la llegada de un pajarito, se interpretan como señales de peligro. Con el tiempo, la tensión se hace insoportable y, cuando un vecino se atreve a marcharse, todos lo imitan. Finalmente, los habitantes incendian sus casas y huyen presos del pánico, y la anciana comprueba que su presagio se ha cumplido." rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
+        <div class="char-count" id="c5_resumen">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex5_resumen')">💡 Ver resumen resuelto</button>
+        <div class="example-box" id="ex5_resumen">
+          <strong>Conectores del modelo:</strong> <span class="conector">Poco después,</span> · <span class="conector">A continuación,</span> · <span class="conector">Entonces,</span> · <span class="conector">Con el tiempo,</span> · <span class="conector">Finalmente,</span> · <span class="conector">conectores</span>. Enlazan las ideas y dan cohesión al resumen.
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- LISTA DE REVISIÓN -->
+      <p style="font-weight:600; margin-bottom:.8rem; font-size:.95rem;">🔍 Lista de revisión antes de entregar:</p>
+      <ul class="checklist">
+        <li><input type="checkbox"> <span>He redactado el resumen en <strong>un único párrafo</strong>, sin divisiones.</span></li>
+        <li><input type="checkbox"> <span>He escrito en <strong>tercera persona</strong> y con <strong>un solo tiempo verbal</strong> (el presente, como el cuento).</span></li>
+        <li><input type="checkbox"> <span>He usado <strong>mis propias palabras</strong>: no he copiado frases literales del texto.</span></li>
+        <li><input type="checkbox"> <span>He incluido los <strong>hechos principales</strong> de los siete párrafos, en el orden del texto.</span></li>
+        <li><input type="checkbox"> <span>He <strong>descartado</strong> fechas exactas, cifras y anécdotas secundarias (como las edades de los hijos o el nombre de Dámaso).</span></li>
+        <li><input type="checkbox"> <span>He usado <strong>conectores textuales</strong> para enlazar las ideas.</span></li>
+        <li><input type="checkbox"> <span>He respetado el <strong>orden cronológico</strong> de los hechos.</span></li>
+        <li><input type="checkbox"> <span>No he dado <strong>mi opinión</strong> sobre lo que sucede en el cuento.</span></li>
+        <li><input type="checkbox"> <span>La extensión es <strong>aproximadamente el 25-30 %</strong> del texto original.</span></li>
+        <li><input type="checkbox"> <span>He revisado la <strong>ortografía y la puntuación</strong>.</span></li>
+      </ul>
+
+      <div class="task-block" style="margin-top:1.2rem;">
+        <div class="task-label">🪞 Autoevaluación</div>
+        <div class="task-question">¿Qué parte del resumen crees que has resuelto mejor? ¿Qué te ha resultado más difícil?</div>
+        <textarea rows="3" id="t5_auto" data-solution="Creo que he identificado bien el tema y las ideas principales de cada párrafo, porque el texto está muy ordenado. Lo que más me ha costado es no repetir las mismas palabras del texto original al redactar el resumen final." placeholder="Lo que mejor he hecho es… Lo que más me ha costado es…" oninput="updateCount('t5_auto','c5_auto')"></textarea>
+        <div class="char-count" id="c5_auto">0 caracteres</div>
+        <button class="example-toggle" onclick="toggleExample('ex5_auto')">💡 Ver un ejemplo de respuesta</button>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="completePhase(5)">🎓 Finalizar el taller</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL FINAL -->
+  <div class="final-panel" id="finalPanel">
+    <h2>¡Resumen completado!</h2>
+    <p>Has recorrido las cinco fases del proceso de síntesis. Leer con atención y subrayar lo importante, localizar las ideas principales, reconocer la estructura del texto, identificar el tema y redactar con tus propias palabras son las habilidades que acabas de practicar.</p>
+    <div class="final-score" id="finalScore">5/5</div>
+    <div class="final-label">fases superadas</div>
+    <p style="margin-top:1.5rem; font-size:.85rem;">Guarda o imprime esta página para conservar tu trabajo antes de cerrar el navegador.</p>
+  </div>
+
+</div><!-- /container -->
+
+<div id="teacherPanel"><h2 style="margin-top:0">🔓 Panel del profesor</h2><p>Los ejemplos y soluciones están desbloqueados en cada pregunta («💡 Ver ejemplo») y puedes usar «Mostrar números de línea» para corregir con el proyector. Código para volver a bloquear: botón «🔓 Soluciones».</p><h2>Opción 2 de impresión: qué se ha adaptado (y qué no)</h2><p>La ficha reúne las medidas para <b>dislexia / dificultades de lectoescritura (A)</b> y <b>TDAH / déficit de atención (B)</b>. En la opción 2 se adapta la <b>presentación y el formato de respuesta</b>; las preguntas, los contenidos y el nivel de exigencia son los de la versión general (no es una ACS).</p><ul><li>Letra sin serifa (Verdana), cuerpo 12 pt, interlineado 1,7, fondo crema y texto alineado a la izquierda (sin justificar).</li><li>Texto con los 7 párrafos <b>numerados</b>. Se pide identificar las partes por <b>párrafos</b> (en la versión general, por líneas): el criterio evaluado es el mismo. La numeración de líneas no se usa en esta versión.</li><li>Una tarea por apartado, con casilla «Hecho» y tiempo orientativo; dividida en <b>dos partes</b> (se puede entregar en dos sesiones).</li><li>Palabras clave en negrita; ejemplo resuelto de otro texto para la idea principal; las partes y la reescritura guiadas (esquema previo por bloques de párrafos y conectores como apoyo).</li><li>Las tres partes se responden con formato de reconocimiento: se marca planteamiento / nudo / desenlace.</li><li>Extensión del resumen en palabras (180–215, el 25–30 % de las 720 del texto) en lugar de líneas.</li><li>Espacios de respuesta amplios, en recuadro y sin líneas. Código discreto «AB» en el pie.</li></ul><h2>Criterios de corrección adaptados</h2><table><tr><th style="width:42mm">Apartado (sobre 10)</th><th>Criterio (el mismo que el grupo)</th></tr><tr><td>Resumen · 5</td><td>Hechos principales de los 7 párrafos, en orden, con palabras propias, un solo tiempo verbal, sin opinión ni detalles; extensión aproximada del 25–30 %. En DEA: más peso a adecuación y coherencia que a extensión.</td></tr><tr><td>Ideas principales · 2</td><td>Frase nominal con las ideas clave de cada párrafo; se acepta formulación distinta si recoge lo esencial.</td></tr><tr><td>Tema · 1,5</td><td>Sustantivo + lo que ocurre (respuestas a y b como apoyo).</td></tr><tr><td>Tres partes · 1</td><td>Agrupación razonable en párrafos y etiqueta correcta (otras divisiones razonadas son válidas).</td></tr><tr><td>Lectura · 0,5</td><td>Subrayado de datos importantes. No se puntúa la numeración de líneas en esta versión.</td></tr></table><div class="box"><b>Dislexia / DEA (A)</b><ul><li>Contenido por encima de la forma: <b>no se aplica el descuento por faltas</b> (−0,25 por error) en las preguntas de contenido.</li><li>No se evalúan caligrafía, limpieza ni uso del espacio; si algo es ilegible, se le pide que lo lea.</li><li>Corregir sin rojo: rodear el error, dar la forma correcta y comentarlo en persona.</li></ul></div><div class="box"><b>TDAH / déficit de atención (B)</b><ul><li>Si la ficha queda incompleta, completar oralmente antes de calificar; no penalizar omisiones por despiste si demuestra que lo sabe al preguntarle.</li><li>Corregir con propuestas de mejora y valorar el esfuerzo y los pequeños logros; posibilidad de recuperar durante la evaluación.</li><li>Tolerancia ortográfica solo si el informe recoge también dificultades de escritura (si el alumno combina A + B, se aplica la de A).</li></ul></div><h2>Aplicación en el aula</h2><ul><li>Leer o explicar los enunciados las veces necesarias; ayudar a revisar antes de entregar.</li><li>Tiempo ampliado o dos sesiones (Parte 1 y Parte 2); avisar a mitad y antes del final; no coincidir con otro examen el mismo día.</li><li>Lugar sin distracciones (primera fila); reconducir si se desconecta.</li><li>Permitir respuesta oral o completar oralmente, y ordenador si lo tiene autorizado.</li><li>Si el informe del alumno indica otras pautas, prevalecen sobre estas.</li></ul></div>
+<div id="printOpt2"><div class="page"><h1>Taller de resumen</h1><div class="sub">Texto: «Algo muy grave va a suceder en este pueblo» · Gabriel García Márquez</div><div class="name">Nombre y apellidos: ________________________________ Curso: ______ Fecha: ________</div><div class="tip"><b>Cómo trabajar:</b> haz una tarea cada vez. Cuando termines una, marca <span class="box"></span>. Tienes tiempo de sobra: no hace falta ir deprisa.</div><h2>PARTE 1 · Leer y entender &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">1</span>Lee el texto<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Subraya</b> con lápiz los datos importantes: qué ocurre, a quién y por qué. Los párrafos están numerados con un círculo azul.</div><div class="text"><div class="p"><div class="pn">1</div><div class="pt"><div>Imagínese usted un pueblo muy pequeño donde hay una señora vieja que tiene dos hijos, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de preocupación. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo”.</div></div></div><div class="p"><div class="pn">2</div><div class="pt"><div>El hijo se va a jugar al billar, y en el momento en que va a tirar una carambola sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se ríen. Él se ríe. Tira la carambola y no la hace. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero me ha quedado la preocupación de una cosa que me dijo mi madre esta mañana sobre algo grave que va a suceder a este pueblo”.</div></div></div><div class="p"><div class="pn">3</div><div class="pt"><div>Todos se ríen de él, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div>–¿Y por qué es un tonto?</div><div>–Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div>Y su madre le dice:</div><div>–No te burles de los presentimientos de los viejos porque a veces salen...</div></div></div><div class="p"><div class="pn">4</div><div class="pt"><div>Una pariente oye esto y va a comprar carne. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque andan diciendo que algo grave va a pasar y lo mejor es estar preparado”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y se va esparciendo el rumor. Llega el momento en que todo el mundo en el pueblo está esperando que pase algo.</div></div></div><div class="p"><div class="pn">5</div><div class="pt"><div>Se paralizan las actividades y de pronto a las dos de la tarde, alguien dice:</div><div>–¿Se ha dado cuenta del calor que está haciendo?</div><div>–¡Pero si en este pueblo siempre ha hecho calor!</div><div>Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div>–Pero a las dos de la tarde es cuando hace más calor.</div><div>–Sí, pero no tanto calor como ahora.</div><div>Al pueblo desierto, a la plaza desierta, baja de pronto un pajarito y se corre la voz: “Hay un pajarito en la plaza”. Y viene todo el mundo espantado a ver el pajarito.</div><div>–Pero señores, siempre ha habido pajaritos que bajan.</div><div>–Sí, pero nunca a esta hora.</div></div></div><div class="p"><div class="pn">6</div><div class="pt"><div>Llega un momento de tal tensión para los habitantes del pueblo, que todos están desesperados por irse y no tienen el valor de hacerlo.</div><div>–Yo sí soy muy macho –grita uno–. Yo me voy.</div><div>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “Si éste se atreve, pues nosotros también nos vamos”. Y empiezan a desmantelar literalmente el pueblo. Se llevan las cosas, los animales, todo.</div></div></div><div class="p"><div class="pn">7</div><div class="pt"><div>Y uno de los últimos que abandona el pueblo, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces la incendia y otros incendian también sus casas. Huyen en un tremendo y verdadero pánico, como en un éxodo de guerra, y en medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su lado: “¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?”</div></div></div></div><div class="src">«Algo muy grave va a suceder en este pueblo», de Gabriel García Márquez (publicado en Magazín Dominical, Caracas, 3 de mayo de 1970)</div></div><div class="task"><div class="th"><span class="n">2</span>Idea de cada párrafo<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Idea principal</b> = una frase <b>sin verbo conjugado</b> que dice lo más importante del párrafo. <i>Ejemplo (de otro texto):</i> «Llegada de un forastero misterioso al pueblo, que despierta la curiosidad de los vecinos.» No copies frases del texto.</div><div class="item"><div class="q">Párrafo 1</div><div class="ex">Empieza así: «Imagínese usted un pueblo muy pequeño donde […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 2</div><div class="ex">Empieza así: «El hijo se va a jugar al […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 3</div><div class="ex">Empieza así: «Todos se ríen de él, y el […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 4</div><div class="ex">Empieza así: «Una pariente oye esto y va a […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 5</div><div class="ex">Empieza así: «Se paralizan las actividades y de pronto […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 6</div><div class="ex">Empieza así: «Llega un momento de tal tensión para […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 7</div><div class="ex">Empieza así: «Y uno de los últimos que abandona […]»</div><div class="ans"></div></div></div><div class="task"><div class="th"><span class="n">3</span>Las tres partes del texto<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">Un cuento tiene tres partes: <b>planteamiento</b> (empieza la historia), <b>nudo</b> (aparece el conflicto y se desencadenan las acciones) y <b>desenlace</b> (el problema se resuelve o la historia acaba). Agrupa los <b>párrafos</b> en tres partes y marca cuál es cada una.</div><div class="item"><div class="q">Parte 1: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 2: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 3: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div></div></div><div class="page pb"><div class="name">Nombre: ________________________________ &nbsp; Fecha: ________</div><h2>PARTE 2 · Escribir tu resumen &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">4</span>El tema<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">El <b>tema</b> es una frase <b>sin verbo conjugado</b>: un <b>sustantivo</b> + lo que ocurre. Palabras para empezar: <i>el poder de… · el miedo a… · la propagación de… · la historia de…</i></div><div class="item"><div class="q">a) ¿De quién o de qué trata el texto?</div><div class="ans"></div></div><div class="item"><div class="q">b) ¿Qué es lo más importante que se cuenta?<br><span class="ex" style="font-weight:400">(cómo empieza, cómo se desarrolla, cómo termina)</span></div><div class="ans"></div></div><div class="item"><div class="q">c) Escribe el tema en una sola frase</div><div class="ans" style="min-height:12mm"></div></div></div><div class="task"><div class="th"><span class="n">5</span>Tu resumen<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="warn"><b>Reglas:</b> un solo párrafo · tus propias palabras (sin copiar frases ni diálogos) · tercera persona · <b>un solo tiempo verbal</b> (presente) · sin tu opinión · sin datos pequeños (edades, nombres, cifras). Debe medir entre <b>180 y 215 palabras</b> (un cuarto del texto).</div><div class="keep" style="break-inside:avoid"><div class="q" style="font-weight:700">Paso 1. Esquema previo <span class="ex" style="font-weight:400">(apunta una idea en cada casilla)</span></div><div class="chips"><span>En primer lugar,</span><span>Poco después,</span><span>A continuación,</span><span>Entonces,</span><span>Con el tiempo,</span><span>Sin embargo,</span><span>Finalmente,</span></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al principio (párrafos 1-2)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Después (párrafos 3-4)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Más tarde (párrafos 5-6)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al final (párrafo 7)</div><div class="ans" style="min-height:12mm"></div></div></div><div class="q" style="font-weight:700;margin-top:3mm;break-after:avoid">Paso 2. Escribe el resumen en un solo párrafo</div><div class="ans big"></div></div><div class="task"><div class="th"><span class="n">6</span>Revisa antes de entregar<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><ul class="chk"><li><span class="box"></span>Es <b>un solo párrafo</b>.</li><li><span class="box"></span>Está en <b>tercera persona</b> y con <b>un solo tiempo verbal</b>.</li><li><span class="box"></span>Uso <b>mis palabras</b>: no copio frases ni diálogos.</li><li><span class="box"></span>Están las ideas de los <b>7 párrafos</b>, en orden.</li><li><span class="box"></span>Uso <b>conectores</b> (poco después, entonces…).</li><li><span class="box"></span>Lo he leído en voz baja y he corregido lo que no sonaba bien.</li></ul></div></div></div>
+
+<script>
+  let completedPhases = 0;
+  const total = 5;
+
+  function updateCount(id, countId) {
+    const ta = document.getElementById(id);
+    const ct = document.getElementById(countId);
+    if (ta && ct) ct.textContent = ta.value.length + ' caracteres';
+  }
+
+  function restoreSolutions() {
+    document.querySelectorAll('textarea.sol-on').forEach(t => { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; });
+    document.querySelectorAll('.example-box.visible').forEach(b => b.classList.remove('visible'));
+  }
+  function toggleExample(id) {
+    const box = document.getElementById(id);
+    const btn = document.querySelector('[onclick*="' + id + '"]');
+    let tas = [];
+    if (id === 'ex35_partes') tas = Array.from(document.querySelectorAll('#t35_parte1, #t35_parte2, #t35_parte3'));
+    else if (btn) { let e = btn.previousElementSibling; while (e && !tas.length) { const t = e.matches('textarea') ? e : (e.querySelector ? e.querySelector('textarea') : null); if (t) tas.push(t); e = e.previousElementSibling; } }
+    const on = !(tas[0] && tas[0].classList.contains('sol-on')) && !(box && !tas.length && box.classList.contains('visible'));
+    tas.forEach(t => {
+      if (!t.dataset.solution) return;
+      if (on) { t.dataset.prev = t.value; t.value = t.dataset.solution; t.readOnly = true; t.classList.add('sol-on'); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; }
+      else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; }
+    });
+    if (box) box.classList.toggle('visible', on);
+  }
+
+  function togglePhase(n) {
+    const body = document.getElementById('body' + n);
+    if (body) body.classList.toggle('open');
+  }
+
+  function completePhase(n) {
+    const phase  = document.getElementById('phase'  + n);
+    const status = document.getElementById('status' + n);
+    const body   = document.getElementById('body'   + n);
+
+    if (phase.classList.contains('done')) return;
+
+    const nextPhase = document.getElementById('phase' + (n + 1));
+    const nextBody  = nextPhase ? document.getElementById('body' + (n + 1)) : null;
+
+    // Desactivamos temporalmente las transiciones de altura/padding
+    // para que el cambio de layout sea instantáneo y el scroll no
+    // tenga que perseguir un objetivo que se sigue moviendo.
+    body.style.transition = 'none';
+    if (nextBody) nextBody.style.transition = 'none';
+
+    phase.classList.remove('active');
+    phase.classList.add('done');
+    status.textContent = '✓ Completada';
+    body.classList.remove('open');
+
+    completedPhases++;
+    updateProgress();
+
+    if (nextPhase) {
+      nextPhase.classList.add('active');
+      document.getElementById('status' + (n + 1)).textContent = 'En curso';
+      nextBody.classList.add('open');
+
+      // Forzamos el layout final antes de hacer scroll, así el
+      // destino ya es definitivo y no se producen saltos.
+      void nextBody.offsetHeight;
+
+      // html tiene scroll-behavior:smooth global; lo desactivamos
+      // un instante para que este salto sea realmente inmediato.
+      const prevScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      nextPhase.scrollIntoView({ behavior: 'auto', block: 'start' });
+      document.documentElement.style.scrollBehavior = prevScrollBehavior;
+
+      // Restauramos las transiciones para que el plegado/desplegado
+      // manual (togglePhase) siga animándose con normalidad.
+      requestAnimationFrame(() => {
+        body.style.transition = '';
+        if (nextBody) nextBody.style.transition = '';
+      });
+    }
+
+    if (completedPhases === total) {
+      const panel = document.getElementById('finalPanel');
+      panel.classList.add('visible');
+      document.getElementById('finalScore').textContent = total + '/' + total;
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+    }
+  }
+
+  function updateProgress() {
+    const pct = (completedPhases / total) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = completedPhases + ' / ' + total + ' fases';
+  }
+
+  // ── NUMERACIÓN DINÁMICA DE LÍNEAS ──
+  // En vez de partir el texto a mano (frágil: depende de la fuente exacta,
+  // el ancho de pantalla y el navegador), dejamos que el texto fluya con
+  // párrafos normales y calculamos en tiempo real, con el propio navegador,
+  // dónde cae cada línea visual. Así el resultado es siempre correcto,
+  // sea cual sea el dispositivo, la fuente cargada o el tamaño de ventana.
+  function layoutLineNumbers() {
+    const flow = document.getElementById('textFlow');
+    if (!flow) return;
+    const lines = Array.from(flow.querySelectorAll('.ln'));
+    // Ajusta el tamaño de letra para que la línea más larga ocupe justo el ancho
+    // disponible; las demás se justifican. Así las líneas (y su numeración) son
+    // siempre las mismas en cualquier pantalla, en el proyector y en el PDF.
+    flow.style.fontSize = '15px';
+    const avail = flow.clientWidth;
+    let max = 0;
+    lines.forEach((l) => {
+      l.style.textAlignLast = 'left'; l.style.display = 'inline-block'; l.style.width = 'auto';
+      max = Math.max(max, l.getBoundingClientRect().width);
+      l.style.cssText = '';
+    });
+    if (max > 0 && avail > 0) flow.style.fontSize = (15 * avail / max * 0.996) + 'px';
+    if (max > 0) document.documentElement.style.setProperty('--pfs', (634 / (max / 15) * 0.99) + 'px');
+    document.querySelectorAll('[data-total-lines]').forEach((el) => { el.textContent = lines.length; });
+    document.querySelectorAll('[data-resumen-range]').forEach((el) => {
+      el.textContent = Math.round(lines.length * 0.25) + ' y ' + Math.round(lines.length * 0.30);
+    });
+  }
+
+  const LOCK_CODE = 'eclipse';   // cambia aquí el código del profesor
+  function toggleLock() {
+    if (!document.body.classList.contains('locked')) {
+      document.body.classList.add('locked'); document.getElementById('btnLock').textContent = '🔒 Soluciones';
+      restoreSolutions();
+      document.body.classList.remove('show-nums'); return;
+    }
+    const p = document.getElementById('lockPop'); p.classList.toggle('open');
+    if (p.classList.contains('open')) setTimeout(() => document.getElementById('lockCode').focus(), 30);
+  }
+  function tryUnlock() {
+    const i = document.getElementById('lockCode');
+    if (i.value === LOCK_CODE) {
+      document.body.classList.remove('locked'); document.getElementById('btnLock').textContent = '🔓 Soluciones';
+      document.getElementById('lockPop').classList.remove('open'); i.value = ''; document.getElementById('lockMsg').textContent = '';
+    } else { document.getElementById('lockMsg').textContent = 'Código incorrecto'; i.select(); }
+  }
+  function printOpt(n) {
+    document.body.classList.remove('print-opt1', 'print-opt2'); document.body.classList.add('print-opt' + n);
+    restoreSolutions(); layoutLineNumbers(); setTimeout(() => window.print(), 80);
+  }
+  window.addEventListener('afterprint', () => document.body.classList.remove('print-opt1', 'print-opt2'));
+  function toggleNums() {
+    const on = document.body.classList.toggle('show-nums');
+    document.getElementById('btnNums').textContent = on ? '🙈 Ocultar números de línea' : '🔢 Mostrar números de línea';
+  }
+
+  function scheduleLineLayout() {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(layoutLineNumbers);
+    } else {
+      layoutLineNumbers();
+    }
+  }
+
+  let lineLayoutResizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(lineLayoutResizeTimer);
+    lineLayoutResizeTimer = setTimeout(layoutLineNumbers, 200);
+  });
+  window.addEventListener('beforeprint', layoutLineNumbers);
+  window.addEventListener('afterprint', layoutLineNumbers);
+  window.addEventListener('load', scheduleLineLayout);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('phase1').classList.add('active');
+    document.getElementById('status1').textContent = 'En curso';
+    scheduleLineLayout();
+  });
+</script>
+
+<a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+</body>
+</html>
