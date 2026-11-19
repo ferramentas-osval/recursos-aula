@@ -91,12 +91,21 @@ Cómo funciona (pensado para el aula virtual, donde los enlaces a veces se abren
 - Cada panel de curso guarda en el navegador su dirección exacta, incluido `?alumnado`, y la posición del scroll.
 - Al pulsar «⌂ Panel»: si el recurso se abrió en pestaña nueva, la cierra y vuelve a la del panel; si se abrió en la misma ventana, vuelve atrás al panel en el mismo sitio; si se abrió directamente (sin pasar por el panel), va al último panel visitado de ese curso o, si no hay ninguno, al `href`.
 
-## Soluciones protegidas con PIN y liberadas para todos
+## Candado de soluciones 🔒 (todos los recursos con soluciones, ejemplos o panel del profesor)
 
-Algunos recursos (de momento, `01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html`) llevan las soluciones **cifradas** dentro del HTML (`window.__ENC`, AES-GCM con clave derivada del PIN del profesor y de la ruta del archivo). El candado 🔒 de la esquina pide el PIN y muestra los botones «Ver solución»; 🔓 las vuelve a ocultar.
+Todo recurso con soluciones, ejemplos o panel del profesor lleva antes de `</body>` el bloque `<!--candado:inicio-->…<!--candado:fin-->`, generado con `tools/candado.py` a partir de `tools/candado_soluciones.html`. **No se escribe a mano.**
+
+- 🔒 pequeño, casi transparente (opacidad 25 %), fijo abajo a la derecha; se ve más al pasar el ratón. Al pulsarlo se abre encima una ventana pequeña con el campo de código (con 👁 para ver lo escrito) y el botón «Abrir». **Código: `eclipse`.**
+- Al acertar: 🔓 sobre círculo verde y aviso pequeño «Soluciones desbloqueadas» que se va solo. Pulsando otra vez, se vuelve a bloquear. Con el candado cerrado no se ven soluciones ni ejemplos. El candado y el aviso no se imprimen.
+- **Cifrado:** el contenido de los elementos indicados con `--cifrar` (y los atributos de `--cifrar-atr`) se guarda cifrado en el propio HTML (AES-GCM, clave PBKDF2 del código y de la ruta del archivo); en el código fuente quedan vacíos. Lo que la página genera por JavaScript (p. ej. el reto de comunicación) solo se oculta.
+- Uso: `python3 tools/candado.py <ruta.html> --cifrar ".solution;details.filmsol" --config "{ocultar:'.solbtn, .solution'}"`. `ocultar` = selectores que no se ven con el candado cerrado; opcionales `css` (ajustes de posición), `alCambiar(abierto)` y, en los recursos con su propio cifrado antiguo (`window.__ENC`), `abrir(código)`, `cerrar()` y `liberado(clave)`. La configuración queda guardada en el archivo: para actualizar el bloque basta con `python3 tools/candado.py <ruta.html>` (si se edita una solución cifrada, primero `--quitar`, editar y volver a ejecutar).
+- No llevan candado los materiales pensados para que el alumnado vea las soluciones (modelos de examen resueltos, apuntes, esquemas) ni las prácticas autocorregibles.
+- Presentación extra de Batman y Robin: entera con PIN (es solo para el profesor), sin cambios.
+
+### Liberar las soluciones para todos
 
 Cuando el profesor pide **liberar las soluciones para todos**, no se vuelve a subir el recurso: se añade su clave a `assets/soluciones_liberadas.json` con
-`node tools/liberar_soluciones.mjs <ruta del recurso> <PIN>` (o `--ocultar` para quitarla) y se hace commit. Cada recurso consulta ese JSON al abrirse (también desde el aula virtual o descargado, si hay internet); los cambios tardan unos minutos en verse por la caché de GitHub Pages.
+`node tools/liberar_soluciones.mjs <ruta del recurso> eclipse` (o `--ocultar` para quitarla) y se hace commit. Cada recurso consulta ese JSON al abrirse (también desde el aula virtual o descargado, si hay internet): las soluciones aparecen y el candado desaparece. Los cambios tardan unos minutos en verse por la caché de GitHub Pages.
 
 ## Botón «🖨️ Imprimir»
 
