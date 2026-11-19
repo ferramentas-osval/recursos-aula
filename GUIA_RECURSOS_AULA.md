@@ -108,6 +108,7 @@ Todo recurso con soluciones, ejemplos o panel del profesor lleva antes de `</bod
 - La URL de la aplicación web va en `assets/candado_config.json` (`liberar_url`). Si está vacía, el botón no aparece.
 - Propiedades del script: `GITHUB_TOKEN` (token fine-grained solo para este repositorio, permiso Contents: lectura y escritura), `CODIGO` (el código del candado) y `REPO` (`ferramentas-osval/recursos-aula`). El token nunca va en los HTML.
 - Con el recurso liberado, el 🔒 sigue visible pero discreto: el profesor lo abre con el código para ver el botón «Ocultar para todos».
+- **Etiqueta «✅ Con soluciones» en el panel (automática, en todos los cursos y apartados):** `assets/recursos.js` lee `assets/soluciones_liberadas.json` y la pone debajo del título de la tarjeta de cada recurso liberado, en la portada y en las páginas de curso. Al ocultarlo para todos, desaparece. No hay que añadir nada a mano: basta con que el recurso tenga tarjeta en el panel (`recursos_datos.js`) y esté en la lista.
 
 **A mano (alternativa):** `node tools/liberar_soluciones.mjs <ruta del recurso> eclipse` (o `--ocultar` para quitarla) y commit.
 
