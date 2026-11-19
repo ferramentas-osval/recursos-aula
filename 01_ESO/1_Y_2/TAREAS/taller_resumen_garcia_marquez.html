@@ -1150,12 +1150,12 @@
 
   // ── PÁGINAS (una sección por pantalla) ──
   const PAGES = [['Inicio', ['.intro-box', '.progress-wrap', '#phaseInfo']],
-    ['1', ['.text-card', '#phase1']], ['2', ['#phase2']], ['3', ['#phase3']], ['4', ['#phase4']], ['5', ['#phase5', '#finalPanel']]];
+    ['Texto', ['.text-card']], ['1', ['#phase1']], ['2', ['#phase2']], ['3', ['#phase3']], ['4', ['#phase4']], ['5', ['#phase5', '#finalPanel']]];
   let curPage = 0;
   function initPages() {
     PAGES.forEach((p, i) => p[1].forEach(sel => { const el = document.querySelector(sel); if (el) el.dataset.pg = i; }));
     document.querySelectorAll('.phase-body').forEach(b => b.classList.add('open'));
-    document.getElementById('pgPanel').innerHTML = PAGES.map((p, i) => '<button data-i="' + i + '" title="' + (i ? 'Fase ' + p[0] : 'Inicio') + '" onclick="goPage(' + i + ');document.getElementById(\'pgPanel\').classList.remove(\'open\')">' + p[0] + '</button>').join('');
+    document.getElementById('pgPanel').innerHTML = PAGES.map((p, i) => '<button data-i="' + i + '" title="' + (i > 1 ? 'Fase ' + p[0] : p[0]) + '" onclick="goPage(' + i + ');document.getElementById(\'pgPanel\').classList.remove(\'open\')">' + p[0] + '</button>').join('');
     document.body.classList.add('paged');
     goPage(0, true);
   }
@@ -1180,7 +1180,7 @@
 
   function completePhase(n) {
     const phase = document.getElementById('phase' + n), status = document.getElementById('status' + n);
-    if (phase.classList.contains('done')) { if (n < total) goPage(n + 1); return; }
+    if (phase.classList.contains('done')) { if (n < total) goPage(n + 2); return; }
     phase.classList.remove('active'); phase.classList.add('done');
     status.textContent = '✓ Completada';
     completedPhases++; updateProgress();
@@ -1188,9 +1188,9 @@
     if (nextPhase) {
       nextPhase.classList.add('active');
       document.getElementById('status' + (n + 1)).textContent = 'En curso';
-      goPage(n + 1);
+      goPage(n + 2);
     }
-    const nb = document.querySelector('#pgPanel button[data-i="' + n + '"]'); if (nb) nb.classList.add('dn');
+    const nb = document.querySelector('#pgPanel button[data-i="' + (n + 1) + '"]'); if (nb) nb.classList.add('dn');
     if (completedPhases === total) {
       const panel = document.getElementById('finalPanel');
       panel.classList.add('visible');
