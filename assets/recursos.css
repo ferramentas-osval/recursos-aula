@@ -146,4 +146,4 @@ div.feature.f-tutoria{--tc:#d4a017;background:var(--paper);border:3px dashed var
 .partetag{margin:10px 0 2px!important}.partetag b,.parte.parte1 .partetag b,.parte.parte2 .partetag b{background:transparent!important}
 .parte{scroll-margin-top:calc(var(--tb,150px) + 18px)!important}
 
-.solok{position:absolute;bottom:8px;right:10px;background:#d4f3e1;color:#1d5c3a;border:1px solid #2fae6a;font-size:.68em;font-weight:700;border-radius:20px;padding:.1em .6em}
+.solok{display:inline-block;margin-top:6px;white-space:nowrap;line-height:1.5;background:#d4f3e1;color:#1d5c3a;border:1px solid #2fae6a;font-size:.68em;font-weight:700;border-radius:20px;padding:.1em .6em}

@@ -179,6 +179,6 @@ try{const y=+sessionStorage.getItem(SK);if(y&&!location.hash){if('scrollRestorat
   fetch(R+'assets/soluciones_liberadas.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(j=>{const L=Object.keys(j);if(!L.length)return;
     const marca=()=>document.querySelectorAll('a.card[href],.card.par').forEach(c=>{if(c.querySelector('.solok'))return;
       const hs=c.matches('a')?[c.getAttribute('href')]:[...c.querySelectorAll('a.parlink')].map(a=>a.getAttribute('href'));
-      if(hs.some(h=>h&&L.some(k=>h.split('?')[0].endsWith(k)))){const b=document.createElement('span');b.className='solok';b.textContent='✅ Con soluciones';c.appendChild(b)}});
+      if(hs.some(h=>h&&L.some(k=>h.split('?')[0].endsWith(k)))){const b=document.createElement('span');b.className='solok';b.textContent='✅ Con soluciones';const t=c.querySelector('b');if(t&&t.parentElement!==c)t.insertAdjacentElement('afterend',b);else c.appendChild(b)}});
     marca();new MutationObserver(marca).observe(document.body,{childList:true,subtree:true})}).catch(()=>{});
 })();
