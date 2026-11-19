@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de Resumen — ESO</title>
+<title>Taller de Resumen — Amelia Earhart</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -409,9 +409,217 @@
   .final-label { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .1em; text-transform: uppercase; }
 
   html { scroll-behavior: smooth; }
+.header-text { margin-top:.4rem; font-weight:600; }
+  .text-title { font-size:1.35rem; line-height:1.25; margin:.4rem 0 .15rem; }
+  .text-author { font-size:.95rem; color:var(--muted); font-weight:600; margin-bottom:.9rem; }
+  .media-card { margin-top:.8rem; }
+
+  /* ── LÍNEAS FIJAS (idénticas en pantalla, proyector, PDF y Word) ── */
+  .text-numbered-dynamic { display:block; position:relative; padding-left:2.4rem; }
+  .text-flow { font-size:15px; line-height:1.75; }
+  .text-flow .para { margin:0 0 .9rem; }
+  .text-flow .para:last-child { margin-bottom:0; }
+  .ln { display:block; position:relative; white-space:nowrap; text-align:justify; text-align-last:justify; }
+  .ln.end { text-align-last:left; }
+  .ln::before { content:attr(data-n); position:absolute; left:-2.4rem; width:1.9rem; text-align:right; font-size:.72rem; font-weight:700; color:var(--accent3); display:none; user-select:none; }
+  .ln[data-p]::after { content:attr(data-p); position:absolute; left:-4.4rem; top:-.1rem; width:1.7rem; height:1.7rem; box-sizing:border-box; display:none; align-items:center; justify-content:center; border:2px solid var(--ink); border-radius:50%; font-size:1rem; font-weight:800; line-height:1; color:var(--ink); user-select:none; }
+  .ex-flow { padding-left:2.4rem; margin:.6rem 0; font-size:15px; line-height:1.7; }
+  .ex-flow .para { margin:0 0 .6rem; }
+  .ex-flow .ln[data-n$="0"]::before, .ex-flow .ln[data-n$="5"]::before { display:block; }
+  .ex-flow mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0; }
+  body.show-nums .ln[data-n$="0"]::before, body.show-nums .ln[data-n$="5"]::before { display:block; }
+  body:not(.show-nums) [data-parr-range] { display:none; }
+  .tool-bar { display:flex; gap:.6rem; flex-wrap:wrap; margin:.8rem 0 1.1rem; }
+  .tool-btn { font:inherit; font-size:.85rem; font-weight:600; padding:.45rem .9rem; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); cursor:pointer; }
+  #btnLock { position:fixed; bottom:8px; right:8px; z-index:60; width:30px; height:30px; padding:0; font-size:15px; line-height:1; border:none; border-radius:50%; background:transparent; cursor:pointer; opacity:.25; transition:opacity .2s; }
+  #btnLock:hover { opacity:.9; }
+  #btnLock.open-lock { opacity:1; background:#2e7d32; box-shadow:0 2px 8px rgba(0,0,0,.3); }
+  @media screen {
+    body.paged:not(.print-opt1):not(.print-opt2) [data-pg]:not(.pg-on) { display:none !important; }
+    body.paged .phase-header { cursor:default; }
+    body.paged.pg-inner:not(.print-opt1):not(.print-opt2) header { display:none; }
+    body.paged.pg-inner .container { padding-top:1.5rem; }
+    body.paged .container { padding-bottom:5rem; }
+  }
+  #pgArrL, #pgArrR { position:fixed; top:50%; transform:translateY(-50%); z-index:60; width:44px; height:44px; border:none; border-radius:50%; background:rgba(30,30,30,.45); color:#fff; font-size:26px; line-height:1; cursor:pointer; opacity:.35; transition:opacity .2s; padding:0 0 3px; }
+  #pgArrL { left:8px; } #pgArrR { right:8px; }
+  #pgArrL:hover, #pgArrR:hover { opacity:.95; }
+  #pgArrL:disabled, #pgArrR:disabled { opacity:0; pointer-events:none; }
+  #pgCount { position:fixed; bottom:8px; left:92px; z-index:60; font:inherit; font-size:.8rem; font-weight:700; padding:.3rem .7rem; border:none; border-radius:99px; background:rgba(30,30,30,.5); color:#fff; cursor:pointer; opacity:.6; }
+  #pgCount:hover { opacity:1; }
+  #pgPanel { position:fixed; bottom:44px; left:92px; z-index:61; display:none; background:#fff; border:1px solid var(--border); border-radius:10px; padding:.5rem; box-shadow:0 6px 20px rgba(0,0,0,.25); gap:.3rem; flex-wrap:wrap; max-width:260px; }
+  #pgPanel.open { display:flex; }
+  #pgPanel button { font:inherit; font-size:.85rem; font-weight:700; min-width:2.2rem; height:2.2rem; padding:0 .6rem; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); cursor:pointer; }
+  #pgPanel button:hover { background:#f0ebe2; }
+  #pgPanel button.on { background:var(--accent3); color:#fff; border-color:var(--accent3); }
+  #pgPanel button.dn::after { content:' ✓'; font-size:.7rem; }
+  @media print { #pgArrL, #pgArrR, #pgCount, #pgPanel { display:none !important; } }
+  #unlockToast { position:fixed; bottom:48px; right:10px; background:#2e7d32; color:#fff; padding:.4rem .8rem; font-size:.85rem; border-radius:10px; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,.3); z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s; }
+  #unlockToast.on { opacity:1; }
+  @media print { #unlockToast { display:none !important; } }
+  .tool-btn:hover { background:#f3efe8; }
+  .print-head { display:none; }
+  #fabPrint { position:fixed; top:10px; right:10px; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,.2); }
+  @media print {
+    @page { size:A4; margin:8mm 12mm 11mm; @top-center { content:''; } @bottom-center { content: counter(page); font:9pt Arial,sans-serif; color:#555; } }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    html, body { background:#fff !important; font-size:9.5pt; line-height:1.35; }
+    header, #topBar, .intro-box, .progress-wrap, .tool-bar, .text-card-label, .text-card .media-card, .text-card .hint,
+    .btn-row, .example-toggle, .example-box, .char-count, .phase-status, .final-panel, [data-parr-range], .phase-num,
+    .phase-subtitle, .cardinal-grid, .divider, #body1 .hint-blue, #body1 .hint-green, #body2 .hint-green, #body4 .hint-blue,
+    #bodyInfo .hint-yellow, #body5 .hint-green, #body3 .hint-blue, #phase1, #body2 .hint-yellow, #bodyInfo > p { display:none !important; }
+    .container { max-width:none; padding:0; }
+    .text-card { border:none; padding:0; margin:0 0 3mm; box-shadow:none; }
+    .print-head { display:block; font-size:9.5pt; margin-bottom:2mm; }
+    .text-card { display:flex !important; flex-direction:column; }
+    .text-card .print-head { order:-1; }
+    .text-title { font-size:13pt; margin:2mm 0 0; }
+    .text-author { margin-bottom:2mm; font-size:9pt; }
+    .text-source { margin-top:2mm; font-size:8pt; }
+    .text-numbered-dynamic { padding-left:12mm; }
+    .ln::before { display:none !important; }
+    .ln[data-p]::after { display:flex; left:-12mm; top:0; width:5.8mm; height:5.8mm; border-width:1.4px; font-size:10.5pt; }
+    .text-flow { line-height:1.34; font-size:var(--pfs, 11px) !important; }
+    .text-flow .para { margin-bottom:1.8mm; }
+    .phase { border:none; border-radius:0; overflow:visible; margin-bottom:2.5mm; }
+    .phase-header { display:block !important; padding:1mm 0; border-bottom:1.2px solid #333; break-after:avoid-page; background:none !important; }
+    .phase-title { font-size:11pt; }
+    .phase-body, .phase-body.open { max-height:none !important; overflow:visible !important; padding:1.5mm 0 0 !important; background:none !important; }
+    .hint { padding:1.5mm 2.5mm; margin:1mm 0; font-size:9pt; }
+    .parr-block { break-inside:avoid; padding:1.5mm 0 !important; border:none !important; background:none !important; margin:0 0 1mm !important; }
+    .parr-block p, .task-block p, .task-question { margin:.5mm 0 !important; font-size:9pt !important; }
+    .task-block { padding:0 !important; border:none !important; background:none !important; margin:0 !important; }
+    .task-block textarea, .task-question { break-inside:avoid; }
+    .task-label { margin:1mm 0 .5mm !important; }
+    .normas-grid, .checklist { font-size:8.5pt; }
+    .normas-grid { gap:3mm; }
+    .normas-grid li, .normas-col div { padding:.4mm 0 !important; }
+    .checklist { column-count:2; column-gap:6mm; break-inside:avoid; }
+    .checklist li { break-inside:avoid; padding:.6mm 0; border:none; }
+    textarea { border:none !important; border-radius:0; padding:0; resize:none; overflow:hidden; height:auto;
+      min-height:10mm; line-height:5.8mm; font-size:9.5pt;
+      background:none !important; }
+    textarea::placeholder { color:#bbb; font-size:8.5pt; }
+    #body2 { column-count:2; column-gap:6mm; }
+    #body2 > .hint, #body2 > p, #body2 > div:not(.parr-block) { column-span:all; }
+    #body2 .parr-block { break-inside:avoid; }
+    #t5_resumen { min-height:60mm; }
+    #t5_auto { min-height:9mm; }
+    #t2_tema { min-height:12mm; }
+    #t2_q1, #t2_q2 { min-height:12mm; }
+    #t35_parte1, #t35_parte2, #t35_parte3 { min-height:12mm; }
+  }
+
+  /* ── BARRA SUPERIOR, CANDADO Y OPCIONES DE IMPRESIÓN ── */
+  #topBar { position:fixed; top:10px; right:10px; z-index:60; display:flex; gap:.4rem; flex-wrap:wrap; justify-content:flex-end; }
+  #topBar .tool-btn { box-shadow:0 2px 8px rgba(0,0,0,.2); }
+  #lockPop { position:fixed; bottom:44px; right:10px; z-index:61; background:#fff; border:1px solid var(--border); border-radius:10px; padding:.7rem .8rem; box-shadow:0 6px 20px rgba(0,0,0,.25); display:none; font-size:.85rem; }
+  #lockPop.open { display:block; }
+  #lockPop input { font:inherit; padding:.35rem .5rem; border:1px solid #999; border-radius:6px; width:9rem; }
+  #lockMsg { color:#b00020; margin-top:.3rem; min-height:1em; }
+  body.locked .example-toggle, body.locked .example-box, body.locked #btnNums, body.locked .tool-bar, body.locked [data-parr-range], body.locked #teacherPanel { display:none !important; }
+  .lock-note { display:none; font-size:.8rem; color:#7a6a4a; margin:.3rem 0 0; }
+  body.locked .lock-note { display:block; }
+  #teacherPanel { max-width:none; margin:2rem 0 3rem; padding:1.2rem 1.4rem; background:#fff; border:2px dashed #b8a37a; border-radius:12px; text-align:justify; font-size:.92rem; }
+  #teacherPanel h2 { font-size:1.05rem; margin:1.2rem 0 .4rem; border-bottom:1px solid #999; }
+  #teacherPanel table { width:100%; border-collapse:collapse; margin:.4rem 0; } #teacherPanel td, #teacherPanel th { border:1px solid #bbb; padding:.3rem .5rem; text-align:left; vertical-align:top; }
+  #teacherPanel .box { border:1.5px solid #555; padding:.5rem .8rem; margin:.6rem 0; background:#f6f6f6; }
+  #printOpt2 { display:none; }
+  .print-h1 { display:none; }
+  @media print {
+    @page fichaB { size:A4; margin:12mm 14mm 14mm; @top-center{content:''} @bottom-center{content:counter(page); font:10pt Verdana,'DejaVu Sans',sans-serif; color:#555} @bottom-right{content:"AB"; font:7pt Verdana,sans-serif; color:#999} }
+    #topBar, #btnLock, #lockPop, #teacherPanel, .lock-note { display:none !important; }
+    .print-h1 { display:block; font-size:16pt; font-weight:700; margin:0 0 1mm; }
+    body:not(.print-opt2) #printOpt2 { display:none !important; }
+    body.print-opt2 > *:not(#printOpt2) { display:none !important; }
+    body.print-opt2 { background:#fbf6e9 !important; }
+    body.print-opt2 #printOpt2 { display:block !important; page:fichaB; }
+  }
+#printOpt2 *{box-sizing:border-box}
+#printOpt2{margin:0;background:#fbf6e9;color:#1d1d1d;font-family:Verdana,'DejaVu Sans',Arial,sans-serif;font-size:11.5pt;line-height:1.6;text-align:left}
+#printOpt2 .page{max-width:none;padding:0 4mm}
+#printOpt2 h1{font-size:19pt;margin:0 0 2mm;line-height:1.25}
+#printOpt2 h2{font-size:15pt;margin:0 0 2mm;padding:2mm 3mm;background:#2b2b2b;color:#fff;border-radius:3px;line-height:1.3}
+#printOpt2 .sub{font-size:10.5pt;color:#444;margin:0 0 3mm}
+#printOpt2 .name{margin:2mm 0 4mm;font-size:11pt}
+#printOpt2 .tip{border-left:4px solid #3b7dd8;background:#e9f1fc;padding:2mm 3mm;margin:2mm 0 3mm;font-size:11.5pt;line-height:1.6}
+#printOpt2 .warn{border-left:4px solid #d9a21b;background:#fff3d1;padding:2mm 3mm;margin:2mm 0 3mm;font-size:11.5pt;line-height:1.6}
+#printOpt2 .task{margin:0 0 4mm}
+#printOpt2 .th{display:flex;align-items:center;gap:3mm;margin:0 0 2mm;font-weight:700;font-size:13.5pt;border-bottom:2px solid #2b2b2b;padding-bottom:1mm;break-after:avoid}
+#printOpt2 .th .n{background:#2b2b2b;color:#fff;border-radius:50%;width:8mm;height:8mm;display:inline-flex;align-items:center;justify-content:center;font-size:12pt;flex:none}
+#printOpt2 .th .t{margin-left:auto;font-weight:400;font-size:10.5pt;white-space:nowrap}
+#printOpt2 .done{font-weight:400;font-size:10.5pt;white-space:nowrap}
+#printOpt2 .box{display:inline-block;width:5.5mm;height:5.5mm;border:1.6px solid #222;border-radius:1mm;vertical-align:-1mm;background:#fff;margin-right:1.5mm}
+#printOpt2 .text .p{display:flex;gap:3mm;margin:0 0 3mm}
+#printOpt2 .text .pn{flex:none;width:8mm;height:8mm;border-radius:50%;background:#3b7dd8;color:#fff;font-weight:700;font-size:11pt;display:flex;align-items:center;justify-content:center;margin-top:1mm}
+#printOpt2 .text .pt div{margin:0 0 1.2mm}
+#printOpt2 .src{font-size:9.5pt;color:#555;margin-top:2mm}
+#printOpt2 .item{break-inside:avoid;margin:0 0 3mm}
+#printOpt2 .item .q{font-weight:700;font-size:12pt}
+#printOpt2 .ex{font-size:10.5pt;color:#444;margin:0 0 1mm;line-height:1.5}
+#printOpt2 .ans{border:1.6px solid #888;border-radius:2mm;background:#fff;min-height:11mm;margin:1mm 0}
+#printOpt2 .ans.big{min-height:58mm}
+#printOpt2 .row{display:flex;gap:4mm;align-items:stretch;margin:0 0 3mm;break-inside:avoid}
+#printOpt2 .row .lab{flex:none;width:30mm;font-weight:700}
+#printOpt2 .opts{font-size:12pt;margin:1mm 0}
+#printOpt2 .opts span{display:inline-block;margin-right:5mm}
+#printOpt2 .chips span{display:inline-block;background:#fff;border:1.4px solid #888;border-radius:10mm;padding:0 3mm;margin:0 2mm 2mm 0;font-size:11pt}
+#printOpt2 .chk{list-style:none;padding:0;margin:0}
+#printOpt2 .chk li{margin:0 0 2mm}
+#printOpt2 .pb{break-before:page}
+
+  .example-box mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0 .05rem; font-style:normal; }
+  .example-box p { margin:.4rem 0; }
+  textarea.sol-on { overflow:hidden; resize:none; color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; }
+  /* ── VOCABULARIO EN EL TEXTO ── */
+  .gl { border-bottom:2px dotted #3b7dd8; cursor:help; position:relative; }
+  .gl:hover, .gl:focus { background:#e9f1fc; outline:none; }
+  .gl-notes, .gl-notes2 { display:none; }
+  #glPop { position:fixed; z-index:70; max-width:min(340px,92vw); background:#fff; border:1px solid #3b7dd8; border-left-width:5px; border-radius:8px; padding:.6rem .8rem; box-shadow:0 6px 20px rgba(0,0,0,.28); font-size:.88rem; line-height:1.45; text-align:left; display:none; }
+  #glPop b { color:#1d4fa8; }
+  @media print {
+    .gl { border-bottom:none; }
+    .gl::after { content:attr(data-n); position:absolute; top:-.25em; right:-.5em; font-size:.6em; font-weight:700; line-height:1; }
+    #glPop { display:none !important; }
+    .gl-notes { display:block; margin-top:1.5mm; font-size:9.5pt; line-height:1.3; border-top:1px solid #888; padding-top:1mm; text-align:left; column-count:2; column-gap:6mm; }
+    .gl-notes-t { column-span:all; }
+    .gl-notes div { break-inside:avoid; }
+    .gl-notes-t { font-weight:700; margin-bottom:.5mm; }
+    .gl-notes div { margin:0 0 .4mm; }
+  }
+
+  #printOpt2 .gl::after { content:attr(data-n); position:static; vertical-align:super; font-size:.62em; font-weight:700; margin-left:.1em; }
+  #printOpt2 .gl-notes2 { display:block; margin:2mm 0 3mm; padding:2mm 3mm; background:#fff; border:1.4px solid #888; border-radius:2mm; font-size:9.5pt; line-height:1.4; break-inside:avoid; column-count:2; column-gap:6mm; }
+  #printOpt2 .gl-notes2 > b { column-span:all; display:block; }
+  #printOpt2 .gl-notes2 > div { break-inside:avoid; }
+  #printOpt2 .gl-notes2 > div { margin:.6mm 0; }
+  @media print {
+    html, body { font-size:10pt; line-height:1.28; }
+    .phase { margin-bottom:1.5mm; }
+    .phase-header { padding:.6mm 0; }
+    .phase-title { font-size:11pt; }
+    .hint { padding:.8mm 2mm; margin:.5mm 0; font-size:9.5pt; }
+    .parr-block { padding:.8mm 0 !important; margin:0 !important; }
+    .parr-block p, .task-block p, .task-question { font-size:10pt !important; }
+    textarea { min-height:9mm; }
+    #t5_resumen { min-height:56mm; }
+    .text-flow .para { margin-bottom:1.8mm; }
+    .checklist { font-size:9pt; }
+    #body5 .task-block { margin:0 !important; }
+    textarea::placeholder { color:transparent !important; opacity:0 !important; }
+  }
 </style>
 </head>
-<body>
+<body class="locked">
+<div id="glPop" role="dialog" aria-live="polite"></div>
+<div id="topBar">
+  <button class="tool-btn" onclick="printOpt(1)" title="Imprimir o guardar como PDF">🖨️ Opción 1</button>
+  <button class="tool-btn" onclick="printOpt(2)" title="Imprimir o guardar como PDF">🖨️ Opción 2</button>
+</div>
+<button id="btnLock" onclick="toggleLock()" title="Soluciones y ejemplos (profesor)">🔒</button>
+<button id="pgArrL" title="Anterior" onclick="goPage(curPage-1)">‹</button><button id="pgArrR" title="Siguiente" onclick="goPage(curPage+1)">›</button>
+<button id="pgCount" onclick="document.getElementById('pgPanel').classList.toggle('open')" title="Ir a una página">▦ 1 / 6</button><div id="pgPanel"></div>
+<div id="lockPop"><label>Código del profesor:<br><input type="password" id="lockCode" onkeydown="if(event.key==='Enter')tryUnlock()"></label> <button class="tool-btn" onclick="tryUnlock()">Abrir</button><div id="lockMsg"></div></div>
 
 <header>
   <div class="header-tag">Lengua Castellana y Literatura · ESO</div>
@@ -439,22 +647,24 @@
   <div class="text-card">
     <div class="text-card-label">Texto para resumir</div>
 
+    <h2 class="text-title">Amelia Earhart</h2>
+    <div class="text-author">Biografía · texto de elaboración propia con fines didácticos</div>
+
+    <div class="print-head"><div class="print-h1">Taller de resumen</div>Nombre y apellidos: ______________________________ Curso: ________ Fecha: __________<br><em>Lee el texto, subraya los datos importantes y numera las líneas de 5 en 5 en el margen izquierdo.</em></div>
     <div class="hint hint-yellow" style="margin-top:1rem;">
-      <strong>📝 Antes de leer:</strong> numera las líneas del texto de 5 en 5, como se ve aquí (si trabajas sobre una copia impresa, escribe tú mismo los números en el margen izquierdo).
+      <strong>📝 Antes de leer:</strong> numera las líneas del texto de 5 en 5, escribiendo los números en el margen izquierdo. Después el profesor mostrará los números para corregir.
+    </div>
+    <div class="tool-bar">
+      <button class="tool-btn" id="btnNums" onclick="toggleNums()">🔢 Mostrar números de línea</button>
     </div>
 
-    <div class="text-numbered-dynamic" id="textNumbered">
-      <div class="num-gutter" id="numGutter"></div>
-      <div class="text-flow" id="textFlow">
-    <p>Amelia Earhart nació en Atchison, Kansas, en 1897, en el seno de una familia de clase media. Desde niña mostró un carácter curioso y aventurero, poco habitual para las niñas de su época, y disfrutaba de actividades como trepar árboles, cazar ratas con un rifle o deslizarse en trineo por las colinas. De adolescente guardaba un álbum de recortes de prensa sobre mujeres que triunfaban en profesiones dominadas por hombres, como la ingeniería o el derecho. En 1920 asistió a una exhibición aérea en California y aquel vuelo de diez minutos como pasajera cambió su vida para siempre. Al año siguiente comenzó a tomar clases de pilotaje con la instructora Neta Snook y, tras ahorrar dinero trabajando en distintos empleos, consiguió su licencia de vuelo y compró su primer avión, un pequeño biplano de color amarillo.</p>
-    <p>En 1928 Amelia Earhart se convirtió en la primera mujer en cruzar el océano Atlántico en avión, aunque viajó como pasajera y no como piloto al mando. El vuelo la hizo mundialmente famosa y la prensa la apodó Lady Lindy, en referencia al aviador Charles Lindbergh. El editor George Putnam, que había organizado la expedición, se convirtió en su representante y, más tarde, en su marido, y contribuyó a promocionar su imagen pública. Earhart aprovechó su popularidad para publicar libros sobre sus experiencias, dar conferencias por todo el país y promocionar la aviación comercial, y en los años siguientes estableció varios récords de velocidad y distancia que consolidaron su reputación como una de las pilotos más destacadas de su tiempo.</p>
-    <p>En 1932 repitió la hazaña, pero esta vez como piloto única, convirtiéndose en la primera mujer en cruzar el Atlántico en solitario, hazaña por la que recibió la Cruz de Vuelo Distinguido. Dos años más tarde fue también la primera persona en volar en solitario desde Hawái hasta California, otro trayecto que ningún piloto había completado hasta entonces. Además de sus récords de vuelo, impulsó activamente la presencia femenina en la aviación: fundó junto a otras pilotos la organización The Ninety-Nines, dedicada a apoyar a mujeres aviadoras, trabajó como asesora en la Universidad de Purdue para orientar a estudiantes en carreras técnicas, y colaboró como editora de aviación en una revista, desde donde animaba a otras mujeres a formarse y a incorporarse a profesiones consideradas, hasta entonces, exclusivamente masculinas.</p>
-    <p>En 1937 Amelia Earhart emprendió, junto al navegante Fred Noonan, un intento de dar la vuelta al mundo en avión siguiendo la línea del ecuador, un reto que ningún piloto había completado hasta entonces. El 2 de julio, durante uno de los tramos más difíciles del recorrido, su avión perdió el contacto por radio cerca de la isla Howland, en mitad del océano Pacífico. A pesar de que Estados Unidos organizó una de las mayores operaciones de búsqueda y rescate de la época, no se encontró ningún rastro del aparato ni de sus ocupantes. Con el tiempo han surgido distintas teorías sobre lo ocurrido: que el avión cayó al mar sin combustible, que ambos sobrevivieron como náufragos en una isla remota o que fueron capturados, pero ninguna se ha podido confirmar con certeza.</p>
-    <p>Aunque su desaparición sigue siendo uno de los grandes misterios de la aviación, y a pesar de que distintas expediciones han intentado sin éxito localizar los restos de su avión, el Lockheed Electra, Amelia Earhart se convirtió en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres. Hoy en día, aeropuertos, escuelas y sellos postales llevan su nombre en su memoria, existen museos dedicados a su figura y periódicamente se estrenan documentales que revisan su historia, mientras que organizaciones de todo el mundo continúan citándola como referente para animar a las nuevas generaciones de mujeres a interesarse por la aviación y la ciencia.</p>
-      </div>
-    </div>
-
-    <div class="text-source">Biografía de Amelia Earhart (texto de elaboración propia con fines didácticos)</div>
+    <div class="text-numbered-dynamic" id="textNumbered"><div class="text-flow" id="textFlow">
+<div class="para"><div class="ln" data-n="1" data-p="1">Amelia Earhart nació en Atchison, Kansas, en 1897, en el seno de una familia de clase</div><div class="ln" data-n="2">media. Desde niña mostró un carácter curioso y aventurero, poco habitual para las niñas</div><div class="ln" data-n="3">de su época, y disfrutaba de actividades como trepar árboles, cazar ratas con un rifle</div><div class="ln" data-n="4">o deslizarse en trineo por las colinas. De adolescente guardaba un álbum de recortes de</div><div class="ln" data-n="5">prensa sobre mujeres que triunfaban en profesiones dominadas por hombres, como la</div><div class="ln" data-n="6">ingeniería o el derecho. En 1920 asistió a una exhibición aérea en California y aquel</div><div class="ln" data-n="7">vuelo de diez minutos como pasajera cambió su vida para siempre. Al año siguiente</div><div class="ln" data-n="8">comenzó a tomar clases de pilotaje con la instructora Neta Snook y, tras ahorrar dinero</div><div class="ln" data-n="9">trabajando en distintos empleos, consiguió su licencia de vuelo y compró su primer</div><div class="ln end" data-n="10">avión, un pequeño biplano de color amarillo.</div></div>
+<div class="para"><div class="ln" data-n="11" data-p="2">En 1928 Amelia Earhart se convirtió en la primera mujer en cruzar el océano Atlántico</div><div class="ln" data-n="12">en avión, aunque viajó como pasajera y no como piloto al mando. El vuelo la hizo</div><div class="ln" data-n="13">mundialmente famosa y la prensa la apodó Lady Lindy, en referencia al aviador Charles</div><div class="ln" data-n="14">Lindbergh. El editor George Putnam, que había organizado la expedición, se convirtió en</div><div class="ln" data-n="15">su representante y, más tarde, en su marido, y contribuyó a promocionar su imagen</div><div class="ln" data-n="16">pública. Earhart aprovechó su popularidad para publicar libros sobre sus experiencias,</div><div class="ln" data-n="17">dar conferencias por todo el país y promocionar la aviación comercial, y en los años</div><div class="ln" data-n="18">siguientes estableció varios récords de velocidad y distancia que consolidaron su</div><div class="ln end" data-n="19">reputación como una de las pilotos más destacadas de su tiempo.</div></div>
+<div class="para"><div class="ln" data-n="20" data-p="3">En 1932 repitió la hazaña, pero esta vez como piloto única, convirtiéndose en la</div><div class="ln" data-n="21">primera mujer en cruzar el Atlántico en solitario, hazaña por la que recibió la Cruz de</div><div class="ln" data-n="22">Vuelo Distinguido. Dos años más tarde fue también la primera persona en volar en</div><div class="ln" data-n="23">solitario desde Hawái hasta California, otro trayecto que ningún piloto había</div><div class="ln" data-n="24">completado hasta entonces. Además de sus récords de vuelo, impulsó activamente la</div><div class="ln" data-n="25">presencia femenina en la aviación: fundó junto a otras pilotos la organización The</div><div class="ln" data-n="26">Ninety-Nines, dedicada a apoyar a mujeres aviadoras, trabajó como asesora en la</div><div class="ln" data-n="27">Universidad de Purdue para orientar a estudiantes en carreras técnicas, y colaboró como</div><div class="ln" data-n="28">editora de aviación en una revista, desde donde animaba a otras mujeres a formarse y a</div><div class="ln end" data-n="29">incorporarse a profesiones consideradas, hasta entonces, exclusivamente masculinas.</div></div>
+<div class="para"><div class="ln" data-n="30" data-p="4">En 1937 Amelia Earhart emprendió, junto al navegante Fred Noonan, un intento de dar la</div><div class="ln" data-n="31">vuelta al mundo en avión siguiendo la línea del ecuador, un reto que ningún piloto</div><div class="ln" data-n="32">había completado hasta entonces. El 2 de julio, durante uno de los tramos más difíciles</div><div class="ln" data-n="33">del recorrido, su avión perdió el contacto por radio cerca de la isla Howland, en mitad</div><div class="ln" data-n="34">del océano Pacífico. A pesar de que Estados Unidos organizó una de las mayores</div><div class="ln" data-n="35">operaciones de búsqueda y rescate de la época, no se encontró ningún rastro del aparato</div><div class="ln" data-n="36">ni de sus ocupantes. Con el tiempo han surgido distintas teorías sobre lo ocurrido: que</div><div class="ln" data-n="37">el avión cayó al mar sin combustible, que ambos sobrevivieron como náufragos en una</div><div class="ln end" data-n="38">isla remota o que fueron capturados, pero ninguna se ha podido confirmar con certeza.</div></div>
+<div class="para"><div class="ln" data-n="39" data-p="5">Aunque su desaparición sigue siendo uno de los grandes misterios de la aviación, y a</div><div class="ln" data-n="40">pesar de que distintas expediciones han intentado sin éxito localizar los restos de su</div><div class="ln" data-n="41">avión, el Lockheed Electra, Amelia Earhart se convirtió en un símbolo de la lucha de</div><div class="ln" data-n="42">las mujeres por abrirse paso en terrenos dominados por hombres. Hoy en día,</div><div class="ln" data-n="43">aeropuertos, escuelas y sellos postales llevan su nombre en su memoria, existen museos</div><div class="ln" data-n="44">dedicados a su figura y periódicamente se estrenan documentales que revisan su</div><div class="ln" data-n="45">historia, mientras que organizaciones de todo el mundo continúan citándola como</div><div class="ln" data-n="46">referente para animar a las nuevas generaciones de mujeres a interesarse por la</div><div class="ln end" data-n="47">aviación y la ciencia.</div></div>
+</div></div>
 
   <div class="media-card">
     <div class="portrait-wrap">
@@ -567,6 +777,18 @@
         <strong>🔍 Segunda lectura (detenida).</strong> Vuelve a leer, ahora párrafo a párrafo y con calma. <strong>Subraya los datos importantes</strong> (quién, qué hizo, cuándo, dónde y por qué) y no subrayes los detalles secundarios. Si hay palabras que no entiendas, búscalas en el diccionario.
       </div>
 
+      <button class="example-toggle" onclick="toggleExample('ex1_sub')">💡 Ver ejemplo de subrayado</button>
+<div class="example-box" id="ex1_sub" style="font-style:normal;">
+<strong>Ejemplo de subrayado (solo lo importante):</strong>
+<div class="ex-flow" id="exFlow">
+<div class="para"><div class="ln" data-n="1" data-p="1"><mark>Amelia Earhart</mark> nació en Atchison, Kansas, en 1897, en el seno de una familia de clase</div><div class="ln" data-n="2">media. Desde niña mostró un <mark>carácter curioso y aventurero</mark>, poco habitual para las niñas</div><div class="ln" data-n="3">de su época, y disfrutaba de actividades como trepar árboles, cazar ratas con un rifle</div><div class="ln" data-n="4">o deslizarse en trineo por las colinas. De adolescente guardaba un álbum de recortes de</div><div class="ln" data-n="5">prensa sobre mujeres que triunfaban en profesiones dominadas por hombres, como la</div><div class="ln" data-n="6">ingeniería o el derecho. En 1920 asistió a una exhibición aérea en California y <mark>aquel</mark></div><div class="ln" data-n="7"><mark>vuelo de diez minutos como pasajera cambió su vida</mark> para siempre. Al año siguiente</div><div class="ln" data-n="8"><mark>comenzó a tomar clases de pilotaje</mark> con la instructora Neta Snook y, tras ahorrar dinero</div><div class="ln" data-n="9">trabajando en distintos empleos, <mark>consiguió su licencia de vuelo</mark> y compró su primer</div><div class="ln end" data-n="10">avión, un pequeño biplano de color amarillo.</div></div>
+<div class="para"><div class="ln" data-n="11" data-p="2">En 1928 Amelia Earhart se convirtió en la <mark>primera mujer en cruzar el océano Atlántico</mark></div><div class="ln" data-n="12"><mark>en avión</mark>, aunque viajó <mark>como pasajera</mark> y no como piloto al mando. <mark>El vuelo la hizo</mark></div><div class="ln" data-n="13"><mark>mundialmente famosa</mark> y la prensa la apodó Lady Lindy, en referencia al aviador Charles</div><div class="ln" data-n="14">Lindbergh. El editor George Putnam, que había organizado la expedición, se convirtió en</div><div class="ln" data-n="15">su representante y, más tarde, en su marido, y contribuyó a promocionar su imagen</div><div class="ln" data-n="16">pública. Earhart aprovechó su popularidad para publicar libros sobre sus experiencias,</div><div class="ln" data-n="17">dar conferencias por todo el país y promocionar la aviación comercial, y en los años</div><div class="ln" data-n="18">siguientes <mark>estableció varios récords de velocidad y distancia</mark> que consolidaron su</div><div class="ln end" data-n="19">reputación como una de las pilotos más destacadas de su tiempo.</div></div>
+<div class="para"><div class="ln" data-n="20" data-p="3">En 1932 repitió la hazaña, pero esta vez como piloto única, convirtiéndose en la</div><div class="ln" data-n="21"><mark>primera mujer en cruzar el Atlántico en solitario</mark>, hazaña por la que recibió la Cruz de</div><div class="ln" data-n="22">Vuelo Distinguido. Dos años más tarde fue también la <mark>primera persona en volar en</mark></div><div class="ln" data-n="23"><mark>solitario</mark> desde Hawái hasta California, otro trayecto que ningún piloto había</div><div class="ln" data-n="24">completado hasta entonces. Además de sus récords de vuelo, <mark>impulsó activamente la</mark></div><div class="ln" data-n="25"><mark>presencia femenina en la aviación</mark>: fundó junto a otras pilotos la organización The</div><div class="ln" data-n="26">Ninety-Nines, dedicada a apoyar a mujeres aviadoras, trabajó como asesora en la</div><div class="ln" data-n="27">Universidad de Purdue para orientar a estudiantes en carreras técnicas, y colaboró como</div><div class="ln" data-n="28">editora de aviación en una revista, desde donde <mark>animaba a otras mujeres a formarse</mark> y a</div><div class="ln end" data-n="29">incorporarse a profesiones consideradas, hasta entonces, exclusivamente masculinas.</div></div>
+<div class="para"><div class="ln" data-n="30" data-p="4">En 1937 Amelia Earhart emprendió, junto al navegante Fred Noonan, un <mark>intento de dar la</mark></div><div class="ln" data-n="31"><mark>vuelta al mundo en avión</mark> siguiendo la línea del ecuador, un reto que ningún piloto</div><div class="ln" data-n="32">había completado hasta entonces. El 2 de julio, durante uno de los tramos más difíciles</div><div class="ln" data-n="33">del recorrido, <mark>su avión perdió el contacto por radio</mark> cerca de la isla Howland, en mitad</div><div class="ln" data-n="34">del océano Pacífico. A pesar de que Estados Unidos organizó una de las mayores</div><div class="ln" data-n="35">operaciones de búsqueda y rescate de la época, <mark>no se encontró ningún rastro del aparato</mark></div><div class="ln" data-n="36"><mark>ni de sus ocupantes</mark>. Con el tiempo han surgido distintas teorías sobre lo ocurrido: que</div><div class="ln" data-n="37">el avión cayó al mar sin combustible, que ambos sobrevivieron como náufragos en una</div><div class="ln end" data-n="38">isla remota o que fueron capturados, pero <mark>ninguna se ha podido confirmar con certeza</mark>.</div></div>
+<div class="para"><div class="ln" data-n="39" data-p="5">Aunque su desaparición sigue siendo uno de los grandes misterios de la aviación, y a</div><div class="ln" data-n="40">pesar de que distintas expediciones han intentado sin éxito localizar los restos de su</div><div class="ln" data-n="41">avión, el Lockheed Electra, Amelia Earhart <mark>se convirtió en un símbolo de la lucha de</mark></div><div class="ln" data-n="42"><mark>las mujeres por abrirse paso en terrenos dominados por hombres</mark>. Hoy en día,</div><div class="ln" data-n="43"><mark>aeropuertos, escuelas y sellos postales llevan su nombre</mark> en su memoria, existen museos</div><div class="ln" data-n="44">dedicados a su figura y periódicamente se estrenan documentales que revisan su</div><div class="ln" data-n="45">historia, mientras que organizaciones de todo el mundo continúan citándola como</div><div class="ln" data-n="46">referente para animar a las nuevas generaciones de mujeres a interesarse por la</div><div class="ln end" data-n="47">aviación y la ciencia.</div></div>
+</div>
+<p style="margin:.6rem 0 0;"><strong>Se deja sin subrayar</strong> lo que concreta pero no cambia la historia: las fechas exactas, los nombres propios secundarios (Neta Snook, George Putnam, Lady Lindy, Fred Noonan), los detalles curiosos (trepar árboles, el color del avión) y las teorías sobre su desaparición.</p>
+</div>
       <div class="btn-row">
         <button class="btn-green" onclick="completePhase(1)">✅ He leído y subrayado, siguiente fase →</button>
       </div>
@@ -607,12 +829,11 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Amelia Earhart nació en Atchison, Kansas, en 1897… […] compró su primer avión, un pequeño biplano de color amarillo.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p1" placeholder="Carácter aventurero de Earhart desde niña y primeros pasos en…" oninput="updateCount('t3_p1','c3_p1')"></textarea>
+        <textarea rows="2" id="t3_p1" data-solution="El carácter aventurero de Earhart y sus primeros pasos como piloto." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p1','c3_p1')"></textarea>
         <div class="char-count" id="c3_p1">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p1')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p1">
-          <strong>Ejemplo (frase nominal desarrollada, sin verbos):</strong> Carácter aventurero de Earhart desde la infancia y primeros pasos en la aviación, desde su primer vuelo como pasajera hasta la obtención de su licencia de piloto.
-          <br><br><strong>Descartado como detalle:</strong> la fecha exacta de nacimiento, el nombre de la instructora, el color del avión. Son datos concretos que ilustran la idea, no la idea en sí.
+          <strong>Descartado como detalle:</strong> la fecha exacta de nacimiento, el nombre de la instructora y el color del avión.
         </div>
       </div>
 
@@ -624,12 +845,11 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">En 1928 Amelia Earhart cruzó el Atlántico en avión… […] consolidaron su reputación como una de las pilotos más destacadas de su tiempo.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p2" placeholder="Primera travesía aérea del Atlántico de Earhart y consiguiente…" oninput="updateCount('t3_p2','c3_p2')"></textarea>
+        <textarea rows="2" id="t3_p2" data-solution="La primera travesía aérea del Atlántico de Earhart y su fama mundial." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p2','c3_p2')"></textarea>
         <div class="char-count" id="c3_p2">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p2')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p2">
-          <strong>Ejemplo (frase nominal desarrollada, sin verbos):</strong> Primera travesía aérea del Atlántico de Earhart, como pasajera, y consiguiente fama mundial, con aprovechamiento de su popularidad en la promoción de la aviación y en nuevos récords.
-          <br><br><strong>Descartado como detalle:</strong> el apodo de Lady Lindy, el nombre de George Putnam, los detalles sobre sus conferencias. Son datos concretos que apoyan la idea principal.
+          <strong>Descartado como detalle:</strong> el apodo de Lady Lindy, el nombre de George Putnam y los detalles de las conferencias.
         </div>
       </div>
 
@@ -641,12 +861,11 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">En 1932 repitió la hazaña, pero esta vez como piloto única… […] profesiones consideradas, hasta entonces, exclusivamente masculinas.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p3" placeholder="Travesía en solitario del Atlántico y labor de Earhart en favor de…" oninput="updateCount('t3_p3','c3_p3')"></textarea>
+        <textarea rows="2" id="t3_p3" data-solution="Los récords en solitario de Earhart y su labor en favor de las mujeres aviadoras." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p3','c3_p3')"></textarea>
         <div class="char-count" id="c3_p3">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p3')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p3">
-          <strong>Ejemplo (frase nominal desarrollada, sin verbos):</strong> Travesía en solitario del Atlántico y otros récords de Earhart, junto con su labor en favor de las mujeres en la aviación, con la creación de una organización de pilotos.
-          <br><br><strong>Descartado como detalle:</strong> la Cruz de Vuelo Distinguido, el vuelo Hawái-California, el nombre de la revista donde trabajó. Son datos concretos que apoyan la idea principal.
+          <strong>Descartado como detalle:</strong> la Cruz de Vuelo Distinguido, el vuelo Hawái-California y el nombre de la revista.
         </div>
       </div>
 
@@ -658,29 +877,27 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">En 1937 Amelia Earhart emprendió, junto al navegante Fred Noonan… […] pero ninguna se ha podido confirmar con certeza.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p4" placeholder="Intento de vuelta al mundo de Earhart y desaparición sobre…" oninput="updateCount('t3_p4','c3_p4')"></textarea>
+        <textarea rows="2" id="t3_p4" data-solution="El intento de vuelta al mundo de Earhart y su desaparición sobre el Pacífico." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p4','c3_p4')"></textarea>
         <div class="char-count" id="c3_p4">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p4')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p4">
-          <strong>Ejemplo (frase nominal desarrollada, sin verbos):</strong> Intento de vuelta al mundo de Earhart y su desaparición sobre el Pacífico, sin hallazgo de restos pese a la intensa búsqueda.
-          <br><br><strong>Descartado como detalle:</strong> el nombre del navegante, la fecha exacta, las distintas teorías sobre lo ocurrido. Son datos anecdóticos que no cambian la idea principal.
+          <strong>Descartado como detalle:</strong> el nombre del navegante, la fecha exacta y las teorías sobre lo ocurrido.
         </div>
       </div>
 
       <!-- Párrafo 5 -->
       <div class="parr-block">
         <div>
-          <span class="parr-label">Párrafo 5 · <span data-parr-range="5">líneas 39-46</span></span>
+          <span class="parr-label">Párrafo 5 · <span data-parr-range="5">líneas 39-47</span></span>
           <span style="font-size:.8rem; color:var(--muted); margin-left:.5rem; font-style:italic;">Cierre — Legado y reconocimiento</span>
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Aunque su desaparición sigue siendo uno de los grandes misterios de la aviación… […] interesarse por la aviación y la ciencia.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p5" placeholder="Legado de Earhart como símbolo de…, con homenajes en…" oninput="updateCount('t3_p5','c3_p5')"></textarea>
+        <textarea rows="2" id="t3_p5" data-solution="El legado de Earhart como símbolo de las mujeres en la aviación." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p5','c3_p5')"></textarea>
         <div class="char-count" id="c3_p5">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p5')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p5">
-          <strong>Ejemplo (frase nominal desarrollada, sin verbos):</strong> Legado de Earhart como símbolo de la lucha de las mujeres en la aviación, con homenajes en aeropuertos, escuelas y museos, pese al misterio de su desaparición.
-          <br><br><strong>Descartado como detalle:</strong> el nombre concreto de cada museo o sello postal. Basta con transmitir que hubo un reconocimiento amplio y duradero.
+          <strong>Descartado como detalle:</strong> el nombre de cada museo, aeropuerto o sello postal.
         </div>
       </div>
 
@@ -713,24 +930,20 @@
         <div class="task-question">Vuelve a mirar los 5 párrafos que has trabajado en la fase anterior y decide qué líneas forman cada una de las tres partes del texto. Escribe, para cada parte, qué líneas abarca y de qué trata:</div>
 
         <p style="font-size:.9rem; margin-bottom:.3rem; font-weight:600;">Parte 1 — Introducción (¿qué líneas? ¿de qué trata?)</p>
-        <textarea rows="2" id="t35_parte1" placeholder="Líneas… — presenta a Earhart y su primer contacto con la aviación…" oninput="updateCount('t35_parte1','c35_parte1')"></textarea>
+        <textarea rows="2" id="t35_parte1" data-solution="Es la introducción: líneas 1-10 (párrafo 1). Presenta a Earhart, su carácter aventurero y sus primeros pasos como piloto." placeholder="Líneas… — trata de…" oninput="updateCount('t35_parte1','c35_parte1')"></textarea>
         <div class="char-count" id="c35_parte1">0 caracteres</div>
 
         <p style="font-size:.9rem; margin:.8rem 0 .3rem; font-weight:600;">Parte 2 — Desarrollo (¿qué líneas? ¿de qué trata?)</p>
-        <textarea rows="2" id="t35_parte2" placeholder="Líneas… — sus logros: cruzar el Atlántico y su labor a favor de las mujeres…" oninput="updateCount('t35_parte2','c35_parte2')"></textarea>
+        <textarea rows="2" id="t35_parte2" data-solution="Es el desarrollo: líneas 11-29 (párrafos 2 y 3). Cuenta sus logros: cruzar el Atlántico (como pasajera y en solitario) y su labor a favor de las mujeres en la aviación." placeholder="Líneas… — trata de…" oninput="updateCount('t35_parte2','c35_parte2')"></textarea>
         <div class="char-count" id="c35_parte2">0 caracteres</div>
 
         <p style="font-size:.9rem; margin:.8rem 0 .3rem; font-weight:600;">Parte 3 — Desenlace (¿qué líneas? ¿de qué trata?)</p>
-        <textarea rows="2" id="t35_parte3" placeholder="Líneas… — su desaparición y el reconocimiento posterior…" oninput="updateCount('t35_parte3','c35_parte3')"></textarea>
+        <textarea rows="2" id="t35_parte3" data-solution="Es el desenlace: líneas 30-47 (párrafos 4 y 5). Cuenta su desaparición durante la vuelta al mundo y el reconocimiento posterior como símbolo de esa lucha." placeholder="Líneas… — trata de…" oninput="updateCount('t35_parte3','c35_parte3')"></textarea>
         <div class="char-count" id="c35_parte3">0 caracteres</div>
 
         <button class="example-toggle" onclick="toggleExample('ex35_partes')">💡 Ver propuesta</button>
         <div class="example-box" id="ex35_partes">
-          <strong>Propuesta:</strong><br>
-          <strong>Parte 1 — Introducción (párrafo 1):</strong> presenta a Amelia Earhart, su carácter aventurero y sus primeros pasos como piloto.<br>
-          <strong>Parte 2 — Desarrollo (párrafos 2 y 3):</strong> sus logros: cruzar el Atlántico (primero como pasajera y luego en solitario) y su labor a favor de las mujeres en la aviación.<br>
-          <strong>Parte 3 — Desenlace (párrafos 4 y 5):</strong> su desaparición durante la vuelta al mundo, y el reconocimiento que recibió después como símbolo de esa lucha.
-          <br><br>Otras divisiones razonadas también son válidas: lo importante es justificar por qué esas líneas forman un bloque con sentido propio.
+          Otras divisiones razonadas también son válidas: lo importante es justificar por qué esas líneas forman un bloque con sentido propio.
         </div>
       </div>
 
@@ -775,30 +988,24 @@
         <div class="task-label">✏️ Tarea 2.1 — Dos preguntas clave</div>
         <div class="task-question">Antes de formular el tema, responde brevemente a estas dos preguntas:</div>
         <p style="font-size:.9rem; margin-bottom:.4rem; font-weight:600;">¿De quién trata el texto?</p>
-        <textarea rows="2" id="t2_q1" placeholder="El texto trata sobre…" oninput="updateCount('t2_q1','c2_q1')"></textarea>
+        <textarea rows="2" id="t2_q1" data-solution="El texto trata sobre la vida de Amelia Earhart, una aviadora estadounidense." placeholder="El texto trata sobre…" oninput="updateCount('t2_q1','c2_q1')"></textarea>
         <div class="char-count" id="c2_q1">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex2_q1')">💡 Ver posible respuesta</button>
-        <div class="example-box" id="ex2_q1">
-          <strong>Posible respuesta:</strong> El texto trata sobre la vida de Amelia Earhart, una aviadora estadounidense.
-        </div>
+        
         <p style="font-size:.9rem; margin:.8rem 0 .4rem; font-weight:600;">¿Qué aspectos de su vida se destacan (sus logros, su final, su reconocimiento posterior…)?</p>
-        <textarea rows="2" id="t2_q2" placeholder="El texto destaca…" oninput="updateCount('t2_q2','c2_q2')"></textarea>
+        <textarea rows="2" id="t2_q2" data-solution="Se destacan sus récords como aviadora (cruzar el Atlántico en solitario), su labor a favor de las mujeres en la aviación, su desaparición en 1937 y el reconocimiento que recibió después como símbolo de esa lucha." placeholder="El texto destaca…" oninput="updateCount('t2_q2','c2_q2')"></textarea>
         <div class="char-count" id="c2_q2">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex2_q2')">💡 Ver posible respuesta</button>
-        <div class="example-box" id="ex2_q2">
-          <strong>Posible respuesta:</strong> Se destacan sus récords como aviadora (cruzar el Atlántico en solitario), su labor a favor de las mujeres en la aviación, su desaparición en 1937 y el reconocimiento que recibió después como símbolo de esa lucha.
-        </div>
+        
       </div>
 
       <div class="task-block">
         <div class="task-label">✏️ Tarea 2.2 — Formula el tema</div>
         <div class="task-question">Con las respuestas anteriores, escribe el tema del texto en una <strong>frase nominal breve</strong> (sin verbo conjugado).</div>
-        <textarea rows="2" id="t2_tema" placeholder="La biografía de…" oninput="updateCount('t2_tema','c2_tema')"></textarea>
+        <textarea rows="2" id="t2_tema" data-solution="La biografía de Amelia Earhart: sus récords como aviadora, su desaparición en 1937 y su legado como símbolo de la mujer en la aviación." placeholder="La biografía de…" oninput="updateCount('t2_tema','c2_tema')"></textarea>
         <div class="char-count" id="c2_tema">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex2_tema')">💡 Ver ejemplo resuelto</button>
         <div class="example-box" id="ex2_tema">
-          <strong>Ejemplo:</strong> La biografía de Amelia Earhart: sus récords como aviadora, su desaparición en 1937 y su legado como símbolo de la mujer en la aviación.
-          <br><br>
           <strong>¿Por qué no basta con «Amelia Earhart»?</strong> Porque no nombra ni un solo aspecto de lo que cuenta el texto sobre ella. El tema debe decir algo del contenido, no solo el nombre del protagonista.
         </div>
       </div>
@@ -843,11 +1050,11 @@
       <div class="task-block">
         <div class="task-label">✏️ Tu resumen</div>
         <div class="task-question">Escribe aquí el resumen del texto en un único párrafo. Ten en cuenta que el texto original tiene unas <strong><span data-total-lines>46</span> líneas</strong>; el resumen debería tener entre <strong><span data-resumen-range>12 y 14</span> líneas</strong> aproximadamente (25-30 % del original).</div>
-        <textarea id="t5_resumen" rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
+        <textarea id="t5_resumen" data-solution="Amelia Earhart, mujer de carácter curioso y aventurero desde niña, decide dedicarse a la aviación tras su primer vuelo como pasajera y pronto consigue su licencia de piloto. En primer lugar, se convierte en la primera mujer en cruzar el Atlántico en avión y, más tarde, en hacerlo en solitario, lo que la hace mundialmente famosa y le permite batir nuevos récords. Además, impulsa la presencia de las mujeres en la aviación, fundando una organización de apoyo a las pilotos y animando a otras mujeres a formarse en profesiones técnicas. Sin embargo, durante un intento de dar la vuelta al mundo, su avión pierde el contacto por radio y desaparece en el Pacífico, sin que se hallen sus restos pese a la intensa búsqueda. Finalmente, Earhart se convierte en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres, y numerosos homenajes mantienen viva su memoria." rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
         <div class="char-count" id="c5_resumen">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex5_resumen')">💡 Ver resumen resuelto</button>
         <div class="example-box" id="ex5_resumen">
-          <strong>Resumen modelo:</strong> Amelia Earhart, nacida en Kansas a finales del siglo XIX, mostró desde niña un carácter aventurero que la llevó a formarse como piloto tras su primer vuelo como pasajera. Se convirtió en la primera mujer en cruzar el Atlántico en avión y, más tarde, en solitario, lo que la hizo mundialmente famosa. <span class="conector">Además,</span> impulsó activamente la presencia de las mujeres en la aviación, fundando una organización de apoyo a las pilotos. <span class="conector">Sin embargo,</span> desapareció durante un intento de dar la vuelta al mundo, sin que se hallaran los restos de su avión. <span class="conector">Finalmente,</span> se ha convertido en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres.<br><br>Fíjate en los <span class="conector">conectores</span> destacados: enlazan las ideas y dan cohesión al resumen.
+          <strong>Conectores del modelo:</strong> <span class="conector">En primer lugar,</span> · <span class="conector">más tarde,</span> · <span class="conector">Además,</span> · <span class="conector">Sin embargo,</span> · <span class="conector">Finalmente,</span>. Enlazan las ideas y dan cohesión al resumen.
         </div>
       </div>
 
@@ -871,12 +1078,10 @@
       <div class="task-block" style="margin-top:1.2rem;">
         <div class="task-label">🪞 Autoevaluación</div>
         <div class="task-question">¿Qué parte del resumen crees que has resuelto mejor? ¿Qué te ha resultado más difícil?</div>
-        <textarea rows="3" id="t5_auto" placeholder="Lo que mejor he hecho es… Lo que más me ha costado es…" oninput="updateCount('t5_auto','c5_auto')"></textarea>
+        <textarea rows="3" id="t5_auto" data-solution="Creo que he identificado bien el tema y las ideas principales de cada párrafo, porque el texto está muy ordenado. Lo que más me ha costado es no repetir las mismas palabras del texto original al redactar el resumen final." placeholder="Lo que mejor he hecho es… Lo que más me ha costado es…" oninput="updateCount('t5_auto','c5_auto')"></textarea>
         <div class="char-count" id="c5_auto">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex5_auto')">💡 Ver un ejemplo de respuesta</button>
-        <div class="example-box" id="ex5_auto">
-          <strong>Ejemplo:</strong> Creo que he identificado bien el tema y las ideas principales de cada párrafo, porque el texto está muy ordenado. Lo que más me ha costado es no repetir las mismas palabras del texto original al redactar el resumen final.
-        </div>
+        
       </div>
 
       <div class="btn-row">
@@ -896,6 +1101,10 @@
 
 </div><!-- /container -->
 
+<div id="teacherPanel"><h2 style="margin-top:0">🔓 Panel del profesor</h2><p>Los ejemplos y soluciones están desbloqueados en cada pregunta («💡 Ver ejemplo») y puedes usar «Mostrar números de línea» para corregir con el proyector. Código para volver a bloquear: botón «🔓 Soluciones».</p><h2>Opción 2 de impresión: qué se ha adaptado (y qué no)</h2><p>La ficha reúne las medidas para <b>dislexia / dificultades de lectoescritura (A)</b> y <b>TDAH / déficit de atención (B)</b>. En la opción 2 se adapta la <b>presentación y el formato de respuesta</b>; las preguntas, los contenidos y el nivel de exigencia son los de la versión general (no es una ACS).</p><ul><li>Letra sin serifa (Verdana), cuerpo 12 pt, interlineado 1,7, fondo crema y texto alineado a la izquierda (sin justificar).</li><li>Texto con los 5 párrafos <b>numerados</b>. Se pide identificar las partes por <b>párrafos</b> (en la versión general, por líneas): el criterio evaluado es el mismo. La numeración de líneas no se usa en esta versión.</li><li>Una tarea por apartado, con casilla «Hecho» y tiempo orientativo; dividida en <b>dos partes</b> (se puede entregar en dos sesiones).</li><li>Palabras clave en negrita; ejemplo resuelto de otro texto para la idea principal; las partes y la reescritura guiadas (esquema previo por bloques de párrafos y conectores como apoyo).</li><li>Las tres partes se responden con formato de reconocimiento: se marca introducción / desarrollo / desenlace.</li><li>Extensión del resumen en palabras (157–188, el 25–30 % de las 628 del texto) en lugar de líneas.</li><li>Espacios de respuesta amplios, en recuadro y sin líneas. Código discreto «AB» en el pie.</li></ul><h2>Criterios de corrección adaptados</h2><table><tr><th style="width:42mm">Apartado (sobre 10)</th><th>Criterio (el mismo que el grupo)</th></tr><tr><td>Resumen · 5</td><td>Hechos principales de los 5 párrafos, en orden, con palabras propias, un solo tiempo verbal, sin opinión ni detalles; extensión aproximada del 25–30 %. En DEA: más peso a adecuación y coherencia que a extensión.</td></tr><tr><td>Ideas principales · 2</td><td>Frase nominal con las ideas clave de cada párrafo; se acepta formulación distinta si recoge lo esencial.</td></tr><tr><td>Tema · 1,5</td><td>Sustantivo + lo que ocurre (respuestas a y b como apoyo).</td></tr><tr><td>Tres partes · 1</td><td>Agrupación razonable en párrafos y etiqueta correcta (otras divisiones razonadas son válidas).</td></tr><tr><td>Lectura · 0,5</td><td>Subrayado de datos importantes. No se puntúa la numeración de líneas en esta versión.</td></tr></table><div class="box"><b>Dislexia / DEA (A)</b><ul><li>Contenido por encima de la forma: <b>no se aplica el descuento por faltas</b> (−0,25 por error) en las preguntas de contenido.</li><li>No se evalúan caligrafía, limpieza ni uso del espacio; si algo es ilegible, se le pide que lo lea.</li><li>Corregir sin rojo: rodear el error, dar la forma correcta y comentarlo en persona.</li></ul></div><div class="box"><b>TDAH / déficit de atención (B)</b><ul><li>Si la ficha queda incompleta, completar oralmente antes de calificar; no penalizar omisiones por despiste si demuestra que lo sabe al preguntarle.</li><li>Corregir con propuestas de mejora y valorar el esfuerzo y los pequeños logros; posibilidad de recuperar durante la evaluación.</li><li>Tolerancia ortográfica solo si el informe recoge también dificultades de escritura (si el alumno combina A + B, se aplica la de A).</li></ul></div><h2>Aplicación en el aula</h2><ul><li>Leer o explicar los enunciados las veces necesarias; ayudar a revisar antes de entregar.</li><li>Tiempo ampliado o dos sesiones (Parte 1 y Parte 2); avisar a mitad y antes del final; no coincidir con otro examen el mismo día.</li><li>Lugar sin distracciones (primera fila); reconducir si se desconecta.</li><li>Permitir respuesta oral o completar oralmente, y ordenador si lo tiene autorizado.</li><li>Si el informe del alumno indica otras pautas, prevalecen sobre estas.</li></ul></div>
+<div id="printOpt2"><div class="page"><h1>Taller de resumen</h1><div class="sub">Texto: biografía de Amelia Earhart</div><div class="name">Nombre y apellidos: ________________________________ Curso: ______ Fecha: ________</div><div class="tip"><b>Cómo trabajar:</b> haz una tarea cada vez. Cuando termines una, marca <span class="box"></span>. Tienes tiempo de sobra: no hace falta ir deprisa.</div><h2>PARTE 1 · Leer y entender &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">1</span>Lee el texto<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Subraya</b> con lápiz los datos importantes: quién, qué hizo, cuándo y por qué. Los párrafos están numerados con un círculo azul.</div><div class="text"><div class="p"><div class="pn">1</div><div class="pt"><div>Amelia Earhart nació en Atchison, Kansas, en 1897, en el seno de una familia de clase media. Desde niña mostró un carácter curioso y aventurero, poco habitual para las niñas de su época, y disfrutaba de actividades como trepar árboles, cazar ratas con un rifle o deslizarse en trineo por las colinas. De adolescente guardaba un álbum de recortes de prensa sobre mujeres que triunfaban en profesiones dominadas por hombres, como la ingeniería o el derecho. En 1920 asistió a una exhibición aérea en California y aquel vuelo de diez minutos como pasajera cambió su vida para siempre. Al año siguiente comenzó a tomar clases de pilotaje con la instructora Neta Snook y, tras ahorrar dinero trabajando en distintos empleos, consiguió su licencia de vuelo y compró su primer avión, un pequeño biplano de color amarillo.</div></div></div><div class="p"><div class="pn">2</div><div class="pt"><div>En 1928 Amelia Earhart se convirtió en la primera mujer en cruzar el océano Atlántico en avión, aunque viajó como pasajera y no como piloto al mando. El vuelo la hizo mundialmente famosa y la prensa la apodó Lady Lindy, en referencia al aviador Charles Lindbergh. El editor George Putnam, que había organizado la expedición, se convirtió en su representante y, más tarde, en su marido, y contribuyó a promocionar su imagen pública. Earhart aprovechó su popularidad para publicar libros sobre sus experiencias, dar conferencias por todo el país y promocionar la aviación comercial, y en los años siguientes estableció varios récords de velocidad y distancia que consolidaron su reputación como una de las pilotos más destacadas de su tiempo.</div></div></div><div class="p"><div class="pn">3</div><div class="pt"><div>En 1932 repitió la hazaña, pero esta vez como piloto única, convirtiéndose en la primera mujer en cruzar el Atlántico en solitario, hazaña por la que recibió la Cruz de Vuelo Distinguido. Dos años más tarde fue también la primera persona en volar en solitario desde Hawái hasta California, otro trayecto que ningún piloto había completado hasta entonces. Además de sus récords de vuelo, impulsó activamente la presencia femenina en la aviación: fundó junto a otras pilotos la organización The Ninety-Nines, dedicada a apoyar a mujeres aviadoras, trabajó como asesora en la Universidad de Purdue para orientar a estudiantes en carreras técnicas, y colaboró como editora de aviación en una revista, desde donde animaba a otras mujeres a formarse y a incorporarse a profesiones consideradas, hasta entonces, exclusivamente masculinas.</div></div></div><div class="p"><div class="pn">4</div><div class="pt"><div>En 1937 Amelia Earhart emprendió, junto al navegante Fred Noonan, un intento de dar la vuelta al mundo en avión siguiendo la línea del ecuador, un reto que ningún piloto había completado hasta entonces. El 2 de julio, durante uno de los tramos más difíciles del recorrido, su avión perdió el contacto por radio cerca de la isla Howland, en mitad del océano Pacífico. A pesar de que Estados Unidos organizó una de las mayores operaciones de búsqueda y rescate de la época, no se encontró ningún rastro del aparato ni de sus ocupantes. Con el tiempo han surgido distintas teorías sobre lo ocurrido: que el avión cayó al mar sin combustible, que ambos sobrevivieron como náufragos en una isla remota o que fueron capturados, pero ninguna se ha podido confirmar con certeza.</div></div></div><div class="p"><div class="pn">5</div><div class="pt"><div>Aunque su desaparición sigue siendo uno de los grandes misterios de la aviación, y a pesar de que distintas expediciones han intentado sin éxito localizar los restos de su avión, el Lockheed Electra, Amelia Earhart se convirtió en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres. Hoy en día, aeropuertos, escuelas y sellos postales llevan su nombre en su memoria, existen museos dedicados a su figura y periódicamente se estrenan documentales que revisan su historia, mientras que organizaciones de todo el mundo continúan citándola como referente para animar a las nuevas generaciones de mujeres a interesarse por la aviación y la ciencia.</div></div></div></div><div class="src">Biografía de Amelia Earhart (texto de elaboración propia con fines didácticos)</div></div><div class="task"><div class="th"><span class="n">2</span>Idea de cada párrafo<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Idea principal</b> = una frase <b>sin verbo conjugado</b> que dice lo más importante del párrafo. <i>Ejemplo (de otro texto):</i> «La llegada de un forastero misterioso al pueblo y la curiosidad de los vecinos.» No copies frases del texto.</div><div class="item"><div class="q">Párrafo 1</div><div class="ex">Empieza así: «Amelia Earhart nació en Atchison, Kansas, en […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 2</div><div class="ex">Empieza así: «En 1928 Amelia Earhart se convirtió en […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 3</div><div class="ex">Empieza así: «En 1932 repitió la hazaña, pero esta […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 4</div><div class="ex">Empieza así: «En 1937 Amelia Earhart emprendió, junto al […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 5</div><div class="ex">Empieza así: «Aunque su desaparición sigue siendo uno de […]»</div><div class="ans"></div></div></div><div class="task"><div class="th"><span class="n">3</span>Las tres partes del texto<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">Un texto biográfico tiene tres partes: <b>introducción</b> (se presenta al personaje), <b>desarrollo</b> (sus hechos más importantes) y <b>desenlace</b> (cómo termina su historia). Agrupa los <b>párrafos</b> en tres partes y marca cuál es cada una.</div><div class="item"><div class="q">Parte 1: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>introducción</span><span><span class="box"></span>desarrollo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 2: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>introducción</span><span><span class="box"></span>desarrollo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 3: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>introducción</span><span><span class="box"></span>desarrollo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div></div></div><div class="page pb"><div class="name">Nombre: ________________________________ &nbsp; Fecha: ________</div><h2>PARTE 2 · Escribir tu resumen &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">4</span>El tema<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">El <b>tema</b> es una frase <b>sin verbo conjugado</b>: un <b>sustantivo</b> + lo que ocurre. Palabras para empezar: <i>la vida de… · la trayectoria de… · los logros de… · el retrato de…</i></div><div class="item"><div class="q">a) ¿De quién o de qué trata el texto?</div><div class="ans"></div></div><div class="item"><div class="q">b) ¿Qué es lo más importante que se cuenta?<br><span class="ex" style="font-weight:400">(cómo empieza, cómo se desarrolla, cómo termina)</span></div><div class="ans"></div></div><div class="item"><div class="q">c) Escribe el tema en una sola frase</div><div class="ans" style="min-height:12mm"></div></div></div><div class="task"><div class="th"><span class="n">5</span>Tu resumen<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="warn"><b>Reglas:</b> un solo párrafo · tus propias palabras (sin copiar frases ni diálogos) · tercera persona · <b>un solo tiempo verbal</b> (presente) · sin tu opinión · sin datos pequeños (edades, nombres, cifras). Debe medir entre <b>157 y 188 palabras</b> (un cuarto del texto).</div><div class="keep" style="break-inside:avoid"><div class="q" style="font-weight:700">Paso 1. Esquema previo <span class="ex" style="font-weight:400">(apunta una idea en cada casilla)</span></div><div class="chips"><span>En primer lugar,</span><span>Poco después,</span><span>A continuación,</span><span>Entonces,</span><span>Con el tiempo,</span><span>Sin embargo,</span><span>Finalmente,</span></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al principio (párrafo 1)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Después (párrafos 2-3)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Más tarde (párrafo 4)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al final (párrafo 5)</div><div class="ans" style="min-height:12mm"></div></div></div><div class="q" style="font-weight:700;margin-top:3mm;break-after:avoid">Paso 2. Escribe el resumen en un solo párrafo</div><div class="ans big"></div></div><div class="task"><div class="th"><span class="n">6</span>Revisa antes de entregar<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><ul class="chk"><li><span class="box"></span>Es <b>un solo párrafo</b>.</li><li><span class="box"></span>Está en <b>tercera persona</b> y con <b>un solo tiempo verbal</b>.</li><li><span class="box"></span>Uso <b>mis palabras</b>: no copio frases ni diálogos.</li><li><span class="box"></span>Están las ideas de los <b>5 párrafos</b>, en orden.</li><li><span class="box"></span>Uso <b>conectores</b> (en primer lugar, además, sin embargo…).</li><li><span class="box"></span>Lo he leído en voz baja y he corregido lo que no sonaba bien.</li></ul></div></div></div>
+
+
 <script>
   let completedPhases = 0;
   const total = 5;
@@ -906,69 +1115,82 @@
     if (ta && ct) ct.textContent = ta.value.length + ' caracteres';
   }
 
+  function restoreSolutions() {
+    document.querySelectorAll('textarea.sol-on').forEach(t => { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; });
+    document.querySelectorAll('.example-box.visible').forEach(b => b.classList.remove('visible'));
+  }
   function toggleExample(id) {
     const box = document.getElementById(id);
-    if (box) box.classList.toggle('visible');
+    const btn = document.querySelector('[onclick*="' + id + '"]');
+    let tas = [];
+    if (id === 'ex35_partes') tas = Array.from(document.querySelectorAll('#t35_parte1, #t35_parte2, #t35_parte3'));
+    else if (btn) { let e = btn.previousElementSibling; while (e && !tas.length) { const t = e.matches('textarea') ? e : (e.querySelector ? e.querySelector('textarea') : null); if (t) tas.push(t); e = e.previousElementSibling; } }
+    const on = !(tas[0] && tas[0].classList.contains('sol-on')) && !(box && !tas.length && box.classList.contains('visible'));
+    tas.forEach(t => {
+      if (!t.dataset.solution) return;
+      if (on) { t.dataset.prev = t.value; t.value = t.dataset.solution; t.readOnly = true; t.classList.add('sol-on'); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; }
+      else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; }
+    });
+    if (box) box.classList.toggle('visible', on);
+    if (id === 'ex1_sub') fitExFlow();
   }
 
-  function togglePhase(n) {
-    const body = document.getElementById('body' + n);
-    if (body) body.classList.toggle('open');
+  // ── PÁGINAS (una sección por pantalla) ──
+  const PAGES = [['Inicio', ['.intro-box', '.progress-wrap', '#phaseInfo']],
+    ['Texto', ['.text-card']], ['1', ['#phase1']], ['2', ['#phase2']], ['3', ['#phase3']], ['4', ['#phase4']], ['5', ['#phase5', '#finalPanel']]];
+  let curPage = 0;
+  function initPages() {
+    PAGES.forEach((p, i) => p[1].forEach(sel => { const el = document.querySelector(sel); if (el) el.dataset.pg = i; }));
+    document.querySelectorAll('.phase-body').forEach(b => b.classList.add('open'));
+    document.getElementById('pgPanel').innerHTML = PAGES.map((p, i) => '<button data-i="' + i + '" title="' + (i > 1 ? 'Fase ' + p[0] : p[0]) + '" onclick="goPage(' + i + ');document.getElementById(\'pgPanel\').classList.remove(\'open\')">' + p[0] + '</button>').join('');
+    document.body.classList.add('paged');
+    goPage(0, true);
   }
+  function goPage(n, quiet) {
+    if (n < 0 || n >= PAGES.length) return;
+    curPage = n;
+    document.body.classList.toggle('pg-inner', n >= 1);
+    document.querySelectorAll('[data-pg]').forEach(el => el.classList.toggle('pg-on', +el.dataset.pg === n));
+    document.querySelectorAll('#pgPanel button[data-i]').forEach(b => b.classList.toggle('on', +b.dataset.i === n));
+    document.getElementById('pgArrL').disabled = n === 0;
+    document.getElementById('pgArrR').disabled = n === PAGES.length - 1;
+    document.getElementById('pgCount').textContent = '▦ ' + (n + 1) + ' / ' + PAGES.length;
+    if (n === 1) layoutLineNumbers();
+    if (!quiet) { const d = document.documentElement, s = d.style.scrollBehavior; d.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); d.style.scrollBehavior = s; }
+  }
+  document.addEventListener('keydown', e => {
+    if (/^(TEXTAREA|INPUT)$/.test((e.target || {}).tagName)) return;
+    if (e.key === 'ArrowRight') goPage(curPage + 1); else if (e.key === 'ArrowLeft') goPage(curPage - 1);
+  });
+
+  function fitExFlow() {
+    const f = document.getElementById('exFlow'); if (!f || !f.offsetWidth) return;
+    f.style.fontSize = '15px';
+    const avail = f.clientWidth - parseFloat(getComputedStyle(f).paddingLeft);
+    let max = 0;
+    f.querySelectorAll('.ln').forEach(l => { l.style.textAlignLast = 'left'; l.style.display = 'inline-block'; max = Math.max(max, l.getBoundingClientRect().width); l.style.cssText = ''; });
+    if (max > 0 && avail > 0) f.style.fontSize = (15 * avail / max * 0.995) + 'px';
+  }
+  function togglePhase(n) { /* una sección por página: no se pliega */ }
 
   function completePhase(n) {
-    const phase  = document.getElementById('phase'  + n);
-    const status = document.getElementById('status' + n);
-    const body   = document.getElementById('body'   + n);
-
-    if (phase.classList.contains('done')) return;
-
-    const nextPhase = document.getElementById('phase' + (n + 1));
-    const nextBody  = nextPhase ? document.getElementById('body' + (n + 1)) : null;
-
-    // Desactivamos temporalmente las transiciones de altura/padding
-    // para que el cambio de layout sea instantáneo y el scroll no
-    // tenga que perseguir un objetivo que se sigue moviendo.
-    body.style.transition = 'none';
-    if (nextBody) nextBody.style.transition = 'none';
-
-    phase.classList.remove('active');
-    phase.classList.add('done');
+    const phase = document.getElementById('phase' + n), status = document.getElementById('status' + n);
+    if (phase.classList.contains('done')) { if (n < total) goPage(n + 2); return; }
+    phase.classList.remove('active'); phase.classList.add('done');
     status.textContent = '✓ Completada';
-    body.classList.remove('open');
-
-    completedPhases++;
-    updateProgress();
-
+    completedPhases++; updateProgress();
+    const nextPhase = document.getElementById('phase' + (n + 1));
     if (nextPhase) {
       nextPhase.classList.add('active');
       document.getElementById('status' + (n + 1)).textContent = 'En curso';
-      nextBody.classList.add('open');
-
-      // Forzamos el layout final antes de hacer scroll, así el
-      // destino ya es definitivo y no se producen saltos.
-      void nextBody.offsetHeight;
-
-      // html tiene scroll-behavior:smooth global; lo desactivamos
-      // un instante para que este salto sea realmente inmediato.
-      const prevScrollBehavior = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = 'auto';
-      nextPhase.scrollIntoView({ behavior: 'auto', block: 'start' });
-      document.documentElement.style.scrollBehavior = prevScrollBehavior;
-
-      // Restauramos las transiciones para que el plegado/desplegado
-      // manual (togglePhase) siga animándose con normalidad.
-      requestAnimationFrame(() => {
-        body.style.transition = '';
-        if (nextBody) nextBody.style.transition = '';
-      });
+      goPage(n + 2);
     }
-
+    const nb = document.querySelector('#pgPanel button[data-i="' + (n + 1) + '"]'); if (nb) nb.classList.add('dn');
     if (completedPhases === total) {
       const panel = document.getElementById('finalPanel');
       panel.classList.add('visible');
       document.getElementById('finalScore').textContent = total + '/' + total;
-      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
     }
   }
 
@@ -985,55 +1207,75 @@
   // dónde cae cada línea visual. Así el resultado es siempre correcto,
   // sea cual sea el dispositivo, la fuente cargada o el tamaño de ventana.
   function layoutLineNumbers() {
-    const container = document.getElementById('textNumbered');
-    const gutter = document.getElementById('numGutter');
     const flow = document.getElementById('textFlow');
-    if (!container || !gutter || !flow) return;
-
-    gutter.innerHTML = '';
-    const containerTop = container.getBoundingClientRect().top;
-    let globalLine = 0;
-    const paraRanges = [];
-
-    flow.querySelectorAll('p').forEach((p) => {
-      const range = document.createRange();
-      range.selectNodeContents(p);
-      const rects = Array.from(range.getClientRects());
-      const startLine = globalLine + 1;
-      let lastTop = null;
-      rects.forEach((r) => {
-        // Un párrafo con cursivas u otro formato interno puede devolver
-        // varios fragmentos (rects) para una misma línea visual (uno por
-        // cada cambio de formato). Solo contamos una línea nueva cuando
-        // la posición vertical cambia de verdad.
-        if (lastTop !== null && Math.abs(r.top - lastTop) < 1) return;
-        lastTop = r.top;
-        globalLine++;
-        if (globalLine % 5 === 0) {
-          const mark = document.createElement('span');
-          mark.className = 'ln-mark';
-          mark.textContent = globalLine;
-          mark.style.top = (r.top - containerTop) + 'px';
-          gutter.appendChild(mark);
-        }
-      });
-      paraRanges.push({ start: startLine, end: globalLine });
+    if (!flow) return;
+    const lines = Array.from(flow.querySelectorAll('.ln'));
+    // Ajusta el tamaño de letra para que la línea más larga ocupe justo el ancho
+    // disponible; las demás se justifican. Así las líneas (y su numeración) son
+    // siempre las mismas en cualquier pantalla, en el proyector y en el PDF.
+    flow.style.fontSize = '15px';
+    const avail = flow.clientWidth;
+    let max = 0;
+    lines.forEach((l) => {
+      l.style.textAlignLast = 'left'; l.style.display = 'inline-block'; l.style.width = 'auto';
+      max = Math.max(max, l.getBoundingClientRect().width);
+      l.style.cssText = '';
     });
-
-    document.querySelectorAll('[data-parr-range]').forEach((el) => {
-      const idx = parseInt(el.getAttribute('data-parr-range'), 10) - 1;
-      if (paraRanges[idx]) {
-        el.textContent = 'líneas ' + paraRanges[idx].start + '-' + paraRanges[idx].end;
-      }
-    });
-    document.querySelectorAll('[data-total-lines]').forEach((el) => {
-      el.textContent = globalLine;
-    });
+    if (max > 0 && avail > 0) flow.style.fontSize = (15 * avail / max * 0.996) + 'px';
+    if (max > 0) document.documentElement.style.setProperty('--pfs', (634 / (max / 15) * 0.99 - 1.333) + 'px');
+    document.querySelectorAll('[data-total-lines]').forEach((el) => { el.textContent = lines.length; });
     document.querySelectorAll('[data-resumen-range]').forEach((el) => {
-      const lo = Math.round(globalLine * 0.25);
-      const hi = Math.round(globalLine * 0.30);
-      el.textContent = lo + ' y ' + hi;
+      el.textContent = Math.round(lines.length * 0.25) + ' y ' + Math.round(lines.length * 0.30);
     });
+  }
+
+  const LOCK_CODE = 'eclipse';   // cambia aquí el código del profesor
+  function toggleLock() {
+    if (!document.body.classList.contains('locked')) {
+      document.body.classList.add('locked'); document.getElementById('btnLock').textContent = '🔒'; document.getElementById('btnLock').classList.remove('open-lock');
+      restoreSolutions();
+      document.body.classList.remove('show-nums'); return;
+    }
+    const p = document.getElementById('lockPop'); p.classList.toggle('open');
+    if (p.classList.contains('open')) setTimeout(() => document.getElementById('lockCode').focus(), 30);
+  }
+  function showToast(t) {
+    let e = document.getElementById('unlockToast');
+    if (!e) { e = document.createElement('div'); e.id = 'unlockToast'; document.body.appendChild(e); }
+    e.textContent = t; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2200);
+  }
+  function tryUnlock() {
+    const i = document.getElementById('lockCode');
+    if (i.value === LOCK_CODE) {
+      document.body.classList.remove('locked'); document.getElementById('btnLock').textContent = '🔓'; document.getElementById('btnLock').classList.add('open-lock'); showToast('🔓 Soluciones desbloqueadas');
+      document.getElementById('lockPop').classList.remove('open'); i.value = ''; document.getElementById('lockMsg').textContent = '';
+    } else { document.getElementById('lockMsg').textContent = 'Código incorrecto'; i.select(); }
+  }
+  function printOpt(n) {
+    document.body.classList.remove('print-opt1', 'print-opt2'); document.body.classList.add('print-opt' + n);
+    restoreSolutions(); layoutLineNumbers(); setTimeout(() => window.print(), 80);
+  }
+  window.addEventListener('afterprint', () => document.body.classList.remove('print-opt1', 'print-opt2'));
+
+  const GLOS = {};
+  function showGl(el) {
+    const n = el.dataset.n, g = GLOS[n]; const p = document.getElementById('glPop');
+    p.innerHTML = '<b>' + g[0] + '</b>: ' + g[1]; p.style.display = 'block';
+    const r = el.getBoundingClientRect(), pw = p.offsetWidth, ph = p.offsetHeight;
+    let left = Math.min(Math.max(8, r.left), window.innerWidth - pw - 8);
+    let top = r.bottom + 6; if (top + ph > window.innerHeight - 8) top = Math.max(8, r.top - ph - 6);
+    p.style.left = left + 'px'; p.style.top = top + 'px'; p.dataset.n = n;
+  }
+  document.addEventListener('click', e => {
+    const el = e.target.closest && e.target.closest('.gl'); const p = document.getElementById('glPop');
+    if (el && !el.closest('#printOpt2')) { if (p.style.display === 'block' && p.dataset.n === el.dataset.n && p._src === el) { p.style.display = 'none'; p._src = null; } else { showGl(el); p._src = el; } }
+    else p.style.display = 'none';
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('glPop').style.display = 'none'; if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('gl')) { e.preventDefault(); showGl(e.target); } });
+  window.addEventListener('scroll', () => { document.getElementById('glPop').style.display = 'none'; }, {passive:true});
+  function toggleNums() {
+    const on = document.body.classList.toggle('show-nums');
+    document.getElementById('btnNums').textContent = on ? '🙈 Ocultar números de línea' : '🔢 Mostrar números de línea';
   }
 
   function scheduleLineLayout() {
@@ -1045,11 +1287,12 @@
   }
 
   let lineLayoutResizeTimer;
-  window.addEventListener('resize', () => {
+  window.addEventListener('resize', () => { fitExFlow();
     clearTimeout(lineLayoutResizeTimer);
     lineLayoutResizeTimer = setTimeout(layoutLineNumbers, 200);
   });
   window.addEventListener('beforeprint', layoutLineNumbers);
+  window.addEventListener('afterprint', layoutLineNumbers);
   window.addEventListener('load', scheduleLineLayout);
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -1057,6 +1300,7 @@
     document.getElementById('status1').textContent = 'En curso';
     scheduleLineLayout();
   });
+  initPages();
 </script>
 
 <a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
