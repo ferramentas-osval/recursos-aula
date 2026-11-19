@@ -53,14 +53,14 @@ th{background:#f1eee6}
 .solbox{display:none;margin-top:1.5mm;background:#eef8f2;border-left:4px solid #2e9e57;padding:1.5mm 3mm;font-size:10.5pt}
 .solbox.on{display:block}
 .solbox b:first-child{display:none}
-.allsol{position:fixed;right:5mm;bottom:5mm;font-size:11pt;padding:2.5mm 4mm;border:none;border-radius:2mm;background:#2e9e57;color:#fff;cursor:pointer;z-index:9}
+.noprint .allsol{background:#1f4fd1;margin-left:3mm}
 @media print{.solbtn,.solbox,.allsol,.ans{display:none!important}}
-.noprint{text-align:center;margin:6mm}
+.noprint{position:sticky;top:0;z-index:20;text-align:center;margin:0 0 6mm;padding:3mm 0}
 .noprint button{font-size:13pt;padding:3mm 6mm;border-radius:2mm;border:none;background:#1d2b4a;color:#fff;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="noprint"><button onclick="print()">🖨️ Imprimir apuntes e fichas</button></div>
+<div class="noprint"><button onclick="print()">🖨️ Imprimir apuntes e fichas</button><button class="allsol" id="allsol">Mostrar todas as solucións</button></div>
 
 <!-- TEORÍA HISTORIA -->
 <div class="page hist th">
@@ -289,7 +289,6 @@ th{background:#f1eee6}
 <div class="g3"><div>amable → <span class="b"></span></div><div>fiel → <span class="b"></span></div><div>antigo → <span class="b"></span></div><div>áspero → <span class="b"></span></div><div>acre → <span class="b"></span></div><div>íntegro → <span class="b"></span></div></div></div>
 </div>
 
-<button class="allsol" id="allsol">Mostrar todas</button>
 <script>
 var A=[
  ['4','A Revolución francesa (1789)','1','A aparición da escritura (3000 a. C.)','5','3','A caída de Constantinopla (1453)','2','A caída do Imperio romano de Occidente (476)'],
@@ -324,7 +323,7 @@ var A=[
   });
   var all=document.getElementById('allsol'),open=false;
   all.onclick=function(){open=!open;exs.forEach(function(e){e.classList.toggle('show',open)});
-    document.querySelectorAll('.solbtn').forEach(function(b){b.textContent=open?'Ocultar':'Ver solución'});all.textContent=open?'Ocultar todas':'Mostrar todas'};
+    document.querySelectorAll('.solbtn').forEach(function(b){b.textContent=open?'Ocultar':'Ver solución'});all.textContent=open?'Ocultar todas as solucións':'Mostrar todas as solucións'};
 })();
 </script>
 <a id="volverPanel" href="../../04_PDC/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
