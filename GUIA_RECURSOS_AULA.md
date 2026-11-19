@@ -111,9 +111,9 @@ Todo recurso con soluciones, ejemplos o panel del profesor lleva antes de `</bod
 
 **A mano (alternativa):** `node tools/liberar_soluciones.mjs <ruta del recurso> eclipse` (o `--ocultar` para quitarla) y commit.
 
-**Modelos de examen:** llevan candado (el profesor los libera cuando quiere), p. ej. `01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html`.
+**Modelos de examen:** llevan candado y el profesor los libera cuando quiere (1.º ESO y PDC). En el panel ya no se titulan «resuelto»: la etiqueta «✅ Con soluciones» indica cuándo están liberados. En el de PDC, las formas rodeadas (`i.circle`) tampoco están en el código: sus posiciones van cifradas en `template#cdCirculos` y se repintan al abrir.
 
-**Sin candado (decidido):** apuntes y esquemas; el primer parcial de PDC (`04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html`, pendiente de decidir); prácticas y juegos autocorregibles (`ejercicios_tipos_frases`, `reto_substantivo_…`, sujeto y complementos, práctica y prueba de comunicación, vocabulario); prompts y presentaciones sin soluciones.
+**Sin candado (decidido):** apuntes y esquemas; prácticas y juegos autocorregibles (`ejercicios_tipos_frases`, `reto_substantivo_…`, sujeto y complementos, práctica y prueba de comunicación, vocabulario); prompts y presentaciones sin soluciones.
 
 ## Botón «🖨️ Imprimir»
 

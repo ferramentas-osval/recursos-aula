@@ -63,10 +63,10 @@ window.RECURSOS=[
       ]
      },
      {
-      "n": "MODELOS RESUELTOS EXÁMENES",
+      "n": "MODELOS DE EXAMEN",
       "c": [
        {
-        "t": "Modelo examen primer parcial (1ª EV.) resuelto",
+        "t": "Modelo examen primer parcial (1ª EV.)",
         "h": "01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html"
        }
       ]
@@ -374,7 +374,7 @@ window.RECURSOS=[
       "h": "04_PDC/APUNTES_EXAMENES/apuntes_primeros_dos_examenes.html"
      },
      {
-      "t": "Modelo primer parcial lengua castellana y geografía (1ª EV.) resuelto",
+      "t": "Modelo primer parcial lengua castellana y geografía (1ª EV.)",
       "h": "04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html"
      }
     ]
