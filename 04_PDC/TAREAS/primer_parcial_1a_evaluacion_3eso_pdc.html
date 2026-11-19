@@ -125,6 +125,24 @@ body.resuelto .toggle{background:var(--pen)}
 </style>
 </head>
 <body>
+<!--imprimir:inicio--><style>
+.impbar{position:sticky;top:0;z-index:30;display:flex;justify-content:center;padding:8px;background:rgba(231,227,218,.94);backdrop-filter:blur(3px)}
+.impbar button{font:700 15px "Atkinson Hyperlegible",Arial,sans-serif;border:none;border-radius:10px;padding:9px 18px;cursor:pointer;background:#1b1d55;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.impbar button:hover{filter:brightness(1.15)}
+body.imp-alumno .ans,body.imp-alumno .circle{display:none!important}
+@media print{.impbar{display:none!important}}
+</style>
+<div class="impbar"><button type="button" onclick="window.print()">🖨️ Imprimir</button></div>
+<script>
+/* Imprime solo el examen para el alumnado: sin soluciones ni botones; si las soluciones ya están liberadas para todos, salen resueltas */
+(function(){var prev=null;
+  addEventListener('beforeprint',function(){var lib=window.Candado&&Candado.liberado&&Candado.liberado(),S=[].slice.call(document.querySelectorAll('.q,.ej'));
+    prev=S.map(function(x){return x.classList.contains('show')});
+    if(lib)S.forEach(function(x){x.classList.add('show')});else document.body.classList.add('imp-alumno')});
+  addEventListener('afterprint',function(){document.body.classList.remove('imp-alumno');if(prev){var S=[].slice.call(document.querySelectorAll('.q,.ej'));S.forEach(function(x,i){x.classList.toggle('show',!!prev[i])});prev=null}});
+})();
+</script><!--imprimir:fin-->
+
 
 
 <header class="head">
