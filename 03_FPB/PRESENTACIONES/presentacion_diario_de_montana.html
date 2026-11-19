@@ -182,6 +182,32 @@ button.frase{border:none;text-align:left;color:inherit}
 .mano,.cita-k .real,#modal .sol,.truco i,.trucos-t i,.tsol td{line-height:1.5}
 .truco p,.trucos-t .tr,.caja p{line-height:1.45}
 
+/* responder y comprobar */
+.op.sel{background:var(--noche2);color:#fff;border-color:var(--noche2)}
+.op.falta{border-color:var(--ok);border-width:.15em;color:var(--ok);background:#eafaf1}
+.op.bien{background:var(--ok)!important;color:#fff!important;border-color:var(--ok)!important}
+.hecho .op,.hecho .chip,.hecho .hueco-d{cursor:default}
+.nota{font-weight:900;color:var(--noche);white-space:nowrap}
+.nota b{color:var(--cumbre)}
+.btn:disabled{background:#94a3b8;cursor:default;box-shadow:none}
+.banco-d{min-height:2.4em}
+.chip{border:none;border-radius:2em;background:var(--sol);color:var(--noche);font-weight:900;padding:.12em .7em;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.chip.cogida{outline:.15em solid #fff;box-shadow:0 0 0 .3em var(--cumbre)}
+.chip.usada{opacity:.25;cursor:default}
+.chip.fantasma{position:fixed;z-index:200;pointer-events:none;transform:translate(-50%,-60%);box-shadow:0 .3em .8em rgba(0,0,0,.35)}
+.hueco-d{display:inline-block;min-width:4.5em;padding:0 .35em;border:.12em dashed var(--roca);border-radius:.4em;background:#f8fafc;text-align:center;cursor:pointer;line-height:1.35}
+.hueco-d.err{color:var(--mal);text-decoration:line-through;text-decoration-color:rgba(192,57,43,.6)}
+.hueco-d.lleno{border-style:solid;border-color:var(--noche2);background:#fff7d6;color:var(--noche);text-decoration:none;font-weight:800}
+.hueco-d.sobre{background:#ffe8a3;border-color:var(--cumbre)}
+.hueco-d.bien{border-color:var(--ok);background:#e3f7ec;color:var(--ok)}
+.hueco-d.malr{border-color:var(--mal);background:#fdecea;color:var(--mal)}
+.papel .marca{background:#ffe08a;outline:.08em solid #e0a800}
+.papel.lleno{animation:tiembla .3s}
+.papel .f.perdida{outline:.12em dashed var(--cumbre);border-radius:.2em}
+.papel .f.perdida::after{content:attr(data-ok);position:absolute;left:50%;top:-1.05em;transform:translateX(-50%);color:#fff;background:var(--cumbre);font-family:"Nunito",sans-serif;font-weight:900;font-size:.7em;padding:0 .4em;border-radius:.4em;white-space:nowrap;line-height:1.4}
+.papel .w.nofalta{background:#fdecea;color:var(--mal);outline:none}
+.papel .f.pillada{background:none;outline:none}
+
 /* ---------- NAVEGACIÓN ---------- */
 .nav{position:fixed;top:50%;transform:translateY(-50%);width:4.2vw;height:16vh;border:none;background:rgba(15,28,46,.13);color:var(--noche);font-size:4.5vh;border-radius:1vh;z-index:20;display:flex;align-items:center;justify-content:center}
 .nav:hover{background:rgba(15,28,46,.28)}
@@ -275,7 +301,7 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">3</span><div class="tx"><p>(<button class="op">Ahí</button> / <button class="op" data-ok>Hay</button> / <button class="op">Ay</button>) un refugio cerca de la cima.</p><p class="exp">→ <b>Hay</b>: significa «existe» un refugio.</p></div></div>
       <div class="frase"><span class="n">4</span><div class="tx"><p>Deja la mochila (<button class="op" data-ok>ahí</button> / <button class="op">hay</button> / <button class="op">ay</button>), junto a la tienda.</p><p class="exp">→ <b>ahí</b>: significa «en ese sitio».</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Pulsa una opción: verde, acierto; roja, vuelve a mirar el truco.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -289,7 +315,7 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">7</span><div class="tx"><p>(<button class="op">Por qué</button> / <button class="op" data-ok>Porque</button>) quiero probar mis límites.</p><p class="exp">→ <b>Porque</b>: es la respuesta, explica la causa.</p></div></div>
       <div class="frase"><span class="n">8</span><div class="tx"><p>He (<button class="op" data-ok>hecho</button> / <button class="op">echo</button>) la mochila en diez minutos.</p><p class="exp">→ <b>hecho</b>: va detrás de «he», con h.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Pulsa una opción: verde, acierto; roja, vuelve a mirar el truco.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -304,7 +330,7 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">3</span><div class="tx"><p><button class="op">rapido</button> <button class="op" data-ok>rápido</button> <button class="op">rapidó</button></p><p class="exp">→ <b>rápido</b>: <b>rá</b>-pi-do, tercera por el final.</p></div></div>
       <div class="frase"><span class="n">4</span><div class="tx"><p><button class="op">record</button> <button class="op" data-ok>récord</button> <button class="op">recórd</button></p><p class="exp">→ <b>récord</b>: la fuerza va en «ré».</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">¡Ojo! Alguna palabra <b>no lleva tilde</b>.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -319,7 +345,7 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">7</span><div class="tx"><p><button class="op" data-ok>cumbre</button> <button class="op">cúmbre</button> <button class="op">cumbré</button></p><p class="exp">→ <b>cumbre</b>: no lleva tilde.</p></div></div>
       <div class="frase"><span class="n">8</span><div class="tx"><p><button class="op">tambien</button> <button class="op">támbien</button> <button class="op" data-ok>también</button></p><p class="exp">→ <b>también</b>: la fuerza va al final, en «bién».</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">¡Ojo! Alguna palabra <b>no lleva tilde</b>.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -333,7 +359,7 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">3</span><div class="tx"><p>Fue un (<button class="op" data-ok>viaje</button> / <button class="op">viage</button>) muy largo.</p><p class="exp">→ <b>viaje</b>: también termina en -aje, con j.</p></div></div>
       <div class="frase"><span class="n">4</span><div class="tx"><p>Le encanta la (<button class="op">abentura</button> / <button class="op" data-ok>aventura</button>).</p><p class="exp">→ <b>aventura</b>: con v, como «aventurero».</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Pista: piensa en otra palabra de la misma familia.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -347,65 +373,65 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">7</span><div class="tx"><p>Sentía mucho (<button class="op" data-ok>orgullo</button> / <button class="op">orguyo</button>).</p><p class="exp">→ <b>orgullo</b>: con ll, como «orgulloso».</p></div></div>
       <div class="frase"><span class="n">8</span><div class="tx"><p>(<button class="op" data-ok>Recogió</button> / <button class="op">Recojió</button>) la tienda al amanecer.</p><p class="exp">→ <b>Recogió</b>: del verbo «recoger», con g.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Pista: piensa en otra palabra de la misma familia.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
-<!-- 8 · ACTIVIDAD 5 -->
+<!-- D · ACTIVIDAD 4 -->
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 4</span><h2>Corrige el error <small>(1/2)</small></h2><span class="pts">1 punto</span></div>
   <div class="cuerpo">
-    <div class="pistas"><span>Pistas:</span><span>tú dijiste</span><span>cuanto más</span><span>un poco de</span><span>superior a</span><span>les (si son varios)</span><span>¡venid!</span><span>undécimo</span><span>según</span></div>
-    <div class="una-col norma">
-      <button class="frase"><span class="n">1</span><div class="tx"><p>Tú me dijistes que Kilian subió al Everest.</p><p class="exp">→ Tú me <b>dijiste</b>… Con «tú» no lleva -s al final.</p></div></button>
-      <button class="frase"><span class="n">2</span><div class="tx"><p>Contra más subes, menos oxígeno hay.</p><p class="exp">→ <b>Cuanto más</b> subes… «Contra más» es incorrecto.</p></div></button>
-      <button class="frase"><span class="n">3</span><div class="tx"><p>Échale una poca de agua a la cantimplora.</p><p class="exp">→ Échale <b>un poco de</b> agua. «Poco» no cambia.</p></div></button>
-      <button class="frase"><span class="n">4</span><div class="tx"><p>Su tiempo es superior que el del año pasado.</p><p class="exp">→ …es <b>superior al</b> del año pasado. Se dice «superior a».</p></div></button>
+    <div class="banco banco-d"><b>Correcciones:</b><button class="chip" data-w="undécimo">undécimo</button><button class="chip" data-w="según">según</button><button class="chip" data-w="un poco de">un poco de</button><button class="chip" data-w="les">les</button><button class="chip" data-w="dijiste">dijiste</button><button class="chip" data-w="superior al">superior al</button><button class="chip" data-w="cuanto más">cuanto más</button><button class="chip" data-w="venid">venid</button></div>
+    <div class="una-col arrastre">
+      <div class="frase"><span class="n">1</span><div class="tx"><p>Tú me <span class="hueco-d err" data-ok="dijiste">dijistes</span> que Kilian subió al Everest.</p><p class="exp">→ Tú me <b>dijiste</b>… Con «tú» no lleva -s al final.</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p><span class="hueco-d err" data-ok="cuanto más" data-cap>Contra más</span> subes, menos oxígeno hay.</p><p class="exp">→ <b>Cuanto más</b> subes… «Contra más» es incorrecto.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p>Échale <span class="hueco-d err" data-ok="un poco de">una poca de</span> agua a la cantimplora.</p><p class="exp">→ Échale <b>un poco de</b> agua. «Poco» no cambia.</p></div></div>
+      <div class="frase"><span class="n">4</span><div class="tx"><p>Su tiempo es <span class="hueco-d err" data-ok="superior al">superior que el</span> del año pasado.</p><p class="exp">→ …es <b>superior al</b> del año pasado. Se dice «superior a».</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Busca el error y escribe la forma correcta. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Arrastra la forma correcta sobre el error (o tócala y toca el error) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
-<!-- 8 · ACTIVIDAD 5 -->
+<!-- D · ACTIVIDAD 4 -->
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 4</span><h2>Corrige el error <small>(2/2)</small></h2></div>
   <div class="cuerpo">
-    <div class="pistas"><span>Pistas:</span><span>tú dijiste</span><span>cuanto más</span><span>un poco de</span><span>superior a</span><span>les (si son varios)</span><span>¡venid!</span><span>undécimo</span><span>según</span></div>
-    <div class="una-col norma">
-      <button class="frase"><span class="n">5</span><div class="tx"><p>Ya le dieron las medallas a todos los corredores.</p><p class="exp">→ Ya <b>les</b> dieron… Son varios corredores: les.</p></div></button>
-      <button class="frase"><span class="n">6</span><div class="tx"><p>¡Venir aquí, que empieza la carrera!</p><p class="exp">→ ¡<b>Venid</b> aquí…! Para mandar a «vosotros»: venid.</p></div></button>
-      <button class="frase"><span class="n">7</span><div class="tx"><p>Llegó el onceavo de cien corredores.</p><p class="exp">→ Llegó el <b>undécimo</b>. «Onceavo» es una parte de 11.</p></div></button>
-      <button class="frase"><span class="n">8</span><div class="tx"><p>Decidió no subir en base a la previsión del tiempo.</p><p class="exp">→ Decidió no subir <b>según</b> la previsión del tiempo.</p></div></button>
+    <div class="banco banco-d"><b>Correcciones:</b><button class="chip" data-w="superior al">superior al</button><button class="chip" data-w="un poco de">un poco de</button><button class="chip" data-w="según">según</button><button class="chip" data-w="cuanto más">cuanto más</button><button class="chip" data-w="undécimo">undécimo</button><button class="chip" data-w="dijiste">dijiste</button><button class="chip" data-w="les">les</button><button class="chip" data-w="venid">venid</button></div>
+    <div class="una-col arrastre">
+      <div class="frase"><span class="n">5</span><div class="tx"><p>Ya <span class="hueco-d err" data-ok="les">le</span> dieron las medallas a todos los corredores.</p><p class="exp">→ Ya <b>les</b> dieron… Son varios corredores: les.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p>¡<span class="hueco-d err" data-ok="venid" data-cap>Venir</span> aquí, que empieza la carrera!</p><p class="exp">→ ¡<b>Venid</b> aquí…! Para mandar a «vosotros»: venid.</p></div></div>
+      <div class="frase"><span class="n">7</span><div class="tx"><p>Llegó el <span class="hueco-d err" data-ok="undécimo">onceavo</span> de cien corredores.</p><p class="exp">→ Llegó el <b>undécimo</b>. «Onceavo» es una parte de 11.</p></div></div>
+      <div class="frase"><span class="n">8</span><div class="tx"><p>Decidió no subir <span class="hueco-d err" data-ok="según">en base a</span> la previsión del tiempo.</p><p class="exp">→ Decidió no subir <b>según</b> la previsión del tiempo.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Busca el error y escribe la forma correcta. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Arrastra la forma correcta sobre el error (o tócala y toca el error) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
-<!-- 9 · ACTIVIDAD 6 -->
+<!-- D · ACTIVIDAD 5 -->
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 5</span><h2>Cambia el verbo «coger» <small>(1/2)</small></h2><span class="pts">0,75 puntos</span></div>
   <div class="cuerpo">
-    <div class="banco"><b>Usa estos verbos:</b><span>caben</span><span>alcanzó</span><span>toma</span><span>entendí</span><span>sorprendió</span><span>agarra</span></div>
-    <div class="una-col norma">
-      <button class="frase"><span class="n">1</span><div class="tx"><p>Kilian <u>coge</u> la mochila y sale.</p><p class="exp">→ Kilian <b>agarra</b> la mochila: la sujeta con la mano.</p></div></button>
-      <button class="frase"><span class="n">2</span><div class="tx"><p>En la tienda solo <u>cogen</u> dos personas.</p><p class="exp">→ Solo <b>caben</b> dos personas: hay sitio para dos.</p></div></button>
-      <button class="frase"><span class="n">3</span><div class="tx"><p>La tormenta le <u>cogió</u> en la cima.</p><p class="exp">→ La tormenta le <b>sorprendió</b>: llegó sin esperarla.</p></div></button>
+    <div class="banco banco-d"><b>Verbos:</b><button class="chip" data-w="alcanzó">alcanzó</button><button class="chip" data-w="toma">toma</button><button class="chip" data-w="sorprendió">sorprendió</button><button class="chip" data-w="caben">caben</button><button class="chip" data-w="agarra">agarra</button><button class="chip" data-w="entendí">entendí</button></div>
+    <div class="una-col arrastre">
+      <div class="frase"><span class="n">1</span><div class="tx"><p>Kilian <span class="hueco-d err" data-ok="agarra">coge</span> la mochila y sale.</p><p class="exp">→ Kilian <b>agarra</b> la mochila: la sujeta con la mano.</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p>En la tienda solo <span class="hueco-d err" data-ok="caben">cogen</span> dos personas.</p><p class="exp">→ Solo <b>caben</b> dos personas: hay sitio para dos.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p>La tormenta le <span class="hueco-d err" data-ok="sorprendió">cogió</span> en la cima.</p><p class="exp">→ La tormenta le <b>sorprendió</b>: llegó sin esperarla.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">«Coger» vale para todo y empobrece el texto. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Arrastra cada palabra a su hueco (o tócala y luego toca el hueco) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
-<!-- 9 · ACTIVIDAD 6 -->
+<!-- D · ACTIVIDAD 5 -->
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 5</span><h2>Cambia el verbo «coger» <small>(2/2)</small></h2></div>
   <div class="cuerpo">
-    <div class="banco"><b>Usa estos verbos:</b><span>caben</span><span>alcanzó</span><span>toma</span><span>entendí</span><span>sorprendió</span><span>agarra</span></div>
-    <div class="una-col norma">
-      <button class="frase"><span class="n">4</span><div class="tx"><p>Kilian <u>cogió</u> al corredor que iba delante.</p><p class="exp">→ Kilian <b>alcanzó</b> al corredor: llegó hasta él.</p></div></button>
-      <button class="frase"><span class="n">5</span><div class="tx"><p><u>Coge</u> el autobús hasta el campo base.</p><p class="exp">→ <b>Toma</b> el autobús: subirse a un transporte.</p></div></button>
-      <button class="frase"><span class="n">6</span><div class="tx"><p>No <u>cogí</u> lo que me dijo el guía.</p><p class="exp">→ No <b>entendí</b> lo que me dijo: no lo comprendí.</p></div></button>
+    <div class="banco banco-d"><b>Verbos:</b><button class="chip" data-w="alcanzó">alcanzó</button><button class="chip" data-w="agarra">agarra</button><button class="chip" data-w="toma">toma</button><button class="chip" data-w="caben">caben</button><button class="chip" data-w="entendí">entendí</button><button class="chip" data-w="sorprendió">sorprendió</button></div>
+    <div class="una-col arrastre">
+      <div class="frase"><span class="n">4</span><div class="tx"><p>Kilian <span class="hueco-d err" data-ok="alcanzó">cogió</span> al corredor que iba delante.</p><p class="exp">→ Kilian <b>alcanzó</b> al corredor: llegó hasta él.</p></div></div>
+      <div class="frase"><span class="n">5</span><div class="tx"><p><span class="hueco-d err" data-ok="toma" data-cap>Coge</span> el autobús hasta el campo base.</p><p class="exp">→ <b>Toma</b> el autobús: subirse a un transporte.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p>No <span class="hueco-d err" data-ok="entendí">cogí</span> lo que me dijo el guía.</p><p class="exp">→ No <b>entendí</b> lo que me dijo: no lo comprendí.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">«Coger» vale para todo y empobrece el texto. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Arrastra cada palabra a su hueco (o tócala y luego toca el hueco) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -418,7 +444,7 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">2</span><div class="tx"><p><b>Precipicio</b>:</p><p><button class="op">un camino ancho</button> <button class="op" data-ok>una caída muy alta y peligrosa</button> <button class="op">un refugio</button></p><p class="exp">→ <b>una caída muy alta</b>, como la del vídeo.</p></div></div>
       <div class="frase"><span class="n">3</span><div class="tx"><p><b>Agotado</b>:</p><p><button class="op" data-ok>muy cansado</button> <button class="op">muy contento</button> <button class="op">perdido</button></p><p class="exp">→ <b>muy cansado</b>, sin fuerzas.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Rodea el significado correcto.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -431,35 +457,35 @@ body.oscuro #pie{color:#cbd5e1}
       <div class="frase"><span class="n">5</span><div class="tx"><p><b>Aclimatarse</b>:</p><p><button class="op">ponerse crema</button> <button class="op" data-ok>acostumbrarse a la altura o al clima</button> <button class="op">mirar el tiempo</button></p><p class="exp">→ <b>acostumbrarse</b> poco a poco a la altura.</p></div></div>
       <div class="frase"><span class="n">6</span><div class="tx"><p><b>Hazaña</b>:</p><p><button class="op">un error</button> <button class="op" data-ok>algo muy difícil y admirable</button> <button class="op">una mochila</button></p><p class="exp">→ <b>algo muy difícil y admirable</b>, como subir el Everest.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Rodea el significado correcto.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Elige una opción en cada frase y pulsa <b>Comprobar</b>. Solo se puede comprobar <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
-<!-- 11 · ACTIVIDAD 8 -->
+<!-- D · ACTIVIDAD 7 -->
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 7</span><h2>a) Une las ideas con un conector <small>(1/2)</small></h2><span class="pts">0,75 puntos</span></div>
   <div class="cuerpo">
-    <div class="banco"><b>a) Completa con:</b><span>pero</span><span>porque</span><span>aunque</span><span>así que</span><span>cuando</span><span>de repente</span></div>
-    <div class="una-col norma">
-      <button class="frase"><span class="n">1</span><div class="tx"><p>Quería llegar a la cima, ______ empezó a nevar.</p><p class="exp">→ <b>pero</b>: algo se opone a lo que quería.</p></div></button>
-      <button class="frase"><span class="n">2</span><div class="tx"><p>Bajó despacio ______ el camino estaba helado.</p><p class="exp">→ <b>porque</b>: explica la causa.</p></div></button>
-      <button class="frase"><span class="n">3</span><div class="tx"><p>Siguió subiendo ______ estaba agotado.</p><p class="exp">→ <b>aunque</b>: lo hace a pesar del cansancio.</p></div></button>
+    <div class="banco banco-d"><b>Conectores:</b><button class="chip" data-w="así que">así que</button><button class="chip" data-w="de repente">de repente</button><button class="chip" data-w="aunque">aunque</button><button class="chip" data-w="pero">pero</button><button class="chip" data-w="cuando">cuando</button><button class="chip" data-w="porque">porque</button></div>
+    <div class="una-col arrastre">
+      <div class="frase"><span class="n">1</span><div class="tx"><p>Quería llegar a la cima, <span class="hueco-d" data-ok="pero">&nbsp;</span> empezó a nevar.</p><p class="exp">→ <b>pero</b>: algo se opone a lo que quería.</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p>Bajó despacio <span class="hueco-d" data-ok="porque">&nbsp;</span> el camino estaba helado.</p><p class="exp">→ <b>porque</b>: explica la causa.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p>Siguió subiendo <span class="hueco-d" data-ok="aunque">&nbsp;</span> estaba agotado.</p><p class="exp">→ <b>aunque</b>: lo hace a pesar del cansancio.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Arrastra cada palabra a su hueco (o tócala y luego toca el hueco) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
-<!-- 11 · ACTIVIDAD 8 -->
+<!-- D · ACTIVIDAD 7 -->
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 7</span><h2>a) Une las ideas con un conector <small>(2/2)</small></h2></div>
   <div class="cuerpo">
-    <div class="banco"><b>a) Completa con:</b><span>pero</span><span>porque</span><span>aunque</span><span>así que</span><span>cuando</span><span>de repente</span></div>
-    <div class="una-col norma">
-      <button class="frase"><span class="n">4</span><div class="tx"><p>No le quedaba agua, ______ volvió al refugio.</p><p class="exp">→ <b>así que</b>: es la consecuencia.</p></div></button>
-      <button class="frase"><span class="n">5</span><div class="tx"><p>______ llegó arriba, hizo una foto.</p><p class="exp">→ <b>Cuando</b>: dice el momento.</p></div></button>
-      <button class="frase"><span class="n">6</span><div class="tx"><p>Iba tranquilo y, ______, se abrió la niebla.</p><p class="exp">→ <b>de repente</b>: algo pasa sin esperarlo.</p></div></button>
+    <div class="banco banco-d"><b>Conectores:</b><button class="chip" data-w="cuando">cuando</button><button class="chip" data-w="así que">así que</button><button class="chip" data-w="aunque">aunque</button><button class="chip" data-w="de repente">de repente</button><button class="chip" data-w="porque">porque</button><button class="chip" data-w="pero">pero</button></div>
+    <div class="una-col arrastre">
+      <div class="frase"><span class="n">4</span><div class="tx"><p>No le quedaba agua, <span class="hueco-d" data-ok="así que">&nbsp;</span> volvió al refugio.</p><p class="exp">→ <b>así que</b>: es la consecuencia.</p></div></div>
+      <div class="frase"><span class="n">5</span><div class="tx"><p><span class="hueco-d" data-ok="cuando" data-cap>&nbsp;</span> llegó arriba, hizo una foto.</p><p class="exp">→ <b>Cuando</b>: dice el momento.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p>Iba tranquilo y, <span class="hueco-d" data-ok="de repente">&nbsp;</span>, se abrió la niebla.</p><p class="exp">→ <b>de repente</b>: algo pasa sin esperarlo.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Arrastra cada palabra a su hueco (o tócala y luego toca el hueco) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -507,29 +533,18 @@ body.oscuro #pie{color:#cbd5e1}
   <div class="cuerpo">
     <div class="marc">
       <span class="pistas"><span>Así podría ser su diario… aunque seguro que <b>él no cometería</b> estas <b>6 faltas</b>:</span><span>2 de <b>h</b></span><span>2 de <b>b / v</b></span><span>2 de <b>tilde</b></span></span>
-      <span style="margin-left:auto" class="marc"><button class="btn az" id="bcrono">⏱ Empezar</button><span id="crono">4:00</span><span>Encontradas: <span id="cuenta">0</span> / 6</span></span>
+      <span style="margin-left:auto" class="marc"><button class="btn az" id="bcrono">⏱ Empezar</button><span id="crono">4:00</span><span>Marcadas: <span id="cuenta">0</span> / 6</span></span>
     </div>
     <div class="papel" id="diario">
       <b>Día 3. Campo base.</b> Me despierto a las cuatro de la mañana. Fuera <span class="f" data-ok="hace">ace</span> un frío terrible y el viento golpea la tienda. Desayuno rápido: un té y un trozo de pan. <span class="f" data-ok="Llevo">Llebo</span> la mochila ligera. Hoy quiero llegar a la cima, pero no <span class="f" data-ok="sé">se</span> si el tiempo me dejará. <span class="f" data-ok="Después">Despues</span> de dos horas, la nieve me llega a las rodillas y casi no puedo respirar. Me paro y pienso: «A ver si aguanto un poco más». De repente se abre la niebla y <span class="f" data-ok="veo">beo</span> la cumbre. Al final, cuando llego arriba, no hay nadie: solo el silencio. Estoy agotado, pero feliz. Mañana toca bajar… y <span class="f" data-ok="hay">ay</span> que tener mucho cuidado.
     </div>
-    <div class="fila-btn"><span class="peq">Pulsa en la palabra que creas que está mal.</span><button class="btn ve" style="margin-left:auto" data-modal="m-a1">Ver solución</button></div>
+    <div class="fila-btn"><span class="peq">Toca las 6 palabras que creas que están mal (puedes desmarcar) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
 
 
 <!-- ======================= VENTANAS ======================= -->
-<div class="modal-src" id="m-a1">
-  <h3>✔ Actividad 1 · Las 6 faltas</h3>
-  <table class="tsol">
-    <tr><td>ace</td><td class="sol">hace (con h, del verbo hacer)</td></tr>
-    <tr><td>Llebo</td><td class="sol">Llevo (con v)</td></tr>
-    <tr><td>se</td><td class="sol">sé (con tilde: del verbo saber)</td></tr>
-    <tr><td>Despues</td><td class="sol">Después (con tilde)</td></tr>
-    <tr><td>beo</td><td class="sol">veo (con v, del verbo ver)</td></tr>
-    <tr><td>ay</td><td class="sol">hay (con h: «existe»)</td></tr>
-  </table>
-</div>
 <div class="modal-src" id="m-ej">
   <h3>📓 Un ejemplo: «La rueda que no salía»</h3>
   <p class="sol">Mi día difícil fue en el taller. Aquel día me levanté a las siete y media y llegué al instituto con mucho sueño. Primero, el profesor nos explicó cómo cambiar una rueda. Después me tocó a mí y, de repente, una tuerca no salía. Lo peor fue que todos me miraban, porque yo quería hacerlo rápido y me puse nervioso. Al final, con la llave de cruz y un poco de paciencia, lo conseguí. Ese día aprendí que con calma las cosas salen mejor. Estaba agotado, pero orgulloso.</p>
@@ -659,25 +674,87 @@ document.getElementById('girar-no').onclick=()=>document.body.classList.add('ver
   });})(diario);
   const cuenta=document.getElementById('cuenta');
   diario.addEventListener('click',e=>{
-    const f=e.target.closest('.f'); if(f){f.classList.add('pillada');cuenta.textContent=diario.querySelectorAll('.f.pillada').length;return;}
-    const w=e.target.closest('.w'); if(w){w.classList.add('no');setTimeout(()=>w.classList.remove('no'),600);}
+    if(diario.closest('.slide').classList.contains('hecho'))return;
+    const w=e.target.closest('.w,.f'); if(!w)return;
+    if(!w.classList.contains('marca')&&diario.querySelectorAll('.marca').length>=6){diario.classList.add('lleno');setTimeout(()=>diario.classList.remove('lleno'),500);return;}
+    w.classList.toggle('marca');cuenta.textContent=diario.querySelectorAll('.marca').length;
   });
   let t=null;const crono=document.getElementById('crono'),bcr=document.getElementById('bcrono');
   bcr.onclick=()=>{
-    if(t){clearInterval(t);t=null;bcr.textContent='⏱ Empezar';crono.textContent='4:00';crono.classList.remove('fin');diario.querySelectorAll('.f').forEach(f=>f.classList.remove('pillada'));cuenta.textContent=0;return;}
-    let s=240;bcr.textContent='↺ Reiniciar';
-    t=setInterval(()=>{s--;crono.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(t);crono.textContent='¡Tiempo!';crono.classList.add('fin');}},1000);
+    if(t){clearInterval(t);t=null;}
+    let s=240;bcr.textContent='↺ Reiniciar';crono.classList.remove('fin');crono.textContent='4:00';
+    t=setInterval(()=>{s--;crono.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(t);t=null;crono.textContent='¡Tiempo!';crono.classList.add('fin');}},1000);
   };
 
-  /* actividades de elegir (2 y 3) */
+  /* ===== RESPONDER Y COMPROBAR (una sola vez) ===== */
+  /* elegir: un clic marca la opción; se puede cambiar hasta comprobar */
   document.querySelectorAll('.elegir .op').forEach(o=>o.onclick=()=>{
-    o.parentElement.querySelectorAll('.op').forEach(x=>x.classList.remove('bien','malr'));
-    o.classList.add(o.hasAttribute('data-ok')?'bien':'malr');
+    if(o.closest('.slide').classList.contains('hecho'))return;
+    o.parentElement.querySelectorAll('.op').forEach(x=>x.classList.toggle('sel',x===o));
   });
-  document.querySelectorAll('[data-borrar]').forEach(b=>b.onclick=()=>b.closest('.slide').querySelectorAll('.op').forEach(x=>x.classList.remove('bien','malr')));
-  /* pulsar una frase (corrige, coger, conectores) muestra su solución; «Ver solución» las muestra todas */
-  document.querySelectorAll('.norma .frase').forEach(f=>f.onclick=()=>{f.classList.toggle('ver');ajustarSlide(slides[actual]);});
-  document.querySelectorAll('[data-sol]').forEach(b=>b.onclick=()=>{const fs=[...b.closest('.slide').querySelectorAll('.frase')];const on=!fs.every(f=>f.classList.contains('ver'));fs.forEach(f=>f.classList.toggle('ver',on));ajustarSlide(slides[actual]);b.textContent=on?'Ocultar solución':'Ver solución';});
+  /* arrastrar palabras a los huecos (ratón, pizarra táctil o tocar palabra y luego hueco) */
+  const cap=w=>w.charAt(0).toUpperCase()+w.slice(1);
+  function poner(h,chip){
+    const sl=h.closest('.slide');if(sl.classList.contains('hecho'))return;
+    quitar(h);
+    if(!h.dataset.orig)h.dataset.orig=h.innerHTML;
+    const w=chip.dataset.w;h.dataset.w=w;h.innerHTML=(h.hasAttribute('data-cap')?cap(w):w);h.classList.add('lleno');
+    chip.classList.add('usada');chip.classList.remove('cogida');
+    ajustarSlide(slides[actual]);
+  }
+  function quitar(h){
+    if(!h.dataset.w)return;const sl=h.closest('.slide');
+    const ch=[...sl.querySelectorAll('.chip')].find(c=>c.dataset.w===h.dataset.w&&c.classList.contains('usada'));if(ch)ch.classList.remove('usada');
+    delete h.dataset.w;h.innerHTML=h.dataset.orig;h.classList.remove('lleno');
+  }
+  document.querySelectorAll('.chip').forEach(ch=>{
+    ch.addEventListener('click',()=>{if(ch.closest('.slide').classList.contains('hecho')||ch.classList.contains('usada'))return;
+      const on=!ch.classList.contains('cogida');ch.closest('.slide').querySelectorAll('.chip').forEach(c=>c.classList.remove('cogida'));ch.classList.toggle('cogida',on);});
+    ch.addEventListener('pointerdown',e=>{
+      if(ch.closest('.slide').classList.contains('hecho')||ch.classList.contains('usada'))return;
+      const x0=e.clientX,y0=e.clientY;let fan=null;
+      const mover=ev=>{
+        if(!fan){if(Math.hypot(ev.clientX-x0,ev.clientY-y0)<8)return;fan=ch.cloneNode(true);fan.classList.add('fantasma');fan.style.fontSize=getComputedStyle(ch).fontSize;document.body.append(fan);}
+        fan.style.left=ev.clientX+'px';fan.style.top=ev.clientY+'px';
+        document.querySelectorAll('.hueco-d.sobre').forEach(x=>x.classList.remove('sobre'));
+        const h=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.hueco-d');if(h)h.classList.add('sobre');
+      };
+      const soltar=ev=>{
+        removeEventListener('pointermove',mover);removeEventListener('pointerup',soltar);removeEventListener('pointercancel',soltar);
+        document.querySelectorAll('.hueco-d.sobre').forEach(x=>x.classList.remove('sobre'));
+        if(!fan)return;fan.remove();
+        const h=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.hueco-d');
+        if(h&&h.closest('.slide')===ch.closest('.slide'))poner(h,ch);
+        ch._arr=true;setTimeout(()=>ch._arr=false,0);
+      };
+      addEventListener('pointermove',mover);addEventListener('pointerup',soltar);addEventListener('pointercancel',soltar);
+    });
+  });
+  document.querySelectorAll('.hueco-d').forEach(h=>h.addEventListener('click',()=>{
+    const sl=h.closest('.slide');if(sl.classList.contains('hecho'))return;
+    const c=sl.querySelector('.chip.cogida');if(c){poner(h,c);return;}
+    if(h.dataset.w){quitar(h);ajustarSlide(slides[actual]);}
+  }));
+  /* comprobar */
+  const norm=w=>(w||'').trim().toLowerCase();
+  document.querySelectorAll('[data-comp]').forEach(b=>b.onclick=()=>{
+    const sl=b.closest('.slide');if(sl.classList.contains('hecho'))return;
+    let bien=0,total=0;
+    if(sl.querySelector('#diario')){
+      diario.querySelectorAll('.f').forEach(f=>{total++;if(f.classList.contains('marca')){bien++;f.classList.add('pillada');}else f.classList.add('perdida');});
+      diario.querySelectorAll('.w.marca').forEach(w=>w.classList.add('nofalta'));
+    } else if(sl.querySelector('.arrastre')){
+      sl.querySelectorAll('.hueco-d').forEach(h=>{total++;const ok=norm(h.dataset.w)===norm(h.dataset.ok);if(ok)bien++;h.classList.add(ok?'bien':'malr');});
+    } else {
+      sl.querySelectorAll('.frase').forEach(f=>{const ops=f.querySelectorAll('.op');if(!ops.length)return;total++;
+        ops.forEach(o=>{if(o.hasAttribute('data-ok'))o.classList.add(o.classList.contains('sel')?'bien':'falta');else if(o.classList.contains('sel'))o.classList.add('malr');});
+        if(f.querySelector('.op.sel[data-ok]'))bien++;});
+    }
+    sl.classList.add('hecho');sl.querySelectorAll('.frase').forEach(f=>f.classList.add('ver'));
+    b.disabled=true;b.textContent='Comprobado';
+    const n=sl.querySelector('.nota');if(n)n.innerHTML='Aciertos: <b>'+bien+' / '+total+'</b>';
+    ajustarSlide(slides[actual]);
+  });
 
   /* diario */
   document.querySelectorAll('.fila').forEach(f=>f.querySelectorAll('.op').forEach(o=>o.onclick=()=>{f.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===o));}));
