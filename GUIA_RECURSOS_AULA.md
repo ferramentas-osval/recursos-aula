@@ -61,10 +61,12 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 - Actividades lúdicas: `…/ACTIVIDADES_LUDICAS/` · Personajes históricos: `…/ACTIVIDADES_PERSONAJES_HISTORICOS/`
 - Proyectos competenciales: `…/PROYECTOS_COMPETENCIALES/` · Talleres: `…/TALLERES_Y_TECNICAS_DE_ESTUDIO/`
 
-## Botón «▦ Ir a diapositiva» (todas las presentaciones)
+## Contador «n / total» e ir a diapositiva (todas las presentaciones)
 
-Toda presentación lleva antes de `</body>` el bloque de `tools/ir_a_diapositiva.html` (entre `<!--irdiapo:inicio-->` y `<!--irdiapo:fin-->`). Muestra junto a «⌂ Panel» un botón «▦ n / total»; al pulsarlo se abre una ventana con todas las diapositivas numeradas y su título, y un campo para escribir el número. Se cierra con ✕, pulsando fuera o con Esc.
+Toda presentación lleva antes de `</body>` el bloque de `tools/ir_a_diapositiva.html` (entre `<!--irdiapo:inicio-->` y `<!--irdiapo:fin-->`). Muestra **un único contador** «n / total» abajo a la izquierda, junto a «⌂ Panel». Al pulsarlo se abre encima un **selector pequeño** con un campo para escribir el número y la lista de diapositivas numeradas con su título. Se cierra con ✕, pulsando fuera, con Esc o pulsando otra vez el contador. Textos en gallego si `<html lang="gl">`, si no en castellano.
 
+- **Sin contadores duplicados:** si la presentación tiene su propio contador (`#count`, `#contador`, `#ctr`…), se oculta con un bloque `<!--contador:inicio--><style>…{display:none!important}</style><!--contador:fin-->` justo antes del bloque anterior (no se toca el motor de la presentación).
+- **Flechas anterior/siguiente en los laterales**, centradas en vertical. Si una presentación las tiene abajo, se pasan a los laterales en ese mismo bloque `contador`.
 - Funciona con cualquier motor: detecta las diapositivas (`.slide`, `.diapo`, `[data-slide]`, `#stage > section`, o los arrays `slides`/`S`/`diapos`) y llega a la elegida simulando las flechas del teclado (si se atasca, prueba `goTo`/`go`/`ir`/`show`/`mostrar`).
 - Para añadirlo o actualizarlo: copiar el bloque entero del archivo de `tools/`; si ya existe, sustituirlo (no duplicarlo).
 - Desde la consola o desde otro script: `irADiapositiva(n)` (n empieza en 1).
