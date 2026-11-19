@@ -415,14 +415,18 @@
   .media-card { margin-top:.8rem; }
 
   /* ── LÍNEAS FIJAS (idénticas en pantalla, proyector, PDF y Word) ── */
-  .text-numbered-dynamic { display:block; position:relative; padding-left:3.7rem; }
+  .text-numbered-dynamic { display:block; position:relative; padding-left:4.4rem; }
   .text-flow { font-size:15px; line-height:1.75; }
   .text-flow .para { margin:0 0 .9rem; }
   .text-flow .para:last-child { margin-bottom:0; }
   .ln { display:block; position:relative; white-space:nowrap; text-align:justify; text-align-last:justify; }
   .ln.end { text-align-last:left; }
   .ln::before { content:attr(data-n); position:absolute; left:-2.4rem; width:1.9rem; text-align:right; font-size:.72rem; font-weight:700; color:var(--accent3); display:none; user-select:none; }
-  .ln[data-p]::after { content:attr(data-p); position:absolute; left:-3.7rem; width:1.2rem; text-align:right; font-size:1.15rem; font-weight:800; line-height:1.3; color:var(--ink); user-select:none; }
+  .ln[data-p]::after { content:attr(data-p); position:absolute; left:-4.4rem; top:-.1rem; width:1.7rem; height:1.7rem; box-sizing:border-box; display:flex; align-items:center; justify-content:center; border:2px solid var(--ink); border-radius:50%; font-size:1rem; font-weight:800; line-height:1; color:var(--ink); user-select:none; }
+  .ex-flow { padding-left:4.4rem; margin:.6rem 0; font-size:15px; line-height:1.7; }
+  .ex-flow .para { margin:0 0 .6rem; }
+  .ex-flow .ln[data-n$="0"]::before, .ex-flow .ln[data-n$="5"]::before { display:block; }
+  .ex-flow mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0; }
   body.show-nums .ln[data-n$="0"]::before, body.show-nums .ln[data-n$="5"]::before { display:block; }
   body:not(.show-nums) [data-parr-range] { display:none; }
   .tool-bar { display:flex; gap:.6rem; flex-wrap:wrap; margin:.8rem 0 1.1rem; }
@@ -474,7 +478,7 @@
     .text-source { margin-top:2mm; font-size:8pt; }
     .text-numbered-dynamic { padding-left:12mm; }
     .ln::before { display:none !important; }
-    .ln[data-p]::after { left:-12mm; width:5mm; font-size:12pt; line-height:1.1; }
+    .ln[data-p]::after { left:-12mm; top:0; width:5.8mm; height:5.8mm; border-width:1.4px; font-size:10.5pt; }
     .text-flow { line-height:1.34; font-size:var(--pfs, 11px) !important; }
     .text-flow .para { margin-bottom:1.8mm; }
     .phase { border:none; border-radius:0; overflow:visible; margin-bottom:2.5mm; }
@@ -779,7 +783,15 @@
       <button class="example-toggle" onclick="toggleExample('ex1_sub')">💡 Ver ejemplo de subrayado</button>
 <div class="example-box" id="ex1_sub" style="font-style:normal;">
 <strong>Ejemplo de subrayado (solo lo importante):</strong>
-<p style="margin:.4rem 0;"><strong>1.</strong> Imagínese usted un pueblo muy pequeño donde hay <mark>una señora vieja</mark> que tiene dos <mark>hijos</mark>, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de <mark>preocupación</mark>. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero <mark>he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo</mark>”.</p><p style="margin:.4rem 0;"><strong>2.</strong> <mark>El hijo se va a jugar al billar</mark>, y en el momento en que va a tirar una carambola sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se ríen. Él se ríe. <mark>Tira la carambola y no la hace</mark>. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero <mark>me ha quedado la preocupación de una cosa que me dijo mi madre</mark> esta mañana sobre algo grave que va a suceder a este pueblo”.</p><p style="margin:.4rem 0;"><strong>3.</strong> <mark>Todos se ríen de él</mark>, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:<br>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.<br>–¿Y por qué es un tonto?<br>–<mark>Porque no pudo hacer una carambola sencillísima estorbado con la idea de</mark> que <mark>su mamá</mark> amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.<br>Y su madre le dice:<br>–<mark>No te burles de los presentimientos de los viejos porque a veces salen...</mark></p><p style="margin:.4rem 0;"><strong>4.</strong> <mark>Una pariente oye esto y va a comprar carne</mark>. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque <mark>andan diciendo que algo grave va a pasar y lo mejor es estar preparado</mark>”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y <mark>se va esparciendo el rumor</mark>. Llega el momento en que <mark>todo el mundo en el pueblo está esperando que pase algo</mark>.</p><p style="margin:.4rem 0;"><strong>5.</strong> <mark>Se paralizan las actividades</mark> y de pronto a las dos de la tarde, alguien dice:<br>–<mark>¿Se ha dado cuenta del calor que está haciendo?</mark><br>–¡Pero si en este pueblo siempre ha hecho calor!<br>Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.<br>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.<br>–Pero a las dos de la tarde es cuando hace más calor.<br>–Sí, pero no tanto calor como ahora.<br>Al pueblo desierto, a la plaza desierta, <mark>baja de pronto un pajarito</mark> y se corre la voz: “Hay un pajarito en la plaza”. Y <mark>viene todo el mundo espantado</mark> a ver el pajarito.<br>–Pero señores, siempre ha habido pajaritos que bajan.<br>–Sí, pero nunca a esta hora.</p><p style="margin:.4rem 0;"><strong>6.</strong> <mark>Llega un momento de tal tensión</mark> para los habitantes del pueblo, que <mark>todos están desesperados por irse y no tienen el valor de hacerlo</mark>.<br>–Yo sí soy muy macho –grita uno–. <mark>Yo me voy</mark>.<br>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “<mark>Si éste se atreve, pues nosotros también nos vamos</mark>”. Y empiezan a desmantelar literalmente el pueblo. <mark>Se llevan las cosas, los animales, todo.</mark></p><p style="margin:.4rem 0;"><strong>7.</strong> Y uno de los últimos que <mark>abandona el pueblo</mark>, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces <mark>la incendia y otros incendian también sus casas</mark>. <mark>Huyen en un tremendo y verdadero pánico</mark>, como en un éxodo de guerra, y en medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su lado: “<mark>¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?</mark>”</p>
+<div class="ex-flow" id="exFlow">
+<div class="para"><div class="ln" data-n="1" data-p="1">Imagínese usted un pueblo muy pequeño donde hay <mark>una señora vieja</mark> que tiene dos <mark>hijos</mark>,</div><div class="ln" data-n="2">uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de</div><div class="ln" data-n="3"><mark>preocupación</mark>. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero <mark>he</mark></div><div class="ln end" data-n="4"><mark>amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo</mark>”.</div></div>
+<div class="para"><div class="ln" data-n="5" data-p="2"><mark>El hijo se va a jugar al billar</mark>, y en el momento en que va a tirar una carambola</div><div class="ln" data-n="6">sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se</div><div class="ln" data-n="7">ríen. Él se ríe. <mark>Tira la carambola y no la hace</mark>. Paga su peso y todos le preguntan qué</div><div class="ln" data-n="8">pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero <mark>me ha quedado la</mark></div><div class="ln" data-n="9"><mark>preocupación de una cosa que me dijo mi madre</mark> esta mañana sobre algo grave que va a</div><div class="ln end" data-n="10">suceder a este pueblo”.</div></div>
+<div class="para"><div class="ln" data-n="11" data-p="3"><mark>Todos se ríen de él</mark>, y el que se ha ganado su peso regresa a su casa, donde está con su</div><div class="ln end" data-n="12">mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div class="ln end" data-n="13">–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div class="ln end" data-n="14">–¿Y por qué es un tonto?</div><div class="ln" data-n="15">–<mark>Porque no pudo hacer una carambola sencillísima estorbado con la idea de</mark> que <mark>su mamá</mark></div><div class="ln end" data-n="16">amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div class="ln end" data-n="17">Y su madre le dice:</div><div class="ln end" data-n="18">–<mark>No te burles de los presentimientos de los viejos porque a veces salen...</mark></div></div>
+<div class="para"><div class="ln" data-n="19" data-p="4"><mark>Una pariente oye esto y va a comprar carne</mark>. Ella le dice al carnicero: “Deme un kilo de</div><div class="ln" data-n="20">carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque <mark>andan</mark></div><div class="ln" data-n="21"><mark>diciendo que algo grave va a pasar y lo mejor es estar preparado</mark>”. El carnicero</div><div class="ln" data-n="22">despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice:</div><div class="ln" data-n="23">“Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a</div><div class="ln" data-n="24">pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo</div><div class="ln" data-n="25">varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer</div><div class="ln" data-n="26">largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca,</div><div class="ln" data-n="27">se vende toda y <mark>se va esparciendo el rumor</mark>. Llega el momento en que <mark>todo el mundo en el</mark></div><div class="ln end" data-n="28"><mark>pueblo está esperando que pase algo</mark>.</div></div>
+<div class="para"><div class="ln end" data-n="29" data-p="5"><mark>Se paralizan las actividades</mark> y de pronto a las dos de la tarde, alguien dice:</div><div class="ln end" data-n="30">–<mark>¿Se ha dado cuenta del calor que está haciendo?</mark></div><div class="ln end" data-n="31">–¡Pero si en este pueblo siempre ha hecho calor!</div><div class="ln" data-n="32">Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y</div><div class="ln end" data-n="33">tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div class="ln end" data-n="34">–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div class="ln end" data-n="35">–Pero a las dos de la tarde es cuando hace más calor.</div><div class="ln end" data-n="36">–Sí, pero no tanto calor como ahora.</div><div class="ln" data-n="37">Al pueblo desierto, a la plaza desierta, <mark>baja de pronto un pajarito</mark> y se corre la voz:</div><div class="ln end" data-n="38">“Hay un pajarito en la plaza”. Y <mark>viene todo el mundo espantado</mark> a ver el pajarito.</div><div class="ln end" data-n="39">–Pero señores, siempre ha habido pajaritos que bajan.</div><div class="ln end" data-n="40">–Sí, pero nunca a esta hora.</div></div>
+<div class="para"><div class="ln" data-n="41" data-p="6"><mark>Llega un momento de tal tensión</mark> para los habitantes del pueblo, que <mark>todos están</mark></div><div class="ln end" data-n="42"><mark>desesperados por irse y no tienen el valor de hacerlo</mark>.</div><div class="ln end" data-n="43">–Yo sí soy muy macho –grita uno–. <mark>Yo me voy</mark>.</div><div class="ln" data-n="44">Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la</div><div class="ln" data-n="45">calle central donde todo el pueblo lo ve. Hasta que todos dicen: “<mark>Si éste se atreve,</mark></div><div class="ln" data-n="46"><mark>pues nosotros también nos vamos</mark>”. Y empiezan a desmantelar literalmente el pueblo. <mark>Se</mark></div><div class="ln end" data-n="47"><mark>llevan las cosas, los animales, todo.</mark></div></div>
+<div class="para"><div class="ln" data-n="48" data-p="7">Y uno de los últimos que <mark>abandona el pueblo</mark>, dice: “Que no venga la desgracia a caer</div><div class="ln" data-n="49">sobre lo que queda de nuestra casa”, y entonces <mark>la incendia y otros incendian también</mark></div><div class="ln" data-n="50"><mark>sus casas</mark>. <mark>Huyen en un tremendo y verdadero pánico</mark>, como en un éxodo de guerra, y en</div><div class="ln" data-n="51">medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su</div><div class="ln end" data-n="52">lado: “<mark>¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?</mark>”</div></div>
+</div>
 <p style="margin:.6rem 0 0;"><strong>Se deja sin subrayar</strong> lo que ambienta pero no cambia la historia: las edades de los hijos, el nombre de Dámaso, «a las dos de la tarde», los músicos con los instrumentos remendados con brea y las cantidades de carne.</p>
 </div>
       <div class="btn-row">
@@ -1146,6 +1158,7 @@
       else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; }
     });
     if (box) box.classList.toggle('visible', on);
+    if (id === 'ex1_sub') fitExFlow();
   }
 
   // ── PÁGINAS (una sección por pantalla) ──
@@ -1176,6 +1189,14 @@
     if (e.key === 'ArrowRight') goPage(curPage + 1); else if (e.key === 'ArrowLeft') goPage(curPage - 1);
   });
 
+  function fitExFlow() {
+    const f = document.getElementById('exFlow'); if (!f || !f.offsetWidth) return;
+    f.style.fontSize = '15px';
+    const avail = f.clientWidth - parseFloat(getComputedStyle(f).paddingLeft);
+    let max = 0;
+    f.querySelectorAll('.ln').forEach(l => { l.style.textAlignLast = 'left'; l.style.display = 'inline-block'; max = Math.max(max, l.getBoundingClientRect().width); l.style.cssText = ''; });
+    if (max > 0 && avail > 0) f.style.fontSize = (15 * avail / max * 0.995) + 'px';
+  }
   function togglePhase(n) { /* una sección por página: no se pliega */ }
 
   function completePhase(n) {
@@ -1292,7 +1313,7 @@
   }
 
   let lineLayoutResizeTimer;
-  window.addEventListener('resize', () => {
+  window.addEventListener('resize', () => { fitExFlow();
     clearTimeout(lineLayoutResizeTimer);
     lineLayoutResizeTimer = setTimeout(layoutLineNumbers, 200);
   });
