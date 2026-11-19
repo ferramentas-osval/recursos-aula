@@ -415,17 +415,44 @@
   .media-card { margin-top:.8rem; }
 
   /* ── LÍNEAS FIJAS (idénticas en pantalla, proyector, PDF y Word) ── */
-  .text-numbered-dynamic { display:block; position:relative; padding-left:2.4rem; }
+  .text-numbered-dynamic { display:block; position:relative; padding-left:3.7rem; }
   .text-flow { font-size:15px; line-height:1.75; }
   .text-flow .para { margin:0 0 .9rem; }
   .text-flow .para:last-child { margin-bottom:0; }
   .ln { display:block; position:relative; white-space:nowrap; text-align:justify; text-align-last:justify; }
   .ln.end { text-align-last:left; }
   .ln::before { content:attr(data-n); position:absolute; left:-2.4rem; width:1.9rem; text-align:right; font-size:.72rem; font-weight:700; color:var(--accent3); display:none; user-select:none; }
+  .ln[data-p]::after { content:attr(data-p); position:absolute; left:-3.7rem; width:1.2rem; text-align:right; font-size:1.15rem; font-weight:800; line-height:1.3; color:var(--ink); user-select:none; }
   body.show-nums .ln[data-n$="0"]::before, body.show-nums .ln[data-n$="5"]::before { display:block; }
   body:not(.show-nums) [data-parr-range] { display:none; }
   .tool-bar { display:flex; gap:.6rem; flex-wrap:wrap; margin:.8rem 0 1.1rem; }
   .tool-btn { font:inherit; font-size:.85rem; font-weight:600; padding:.45rem .9rem; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); cursor:pointer; }
+  #btnLock { position:fixed; bottom:8px; right:8px; z-index:60; width:30px; height:30px; padding:0; font-size:15px; line-height:1; border:none; border-radius:50%; background:transparent; cursor:pointer; opacity:.25; transition:opacity .2s; }
+  #btnLock:hover { opacity:.9; }
+  #btnLock.open-lock { opacity:1; background:#2e7d32; box-shadow:0 2px 8px rgba(0,0,0,.3); }
+  @media screen {
+    body.paged:not(.print-opt1):not(.print-opt2) [data-pg]:not(.pg-on) { display:none !important; }
+    body.paged .phase-header { cursor:default; }
+    body.paged.pg-inner:not(.print-opt1):not(.print-opt2) header { display:none; }
+    body.paged.pg-inner .container { padding-top:1.5rem; }
+    body.paged .container { padding-bottom:5rem; }
+  }
+  #pgArrL, #pgArrR { position:fixed; top:50%; transform:translateY(-50%); z-index:60; width:44px; height:44px; border:none; border-radius:50%; background:rgba(30,30,30,.45); color:#fff; font-size:26px; line-height:1; cursor:pointer; opacity:.35; transition:opacity .2s; padding:0 0 3px; }
+  #pgArrL { left:8px; } #pgArrR { right:8px; }
+  #pgArrL:hover, #pgArrR:hover { opacity:.95; }
+  #pgArrL:disabled, #pgArrR:disabled { opacity:0; pointer-events:none; }
+  #pgCount { position:fixed; bottom:8px; left:92px; z-index:60; font:inherit; font-size:.8rem; font-weight:700; padding:.3rem .7rem; border:none; border-radius:99px; background:rgba(30,30,30,.5); color:#fff; cursor:pointer; opacity:.6; }
+  #pgCount:hover { opacity:1; }
+  #pgPanel { position:fixed; bottom:44px; left:92px; z-index:61; display:none; background:#fff; border:1px solid var(--border); border-radius:10px; padding:.5rem; box-shadow:0 6px 20px rgba(0,0,0,.25); gap:.3rem; flex-wrap:wrap; max-width:260px; }
+  #pgPanel.open { display:flex; }
+  #pgPanel button { font:inherit; font-size:.85rem; font-weight:700; min-width:2.2rem; height:2.2rem; padding:0 .6rem; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); cursor:pointer; }
+  #pgPanel button:hover { background:#f0ebe2; }
+  #pgPanel button.on { background:var(--accent3); color:#fff; border-color:var(--accent3); }
+  #pgPanel button.dn::after { content:' ✓'; font-size:.7rem; }
+  @media print { #pgArrL, #pgArrR, #pgCount, #pgPanel { display:none !important; } }
+  #unlockToast { position:fixed; bottom:48px; right:10px; background:#2e7d32; color:#fff; padding:.4rem .8rem; font-size:.85rem; border-radius:10px; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,.3); z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s; }
+  #unlockToast.on { opacity:1; }
+  @media print { #unlockToast { display:none !important; } }
   .tool-btn:hover { background:#f3efe8; }
   .print-head { display:none; }
   #fabPrint { position:fixed; top:10px; right:10px; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,.2); }
@@ -447,8 +474,9 @@
     .text-source { margin-top:2mm; font-size:8pt; }
     .text-numbered-dynamic { padding-left:12mm; }
     .ln::before { display:none !important; }
-    .text-flow { line-height:1.4; font-size:var(--pfs, 11px) !important; }
-    .text-flow .para { margin-bottom:2.2mm; }
+    .ln[data-p]::after { left:-12mm; width:5mm; font-size:12pt; line-height:1.1; }
+    .text-flow { line-height:1.34; font-size:var(--pfs, 11px) !important; }
+    .text-flow .para { margin-bottom:1.8mm; }
     .phase { border:none; border-radius:0; overflow:visible; margin-bottom:2.5mm; }
     .phase-header { display:block !important; padding:1mm 0; border-bottom:1.2px solid #333; break-after:avoid-page; background:none !important; }
     .phase-title { font-size:11pt; }
@@ -465,13 +493,13 @@
     .checklist { column-count:2; column-gap:6mm; break-inside:avoid; }
     .checklist li { break-inside:avoid; padding:.6mm 0; border:none; }
     textarea { border:none !important; border-radius:0; padding:0; resize:none; overflow:hidden; height:auto;
-      min-height:12mm; line-height:5.8mm; font-size:9.5pt;
+      min-height:10mm; line-height:5.8mm; font-size:9.5pt;
       background:none !important; }
     textarea::placeholder { color:#bbb; font-size:8.5pt; }
     #body2 { column-count:2; column-gap:6mm; }
     #body2 > .hint, #body2 > p, #body2 > div:not(.parr-block) { column-span:all; }
     #body2 .parr-block { break-inside:avoid; }
-    #t5_resumen { min-height:74mm; }
+    #t5_resumen { min-height:60mm; }
     #t5_auto { min-height:9mm; }
     #t2_tema { min-height:12mm; }
     #t2_q1, #t2_q2 { min-height:12mm; }
@@ -481,7 +509,7 @@
   /* ── BARRA SUPERIOR, CANDADO Y OPCIONES DE IMPRESIÓN ── */
   #topBar { position:fixed; top:10px; right:10px; z-index:60; display:flex; gap:.4rem; flex-wrap:wrap; justify-content:flex-end; }
   #topBar .tool-btn { box-shadow:0 2px 8px rgba(0,0,0,.2); }
-  #lockPop { position:fixed; top:52px; right:10px; z-index:61; background:#fff; border:1px solid var(--border); border-radius:10px; padding:.7rem .8rem; box-shadow:0 6px 20px rgba(0,0,0,.25); display:none; font-size:.85rem; }
+  #lockPop { position:fixed; bottom:44px; right:10px; z-index:61; background:#fff; border:1px solid var(--border); border-radius:10px; padding:.7rem .8rem; box-shadow:0 6px 20px rgba(0,0,0,.25); display:none; font-size:.85rem; }
   #lockPop.open { display:block; }
   #lockPop input { font:inherit; padding:.35rem .5rem; border:1px solid #999; border-radius:6px; width:9rem; }
   #lockMsg { color:#b00020; margin-top:.3rem; min-height:1em; }
@@ -496,7 +524,7 @@
   .print-h1 { display:none; }
   @media print {
     @page fichaB { size:A4; margin:12mm 14mm 14mm; @top-center{content:''} @bottom-center{content:counter(page); font:10pt Verdana,'DejaVu Sans',sans-serif; color:#555} @bottom-right{content:"AB"; font:7pt Verdana,sans-serif; color:#999} }
-    #topBar, #lockPop, #teacherPanel, .lock-note { display:none !important; }
+    #topBar, #btnLock, #lockPop, #teacherPanel, .lock-note { display:none !important; }
     .print-h1 { display:block; font-size:16pt; font-weight:700; margin:0 0 1mm; }
     body:not(.print-opt2) #printOpt2 { display:none !important; }
     body.print-opt2 > *:not(#printOpt2) { display:none !important; }
@@ -504,7 +532,7 @@
     body.print-opt2 #printOpt2 { display:block !important; page:fichaB; }
   }
 #printOpt2 *{box-sizing:border-box}
-#printOpt2{margin:0;background:#fbf6e9;color:#1d1d1d;font-family:Verdana,'DejaVu Sans',Arial,sans-serif;font-size:12pt;line-height:1.7;text-align:left}
+#printOpt2{margin:0;background:#fbf6e9;color:#1d1d1d;font-family:Verdana,'DejaVu Sans',Arial,sans-serif;font-size:11.5pt;line-height:1.6;text-align:left}
 #printOpt2 .page{max-width:none;padding:0 4mm}
 #printOpt2 h1{font-size:19pt;margin:0 0 2mm;line-height:1.25}
 #printOpt2 h2{font-size:15pt;margin:0 0 2mm;padding:2mm 3mm;background:#2b2b2b;color:#fff;border-radius:3px;line-height:1.3}
@@ -525,8 +553,8 @@
 #printOpt2 .item{break-inside:avoid;margin:0 0 3mm}
 #printOpt2 .item .q{font-weight:700;font-size:12pt}
 #printOpt2 .ex{font-size:10.5pt;color:#444;margin:0 0 1mm;line-height:1.5}
-#printOpt2 .ans{border:1.6px solid #888;border-radius:2mm;background:#fff;min-height:14mm;margin:1mm 0}
-#printOpt2 .ans.big{min-height:66mm}
+#printOpt2 .ans{border:1.6px solid #888;border-radius:2mm;background:#fff;min-height:11mm;margin:1mm 0}
+#printOpt2 .ans.big{min-height:58mm}
 #printOpt2 .row{display:flex;gap:4mm;align-items:stretch;margin:0 0 3mm;break-inside:avoid}
 #printOpt2 .row .lab{flex:none;width:30mm;font-weight:700}
 #printOpt2 .opts{font-size:12pt;margin:1mm 0}
@@ -539,14 +567,54 @@
   .example-box mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0 .05rem; font-style:normal; }
   .example-box p { margin:.4rem 0; }
   textarea.sol-on { overflow:hidden; resize:none; color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; }
+  /* ── VOCABULARIO EN EL TEXTO ── */
+  .gl { border-bottom:2px dotted #3b7dd8; cursor:help; position:relative; }
+  .gl:hover, .gl:focus { background:#e9f1fc; outline:none; }
+  .gl-notes, .gl-notes2 { display:none; }
+  #glPop { position:fixed; z-index:70; max-width:min(340px,92vw); background:#fff; border:1px solid #3b7dd8; border-left-width:5px; border-radius:8px; padding:.6rem .8rem; box-shadow:0 6px 20px rgba(0,0,0,.28); font-size:.88rem; line-height:1.45; text-align:left; display:none; }
+  #glPop b { color:#1d4fa8; }
+  @media print {
+    .gl { border-bottom:none; }
+    .gl::after { content:attr(data-n); position:absolute; top:-.25em; right:-.5em; font-size:.6em; font-weight:700; line-height:1; }
+    #glPop { display:none !important; }
+    .gl-notes { display:block; margin-top:1.5mm; font-size:9.5pt; line-height:1.3; border-top:1px solid #888; padding-top:1mm; text-align:left; column-count:2; column-gap:6mm; }
+    .gl-notes-t { column-span:all; }
+    .gl-notes div { break-inside:avoid; }
+    .gl-notes-t { font-weight:700; margin-bottom:.5mm; }
+    .gl-notes div { margin:0 0 .4mm; }
+  }
+
+  #printOpt2 .gl::after { content:attr(data-n); position:static; vertical-align:super; font-size:.62em; font-weight:700; margin-left:.1em; }
+  #printOpt2 .gl-notes2 { display:block; margin:2mm 0 3mm; padding:2mm 3mm; background:#fff; border:1.4px solid #888; border-radius:2mm; font-size:9.5pt; line-height:1.4; break-inside:avoid; column-count:2; column-gap:6mm; }
+  #printOpt2 .gl-notes2 > b { column-span:all; display:block; }
+  #printOpt2 .gl-notes2 > div { break-inside:avoid; }
+  #printOpt2 .gl-notes2 > div { margin:.6mm 0; }
+  @media print {
+    html, body { font-size:10pt; line-height:1.28; }
+    .phase { margin-bottom:1.5mm; }
+    .phase-header { padding:.6mm 0; }
+    .phase-title { font-size:11pt; }
+    .hint { padding:.8mm 2mm; margin:.5mm 0; font-size:9.5pt; }
+    .parr-block { padding:.8mm 0 !important; margin:0 !important; }
+    .parr-block p, .task-block p, .task-question { font-size:10pt !important; }
+    textarea { min-height:9mm; }
+    #t5_resumen { min-height:56mm; }
+    .text-flow .para { margin-bottom:1.8mm; }
+    .checklist { font-size:9pt; }
+    #body5 .task-block { margin:0 !important; }
+    textarea::placeholder { color:transparent !important; opacity:0 !important; }
+  }
 </style>
 </head>
 <body class="locked">
+<div id="glPop" role="dialog" aria-live="polite"></div>
 <div id="topBar">
-  <button class="tool-btn" id="btnLock" onclick="toggleLock()" title="Soluciones y ejemplos (profesor)">🔒 Soluciones</button>
   <button class="tool-btn" onclick="printOpt(1)" title="Imprimir o guardar como PDF">🖨️ Opción 1</button>
   <button class="tool-btn" onclick="printOpt(2)" title="Imprimir o guardar como PDF">🖨️ Opción 2</button>
 </div>
+<button id="btnLock" onclick="toggleLock()" title="Soluciones y ejemplos (profesor)">🔒</button>
+<button id="pgArrL" title="Anterior" onclick="goPage(curPage-1)">‹</button><button id="pgArrR" title="Siguiente" onclick="goPage(curPage+1)">›</button>
+<button id="pgCount" onclick="document.getElementById('pgPanel').classList.toggle('open')" title="Ir a una página">▦ 1 / 6</button><div id="pgPanel"></div>
 <div id="lockPop"><label>Código del profesor:<br><input type="password" id="lockCode" onkeydown="if(event.key==='Enter')tryUnlock()"></label> <button class="tool-btn" onclick="tryUnlock()">Abrir</button><div id="lockMsg"></div></div>
 
 <header>
@@ -595,16 +663,16 @@
     </div>
 
     <div class="text-numbered-dynamic" id="textNumbered"><div class="text-flow" id="textFlow">
-<div class="para"><div class="ln" data-n="1">Imagínese usted un pueblo muy pequeño donde hay una señora vieja que tiene dos hijos,</div><div class="ln" data-n="2">uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de</div><div class="ln" data-n="3">preocupación. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero he</div><div class="ln end" data-n="4">amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo”.</div></div>
-<div class="para"><div class="ln" data-n="5">El hijo se va a jugar al billar, y en el momento en que va a tirar una carambola</div><div class="ln" data-n="6">sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se</div><div class="ln" data-n="7">ríen. Él se ríe. Tira la carambola y no la hace. Paga su peso y todos le preguntan qué</div><div class="ln" data-n="8">pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero me ha quedado la</div><div class="ln" data-n="9">preocupación de una cosa que me dijo mi madre esta mañana sobre algo grave que va a</div><div class="ln end" data-n="10">suceder a este pueblo”.</div></div>
-<div class="para"><div class="ln" data-n="11">Todos se ríen de él, y el que se ha ganado su peso regresa a su casa, donde está con su</div><div class="ln end" data-n="12">mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div class="ln end" data-n="13">–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div class="ln end" data-n="14">–¿Y por qué es un tonto?</div><div class="ln" data-n="15">–Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá</div><div class="ln end" data-n="16">amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div class="ln end" data-n="17">Y su madre le dice:</div><div class="ln end" data-n="18">–No te burles de los presentimientos de los viejos porque a veces salen...</div></div>
-<div class="para"><div class="ln" data-n="19">Una pariente oye esto y va a comprar carne. Ella le dice al carnicero: “Deme un kilo de</div><div class="ln" data-n="20">carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque andan</div><div class="ln" data-n="21">diciendo que algo grave va a pasar y lo mejor es estar preparado”. El carnicero</div><div class="ln" data-n="22">despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice:</div><div class="ln" data-n="23">“Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a</div><div class="ln" data-n="24">pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo</div><div class="ln" data-n="25">varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer</div><div class="ln" data-n="26">largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca,</div><div class="ln" data-n="27">se vende toda y se va esparciendo el rumor. Llega el momento en que todo el mundo en el</div><div class="ln end" data-n="28">pueblo está esperando que pase algo.</div></div>
-<div class="para"><div class="ln end" data-n="29">Se paralizan las actividades y de pronto a las dos de la tarde, alguien dice:</div><div class="ln end" data-n="30">–¿Se ha dado cuenta del calor que está haciendo?</div><div class="ln end" data-n="31">–¡Pero si en este pueblo siempre ha hecho calor!</div><div class="ln" data-n="32">Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y</div><div class="ln end" data-n="33">tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div class="ln end" data-n="34">–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div class="ln end" data-n="35">–Pero a las dos de la tarde es cuando hace más calor.</div><div class="ln end" data-n="36">–Sí, pero no tanto calor como ahora.</div><div class="ln" data-n="37">Al pueblo desierto, a la plaza desierta, baja de pronto un pajarito y se corre la voz:</div><div class="ln end" data-n="38">“Hay un pajarito en la plaza”. Y viene todo el mundo espantado a ver el pajarito.</div><div class="ln end" data-n="39">–Pero señores, siempre ha habido pajaritos que bajan.</div><div class="ln end" data-n="40">–Sí, pero nunca a esta hora.</div></div>
-<div class="para"><div class="ln" data-n="41">Llega un momento de tal tensión para los habitantes del pueblo, que todos están</div><div class="ln end" data-n="42">desesperados por irse y no tienen el valor de hacerlo.</div><div class="ln end" data-n="43">–Yo sí soy muy macho –grita uno–. Yo me voy.</div><div class="ln" data-n="44">Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la</div><div class="ln" data-n="45">calle central donde todo el pueblo lo ve. Hasta que todos dicen: “Si éste se atreve,</div><div class="ln" data-n="46">pues nosotros también nos vamos”. Y empiezan a desmantelar literalmente el pueblo. Se</div><div class="ln end" data-n="47">llevan las cosas, los animales, todo.</div></div>
-<div class="para"><div class="ln" data-n="48">Y uno de los últimos que abandona el pueblo, dice: “Que no venga la desgracia a caer</div><div class="ln" data-n="49">sobre lo que queda de nuestra casa”, y entonces la incendia y otros incendian también</div><div class="ln" data-n="50">sus casas. Huyen en un tremendo y verdadero pánico, como en un éxodo de guerra, y en</div><div class="ln" data-n="51">medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su</div><div class="ln end" data-n="52">lado: “¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?”</div></div>
+<div class="para"><div class="ln" data-n="1" data-p="1">Imagínese usted un pueblo muy pequeño donde hay una señora vieja que tiene dos hijos,</div><div class="ln" data-n="2">uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de</div><div class="ln" data-n="3">preocupación. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero he</div><div class="ln end" data-n="4">amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo”.</div></div>
+<div class="para"><div class="ln" data-n="5" data-p="2">El hijo se va a jugar al billar, y en el momento en que va a tirar una <span class="gl" data-n="1" tabindex="0" role="button">carambola</span></div><div class="ln" data-n="6">sencillísima, el otro jugador le dice: “Te apuesto un <span class="gl" data-n="2" tabindex="0" role="button">peso</span> a que no la haces”. Todos se</div><div class="ln" data-n="7">ríen. Él se ríe. Tira la carambola y no la hace. Paga su peso y todos le preguntan qué</div><div class="ln" data-n="8">pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero me ha quedado la</div><div class="ln" data-n="9">preocupación de una cosa que me dijo mi madre esta mañana sobre algo grave que va a</div><div class="ln end" data-n="10">suceder a este pueblo”.</div></div>
+<div class="para"><div class="ln" data-n="11" data-p="3">Todos se ríen de él, y el que se ha ganado su peso regresa a su casa, donde está con su</div><div class="ln end" data-n="12">mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div class="ln end" data-n="13">–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div class="ln end" data-n="14">–¿Y por qué es un tonto?</div><div class="ln" data-n="15">–Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá</div><div class="ln end" data-n="16">amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div class="ln end" data-n="17">Y su madre le dice:</div><div class="ln end" data-n="18">–No te burles de los presentimientos de los viejos porque a veces salen...</div></div>
+<div class="para"><div class="ln" data-n="19" data-p="4">Una pariente oye esto y va a comprar carne. Ella le dice al carnicero: “Deme un kilo de</div><div class="ln" data-n="20">carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque andan</div><div class="ln" data-n="21">diciendo que algo grave va a pasar y lo mejor es estar preparado”. El carnicero</div><div class="ln" data-n="22">despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice:</div><div class="ln" data-n="23">“Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a</div><div class="ln" data-n="24">pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo</div><div class="ln" data-n="25">varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer</div><div class="ln" data-n="26">largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca,</div><div class="ln" data-n="27">se vende toda y se va esparciendo el rumor. Llega el momento en que todo el mundo en el</div><div class="ln end" data-n="28">pueblo está esperando que pase algo.</div></div>
+<div class="para"><div class="ln end" data-n="29" data-p="5">Se paralizan las actividades y de pronto a las dos de la tarde, alguien dice:</div><div class="ln end" data-n="30">–¿Se ha dado cuenta del calor que está haciendo?</div><div class="ln end" data-n="31">–¡Pero si en este pueblo siempre ha hecho calor!</div><div class="ln" data-n="32">Tanto calor que es pueblo donde los músicos tenían instrumentos <span class="gl" data-n="3" tabindex="0" role="button">remendados</span> con <span class="gl" data-n="4" tabindex="0" role="button">brea</span> y</div><div class="ln end" data-n="33">tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div class="ln end" data-n="34">–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div class="ln end" data-n="35">–Pero a las dos de la tarde es cuando hace más calor.</div><div class="ln end" data-n="36">–Sí, pero no tanto calor como ahora.</div><div class="ln" data-n="37">Al pueblo desierto, a la plaza desierta, baja de pronto un pajarito y se corre la voz:</div><div class="ln end" data-n="38">“Hay un pajarito en la plaza”. Y viene todo el mundo espantado a ver el pajarito.</div><div class="ln end" data-n="39">–Pero señores, siempre ha habido pajaritos que bajan.</div><div class="ln end" data-n="40">–Sí, pero nunca a esta hora.</div></div>
+<div class="para"><div class="ln" data-n="41" data-p="6">Llega un momento de tal tensión para los habitantes del pueblo, que todos están</div><div class="ln end" data-n="42">desesperados por irse y no tienen el valor de hacerlo.</div><div class="ln end" data-n="43">–Yo sí soy muy <span class="gl" data-n="5" tabindex="0" role="button">macho</span> –grita uno–. Yo me voy.</div><div class="ln" data-n="44">Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la</div><div class="ln" data-n="45">calle central donde todo el pueblo lo ve. Hasta que todos dicen: “Si éste se atreve,</div><div class="ln" data-n="46">pues nosotros también nos vamos”. Y empiezan a desmantelar literalmente el pueblo. Se</div><div class="ln end" data-n="47">llevan las cosas, los animales, todo.</div></div>
+<div class="para"><div class="ln" data-n="48" data-p="7">Y uno de los últimos que abandona el pueblo, dice: “Que no venga la desgracia a caer</div><div class="ln" data-n="49">sobre lo que queda de nuestra casa”, y entonces la incendia y otros incendian también</div><div class="ln" data-n="50">sus casas. Huyen en un tremendo y verdadero pánico, como en un <span class="gl" data-n="6" tabindex="0" role="button">éxodo</span> de guerra, y en</div><div class="ln" data-n="51">medio de ellos va la señora que tuvo el <span class="gl" data-n="7" tabindex="0" role="button">presagio</span> que le dice a su hijo que está a su</div><div class="ln end" data-n="52">lado: “¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?”</div></div>
 </div></div>
 
-    <div class="text-source">«Algo muy grave va a suceder en este pueblo», de Gabriel García Márquez (publicado en Magazín Dominical, Caracas, 3 de mayo de 1970)</div>
+    <div class="text-source">«Algo muy grave va a suceder en este pueblo», de Gabriel García Márquez (publicado en Magazín Dominical, Caracas, 3 de mayo de 1970)</div><div class="gl-notes"><div class="gl-notes-t">Vocabulario</div><div><b>1. carambola:</b> Jugada de billar en la que una bola golpea a las otras dos.</div><div><b>2. peso:</b> Moneda, el dinero de la apuesta.</div><div><b>3. remendados:</b> Arreglados, reparados con un remiendo o parche.</div><div><b>4. brea:</b> Sustancia negra y pegajosa que sirve para pegar y tapar grietas.</div><div><b>5. macho:</b> Hombre valiente, que no tiene miedo.</div><div><b>6. éxodo:</b> Huida o salida de mucha gente de un lugar.</div><div><b>7. presagio:</b> Presentimiento: señal de que va a ocurrir algo, normalmente malo.</div></div>
 
   </div>
 
@@ -711,7 +779,7 @@
       <button class="example-toggle" onclick="toggleExample('ex1_sub')">💡 Ver ejemplo de subrayado</button>
 <div class="example-box" id="ex1_sub" style="font-style:normal;">
 <strong>Ejemplo de subrayado (solo lo importante):</strong>
-<p style="margin:.4rem 0;"><strong>1.</strong> Imagínese usted un pueblo muy pequeño donde hay <mark>una señora vieja</mark> que tiene dos hijos, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de <mark>preocupación</mark>. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero <mark>he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo</mark>”.</p><p style="margin:.4rem 0;"><strong>2.</strong> <mark>El hijo se va a jugar al billar</mark>, y en el momento en que va a tirar una carambola sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se ríen. Él se ríe. <mark>Tira la carambola y no la hace</mark>. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero <mark>me ha quedado la preocupación de una cosa que me dijo mi madre</mark> esta mañana sobre algo grave que va a suceder a este pueblo”.</p><p style="margin:.4rem 0;"><strong>3.</strong> <mark>Todos se ríen de él</mark>, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:<br>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.<br>–¿Y por qué es un tonto?<br>–<mark>Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo</mark>.<br>Y su madre le dice:<br>–<mark>No te burles de los presentimientos de los viejos porque a veces salen...</mark></p><p style="margin:.4rem 0;"><strong>4.</strong> <mark>Una pariente oye esto y va a comprar carne</mark>. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque <mark>andan diciendo que algo grave va a pasar y lo mejor es estar preparado</mark>”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y <mark>se va esparciendo el rumor</mark>. Llega el momento en que <mark>todo el mundo en el pueblo está esperando que pase algo</mark>.</p><p style="margin:.4rem 0;"><strong>5.</strong> <mark>Se paralizan las actividades</mark> y de pronto a las dos de la tarde, alguien dice:<br>–<mark>¿Se ha dado cuenta del calor que está haciendo?</mark><br>–¡Pero si en este pueblo siempre ha hecho calor!<br>Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.<br>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.<br>–Pero a las dos de la tarde es cuando hace más calor.<br>–Sí, pero no tanto calor como ahora.<br>Al pueblo desierto, a la plaza desierta, <mark>baja de pronto un pajarito</mark> y se corre la voz: “Hay un pajarito en la plaza”. Y <mark>viene todo el mundo espantado</mark> a ver el pajarito.<br>–Pero señores, siempre ha habido pajaritos que bajan.<br>–Sí, pero nunca a esta hora.</p><p style="margin:.4rem 0;"><strong>6.</strong> <mark>Llega un momento de tal tensión</mark> para los habitantes del pueblo, que <mark>todos están desesperados por irse y no tienen el valor de hacerlo</mark>.<br>–Yo sí soy muy macho –grita uno–. <mark>Yo me voy</mark>.<br>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “<mark>Si éste se atreve, pues nosotros también nos vamos</mark>”. Y empiezan a desmantelar literalmente el pueblo. <mark>Se llevan las cosas, los animales, todo.</mark></p><p style="margin:.4rem 0;"><strong>7.</strong> Y uno de los últimos que <mark>abandona el pueblo</mark>, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces <mark>la incendia y otros incendian también sus casas</mark>. <mark>Huyen en un tremendo y verdadero pánico</mark>, como en un éxodo de guerra, y en medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su lado: “<mark>¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?</mark>”</p>
+<p style="margin:.4rem 0;"><strong>1.</strong> Imagínese usted un pueblo muy pequeño donde hay <mark>una señora vieja</mark> que tiene dos <mark>hijos</mark>, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de <mark>preocupación</mark>. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero <mark>he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo</mark>”.</p><p style="margin:.4rem 0;"><strong>2.</strong> <mark>El hijo se va a jugar al billar</mark>, y en el momento en que va a tirar una carambola sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se ríen. Él se ríe. <mark>Tira la carambola y no la hace</mark>. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero <mark>me ha quedado la preocupación de una cosa que me dijo mi madre</mark> esta mañana sobre algo grave que va a suceder a este pueblo”.</p><p style="margin:.4rem 0;"><strong>3.</strong> <mark>Todos se ríen de él</mark>, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:<br>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.<br>–¿Y por qué es un tonto?<br>–<mark>Porque no pudo hacer una carambola sencillísima estorbado con la idea de</mark> que <mark>su mamá</mark> amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.<br>Y su madre le dice:<br>–<mark>No te burles de los presentimientos de los viejos porque a veces salen...</mark></p><p style="margin:.4rem 0;"><strong>4.</strong> <mark>Una pariente oye esto y va a comprar carne</mark>. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque <mark>andan diciendo que algo grave va a pasar y lo mejor es estar preparado</mark>”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y <mark>se va esparciendo el rumor</mark>. Llega el momento en que <mark>todo el mundo en el pueblo está esperando que pase algo</mark>.</p><p style="margin:.4rem 0;"><strong>5.</strong> <mark>Se paralizan las actividades</mark> y de pronto a las dos de la tarde, alguien dice:<br>–<mark>¿Se ha dado cuenta del calor que está haciendo?</mark><br>–¡Pero si en este pueblo siempre ha hecho calor!<br>Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.<br>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.<br>–Pero a las dos de la tarde es cuando hace más calor.<br>–Sí, pero no tanto calor como ahora.<br>Al pueblo desierto, a la plaza desierta, <mark>baja de pronto un pajarito</mark> y se corre la voz: “Hay un pajarito en la plaza”. Y <mark>viene todo el mundo espantado</mark> a ver el pajarito.<br>–Pero señores, siempre ha habido pajaritos que bajan.<br>–Sí, pero nunca a esta hora.</p><p style="margin:.4rem 0;"><strong>6.</strong> <mark>Llega un momento de tal tensión</mark> para los habitantes del pueblo, que <mark>todos están desesperados por irse y no tienen el valor de hacerlo</mark>.<br>–Yo sí soy muy macho –grita uno–. <mark>Yo me voy</mark>.<br>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “<mark>Si éste se atreve, pues nosotros también nos vamos</mark>”. Y empiezan a desmantelar literalmente el pueblo. <mark>Se llevan las cosas, los animales, todo.</mark></p><p style="margin:.4rem 0;"><strong>7.</strong> Y uno de los últimos que <mark>abandona el pueblo</mark>, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces <mark>la incendia y otros incendian también sus casas</mark>. <mark>Huyen en un tremendo y verdadero pánico</mark>, como en un éxodo de guerra, y en medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su lado: “<mark>¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?</mark>”</p>
 <p style="margin:.6rem 0 0;"><strong>Se deja sin subrayar</strong> lo que ambienta pero no cambia la historia: las edades de los hijos, el nombre de Dámaso, «a las dos de la tarde», los músicos con los instrumentos remendados con brea y las cantidades de carne.</p>
 </div>
       <div class="btn-row">
@@ -753,7 +821,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Imagínese usted un pueblo muy pequeño donde hay… […] muy grave va a sucederle a este pueblo”.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p1" data-solution="Presentimiento de una anciana sobre una desgracia en su pueblo." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p1','c3_p1')"></textarea>
+        <textarea rows="2" id="t3_p1" data-solution="El presentimiento de una anciana sobre una desgracia en su pueblo." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p1','c3_p1')"></textarea>
         <div class="char-count" id="c3_p1">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p1')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p1">
@@ -768,7 +836,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">El hijo se va a jugar al billar,… […] grave que va a suceder a este pueblo”.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p2" data-solution="Derrota del hijo en el billar por la preocupación del presagio." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p2','c3_p2')"></textarea>
+        <textarea rows="2" id="t3_p2" data-solution="La derrota del hijo en el billar por la preocupación del presagio." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p2','c3_p2')"></textarea>
         <div class="char-count" id="c3_p2">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p2')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p2">
@@ -783,7 +851,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Todos se ríen de él, y el que… […] presentimientos de los viejos porque a veces salen...</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p3" data-solution="Burla del ganador y advertencia de su madre sobre los presentimientos." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p3','c3_p3')"></textarea>
+        <textarea rows="2" id="t3_p3" data-solution="La burla del ganador y la advertencia de su madre sobre los presentimientos." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p3','c3_p3')"></textarea>
         <div class="char-count" id="c3_p3">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p3')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p3">
@@ -798,7 +866,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Una pariente oye esto y va a comprar… […] en el pueblo está esperando que pase algo.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p4" data-solution="Propagación del rumor y acaparamiento de carne en el pueblo." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p4','c3_p4')"></textarea>
+        <textarea rows="2" id="t3_p4" data-solution="La propagación del rumor y el acaparamiento de carne en el pueblo." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p4','c3_p4')"></textarea>
         <div class="char-count" id="c3_p4">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p4')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p4">
@@ -813,7 +881,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Se paralizan las actividades y de pronto a… […] que bajan. –Sí, pero nunca a esta hora.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p5" data-solution="Temor ante hechos normales: el calor y un pajarito." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p5','c3_p5')"></textarea>
+        <textarea rows="2" id="t3_p5" data-solution="El temor ante hechos normales: el calor y un pajarito." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p5','c3_p5')"></textarea>
         <div class="char-count" id="c3_p5">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p5')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p5">
@@ -828,7 +896,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Llega un momento de tal tensión para los… […] pueblo. Se llevan las cosas, los animales, todo.</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p6" data-solution="Tensión insoportable y marcha del primer vecino, seguido por los demás." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p6','c3_p6')"></textarea>
+        <textarea rows="2" id="t3_p6" data-solution="La tensión insoportable y la marcha del primer vecino, seguido por los demás." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p6','c3_p6')"></textarea>
         <div class="char-count" id="c3_p6">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p6')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p6">
@@ -843,7 +911,7 @@
         </div>
         <p style="font-size:.9rem; color:#444; margin:.4rem 0 .6rem; text-align:justify;">Y uno de los últimos que abandona el… […] muy grave iba a suceder en este pueblo?”</p>
         <p style="font-size:.87rem; font-weight:600; margin-bottom:.3rem;">¿Cuál es la idea principal de este párrafo? (en tus palabras)</p>
-        <textarea rows="2" id="t3_p7" data-solution="Éxodo del pueblo entre incendios y pánico, y cumplimiento del presagio." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p7','c3_p7')"></textarea>
+        <textarea rows="2" id="t3_p7" data-solution="El éxodo del pueblo entre incendios y pánico, y el cumplimiento del presagio." placeholder="Escribe aquí la idea principal (frase nominal)…" oninput="updateCount('t3_p7','c3_p7')"></textarea>
         <div class="char-count" id="c3_p7">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex3_p7')">💡 Ver ejemplo</button>
         <div class="example-box" id="ex3_p7">
@@ -1049,7 +1117,7 @@
 </div><!-- /container -->
 
 <div id="teacherPanel"><h2 style="margin-top:0">🔓 Panel del profesor</h2><p>Los ejemplos y soluciones están desbloqueados en cada pregunta («💡 Ver ejemplo») y puedes usar «Mostrar números de línea» para corregir con el proyector. Código para volver a bloquear: botón «🔓 Soluciones».</p><h2>Opción 2 de impresión: qué se ha adaptado (y qué no)</h2><p>La ficha reúne las medidas para <b>dislexia / dificultades de lectoescritura (A)</b> y <b>TDAH / déficit de atención (B)</b>. En la opción 2 se adapta la <b>presentación y el formato de respuesta</b>; las preguntas, los contenidos y el nivel de exigencia son los de la versión general (no es una ACS).</p><ul><li>Letra sin serifa (Verdana), cuerpo 12 pt, interlineado 1,7, fondo crema y texto alineado a la izquierda (sin justificar).</li><li>Texto con los 7 párrafos <b>numerados</b>. Se pide identificar las partes por <b>párrafos</b> (en la versión general, por líneas): el criterio evaluado es el mismo. La numeración de líneas no se usa en esta versión.</li><li>Una tarea por apartado, con casilla «Hecho» y tiempo orientativo; dividida en <b>dos partes</b> (se puede entregar en dos sesiones).</li><li>Palabras clave en negrita; ejemplo resuelto de otro texto para la idea principal; las partes y la reescritura guiadas (esquema previo por bloques de párrafos y conectores como apoyo).</li><li>Las tres partes se responden con formato de reconocimiento: se marca planteamiento / nudo / desenlace.</li><li>Extensión del resumen en palabras (180–215, el 25–30 % de las 720 del texto) en lugar de líneas.</li><li>Espacios de respuesta amplios, en recuadro y sin líneas. Código discreto «AB» en el pie.</li></ul><h2>Criterios de corrección adaptados</h2><table><tr><th style="width:42mm">Apartado (sobre 10)</th><th>Criterio (el mismo que el grupo)</th></tr><tr><td>Resumen · 5</td><td>Hechos principales de los 7 párrafos, en orden, con palabras propias, un solo tiempo verbal, sin opinión ni detalles; extensión aproximada del 25–30 %. En DEA: más peso a adecuación y coherencia que a extensión.</td></tr><tr><td>Ideas principales · 2</td><td>Frase nominal con las ideas clave de cada párrafo; se acepta formulación distinta si recoge lo esencial.</td></tr><tr><td>Tema · 1,5</td><td>Sustantivo + lo que ocurre (respuestas a y b como apoyo).</td></tr><tr><td>Tres partes · 1</td><td>Agrupación razonable en párrafos y etiqueta correcta (otras divisiones razonadas son válidas).</td></tr><tr><td>Lectura · 0,5</td><td>Subrayado de datos importantes. No se puntúa la numeración de líneas en esta versión.</td></tr></table><div class="box"><b>Dislexia / DEA (A)</b><ul><li>Contenido por encima de la forma: <b>no se aplica el descuento por faltas</b> (−0,25 por error) en las preguntas de contenido.</li><li>No se evalúan caligrafía, limpieza ni uso del espacio; si algo es ilegible, se le pide que lo lea.</li><li>Corregir sin rojo: rodear el error, dar la forma correcta y comentarlo en persona.</li></ul></div><div class="box"><b>TDAH / déficit de atención (B)</b><ul><li>Si la ficha queda incompleta, completar oralmente antes de calificar; no penalizar omisiones por despiste si demuestra que lo sabe al preguntarle.</li><li>Corregir con propuestas de mejora y valorar el esfuerzo y los pequeños logros; posibilidad de recuperar durante la evaluación.</li><li>Tolerancia ortográfica solo si el informe recoge también dificultades de escritura (si el alumno combina A + B, se aplica la de A).</li></ul></div><h2>Aplicación en el aula</h2><ul><li>Leer o explicar los enunciados las veces necesarias; ayudar a revisar antes de entregar.</li><li>Tiempo ampliado o dos sesiones (Parte 1 y Parte 2); avisar a mitad y antes del final; no coincidir con otro examen el mismo día.</li><li>Lugar sin distracciones (primera fila); reconducir si se desconecta.</li><li>Permitir respuesta oral o completar oralmente, y ordenador si lo tiene autorizado.</li><li>Si el informe del alumno indica otras pautas, prevalecen sobre estas.</li></ul></div>
-<div id="printOpt2"><div class="page"><h1>Taller de resumen</h1><div class="sub">Texto: «Algo muy grave va a suceder en este pueblo» · Gabriel García Márquez</div><div class="name">Nombre y apellidos: ________________________________ Curso: ______ Fecha: ________</div><div class="tip"><b>Cómo trabajar:</b> haz una tarea cada vez. Cuando termines una, marca <span class="box"></span>. Tienes tiempo de sobra: no hace falta ir deprisa.</div><h2>PARTE 1 · Leer y entender &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">1</span>Lee el texto<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Subraya</b> con lápiz los datos importantes: qué ocurre, a quién y por qué. Los párrafos están numerados con un círculo azul.</div><div class="text"><div class="p"><div class="pn">1</div><div class="pt"><div>Imagínese usted un pueblo muy pequeño donde hay una señora vieja que tiene dos hijos, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de preocupación. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo”.</div></div></div><div class="p"><div class="pn">2</div><div class="pt"><div>El hijo se va a jugar al billar, y en el momento en que va a tirar una carambola sencillísima, el otro jugador le dice: “Te apuesto un peso a que no la haces”. Todos se ríen. Él se ríe. Tira la carambola y no la hace. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero me ha quedado la preocupación de una cosa que me dijo mi madre esta mañana sobre algo grave que va a suceder a este pueblo”.</div></div></div><div class="p"><div class="pn">3</div><div class="pt"><div>Todos se ríen de él, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div>–¿Y por qué es un tonto?</div><div>–Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div>Y su madre le dice:</div><div>–No te burles de los presentimientos de los viejos porque a veces salen...</div></div></div><div class="p"><div class="pn">4</div><div class="pt"><div>Una pariente oye esto y va a comprar carne. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque andan diciendo que algo grave va a pasar y lo mejor es estar preparado”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y se va esparciendo el rumor. Llega el momento en que todo el mundo en el pueblo está esperando que pase algo.</div></div></div><div class="p"><div class="pn">5</div><div class="pt"><div>Se paralizan las actividades y de pronto a las dos de la tarde, alguien dice:</div><div>–¿Se ha dado cuenta del calor que está haciendo?</div><div>–¡Pero si en este pueblo siempre ha hecho calor!</div><div>Tanto calor que es pueblo donde los músicos tenían instrumentos remendados con brea y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div>–Pero a las dos de la tarde es cuando hace más calor.</div><div>–Sí, pero no tanto calor como ahora.</div><div>Al pueblo desierto, a la plaza desierta, baja de pronto un pajarito y se corre la voz: “Hay un pajarito en la plaza”. Y viene todo el mundo espantado a ver el pajarito.</div><div>–Pero señores, siempre ha habido pajaritos que bajan.</div><div>–Sí, pero nunca a esta hora.</div></div></div><div class="p"><div class="pn">6</div><div class="pt"><div>Llega un momento de tal tensión para los habitantes del pueblo, que todos están desesperados por irse y no tienen el valor de hacerlo.</div><div>–Yo sí soy muy macho –grita uno–. Yo me voy.</div><div>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “Si éste se atreve, pues nosotros también nos vamos”. Y empiezan a desmantelar literalmente el pueblo. Se llevan las cosas, los animales, todo.</div></div></div><div class="p"><div class="pn">7</div><div class="pt"><div>Y uno de los últimos que abandona el pueblo, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces la incendia y otros incendian también sus casas. Huyen en un tremendo y verdadero pánico, como en un éxodo de guerra, y en medio de ellos va la señora que tuvo el presagio que le dice a su hijo que está a su lado: “¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?”</div></div></div></div><div class="src">«Algo muy grave va a suceder en este pueblo», de Gabriel García Márquez (publicado en Magazín Dominical, Caracas, 3 de mayo de 1970)</div></div><div class="task"><div class="th"><span class="n">2</span>Idea de cada párrafo<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Idea principal</b> = una frase <b>sin verbo conjugado</b> que dice lo más importante del párrafo. <i>Ejemplo (de otro texto):</i> «Llegada de un forastero misterioso al pueblo, que despierta la curiosidad de los vecinos.» No copies frases del texto.</div><div class="item"><div class="q">Párrafo 1</div><div class="ex">Empieza así: «Imagínese usted un pueblo muy pequeño donde […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 2</div><div class="ex">Empieza así: «El hijo se va a jugar al […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 3</div><div class="ex">Empieza así: «Todos se ríen de él, y el […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 4</div><div class="ex">Empieza así: «Una pariente oye esto y va a […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 5</div><div class="ex">Empieza así: «Se paralizan las actividades y de pronto […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 6</div><div class="ex">Empieza así: «Llega un momento de tal tensión para […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 7</div><div class="ex">Empieza así: «Y uno de los últimos que abandona […]»</div><div class="ans"></div></div></div><div class="task"><div class="th"><span class="n">3</span>Las tres partes del texto<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">Un cuento tiene tres partes: <b>planteamiento</b> (empieza la historia), <b>nudo</b> (aparece el conflicto y se desencadenan las acciones) y <b>desenlace</b> (el problema se resuelve o la historia acaba). Agrupa los <b>párrafos</b> en tres partes y marca cuál es cada una.</div><div class="item"><div class="q">Parte 1: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 2: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 3: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div></div></div><div class="page pb"><div class="name">Nombre: ________________________________ &nbsp; Fecha: ________</div><h2>PARTE 2 · Escribir tu resumen &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">4</span>El tema<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">El <b>tema</b> es una frase <b>sin verbo conjugado</b>: un <b>sustantivo</b> + lo que ocurre. Palabras para empezar: <i>el poder de… · el miedo a… · la propagación de… · la historia de…</i></div><div class="item"><div class="q">a) ¿De quién o de qué trata el texto?</div><div class="ans"></div></div><div class="item"><div class="q">b) ¿Qué es lo más importante que se cuenta?<br><span class="ex" style="font-weight:400">(cómo empieza, cómo se desarrolla, cómo termina)</span></div><div class="ans"></div></div><div class="item"><div class="q">c) Escribe el tema en una sola frase</div><div class="ans" style="min-height:12mm"></div></div></div><div class="task"><div class="th"><span class="n">5</span>Tu resumen<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="warn"><b>Reglas:</b> un solo párrafo · tus propias palabras (sin copiar frases ni diálogos) · tercera persona · <b>un solo tiempo verbal</b> (presente) · sin tu opinión · sin datos pequeños (edades, nombres, cifras). Debe medir entre <b>180 y 215 palabras</b> (un cuarto del texto).</div><div class="keep" style="break-inside:avoid"><div class="q" style="font-weight:700">Paso 1. Esquema previo <span class="ex" style="font-weight:400">(apunta una idea en cada casilla)</span></div><div class="chips"><span>En primer lugar,</span><span>Poco después,</span><span>A continuación,</span><span>Entonces,</span><span>Con el tiempo,</span><span>Sin embargo,</span><span>Finalmente,</span></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al principio (párrafos 1-2)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Después (párrafos 3-4)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Más tarde (párrafos 5-6)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al final (párrafo 7)</div><div class="ans" style="min-height:12mm"></div></div></div><div class="q" style="font-weight:700;margin-top:3mm;break-after:avoid">Paso 2. Escribe el resumen en un solo párrafo</div><div class="ans big"></div></div><div class="task"><div class="th"><span class="n">6</span>Revisa antes de entregar<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><ul class="chk"><li><span class="box"></span>Es <b>un solo párrafo</b>.</li><li><span class="box"></span>Está en <b>tercera persona</b> y con <b>un solo tiempo verbal</b>.</li><li><span class="box"></span>Uso <b>mis palabras</b>: no copio frases ni diálogos.</li><li><span class="box"></span>Están las ideas de los <b>7 párrafos</b>, en orden.</li><li><span class="box"></span>Uso <b>conectores</b> (poco después, entonces…).</li><li><span class="box"></span>Lo he leído en voz baja y he corregido lo que no sonaba bien.</li></ul></div></div></div>
+<div id="printOpt2"><div class="page"><h1>Taller de resumen</h1><div class="sub">Texto: «Algo muy grave va a suceder en este pueblo» · Gabriel García Márquez</div><div class="name">Nombre y apellidos: ________________________________ Curso: ______ Fecha: ________</div><div class="tip"><b>Cómo trabajar:</b> haz una tarea cada vez. Cuando termines una, marca <span class="box"></span>. Tienes tiempo de sobra: no hace falta ir deprisa.</div><h2>PARTE 1 · Leer y entender &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">1</span>Lee el texto<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Subraya</b> con lápiz los datos importantes: qué ocurre, a quién y por qué. Los párrafos están numerados con un círculo azul.</div><div class="text"><div class="p"><div class="pn">1</div><div class="pt"><div>Imagínese usted un pueblo muy pequeño donde hay una señora vieja que tiene dos hijos, uno de 17 y una hija de 14. Está sirviéndoles el desayuno y tiene una expresión de preocupación. Los hijos le preguntan qué le pasa y ella les responde: “No sé, pero he amanecido con el presentimiento de que algo muy grave va a sucederle a este pueblo”.</div></div></div><div class="p"><div class="pn">2</div><div class="pt"><div>El hijo se va a jugar al billar, y en el momento en que va a tirar una <span class="gl" data-n="1" tabindex="0" role="button">carambola</span> sencillísima, el otro jugador le dice: “Te apuesto un <span class="gl" data-n="2" tabindex="0" role="button">peso</span> a que no la haces”. Todos se ríen. Él se ríe. Tira la carambola y no la hace. Paga su peso y todos le preguntan qué pasó, si era una carambola sencilla. Y él contesta: “Es cierto, pero me ha quedado la preocupación de una cosa que me dijo mi madre esta mañana sobre algo grave que va a suceder a este pueblo”.</div></div></div><div class="p"><div class="pn">3</div><div class="pt"><div>Todos se ríen de él, y el que se ha ganado su peso regresa a su casa, donde está con su mamá, o una nieta o en fin, cualquier pariente, feliz con su peso dice y comenta:</div><div>–Le gané este peso a Dámaso en la forma más sencilla porque es un tonto.</div><div>–¿Y por qué es un tonto?</div><div>–Porque no pudo hacer una carambola sencillísima estorbado con la idea de que su mamá amaneció hoy con la idea de que algo muy grave va a suceder en este pueblo.</div><div>Y su madre le dice:</div><div>–No te burles de los presentimientos de los viejos porque a veces salen...</div></div></div><div class="p"><div class="pn">4</div><div class="pt"><div>Una pariente oye esto y va a comprar carne. Ella le dice al carnicero: “Deme un kilo de carne”, y en el momento que la está cortando, le dice: “Mejor córteme dos, porque andan diciendo que algo grave va a pasar y lo mejor es estar preparado”. El carnicero despacha su carne y cuando llega otra señora a comprar su kilo de carne, le dice: “Mejor lleve dos porque hasta aquí llega la gente diciendo que algo muy grave va a pasar, y se están preparando y comprando cosas”. Entonces la vieja responde: “Tengo varios hijos, mejor deme cuatro kilos...”. Se lleva los cuatro kilos, y para no hacer largo el cuento, diré que el carnicero en media hora agota la carne, mata a otra vaca, se vende toda y se va esparciendo el rumor. Llega el momento en que todo el mundo en el pueblo está esperando que pase algo.</div></div></div><div class="p"><div class="pn">5</div><div class="pt"><div>Se paralizan las actividades y de pronto a las dos de la tarde, alguien dice:</div><div>–¿Se ha dado cuenta del calor que está haciendo?</div><div>–¡Pero si en este pueblo siempre ha hecho calor!</div><div>Tanto calor que es pueblo donde los músicos tenían instrumentos <span class="gl" data-n="3" tabindex="0" role="button">remendados</span> con <span class="gl" data-n="4" tabindex="0" role="button">brea</span> y tocaban siempre a la sombra porque si tocaban al sol se les caían a pedazos.</div><div>–Sin embargo –dice uno–, a esta hora nunca ha hecho tanto calor.</div><div>–Pero a las dos de la tarde es cuando hace más calor.</div><div>–Sí, pero no tanto calor como ahora.</div><div>Al pueblo desierto, a la plaza desierta, baja de pronto un pajarito y se corre la voz: “Hay un pajarito en la plaza”. Y viene todo el mundo espantado a ver el pajarito.</div><div>–Pero señores, siempre ha habido pajaritos que bajan.</div><div>–Sí, pero nunca a esta hora.</div></div></div><div class="p"><div class="pn">6</div><div class="pt"><div>Llega un momento de tal tensión para los habitantes del pueblo, que todos están desesperados por irse y no tienen el valor de hacerlo.</div><div>–Yo sí soy muy <span class="gl" data-n="5" tabindex="0" role="button">macho</span> –grita uno–. Yo me voy.</div><div>Agarra sus muebles, sus hijos, sus animales, los mete en una carreta y atraviesa la calle central donde todo el pueblo lo ve. Hasta que todos dicen: “Si éste se atreve, pues nosotros también nos vamos”. Y empiezan a desmantelar literalmente el pueblo. Se llevan las cosas, los animales, todo.</div></div></div><div class="p"><div class="pn">7</div><div class="pt"><div>Y uno de los últimos que abandona el pueblo, dice: “Que no venga la desgracia a caer sobre lo que queda de nuestra casa”, y entonces la incendia y otros incendian también sus casas. Huyen en un tremendo y verdadero pánico, como en un <span class="gl" data-n="6" tabindex="0" role="button">éxodo</span> de guerra, y en medio de ellos va la señora que tuvo el <span class="gl" data-n="7" tabindex="0" role="button">presagio</span> que le dice a su hijo que está a su lado: “¿Viste, mi hijo, que algo muy grave iba a suceder en este pueblo?”</div></div></div></div><div class="src">«Algo muy grave va a suceder en este pueblo», de Gabriel García Márquez (publicado en Magazín Dominical, Caracas, 3 de mayo de 1970)</div><div class="gl-notes2"><b>Vocabulario</b><div><b>1. carambola:</b> Jugada de billar en la que una bola golpea a las otras dos.</div><div><b>2. peso:</b> Moneda, el dinero de la apuesta.</div><div><b>3. remendados:</b> Arreglados, reparados con un remiendo o parche.</div><div><b>4. brea:</b> Sustancia negra y pegajosa que sirve para pegar y tapar grietas.</div><div><b>5. macho:</b> Hombre valiente, que no tiene miedo.</div><div><b>6. éxodo:</b> Huida o salida de mucha gente de un lugar.</div><div><b>7. presagio:</b> Presentimiento: señal de que va a ocurrir algo, normalmente malo.</div></div></div><div class="task"><div class="th"><span class="n">2</span>Idea de cada párrafo<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0"><b>Idea principal</b> = una frase <b>sin verbo conjugado</b> que dice lo más importante del párrafo. <i>Ejemplo (de otro texto):</i> «Llegada de un forastero misterioso al pueblo, que despierta la curiosidad de los vecinos.» No copies frases del texto.</div><div class="item"><div class="q">Párrafo 1</div><div class="ex">Empieza así: «Imagínese usted un pueblo muy pequeño donde […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 2</div><div class="ex">Empieza así: «El hijo se va a jugar al […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 3</div><div class="ex">Empieza así: «Todos se ríen de él, y el […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 4</div><div class="ex">Empieza así: «Una pariente oye esto y va a […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 5</div><div class="ex">Empieza así: «Se paralizan las actividades y de pronto […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 6</div><div class="ex">Empieza así: «Llega un momento de tal tensión para […]»</div><div class="ans"></div></div><div class="item"><div class="q">Párrafo 7</div><div class="ex">Empieza así: «Y uno de los últimos que abandona […]»</div><div class="ans"></div></div></div><div class="task"><div class="th"><span class="n">3</span>Las tres partes del texto<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">Un cuento tiene tres partes: <b>planteamiento</b> (empieza la historia), <b>nudo</b> (aparece el conflicto y se desencadenan las acciones) y <b>desenlace</b> (el problema se resuelve o la historia acaba). Agrupa los <b>párrafos</b> en tres partes y marca cuál es cada una.</div><div class="item"><div class="q">Parte 1: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 2: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div><div class="item"><div class="q">Parte 3: párrafos ____ a ____</div><div class="opts"><span><span class="box"></span>planteamiento</span><span><span class="box"></span>nudo</span><span><span class="box"></span>desenlace</span></div><div class="ex">¿De qué trata esta parte?</div><div class="ans"></div></div></div></div><div class="page pb"><div class="name">Nombre: ________________________________ &nbsp; Fecha: ________</div><h2>PARTE 2 · Escribir tu resumen &nbsp;<span style="font-weight:400;font-size:11pt">(unos 30 minutos)</span></h2><div class="task"><div class="th"><span class="n">4</span>El tema<span class="t">⏱ 10 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="tip" style="margin-top:0">El <b>tema</b> es una frase <b>sin verbo conjugado</b>: un <b>sustantivo</b> + lo que ocurre. Palabras para empezar: <i>el poder de… · el miedo a… · la propagación de… · la historia de…</i></div><div class="item"><div class="q">a) ¿De quién o de qué trata el texto?</div><div class="ans"></div></div><div class="item"><div class="q">b) ¿Qué es lo más importante que se cuenta?<br><span class="ex" style="font-weight:400">(cómo empieza, cómo se desarrolla, cómo termina)</span></div><div class="ans"></div></div><div class="item"><div class="q">c) Escribe el tema en una sola frase</div><div class="ans" style="min-height:12mm"></div></div></div><div class="task"><div class="th"><span class="n">5</span>Tu resumen<span class="t">⏱ 15 min · <span class="done"><span class="box"></span>Hecho</span></span></div><div class="warn"><b>Reglas:</b> un solo párrafo · tus propias palabras (sin copiar frases ni diálogos) · tercera persona · <b>un solo tiempo verbal</b> (presente) · sin tu opinión · sin datos pequeños (edades, nombres, cifras). Debe medir entre <b>180 y 215 palabras</b> (un cuarto del texto).</div><div class="keep" style="break-inside:avoid"><div class="q" style="font-weight:700">Paso 1. Esquema previo <span class="ex" style="font-weight:400">(apunta una idea en cada casilla)</span></div><div class="chips"><span>En primer lugar,</span><span>Poco después,</span><span>A continuación,</span><span>Entonces,</span><span>Con el tiempo,</span><span>Sin embargo,</span><span>Finalmente,</span></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al principio (párrafos 1-2)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Después (párrafos 3-4)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Más tarde (párrafos 5-6)</div><div class="ans" style="min-height:12mm"></div></div><div class="item" style="margin-bottom:2mm"><div class="q" style="font-size:11.5pt">Al final (párrafo 7)</div><div class="ans" style="min-height:12mm"></div></div></div><div class="q" style="font-weight:700;margin-top:3mm;break-after:avoid">Paso 2. Escribe el resumen en un solo párrafo</div><div class="ans big"></div></div><div class="task"><div class="th"><span class="n">6</span>Revisa antes de entregar<span class="t">⏱ 5 min · <span class="done"><span class="box"></span>Hecho</span></span></div><ul class="chk"><li><span class="box"></span>Es <b>un solo párrafo</b>.</li><li><span class="box"></span>Está en <b>tercera persona</b> y con <b>un solo tiempo verbal</b>.</li><li><span class="box"></span>Uso <b>mis palabras</b>: no copio frases ni diálogos.</li><li><span class="box"></span>Están las ideas de los <b>7 párrafos</b>, en orden.</li><li><span class="box"></span>Uso <b>conectores</b> (poco después, entonces…).</li><li><span class="box"></span>Lo he leído en voz baja y he corregido lo que no sonaba bien.</li></ul></div></div></div>
 
 <script>
   let completedPhases = 0;
@@ -1080,64 +1148,54 @@
     if (box) box.classList.toggle('visible', on);
   }
 
-  function togglePhase(n) {
-    const body = document.getElementById('body' + n);
-    if (body) body.classList.toggle('open');
+  // ── PÁGINAS (una sección por pantalla) ──
+  const PAGES = [['Inicio', ['.intro-box', '.progress-wrap', '#phaseInfo']],
+    ['1', ['.text-card', '#phase1']], ['2', ['#phase2']], ['3', ['#phase3']], ['4', ['#phase4']], ['5', ['#phase5', '#finalPanel']]];
+  let curPage = 0;
+  function initPages() {
+    PAGES.forEach((p, i) => p[1].forEach(sel => { const el = document.querySelector(sel); if (el) el.dataset.pg = i; }));
+    document.querySelectorAll('.phase-body').forEach(b => b.classList.add('open'));
+    document.getElementById('pgPanel').innerHTML = PAGES.map((p, i) => '<button data-i="' + i + '" title="' + (i ? 'Fase ' + p[0] : 'Inicio') + '" onclick="goPage(' + i + ');document.getElementById(\'pgPanel\').classList.remove(\'open\')">' + p[0] + '</button>').join('');
+    document.body.classList.add('paged');
+    goPage(0, true);
   }
+  function goPage(n, quiet) {
+    if (n < 0 || n >= PAGES.length) return;
+    curPage = n;
+    document.body.classList.toggle('pg-inner', n >= 1);
+    document.querySelectorAll('[data-pg]').forEach(el => el.classList.toggle('pg-on', +el.dataset.pg === n));
+    document.querySelectorAll('#pgPanel button[data-i]').forEach(b => b.classList.toggle('on', +b.dataset.i === n));
+    document.getElementById('pgArrL').disabled = n === 0;
+    document.getElementById('pgArrR').disabled = n === PAGES.length - 1;
+    document.getElementById('pgCount').textContent = '▦ ' + (n + 1) + ' / ' + PAGES.length;
+    if (n === 1) layoutLineNumbers();
+    if (!quiet) { const d = document.documentElement, s = d.style.scrollBehavior; d.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); d.style.scrollBehavior = s; }
+  }
+  document.addEventListener('keydown', e => {
+    if (/^(TEXTAREA|INPUT)$/.test((e.target || {}).tagName)) return;
+    if (e.key === 'ArrowRight') goPage(curPage + 1); else if (e.key === 'ArrowLeft') goPage(curPage - 1);
+  });
+
+  function togglePhase(n) { /* una sección por página: no se pliega */ }
 
   function completePhase(n) {
-    const phase  = document.getElementById('phase'  + n);
-    const status = document.getElementById('status' + n);
-    const body   = document.getElementById('body'   + n);
-
-    if (phase.classList.contains('done')) return;
-
-    const nextPhase = document.getElementById('phase' + (n + 1));
-    const nextBody  = nextPhase ? document.getElementById('body' + (n + 1)) : null;
-
-    // Desactivamos temporalmente las transiciones de altura/padding
-    // para que el cambio de layout sea instantáneo y el scroll no
-    // tenga que perseguir un objetivo que se sigue moviendo.
-    body.style.transition = 'none';
-    if (nextBody) nextBody.style.transition = 'none';
-
-    phase.classList.remove('active');
-    phase.classList.add('done');
+    const phase = document.getElementById('phase' + n), status = document.getElementById('status' + n);
+    if (phase.classList.contains('done')) { if (n < total) goPage(n + 1); return; }
+    phase.classList.remove('active'); phase.classList.add('done');
     status.textContent = '✓ Completada';
-    body.classList.remove('open');
-
-    completedPhases++;
-    updateProgress();
-
+    completedPhases++; updateProgress();
+    const nextPhase = document.getElementById('phase' + (n + 1));
     if (nextPhase) {
       nextPhase.classList.add('active');
       document.getElementById('status' + (n + 1)).textContent = 'En curso';
-      nextBody.classList.add('open');
-
-      // Forzamos el layout final antes de hacer scroll, así el
-      // destino ya es definitivo y no se producen saltos.
-      void nextBody.offsetHeight;
-
-      // html tiene scroll-behavior:smooth global; lo desactivamos
-      // un instante para que este salto sea realmente inmediato.
-      const prevScrollBehavior = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = 'auto';
-      nextPhase.scrollIntoView({ behavior: 'auto', block: 'start' });
-      document.documentElement.style.scrollBehavior = prevScrollBehavior;
-
-      // Restauramos las transiciones para que el plegado/desplegado
-      // manual (togglePhase) siga animándose con normalidad.
-      requestAnimationFrame(() => {
-        body.style.transition = '';
-        if (nextBody) nextBody.style.transition = '';
-      });
+      goPage(n + 1);
     }
-
+    const nb = document.querySelector('#pgPanel button[data-i="' + n + '"]'); if (nb) nb.classList.add('dn');
     if (completedPhases === total) {
       const panel = document.getElementById('finalPanel');
       panel.classList.add('visible');
       document.getElementById('finalScore').textContent = total + '/' + total;
-      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
     }
   }
 
@@ -1169,7 +1227,7 @@
       l.style.cssText = '';
     });
     if (max > 0 && avail > 0) flow.style.fontSize = (15 * avail / max * 0.996) + 'px';
-    if (max > 0) document.documentElement.style.setProperty('--pfs', (634 / (max / 15) * 0.99) + 'px');
+    if (max > 0) document.documentElement.style.setProperty('--pfs', (634 / (max / 15) * 0.99 - 1.333) + 'px');
     document.querySelectorAll('[data-total-lines]').forEach((el) => { el.textContent = lines.length; });
     document.querySelectorAll('[data-resumen-range]').forEach((el) => {
       el.textContent = Math.round(lines.length * 0.25) + ' y ' + Math.round(lines.length * 0.30);
@@ -1179,17 +1237,22 @@
   const LOCK_CODE = 'eclipse';   // cambia aquí el código del profesor
   function toggleLock() {
     if (!document.body.classList.contains('locked')) {
-      document.body.classList.add('locked'); document.getElementById('btnLock').textContent = '🔒 Soluciones';
+      document.body.classList.add('locked'); document.getElementById('btnLock').textContent = '🔒'; document.getElementById('btnLock').classList.remove('open-lock');
       restoreSolutions();
       document.body.classList.remove('show-nums'); return;
     }
     const p = document.getElementById('lockPop'); p.classList.toggle('open');
     if (p.classList.contains('open')) setTimeout(() => document.getElementById('lockCode').focus(), 30);
   }
+  function showToast(t) {
+    let e = document.getElementById('unlockToast');
+    if (!e) { e = document.createElement('div'); e.id = 'unlockToast'; document.body.appendChild(e); }
+    e.textContent = t; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2200);
+  }
   function tryUnlock() {
     const i = document.getElementById('lockCode');
     if (i.value === LOCK_CODE) {
-      document.body.classList.remove('locked'); document.getElementById('btnLock').textContent = '🔓 Soluciones';
+      document.body.classList.remove('locked'); document.getElementById('btnLock').textContent = '🔓'; document.getElementById('btnLock').classList.add('open-lock'); showToast('🔓 Soluciones desbloqueadas');
       document.getElementById('lockPop').classList.remove('open'); i.value = ''; document.getElementById('lockMsg').textContent = '';
     } else { document.getElementById('lockMsg').textContent = 'Código incorrecto'; i.select(); }
   }
@@ -1198,6 +1261,23 @@
     restoreSolutions(); layoutLineNumbers(); setTimeout(() => window.print(), 80);
   }
   window.addEventListener('afterprint', () => document.body.classList.remove('print-opt1', 'print-opt2'));
+
+  const GLOS = {1:["carambola", "Jugada de billar en la que una bola golpea a las otras dos."],2:["peso", "Moneda, el dinero de la apuesta."],3:["remendados", "Arreglados, reparados con un remiendo o parche."],4:["brea", "Sustancia negra y pegajosa que sirve para pegar y tapar grietas."],5:["macho", "Hombre valiente, que no tiene miedo."],6:["éxodo", "Huida o salida de mucha gente de un lugar."],7:["presagio", "Presentimiento: señal de que va a ocurrir algo, normalmente malo."]};
+  function showGl(el) {
+    const n = el.dataset.n, g = GLOS[n]; const p = document.getElementById('glPop');
+    p.innerHTML = '<b>' + g[0] + '</b>: ' + g[1]; p.style.display = 'block';
+    const r = el.getBoundingClientRect(), pw = p.offsetWidth, ph = p.offsetHeight;
+    let left = Math.min(Math.max(8, r.left), window.innerWidth - pw - 8);
+    let top = r.bottom + 6; if (top + ph > window.innerHeight - 8) top = Math.max(8, r.top - ph - 6);
+    p.style.left = left + 'px'; p.style.top = top + 'px'; p.dataset.n = n;
+  }
+  document.addEventListener('click', e => {
+    const el = e.target.closest && e.target.closest('.gl'); const p = document.getElementById('glPop');
+    if (el && !el.closest('#printOpt2')) { if (p.style.display === 'block' && p.dataset.n === el.dataset.n && p._src === el) { p.style.display = 'none'; p._src = null; } else { showGl(el); p._src = el; } }
+    else p.style.display = 'none';
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('glPop').style.display = 'none'; if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('gl')) { e.preventDefault(); showGl(e.target); } });
+  window.addEventListener('scroll', () => { document.getElementById('glPop').style.display = 'none'; }, {passive:true});
   function toggleNums() {
     const on = document.body.classList.toggle('show-nums');
     document.getElementById('btnNums').textContent = on ? '🙈 Ocultar números de línea' : '🔢 Mostrar números de línea';
@@ -1225,6 +1305,7 @@
     document.getElementById('status1').textContent = 'En curso';
     scheduleLineLayout();
   });
+  initPages();
 </script>
 
 <a id="volverPanel" href="../../../01_ESO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
