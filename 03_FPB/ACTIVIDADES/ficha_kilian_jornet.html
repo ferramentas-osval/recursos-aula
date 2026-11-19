@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ficha Kilian Jornet</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:10.4pt;line-height:1.3;color:#1b1b1b;background:#e9edf2}
+p,li,td{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.hoja{position:relative;width:210mm;min-height:297mm;margin:8mm auto;background:#fff;padding:10mm 11mm;box-shadow:0 2mm 6mm rgba(0,0,0,.15)}
+@media print{body{background:#fff}.hoja{margin:0;box-shadow:none;padding:10mm 11mm 11mm;width:210mm;min-height:0;height:297mm;overflow:hidden;page-break-after:always}.hoja:last-of-type{page-break-after:auto}.no-print{display:none!important}}
+.cabecera{display:flex;align-items:center;justify-content:space-between;border-bottom:.7mm solid #1d3557;padding-bottom:2mm;margin-bottom:2.5mm}
+.cabecera h1{font-size:17pt;color:#1d3557;font-weight:900;line-height:1}
+.cabecera h1 span{color:#e76f51}
+.cabecera .mod{font-size:8.5pt;color:#555;text-align:right}
+.datos{display:grid;grid-template-columns:3fr 1fr 1fr;gap:3mm;margin-bottom:3mm}
+.datos div{border:.3mm solid #b8c2cf;border-radius:2mm;height:9mm;padding:1mm 2mm;font-size:8pt;color:#555;font-weight:700}
+.intro{background:#f3f6fa;border-left:1mm solid #e76f51;padding:1.8mm 3mm;border-radius:1.5mm;margin-bottom:3mm;font-size:9.6pt}
+.ej{margin-bottom:2.3mm}
+.ej h2{font-size:11pt;color:#1d3557;display:flex;align-items:baseline;gap:2mm;margin-bottom:1.2mm}
+.ej h2 .num{background:#e76f51;color:#fff;border-radius:50%;width:6.2mm;height:6.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:10pt;flex:0 0 auto}
+.ej h2 .pts{margin-left:auto;font-size:8.5pt;color:#777;font-weight:600;white-space:nowrap}
+.ej p{margin-bottom:1.3mm}
+.caso{background:#fff8f2;border:.3mm solid #f4c7a8;border-radius:2mm;padding:1.6mm 2.6mm;margin-bottom:1.6mm;font-size:9.8pt}
+table{width:100%;border-collapse:collapse}
+td,th{border:.3mm solid #b8c2cf;padding:1mm 1.6mm;vertical-align:top}
+th{background:#eef2f7;color:#1d3557;font-size:9pt;text-align:left}
+.foto-el{display:grid;grid-template-columns:62mm 1fr;gap:3mm;align-items:stretch}
+.foto-el img{width:100%;height:100%;object-fit:cover;border-radius:2mm;display:block}
+.t-el th{width:36%}
+.t-el td{height:6mm}
+.t-esc th,.t-esc td{text-align:center;font-size:9pt}
+.t-esc td:first-child{text-align:left;font-weight:600}
+.t-esc td{height:5.6mm}
+.esp{border:.3mm solid #c9d1dc;border-radius:2mm;margin-top:1mm}
+.fun{display:grid;grid-template-columns:1fr 1fr;gap:1.2mm 4mm}
+.fun div{display:grid;grid-template-columns:1fr 30mm;gap:2mm;align-items:center}
+.fun span.f{border:.3mm solid #c9d1dc;border-radius:1.5mm;height:8mm}
+.fun b{color:#e76f51}
+.t-max td{font-size:9.6pt}
+.t-max td.h{height:12mm}
+.t-cl td,.t-cl th{font-size:9.4pt}
+.t-cl td{height:6mm}
+.t-cl th:first-child{width:52%}
+.t-fu th:first-child{width:62%}
+.t-fu td:last-child .sol{text-align:left}
+.t-cl th:not(:first-child){text-align:center}
+.t-max th:nth-child(1){width:47%}.t-max th:nth-child(2){width:14%}
+.ada{display:grid;grid-template-columns:1fr;gap:1.8mm}
+.ada .et{font-weight:700;color:#1d3557;font-size:9.6pt}
+.pie{font-size:8pt;color:#888;text-align:right;margin-top:1mm}
+.barra{position:fixed;top:2mm;right:3mm;z-index:9}
+.barra button{background:#1d3557;color:#fff;border:none;border-radius:5mm;padding:2mm 4mm;font:inherit;font-weight:700;cursor:pointer;margin-left:2mm}
+.sol{display:none;color:#c0392b;font-weight:700;font-size:8.6pt;line-height:1.2;text-align:justify}
+body.sol-on .sol{display:block}
+.bej{margin-left:3mm;background:#e8eef6;color:#1d3557;border:.3mm solid #b8c2cf;border-radius:4mm;padding:.6mm 2.6mm;font:inherit;font-size:8.5pt;font-weight:700;cursor:pointer;white-space:nowrap}
+.bej.on{background:#c0392b;color:#fff;border-color:#c0392b}
+.ej.ver .sol{display:block}
+
+.esp .sol{padding:1mm 2mm}
+.t-max .sol{font-size:8.2pt;text-align:left}
+.t-esc .sol,.t-cl .sol{text-align:center;font-size:9.5pt}
+.fun span.f .sol{padding:1.6mm 1.5mm;text-align:center}
+#solucionario{display:none}
+#solucionario.ver{display:block}
+#solucionario h2{color:#2a9d8f;font-size:12pt;margin:2mm 0 1mm}
+#solucionario p,#solucionario li{font-size:9.8pt;margin-bottom:1mm}
+#solucionario ul{padding-left:5mm}
+
+/* puntuación (como en los exámenes) */
+.nota-ej{display:inline-flex;align-items:center;gap:1mm;border:1.2px solid #222;border-radius:1.4mm;padding:0 1.8mm;font:700 9pt Arial,sans-serif;color:#222;background:#fff;white-space:nowrap;line-height:1.7;text-transform:none;letter-spacing:0;vertical-align:middle;flex:0 0 auto}
+.nota-ej i{display:inline-block;width:8mm}
+.nota-tot{display:inline-block;width:16mm;height:6.6mm;border:1.4px solid #222;border-radius:1.4mm;vertical-align:middle;background:#fff}
+.ej h2 .pts.nota-ej{color:#222;font-size:9pt}
+.orto{display:flex;align-items:center;gap:3mm;font-size:8.3pt;line-height:1.3;margin-top:1.2mm;font-family:Arial,sans-serif;color:#222}
+.orto p{flex:1;margin:0;text-align:justify;font-size:8.3pt}
+.orto span{white-space:nowrap;font-weight:700;font-size:9.2pt}
+.nota-ort{display:inline-block;width:10mm;height:6.6mm;border:1.2px solid #222;border-radius:1.2mm;vertical-align:middle;background:#fff}
+@media screen and (max-width:820px){.orto{flex-wrap:wrap}}
+
+.kilian{display:grid;grid-template-columns:1fr;gap:1mm}
+.papel{background:#fffaf0;border:.3mm solid #f0d9b5;border-radius:2mm;padding:2mm 3mm;font-size:10.2pt;line-height:1.45;margin-bottom:1.6mm}
+.corr{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6mm 3mm}
+.corr div{display:grid;grid-template-columns:1fr 6mm 1fr;align-items:center;gap:1mm;font-size:9pt}
+.corr span.f{border:.3mm solid #c9d1dc;border-radius:1.5mm;height:7.5mm;display:flex;align-items:center;justify-content:center}
+.corr i{text-align:center;color:#777;font-style:normal}
+.t-tr td{font-size:9.4pt;padding:.8mm 1.6mm}
+.t-tr td:first-child{width:38%}
+.frs{display:grid;grid-template-columns:1fr 1fr;gap:1.4mm 5mm;margin-top:1.6mm}
+.frs p{font-size:10pt;text-align:left}
+.frs .sol{display:none}
+.ej.ver .frs .sol,body.sol-on .frs .sol{display:inline}
+.pals{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6mm 3mm;margin-top:1mm}
+.pals div{border:.3mm solid #c9d1dc;border-radius:1.5mm;padding:1.4mm 2mm;font-size:10.2pt;font-weight:700;text-align:center}
+.pals .sol{text-align:center}
+.truco{font-size:9pt;color:#555;margin-top:1.2mm}
+.elige p{margin-bottom:.5mm;font-size:10pt;text-align:left}
+.elige b{color:#1d3557}
+.bloq{display:grid;grid-template-columns:1fr;gap:1.2mm}
+.bloq .et{font-weight:800;color:#1d3557;font-size:9.8pt}
+.bloq .ini{font-style:italic;color:#444}
+.banco{background:#f3f6fa;border-radius:2mm;padding:1.6mm 3mm;font-size:9.6pt;margin:1.6mm 0}
+.banco b{color:#e76f51}
+.cor{display:grid;grid-template-columns:1fr 1fr;gap:1.2mm 4mm}
+.cor div{display:grid;grid-template-columns:1fr 27mm;gap:2mm;align-items:center}
+.cor p{font-size:9.6pt;text-align:left}
+.cor span.f{border:.3mm solid #c9d1dc;border-radius:1.5mm;height:7.5mm;display:flex;align-items:center;justify-content:center}
+.cor .sol{text-align:center}
+.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:1mm 3mm;font-size:8.8pt}
+.checks p{text-align:left;line-height:1.2}
+.checks span{display:inline-block;width:4.2mm;height:4.2mm;border:.35mm solid #333;border-radius:.8mm;vertical-align:-0.8mm;margin-right:1.6mm}
+
+.frs .sol{display:none;font-size:8.6pt}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:1.4mm 5mm;margin-top:1mm}
+.sig p{font-size:9.8pt;text-align:left}
+.cor div.ab{grid-template-columns:1fr}
+.abierta{display:grid;grid-template-columns:1fr;gap:1.4mm}
+.abierta .ini{font-style:italic}
+.npag{position:absolute;left:0;right:0;bottom:4.5mm;text-align:center;font-size:8.5pt;color:#777}
+/* soluciones grandes, manuscritas y en azul */
+.sol{font-family:"Kalam","Segoe Print","Comic Sans MS",cursive!important;color:#1d4ed8!important;font-weight:700!important;font-size:11pt!important;line-height:1.15!important}
+.esp .sol{font-size:11.5pt!important;font-weight:400!important}
+.frs .sol{font-size:11pt!important}
+.corr span.f,.cor span.f{height:8.5mm}
+.cor div{grid-template-columns:1fr 31mm}
+.corr span.f .sol,.cor span.f .sol{font-size:12pt!important;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="barra no-print"><button onclick="window.print()">🖨️ Imprimir</button><button id="bsol" onclick="verTodo(this)">✔ Ver todas las soluciones</button></div>
+
+<!-- ===================== CARA 1 ===================== -->
+<div class="hoja">
+  <div class="cabecera"><h1>Ficha <span>Kilian Jornet</span></h1><div class="mod">Comunicación y Ciencias Sociales · 1.º FPB<br>Mantenimiento de vehículos</div></div>
+  <div class="datos"><div>Nombre y apellidos</div><div>Fecha</div><div>Curso</div></div>
+  <div class="orto"><p><b>Ortografía:</b> sobre la nota se descontará 0,1 por cada falta no repetida o error de léxico, y 0,1 por cada tres errores de tildes.</p><span>Descuento ortografía: −<b class="nota-ort"></b></span><span>NOTA FINAL: <b class="nota-tot"></b> / 10</span></div>
+  <p class="intro" style="margin-top:2mm"><b>Kilian Jornet</b> es un corredor de montaña y alpinista catalán. En 2017 subió <b>dos veces al Everest en una semana</b>, sin oxígeno embotellado. Publica en su blog el <b>diario de sus expediciones</b>. En 2024, tras subir los cuatromiles de los Alpes en 19 días, escribió: <i>«En algunas crestas no sentí el esfuerzo, sentí una profunda conexión con la montaña».</i></p>
+  <div class="ej">
+    <h2><span class="num">1</span>Rodea la buena<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 1</span></h2>
+    <p>Primero lee los trucos.</p>
+    <table class="t-tr">
+      <tr><td><b>a ver · haber</b></td><td>¿Se puede decir «vamos a mirar»? → <b>a ver</b>. Si no → <b>haber</b>.</td></tr>
+      <tr><td><b>hay · ahí · ¡ay!</b></td><td><b>hay</b> = existe · <b>ahí</b> = en ese sitio · <b>¡ay!</b> = grito.</td></tr>
+      <tr><td><b>por qué · porque</b></td><td>Lleva ¿? → <b>por qué</b> · Es la respuesta → <b>porque</b>.</td></tr>
+      <tr><td><b>hecho · echo</b></td><td>Detrás de he, ha o has → <b>hecho</b> (con h).</td></tr>
+    </table>
+    <div class="frs">
+      <p>1. (A ver / Haber) si mañana hace buen tiempo. <span class="sol">→ A ver</span></p>
+      <p>5. ¡(Ahí / Hay / Ay), qué frío! <span class="sol">→ Ay</span></p>
+      <p>2. Tiene que (a ver / haber) mucha nieve arriba. <span class="sol">→ haber</span></p>
+      <p>6. ¿(Por qué / Porque) subes sin oxígeno? <span class="sol">→ Por qué</span></p>
+      <p>3. (Ahí / Hay / Ay) un refugio cerca de la cima. <span class="sol">→ Hay</span></p>
+      <p>7. (Por qué / Porque) quiero probar mis límites. <span class="sol">→ Porque</span></p>
+      <p>4. Deja la mochila (ahí / hay / ay), junto a la tienda. <span class="sol">→ ahí</span></p>
+      <p>8. He (hecho / echo) la mochila en diez minutos. <span class="sol">→ hecho</span></p>
+    </div>
+  </div>
+  <div class="ej">
+    <h2><span class="num">2</span>Tildes: ¿cuál está bien escrita?<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 1</span></h2>
+    <p>Rodea la palabra bien escrita. Solo una de las tres está bien. <b>¡Ojo!</b> Alguna palabra no lleva tilde.</p>
+    <p class="truco" style="margin:0 0 1mm"><b>Trucos:</b> las que terminan en <b>-ión</b> llevan tilde (expedición, camión). Si la fuerza va en la <b>tercera sílaba empezando por el final</b>, siempre llevan tilde (ki-<b>ló</b>-me-tros, <b>rá</b>-pi-do).</p>
+    <div class="frs">
+      <p>1. oxigeno · oxígeno · óxigeno <span class="sol">→ oxígeno</span></p>
+      <p>5. montáña · móntaña · montaña <span class="sol">→ montaña</span></p>
+      <p>2. expedición · expedicion · expédicion <span class="sol">→ expedición</span></p>
+      <p>6. kilometros · kilometrós · kilómetros <span class="sol">→ kilómetros</span></p>
+      <p>3. rapido · rápido · rapidó <span class="sol">→ rápido</span></p>
+      <p>7. cumbre · cúmbre · cumbré <span class="sol">→ cumbre</span></p>
+      <p>4. record · récord · recórd <span class="sol">→ récord</span></p>
+      <p>8. tambien · támbien · también <span class="sol">→ también</span></p>
+    </div>
+  </div>
+  <div class="ej" style="margin-bottom:0">
+    <h2><span class="num">3</span>¿Con qué letra?<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 0,75</span></h2>
+    <p>Rodea la palabra bien escrita. <i>Pista: piensa en otra palabra de la misma familia.</i></p>
+    <div class="frs">
+      <p>1. Kilian (subía / suvía) muy deprisa. <span class="sol">→ subía</span></p>
+      <p>5. (Llegaba / Yegaba) siempre el primero. <span class="sol">→ Llegaba</span></p>
+      <p>2. En la cima había (yelo / hielo). <span class="sol">→ hielo</span></p>
+      <p>6. Preparó el (equipage / equipaje) la noche antes. <span class="sol">→ equipaje</span></p>
+      <p>3. Fue un (viaje / viage) muy largo. <span class="sol">→ viaje</span></p>
+      <p>7. Sentía mucho (orgullo / orguyo). <span class="sol">→ orgullo</span></p>
+      <p>4. Le encanta la (abentura / aventura). <span class="sol">→ aventura</span></p>
+      <p>8. (Recogió / Recojió) la tienda al amanecer. <span class="sol">→ Recogió</span></p>
+    </div>
+  </div>
+<div class="npag">Página 1 de 3</div>
+</div>
+
+<!-- ===================== CARA 2 ===================== -->
+<div class="hoja">
+  <div class="ej">
+    <h2><span class="num">4</span>Corrige el error<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 1</span></h2>
+    <p>En cada frase hay un error. Rodéalo y escribe la forma correcta. <b>Pistas:</b> tú dijiste · cuanto más · un poco de · superior a · les (si son varios) · ¡venid! · undécimo · según.</p>
+    <div class="cor">
+      <div><p>1. Tú me dijistes que Kilian subió al Everest.</p><span class="f"><span class="sol">dijiste</span></span></div>
+      <div><p>5. Ya le dieron las medallas a todos los corredores.</p><span class="f"><span class="sol">les dieron</span></span></div>
+      <div><p>2. Contra más subes, menos oxígeno hay.</p><span class="f"><span class="sol">Cuanto más</span></span></div>
+      <div><p>6. ¡Venir aquí, que empieza la carrera!</p><span class="f"><span class="sol">¡Venid aquí…!</span></span></div>
+      <div><p>3. Échale una poca de agua a la cantimplora.</p><span class="f"><span class="sol">un poco de</span></span></div>
+      <div><p>7. Llegó el onceavo de cien corredores.</p><span class="f"><span class="sol">undécimo</span></span></div>
+      <div><p>4. Su tiempo es superior que el del año pasado.</p><span class="f"><span class="sol">superior al</span></span></div>
+      <div><p>8. Decidió no subir en base a la previsión del tiempo.</p><span class="f"><span class="sol">según</span></span></div>
+    </div>
+  </div>
+  <div class="ej">
+    <h2><span class="num">5</span>Cambia el verbo «coger»<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 0,75</span></h2>
+    <p>Escribe el verbo exacto. Usa estos: <b>caben · alcanzó · toma · entendí · sorprendió · agarra</b>.</p>
+    <div class="cor">
+      <div><p>1. Kilian <u>coge</u> la mochila y sale.</p><span class="f"><span class="sol">agarra</span></span></div>
+      <div><p>4. Kilian <u>cogió</u> al corredor que iba delante.</p><span class="f"><span class="sol">alcanzó</span></span></div>
+      <div><p>2. En la tienda solo <u>cogen</u> dos personas.</p><span class="f"><span class="sol">caben</span></span></div>
+      <div><p>5. <u>Coge</u> el autobús hasta el campo base.</p><span class="f"><span class="sol">Toma</span></span></div>
+      <div><p>3. La tormenta le <u>cogió</u> en la cima.</p><span class="f"><span class="sol">sorprendió</span></span></div>
+      <div><p>6. No <u>cogí</u> lo que me dijo el guía.</p><span class="f"><span class="sol">entendí</span></span></div>
+    </div>
+  </div>
+  <div class="ej">
+    <h2><span class="num">6</span>¿Qué significa?<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 0,75</span></h2>
+    <p>Rodea el significado correcto.</p>
+    <div class="frs">
+      <p>1. <b>Cima</b>: la parte más alta de una montaña · un tipo de nieve · el campo base <span class="sol">→ la parte más alta</span></p>
+      <p>4. Lo contrario de <b>ascenso</b>: cumbre · descenso · récord <span class="sol">→ descenso</span></p>
+      <p>2. <b>Precipicio</b>: un camino ancho · una caída muy alta y peligrosa · un refugio <span class="sol">→ una caída muy alta</span></p>
+      <p>5. <b>Aclimatarse</b>: ponerse crema · acostumbrarse a la altura o al clima · mirar el tiempo <span class="sol">→ acostumbrarse</span></p>
+      <p>3. <b>Agotado</b>: muy cansado · muy contento · perdido <span class="sol">→ muy cansado</span></p>
+      <p>6. <b>Hazaña</b>: un error · algo muy difícil y admirable · una mochila <span class="sol">→ algo difícil y admirable</span></p>
+    </div>
+  </div>
+  <div class="ej" style="margin-bottom:0">
+    <h2><span class="num">7</span>Une las ideas y termina las frases<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 0,75</span></h2>
+    <p><b>a)</b> Completa con: <b>pero · porque · aunque · así que · cuando · de repente</b>.</p>
+    <div class="cor">
+      <div><p>1. Quería llegar a la cima, ______ empezó a nevar.</p><span class="f"><span class="sol">pero</span></span></div>
+      <div><p>4. No le quedaba agua, ______ volvió al refugio.</p><span class="f"><span class="sol">así que</span></span></div>
+      <div><p>2. Bajó despacio ______ el camino estaba helado.</p><span class="f"><span class="sol">porque</span></span></div>
+      <div><p>5. ______ llegó arriba, hizo una foto.</p><span class="f"><span class="sol">Cuando</span></span></div>
+      <div><p>3. Siguió subiendo ______ estaba agotado.</p><span class="f"><span class="sol">aunque</span></span></div>
+      <div><p>6. Iba tranquilo y, ______, se abrió la niebla.</p><span class="f"><span class="sol">de repente</span></span></div>
+    </div>
+    <p style="margin-top:1.6mm"><b>b)</b> Termina estas frases con tus palabras.</p>
+    <div class="abierta">
+      <div><span class="ini">Lo que más me sorprende de Kilian es… porque…</span><div class="esp" style="height:12mm"><span class="sol">Respuesta abierta. Ej.: Lo que más me sorprende de Kilian es que suba sin oxígeno, porque casi no se puede respirar.</span></div></div>
+      <div><span class="ini">Yo no subiría a esa montaña porque…, pero sí me gustaría…</span><div class="esp" style="height:12mm"><span class="sol">Respuesta abierta. Ej.: Yo no subiría a esa montaña porque me da vértigo, pero sí me gustaría hacer una ruta por el monte con mis amigos.</span></div></div>
+    </div>
+  </div>
+<div class="npag">Página 2 de 3</div>
+</div>
+
+<!-- ===================== CARA 3 ===================== -->
+<div class="hoja">
+  <div class="ej">
+    <h2><span class="num">8</span>Mi diario de un día difícil<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 3</span></h2>
+    <p>En sus diarios, Kilian escribe sobre <b>días duros</b>: el frío, el cansancio, el miedo y lo que aprende. Ahora te toca a ti. <b>Paso 1. Elige (rodea) una opción de cada fila.</b></p>
+    <div class="elige">
+      <p><b>Mi día difícil fue…</b> en el taller · en un partido · en el trabajo · en una excursión · otro: ____________</p>
+      <p><b>Ese día estaba…</b> nervioso · cansado · enfadado · motivado · agobiado</p>
+      <p><b>Lo hice…</b> solo · con amigos · con mi familia · con compañeros</p>
+    </div>
+    <p><b>Paso 2. Completa cada bloque (unas dos líneas en cada recuadro):</b></p>
+    <div class="banco"><b>Banco de palabras:</b> primero · después · luego · de repente · entonces · al final · agotado · orgulloso · frustrado · aliviado</div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:2mm;align-items:center;margin-bottom:1.6mm"><b style="color:#1d3557">Título de mi diario:</b><div class="esp" style="height:8mm;margin:0"><span class="sol">La rueda que no salía</span></div></div>
+    <div class="bloq">
+      <div><span class="et">🌅 Cómo empezó:</span> <span class="ini">Aquel día me levanté a las… y…</span><div class="esp" style="height:23mm"><span class="sol">Aquel día me levanté a las siete y media y llegué al instituto con mucho sueño.</span></div></div>
+      <div><span class="et">➡️ Lo que pasó:</span> <span class="ini">Primero… Después… De repente…</span><div class="esp" style="height:23mm"><span class="sol">Primero, el profesor nos explicó cómo cambiar una rueda. Después me tocó a mí y, de repente, una tuerca no salía.</span></div></div>
+      <div><span class="et">⛰️ Lo más difícil:</span> <span class="ini">Lo peor fue… porque…</span><div class="esp" style="height:23mm"><span class="sol">Lo peor fue que todos me miraban, porque yo quería hacerlo rápido y me puse nervioso.</span></div></div>
+      <div><span class="et">🏁 Cómo acabó:</span> <span class="ini">Al final… Ese día aprendí que…</span><div class="esp" style="height:23mm"><span class="sol">Al final, con la llave de cruz y un poco de paciencia, lo conseguí. Ese día aprendí que con calma las cosas salen mejor. Estaba agotado, pero orgulloso. (Ejemplo: respuesta abierta).</span></div></div>
+    </div>
+  </div>
+  <div class="ej" style="margin-bottom:0">
+    <h2><span class="num">9</span>Cazafaltas: el diario de Kilian<button class="bej no-print" onclick="verEj(this)">✔ Solución</button><span class="pts nota-ej"><i></i>/ 1</span></h2>
+    <p>Así podría ser una página de su diario (texto imaginado), aunque seguro que él no cometería las faltas que hemos escondido aquí. Tiene <b>6 faltas escondidas</b>: 2 de <b>h</b>, 2 de <b>b/v</b> y 2 de <b>tilde</b>. Rodéalas y escríbelas bien abajo. <i>Tienes 4 minutos.</i></p>
+    <div class="papel"><b>Día 3. Campo base.</b> Me despierto a las cuatro de la mañana. Fuera ace un frío terrible y el viento golpea la tienda. Desayuno rápido: un té y un trozo de pan. Llebo la mochila ligera. Hoy quiero llegar a la cima, pero no se si el tiempo me dejará. Despues de dos horas, la nieve me llega a las rodillas y casi no puedo respirar. Me paro y pienso: «A ver si aguanto un poco más». De repente se abre la niebla y beo la cumbre. Al final, cuando llego arriba, no hay nadie: solo el silencio. Estoy agotado, pero feliz. Mañana toca bajar… y ay que tener mucho cuidado.</div>
+    <div class="corr">
+      <div><span class="f"><span class="sol">ace</span></span><i>→</i><span class="f"><span class="sol">hace</span></span></div>
+      <div><span class="f"><span class="sol">Llebo</span></span><i>→</i><span class="f"><span class="sol">Llevo</span></span></div>
+      <div><span class="f"><span class="sol">se</span></span><i>→</i><span class="f"><span class="sol">sé</span></span></div>
+      <div><span class="f"><span class="sol">Despues</span></span><i>→</i><span class="f"><span class="sol">Después</span></span></div>
+      <div><span class="f"><span class="sol">beo</span></span><i>→</i><span class="f"><span class="sol">veo</span></span></div>
+      <div><span class="f"><span class="sol">ay</span></span><i>→</i><span class="f"><span class="sol">hay</span></span></div>
+    </div>
+  </div>
+<div class="npag">Página 3 de 3</div>
+</div>
+
+<a id="volverPanel" href="../../03_FPB/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+<script>
+function verEj(b){const e=b.closest('.ej');e.classList.toggle('ver');b.classList.toggle('on',e.classList.contains('ver'));b.textContent=e.classList.contains('ver')?'✕ Ocultar':'✔ Solución';}
+function verTodo(b){const on=!document.body.classList.contains('sol-on');document.body.classList.toggle('sol-on',on);
+ document.querySelectorAll('.ej').forEach(e=>e.classList.remove('ver'));document.querySelectorAll('.bej').forEach(x=>{x.classList.remove('on');x.textContent='✔ Solución';x.style.display=on?'none':''});
+ b.textContent=on?'Ocultar soluciones':'✔ Ver todas las soluciones';}
+</script>
+</body>
+</html>

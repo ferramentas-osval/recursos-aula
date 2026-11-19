@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diario de montaña</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito:wght@500;700;800;900&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#0f1c2e; --noche2:#1b2d45; --hielo:#e9f2f8; --nieve:#ffffff; --cumbre:#ff6b35; --sol:#ffc947;
+  --pino:#2d6a4f; --roca:#5c677d; --tinta:#14202e; --ok:#1e8e5a; --mal:#c0392b; --papel:#fffaf0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--noche);font-family:"Nunito","Segoe UI",Roboto,Arial,sans-serif;color:var(--tinta)}
+p,li,.just{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+button{font:inherit;cursor:pointer}
+
+/* ---------- DIAPOSITIVAS ---------- */
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:2.4vh 6vw 5.4vh;background:linear-gradient(180deg,#f4f8fb 0%,#e3edf5 100%);overflow:hidden;line-height:1.28}
+.slide::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7vh;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L0 55 L90 30 L160 50 L260 12 L340 45 L420 28 L520 58 L610 20 L700 48 L790 8 L880 42 L960 26 L1060 54 L1130 32 L1200 50 L1200 80Z' fill='%231b2d45' opacity='.10'/%3E%3C/svg%3E") bottom/100% 100% no-repeat;pointer-events:none}
+.slide.activa{display:flex}
+.cab{display:flex;align-items:center;gap:.6em;margin-bottom:.45em;flex:0 0 auto;position:relative;z-index:1}
+.cab h2{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:1.55em;color:var(--noche);line-height:1.05;letter-spacing:.01em}
+.etq{font-size:.62em;font-weight:900;text-transform:uppercase;letter-spacing:.08em;padding:.3em .8em;border-radius:2em;color:#fff;background:var(--noche2);white-space:nowrap}
+.etq.act{background:var(--cumbre)} .etq.deb{background:var(--pino)} .etq.dato{background:#7b4fa0} .etq.teo{background:#2b7bb9}
+.pts{margin-left:auto;font-weight:900;color:var(--cumbre);font-size:.8em;white-space:nowrap}
+.cuerpo{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:.55em;width:100%;position:relative;z-index:1}
+.g2{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:minmax(0,1fr);gap:1.2em;flex:1;min-height:0}
+.g2.vid{grid-template-columns:auto 1fr}
+.col{display:flex;flex-direction:column;gap:.55em;min-height:0;justify-content:safe center}
+.caja{background:#fff;border-radius:.6em;padding:.5em .8em;box-shadow:0 .12em .5em rgba(15,28,46,.08)}
+.caja h3{font-size:1em;color:var(--noche);margin-bottom:.15em}
+.destaca{background:var(--noche);color:#fff;border-radius:.6em;padding:.55em .9em;font-weight:700}
+.destaca b{color:var(--sol)}
+ul.lista{padding-left:1.1em;display:flex;flex-direction:column;gap:.3em}
+ul.lista li::marker{color:var(--cumbre)}
+.btn{background:var(--cumbre);color:#fff;border:none;border-radius:2em;padding:.35em 1.05em;font-weight:900;box-shadow:0 .12em .3em rgba(0,0,0,.2);white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.az{background:var(--noche2)} .btn.ve{background:var(--pino)}
+.fila-btn{display:flex;gap:.5em;flex-wrap:wrap;align-items:center}
+.peq{font-size:.8em;color:var(--roca)}
+.n{display:inline-flex;align-items:center;justify-content:center;width:1.55em;height:1.55em;border-radius:50%;background:var(--cumbre);color:#fff;font-weight:900;font-size:.85em;flex:0 0 auto}
+
+/* vídeo vertical (shorts) */
+.video{height:100%;aspect-ratio:9/16;max-width:34vw;border-radius:.8em;overflow:hidden;background:#000;box-shadow:0 .3em 1em rgba(0,0,0,.35);position:relative;display:flex;flex-direction:column}
+.video iframe{flex:1;width:100%;border:0;display:block}
+.video a{position:absolute;right:.5em;bottom:.5em;font-size:.6em;background:rgba(0,0,0,.65);color:#fff;text-decoration:none;padding:.25em .7em;border-radius:2em;font-weight:800;z-index:2}
+
+/* portada */
+.portada{background:linear-gradient(180deg,#0f1c2e 0%,#1b2d45 55%,#3b5677 100%);color:#fff;justify-content:center}
+.portada::after{display:none}
+.portada .monte{position:absolute;inset:auto 0 0 0;height:40%;pointer-events:none}
+.portada .monte svg{width:100%;height:100%;display:block}
+.portada .tit{position:relative;z-index:1;display:flex;flex-direction:column;gap:.35em;max-width:62%}
+.portada h1{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:3.6em;line-height:.95;letter-spacing:.01em}
+.portada h1 span{color:var(--sol)}
+.portada .sub{font-size:1.15em;font-weight:700;opacity:.95;text-align:left}
+.portada .chips{display:flex;gap:.4em;flex-wrap:wrap}
+.portada .chips span{background:rgba(255,255,255,.14);border:.08em solid rgba(255,255,255,.3);border-radius:2em;padding:.2em .8em;font-weight:800;font-size:.8em}
+
+/* debate */
+.preg{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:1.7em;line-height:1.1;color:var(--noche)}
+.preg span{color:var(--cumbre)}
+
+/* datos curiosos */
+.cartas{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:.65em;flex:1;min-height:0}
+.carta{border:none;border-radius:.8em;display:grid;min-height:0;color:#fff;text-align:left;box-shadow:0 .15em .45em rgba(0,0,0,.18)}
+.carta>div{grid-area:1/1;padding:.55em .8em;display:flex;flex-direction:column;justify-content:safe center;gap:.25em;transition:opacity .25s}
+.carta .tras{opacity:0;visibility:hidden}
+.carta.vuelta .tras{opacity:1;visibility:visible}
+.carta.vuelta .frente{opacity:0;visibility:hidden}
+.carta .frente{align-items:center;text-align:center}
+.carta .ico{font-size:1.9em;line-height:1}
+.carta .q{font-weight:900;font-size:1.05em;line-height:1.15;text-align:center}
+.carta .big{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:2em;line-height:1;color:var(--sol)}
+.carta .tras p{font-size:.9em;text-align:left}
+
+/* diario (rasgos) */
+.rasgos{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:.6em;min-height:0}
+.rasgo{background:#fff;border-radius:.7em;padding:.5em .8em;display:flex;gap:.6em;align-items:center;box-shadow:0 .12em .45em rgba(15,28,46,.08);border-left:.3em solid var(--cumbre)}
+.rasgo .ico{font-size:1.8em}
+.rasgo b{color:var(--noche);display:block}
+.mano{font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;color:#1d4ed8;font-size:1.02em}
+
+/* actividad 1: cazafaltas */
+.papel{background:var(--papel);border-radius:.6em;padding:.7em 1.1em;box-shadow:0 .2em .8em rgba(0,0,0,.12);background-image:linear-gradient(90deg,transparent 2.2em,#f3b8a8 2.2em,#f3b8a8 2.3em,transparent 2.3em);padding-left:3em;font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;font-size:1.12em;line-height:1.5;text-align:justify;min-height:0}
+.papel .w,.papel .f{cursor:pointer;border-radius:.2em;transition:background .15s}
+.papel .w.no{background:#e5e7eb;animation:tiembla .3s}
+@keyframes tiembla{25%{transform:translateX(-.1em)}75%{transform:translateX(.1em)}}
+.papel .f{position:relative;display:inline-block}
+.papel .f.pillada{color:var(--mal);text-decoration:line-through;text-decoration-thickness:.1em}
+.papel .f.pillada::after{content:attr(data-ok);position:absolute;left:50%;top:-1.05em;transform:translateX(-50%);color:#fff;background:var(--ok);font-family:"Nunito",sans-serif;font-weight:900;font-size:.7em;padding:0 .4em;border-radius:.4em;white-space:nowrap;line-height:1.4;text-decoration:none}
+.marc{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+.pistas{display:flex;gap:.4em;flex-wrap:wrap}
+.pistas span{background:#fff;border:.1em solid #cfd9e3;border-radius:2em;padding:.12em .7em;font-weight:800;font-size:.85em}
+#crono{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:1.5em;color:var(--noche);min-width:3.2em;text-align:center}
+#crono.fin{color:var(--mal)}
+#cuenta{font-weight:900;color:var(--ok)}
+
+/* actividad 2 */
+.trucos{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:.7em;flex:1;min-height:0}
+.truco{border-radius:.8em;color:#fff;padding:.6em .9em;display:flex;flex-direction:column;justify-content:safe center;gap:.3em;box-shadow:0 .15em .45em rgba(0,0,0,.18)}
+.truco .par{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:1.35em;line-height:1.05;color:var(--sol)}
+.truco p{text-align:left}
+.truco i{background:rgba(255,255,255,.16);border-radius:.4em;padding:.15em .5em;font-style:normal;font-family:"Kalam","Comic Sans MS","Segoe Print",cursive}
+.dos-col{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:.5em 1em;flex:1;min-height:0}
+.frase{background:#fff;border-radius:.6em;padding:.35em .65em;box-shadow:0 .12em .4em rgba(0,0,0,.08);display:flex;gap:.55em;align-items:center}
+.frase p{flex:1;text-align:left}
+.op{border:.1em solid #c8d1dd;background:#f3f6fa;border-radius:2em;padding:.08em .6em;margin:.06em;font-weight:800;color:#333}
+.op.bien{background:var(--ok)!important;color:#fff;border-color:var(--ok)}
+.op.malr{background:var(--mal)!important;color:#fff;border-color:var(--mal)}
+.op.on{background:var(--noche2);color:#fff;border-color:var(--noche2)}
+
+/* actividad 3 */
+.palabras{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:.65em;flex:1;min-height:0}
+.pal{border:none;border-radius:.8em;background:#fff;box-shadow:0 .15em .45em rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;border-bottom:.25em solid var(--cumbre)}
+.pal .w1{font-size:1.5em;font-weight:900;color:var(--noche)}
+.pal .w2{font-size:.95em;color:var(--roca);visibility:hidden}
+.pal .w2 b{color:var(--cumbre);font-size:1.15em}
+.pal.ver .w2{visibility:visible}
+.pal.ver{background:#fff6ee}
+
+/* actividad 4 */
+.elige{display:flex;flex-direction:column;gap:.55em;flex:1;min-height:0;justify-content:safe center}
+.fila{background:#fff;border-radius:.7em;padding:.5em .8em;box-shadow:0 .12em .45em rgba(15,28,46,.08)}
+.fila b{color:var(--noche);margin-right:.4em}
+.bloques{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:.6em;flex:1;min-height:0}
+.bloque{background:#fff;border-radius:.7em;padding:.5em .8em;display:flex;flex-direction:column;gap:.25em;box-shadow:0 .12em .45em rgba(15,28,46,.08);border-top:.3em solid var(--c,#2b7bb9)}
+.bloque h3{color:var(--c,#2b7bb9);font-size:1.05em}
+.bloque .mano{font-size:1.15em}
+.bloque .hueco{flex:1;min-height:1.5em;border:.08em dashed #c9d3de;border-radius:.4em}
+.banco{background:var(--noche);color:#fff;border-radius:.7em;padding:.45em .8em;display:flex;flex-wrap:wrap;gap:.35em;align-items:center}
+.banco b{color:var(--sol);margin-right:.3em}
+.banco span{background:rgba(255,255,255,.14);border-radius:2em;padding:.08em .6em;font-weight:800}
+
+/* actividad 5 */
+.check{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:.7em;flex:1;min-height:0}
+.ck{border:none;background:#fff;border-radius:.8em;box-shadow:0 .15em .45em rgba(0,0,0,.12);display:flex;align-items:center;gap:.7em;padding:.6em 1em;text-align:left;font-weight:800;color:var(--noche)}
+.ck .cx{flex:0 0 auto;width:1.6em;height:1.6em;border:.15em solid var(--roca);border-radius:.3em;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900}
+.ck.on .cx{background:var(--ok);border-color:var(--ok)}
+.ck.on .cx::after{content:"✔"}
+.ck.on{background:#eefaf3}
+
+
+/* cita real de Kilian */
+.cita-k{display:flex;gap:.7em;align-items:center;background:#fff;border-radius:.6em;padding:.4em .9em;box-shadow:0 .12em .45em rgba(15,28,46,.08);border-left:.3em solid var(--pino)}
+.cita-k .ico{font-size:1.8em}
+.cita-k p{text-align:left}
+.cita-k .real{font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;color:var(--pino);font-weight:700;font-size:1.08em}
+/* frases con respuesta (corrige el error, coger) */
+button.frase{border:none;text-align:left;color:inherit}
+.frase .res{font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;color:#1d4ed8;font-weight:700;visibility:hidden;white-space:nowrap}
+.frase.ver .res{visibility:visible}
+.pistas span:first-child{background:var(--noche);color:#fff;border-color:var(--noche)}
+/* vídeo: portada al terminar o sin conexión */
+.video .poster{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em;color:#fff;text-align:center;padding:1em;background:#000 center/cover no-repeat}
+.video .poster::before{content:"";position:absolute;inset:0;background:rgba(10,20,40,.55)}
+.video .poster>*{position:relative}
+.video .poster button{border:none;border-radius:2em;background:var(--cumbre);color:#fff;font-weight:900;padding:.45em 1.1em;font-size:.9em}
+.video .poster small{font-size:.62em;opacity:.9}
+.video .poster a{position:relative;right:auto;bottom:auto;font-size:.7em;background:rgba(255,255,255,.18)}
+
+/* soluciones debajo de cada frase */
+.frase{align-items:flex-start;overflow:hidden}
+.frase .n{margin-top:.1em}
+.frase .tx{flex:1;display:flex;flex-direction:column;gap:.1em;min-width:0}
+.frase .tx p{text-align:left}
+.frase .exp{font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;color:#1d4ed8;font-size:calc(1.05em * var(--expf,1));line-height:1.5;display:none}
+.frase .exp b{color:#1d4ed8}
+.frase.ver .exp{display:block}
+.sig .op{font-weight:700}
+.una-col{display:grid;grid-template-columns:1fr;grid-auto-rows:1fr;gap:.55em;flex:1;min-height:0}
+.una-col .frase{align-items:center}
+.cab h2 small{font-size:.6em;color:var(--roca)}
+.trucos-t{gap:.5em}
+.trucos-t .tr{flex:1 1 0;background:#fff;border-radius:.6em;padding:.35em .7em;box-shadow:0 .12em .4em rgba(0,0,0,.08);border-left:.3em solid var(--cumbre)}
+.trucos-t i{font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;color:#1d4ed8;font-style:normal}
+
+/* la letra manuscrita necesita más interlineado para no salirse de su línea */
+.mano,.cita-k .real,#modal .sol,.truco i,.trucos-t i,.tsol td{line-height:1.5}
+.truco p,.trucos-t .tr,.caja p{line-height:1.45}
+
+/* ---------- NAVEGACIÓN ---------- */
+.nav{position:fixed;top:50%;transform:translateY(-50%);width:4.2vw;height:16vh;border:none;background:rgba(15,28,46,.13);color:var(--noche);font-size:4.5vh;border-radius:1vh;z-index:20;display:flex;align-items:center;justify-content:center}
+.nav:hover{background:rgba(15,28,46,.28)}
+#prev{left:.6vw} #next{right:.6vw}
+body.oscuro .nav{background:rgba(255,255,255,.15);color:#fff}
+#pie{position:fixed;bottom:1vh;right:1.4vw;font-size:2vh;color:var(--roca);z-index:20;display:flex;gap:1vw;align-items:center}
+body.oscuro #pie{color:#cbd5e1}
+#pie button{border:none;background:none;color:inherit;font-size:2.4vh}
+#barra{position:fixed;left:0;bottom:0;height:.7vh;background:var(--cumbre);z-index:20;transition:width .3s}
+
+/* ---------- VENTANA ---------- */
+.modal-src{display:none}
+#fondo{position:fixed;inset:0;background:rgba(10,20,40,.75);display:none;align-items:center;justify-content:center;z-index:50}
+#fondo.on{display:flex}
+#modal{position:relative;width:90vw;height:86vh;background:#fff;border-radius:1.4vh;padding:4.2vh 4vw 3vh;overflow:hidden;box-shadow:0 2vh 6vh rgba(0,0,0,.4);display:flex;flex-direction:column}
+#modal-in{flex:1;min-height:0;display:flex;flex-direction:column;gap:.5em;justify-content:safe center;line-height:1.3}
+#modal h3{color:var(--cumbre);font-size:1.2em}
+#modal .sol{color:#1d4ed8;font-family:"Kalam","Comic Sans MS","Segoe Print",cursive;font-weight:700}
+#cerrar{position:absolute;top:1.2vh;right:1.2vw;border:none;background:var(--noche);color:#fff;width:5.4vh;height:5.4vh;border-radius:50%;font-size:3vh;font-weight:800;line-height:1}
+.m2{display:grid;grid-template-columns:1fr 1fr;gap:.35em 1.4em}
+.tsol{width:100%;border-collapse:collapse}
+.tsol td{padding:.2em .5em;border-bottom:.06em solid #e2e8f0}
+.tsol td:first-child{color:var(--mal);text-decoration:line-through;width:30%}
+
+/* aviso de orientación en móvil */
+#girar{position:fixed;inset:0;z-index:100;background:#0f1c2e;color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5vw;padding:8vw;text-align:center;font-size:5vw;line-height:1.3}
+#girar .movil{font-size:20vw;display:inline-block;animation:gira 2s ease-in-out infinite}
+@keyframes gira{0%,25%{transform:rotate(0)}50%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#girar b{color:var(--sol)}
+#girar button{border:none;border-radius:10vw;padding:3.5vw 7vw;font:inherit;font-weight:800;cursor:pointer}
+#girar .si{background:var(--cumbre);color:#fff}
+#girar .no{background:transparent;color:#cfd8e3;text-decoration:underline;font-size:4vw;font-weight:500}
+@media (orientation:portrait) and (max-width:900px){body:not(.vertical-ok) #girar{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- 1 · VÍDEO 1 + DEBATE -->
+<section class="slide">
+  <div class="cab"><span class="etq deb">Para empezar</span><h2>Mira, escucha… y opina</h2></div>
+  <div class="cuerpo">
+    <div class="g2 vid">
+      <div class="video" data-yt="cvs_LOrQBqE"></div>
+      <div class="col">
+        <div class="caja"><p>Nadie habla. Solo se oye <b>su respiración</b>. Mira el borde del camino: a un lado, <b>el precipicio</b>.</p></div>
+        <p class="preg" style="font-size:2.2em">¿Vale la pena <span>arriesgar la vida</span> por un reto?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · QUIÉN ES -->
+<section class="slide">
+  <div class="cab"><span class="etq teo">Conoce al protagonista</span><h2>¿Quién es Kilian Jornet?</h2></div>
+  <div class="cuerpo">
+    <div class="g2 vid">
+      <div class="video" data-yt="IPJ0y8DRPCA"></div>
+      <div class="col">
+        <ul class="lista">
+          <li>Es un <b>corredor de montaña y alpinista</b> catalán, considerado uno de los mejores de la historia.</li>
+          <li>Se crio en un <b>refugio de montaña del Pirineo</b>, a casi 2.000 metros de altura.</li>
+          <li>En 2017 subió <b>dos veces al Everest en una semana</b>, sin oxígeno embotellado.</li>
+          <li>Cuenta sus aventuras en <b>libros, documentales y vídeos</b>, y escribe en su blog el <b>diario de sus expediciones</b>: qué hace cada día, qué siente y qué aprende.</li>
+        </ul>
+        <div class="cita-k"><span class="ico">📓</span><div><p>En 2024 subió los cuatromiles de los Alpes en 19 días. En su diario escribió:</p><p class="real">«En algunas crestas no sentí el esfuerzo, sentí una profunda conexión con la montaña».</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · TRUCOS -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 1</span><h2>Cuatro trucos (sin reglas)</h2></div>
+  <div class="cuerpo">
+    <div class="trucos">
+      <div class="truco" style="background:#1b2d45"><span class="par">a ver · haber</span><p>¿Se puede decir <b>«vamos a mirar»</b>? → <b>a ver</b>. Si no → <b>haber</b>.</p><i>A ver si arranca. · Tiene que haber nieve.</i></div>
+      <div class="truco" style="background:#2d6a4f"><span class="par">hay · ahí · ¡ay!</span><p><b>hay</b> = existe · <b>ahí</b> = en ese sitio · <b>¡ay!</b> = grito.</p><i>Hay un refugio. · Déjalo ahí. · ¡Ay, qué frío!</i></div>
+      <div class="truco" style="background:#ff6b35"><span class="par">por qué · porque</span><p>Lleva <b>¿?</b> → <b>por qué</b>. Es la respuesta → <b>porque</b>.</p><i>¿Por qué subes? Porque me gusta.</i></div>
+      <div class="truco" style="background:#7b4fa0"><span class="par">hecho · echo</span><p>Detrás de <b>he, ha, has</b> → <b>hecho</b> (con h).</p><i>He hecho la mochila. · Echo sal a la comida.</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · ACTIVIDAD 2 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 1</span><h2>Rodea la buena <small>(1/2)</small></h2><span class="pts">1 punto</span></div>
+  <div class="cuerpo">
+    <div class="una-col elegir">
+      <div class="frase"><span class="n">1</span><div class="tx"><p>(<button class="op" data-ok>A ver</button> / <button class="op">Haber</button>) si mañana hace buen tiempo.</p><p class="exp">→ <b>A ver</b>: se puede decir «vamos a mirar si mañana…».</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p>Tiene que (<button class="op">a ver</button> / <button class="op" data-ok>haber</button>) mucha nieve arriba.</p><p class="exp">→ <b>haber</b>: no se puede decir «vamos a mirar»; es el verbo.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p>(<button class="op">Ahí</button> / <button class="op" data-ok>Hay</button> / <button class="op">Ay</button>) un refugio cerca de la cima.</p><p class="exp">→ <b>Hay</b>: significa «existe» un refugio.</p></div></div>
+      <div class="frase"><span class="n">4</span><div class="tx"><p>Deja la mochila (<button class="op" data-ok>ahí</button> / <button class="op">hay</button> / <button class="op">ay</button>), junto a la tienda.</p><p class="exp">→ <b>ahí</b>: significa «en ese sitio».</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">Pulsa una opción: verde, acierto; roja, vuelve a mirar el truco.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 5 · ACTIVIDAD 2 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 1</span><h2>Rodea la buena <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="una-col elegir">
+      <div class="frase"><span class="n">5</span><div class="tx"><p>¡(<button class="op">Ahí</button> / <button class="op">Hay</button> / <button class="op" data-ok>Ay</button>), qué frío!</p><p class="exp">→ <b>Ay</b>: es un grito, una queja.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p>¿(<button class="op" data-ok>Por qué</button> / <button class="op">Porque</button>) subes sin oxígeno?</p><p class="exp">→ <b>Por qué</b>: es una pregunta, lleva ¿?</p></div></div>
+      <div class="frase"><span class="n">7</span><div class="tx"><p>(<button class="op">Por qué</button> / <button class="op" data-ok>Porque</button>) quiero probar mis límites.</p><p class="exp">→ <b>Porque</b>: es la respuesta, explica la causa.</p></div></div>
+      <div class="frase"><span class="n">8</span><div class="tx"><p>He (<button class="op" data-ok>hecho</button> / <button class="op">echo</button>) la mochila en diez minutos.</p><p class="exp">→ <b>hecho</b>: va detrás de «he», con h.</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">Pulsa una opción: verde, acierto; roja, vuelve a mirar el truco.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 6 · ACTIVIDAD 3 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 2</span><h2>Tildes: ¿cuál está bien escrita? <small>(1/2)</small></h2><span class="pts">1 punto</span></div>
+  <div class="cuerpo">
+    <div class="fila-btn trucos-t"><span class="tr">🎯 Terminan en <b>-ión</b> → tilde: <i>expedición</i></span><span class="tr">🎯 Fuerza en la <b>3.ª sílaba por el final</b> → tilde: <i>ki-<b>ló</b>-me-tros</i></span></div>
+    <div class="una-col elegir">
+      <div class="frase"><span class="n">1</span><div class="tx"><p><button class="op">oxigeno</button> <button class="op" data-ok>oxígeno</button> <button class="op">óxigeno</button></p><p class="exp">→ <b>oxígeno</b>: o-<b>xí</b>-ge-no, fuerza en la tercera por el final.</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p><button class="op" data-ok>expedición</button> <button class="op">expedicion</button> <button class="op">expédicion</button></p><p class="exp">→ <b>expedición</b>: termina en -ión.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p><button class="op">rapido</button> <button class="op" data-ok>rápido</button> <button class="op">rapidó</button></p><p class="exp">→ <b>rápido</b>: <b>rá</b>-pi-do, tercera por el final.</p></div></div>
+      <div class="frase"><span class="n">4</span><div class="tx"><p><button class="op">record</button> <button class="op" data-ok>récord</button> <button class="op">recórd</button></p><p class="exp">→ <b>récord</b>: la fuerza va en «ré».</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">¡Ojo! Alguna palabra <b>no lleva tilde</b>.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 6 · ACTIVIDAD 3 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 2</span><h2>Tildes: ¿cuál está bien escrita? <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="fila-btn trucos-t"><span class="tr">🎯 Terminan en <b>-ión</b> → tilde: <i>expedición</i></span><span class="tr">🎯 Fuerza en la <b>3.ª sílaba por el final</b> → tilde: <i>ki-<b>ló</b>-me-tros</i></span></div>
+    <div class="una-col elegir">
+      <div class="frase"><span class="n">5</span><div class="tx"><p><button class="op">montáña</button> <button class="op">móntaña</button> <button class="op" data-ok>montaña</button></p><p class="exp">→ <b>montaña</b>: no lleva tilde.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p><button class="op">kilometros</button> <button class="op">kilometrós</button> <button class="op" data-ok>kilómetros</button></p><p class="exp">→ <b>kilómetros</b>: ki-<b>ló</b>-me-tros, tercera por el final.</p></div></div>
+      <div class="frase"><span class="n">7</span><div class="tx"><p><button class="op" data-ok>cumbre</button> <button class="op">cúmbre</button> <button class="op">cumbré</button></p><p class="exp">→ <b>cumbre</b>: no lleva tilde.</p></div></div>
+      <div class="frase"><span class="n">8</span><div class="tx"><p><button class="op">tambien</button> <button class="op">támbien</button> <button class="op" data-ok>también</button></p><p class="exp">→ <b>también</b>: la fuerza va al final, en «bién».</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">¡Ojo! Alguna palabra <b>no lleva tilde</b>.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 7 · ACTIVIDAD 4 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 3</span><h2>¿Con qué letra? <small>(1/2)</small></h2><span class="pts">0,75 puntos</span></div>
+  <div class="cuerpo">
+    <div class="una-col elegir">
+      <div class="frase"><span class="n">1</span><div class="tx"><p>Kilian (<button class="op" data-ok>subía</button> / <button class="op">suvía</button>) muy deprisa.</p><p class="exp">→ <b>subía</b>: del verbo «subir», con b.</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p>En la cima había (<button class="op">yelo</button> / <button class="op" data-ok>hielo</button>).</p><p class="exp">→ <b>hielo</b>: con h, como «hierro» o «hierba».</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p>Fue un (<button class="op" data-ok>viaje</button> / <button class="op">viage</button>) muy largo.</p><p class="exp">→ <b>viaje</b>: también termina en -aje, con j.</p></div></div>
+      <div class="frase"><span class="n">4</span><div class="tx"><p>Le encanta la (<button class="op">abentura</button> / <button class="op" data-ok>aventura</button>).</p><p class="exp">→ <b>aventura</b>: con v, como «aventurero».</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">Pista: piensa en otra palabra de la misma familia.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 7 · ACTIVIDAD 4 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 3</span><h2>¿Con qué letra? <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="una-col elegir">
+      <div class="frase"><span class="n">5</span><div class="tx"><p>(<button class="op" data-ok>Llegaba</button> / <button class="op">Yegaba</button>) siempre el primero.</p><p class="exp">→ <b>Llegaba</b>: del verbo «llegar», con ll.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p>Preparó el (<button class="op">equipage</button> / <button class="op" data-ok>equipaje</button>) la noche antes.</p><p class="exp">→ <b>equipaje</b>: las que terminan en -aje, con j (garaje, viaje).</p></div></div>
+      <div class="frase"><span class="n">7</span><div class="tx"><p>Sentía mucho (<button class="op" data-ok>orgullo</button> / <button class="op">orguyo</button>).</p><p class="exp">→ <b>orgullo</b>: con ll, como «orgulloso».</p></div></div>
+      <div class="frase"><span class="n">8</span><div class="tx"><p>(<button class="op" data-ok>Recogió</button> / <button class="op">Recojió</button>) la tienda al amanecer.</p><p class="exp">→ <b>Recogió</b>: del verbo «recoger», con g.</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">Pista: piensa en otra palabra de la misma familia.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 8 · ACTIVIDAD 5 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 4</span><h2>Corrige el error <small>(1/2)</small></h2><span class="pts">1 punto</span></div>
+  <div class="cuerpo">
+    <div class="pistas"><span>Pistas:</span><span>tú dijiste</span><span>cuanto más</span><span>un poco de</span><span>superior a</span><span>les (si son varios)</span><span>¡venid!</span><span>undécimo</span><span>según</span></div>
+    <div class="una-col norma">
+      <button class="frase"><span class="n">1</span><div class="tx"><p>Tú me dijistes que Kilian subió al Everest.</p><p class="exp">→ Tú me <b>dijiste</b>… Con «tú» no lleva -s al final.</p></div></button>
+      <button class="frase"><span class="n">2</span><div class="tx"><p>Contra más subes, menos oxígeno hay.</p><p class="exp">→ <b>Cuanto más</b> subes… «Contra más» es incorrecto.</p></div></button>
+      <button class="frase"><span class="n">3</span><div class="tx"><p>Échale una poca de agua a la cantimplora.</p><p class="exp">→ Échale <b>un poco de</b> agua. «Poco» no cambia.</p></div></button>
+      <button class="frase"><span class="n">4</span><div class="tx"><p>Su tiempo es superior que el del año pasado.</p><p class="exp">→ …es <b>superior al</b> del año pasado. Se dice «superior a».</p></div></button>
+    </div>
+    <div class="fila-btn"><span class="peq">Busca el error y escribe la forma correcta. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 8 · ACTIVIDAD 5 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 4</span><h2>Corrige el error <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="pistas"><span>Pistas:</span><span>tú dijiste</span><span>cuanto más</span><span>un poco de</span><span>superior a</span><span>les (si son varios)</span><span>¡venid!</span><span>undécimo</span><span>según</span></div>
+    <div class="una-col norma">
+      <button class="frase"><span class="n">5</span><div class="tx"><p>Ya le dieron las medallas a todos los corredores.</p><p class="exp">→ Ya <b>les</b> dieron… Son varios corredores: les.</p></div></button>
+      <button class="frase"><span class="n">6</span><div class="tx"><p>¡Venir aquí, que empieza la carrera!</p><p class="exp">→ ¡<b>Venid</b> aquí…! Para mandar a «vosotros»: venid.</p></div></button>
+      <button class="frase"><span class="n">7</span><div class="tx"><p>Llegó el onceavo de cien corredores.</p><p class="exp">→ Llegó el <b>undécimo</b>. «Onceavo» es una parte de 11.</p></div></button>
+      <button class="frase"><span class="n">8</span><div class="tx"><p>Decidió no subir en base a la previsión del tiempo.</p><p class="exp">→ Decidió no subir <b>según</b> la previsión del tiempo.</p></div></button>
+    </div>
+    <div class="fila-btn"><span class="peq">Busca el error y escribe la forma correcta. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 9 · ACTIVIDAD 6 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 5</span><h2>Cambia el verbo «coger» <small>(1/2)</small></h2><span class="pts">0,75 puntos</span></div>
+  <div class="cuerpo">
+    <div class="banco"><b>Usa estos verbos:</b><span>caben</span><span>alcanzó</span><span>toma</span><span>entendí</span><span>sorprendió</span><span>agarra</span></div>
+    <div class="una-col norma">
+      <button class="frase"><span class="n">1</span><div class="tx"><p>Kilian <u>coge</u> la mochila y sale.</p><p class="exp">→ Kilian <b>agarra</b> la mochila: la sujeta con la mano.</p></div></button>
+      <button class="frase"><span class="n">2</span><div class="tx"><p>En la tienda solo <u>cogen</u> dos personas.</p><p class="exp">→ Solo <b>caben</b> dos personas: hay sitio para dos.</p></div></button>
+      <button class="frase"><span class="n">3</span><div class="tx"><p>La tormenta le <u>cogió</u> en la cima.</p><p class="exp">→ La tormenta le <b>sorprendió</b>: llegó sin esperarla.</p></div></button>
+    </div>
+    <div class="fila-btn"><span class="peq">«Coger» vale para todo y empobrece el texto. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 9 · ACTIVIDAD 6 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 5</span><h2>Cambia el verbo «coger» <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="banco"><b>Usa estos verbos:</b><span>caben</span><span>alcanzó</span><span>toma</span><span>entendí</span><span>sorprendió</span><span>agarra</span></div>
+    <div class="una-col norma">
+      <button class="frase"><span class="n">4</span><div class="tx"><p>Kilian <u>cogió</u> al corredor que iba delante.</p><p class="exp">→ Kilian <b>alcanzó</b> al corredor: llegó hasta él.</p></div></button>
+      <button class="frase"><span class="n">5</span><div class="tx"><p><u>Coge</u> el autobús hasta el campo base.</p><p class="exp">→ <b>Toma</b> el autobús: subirse a un transporte.</p></div></button>
+      <button class="frase"><span class="n">6</span><div class="tx"><p>No <u>cogí</u> lo que me dijo el guía.</p><p class="exp">→ No <b>entendí</b> lo que me dijo: no lo comprendí.</p></div></button>
+    </div>
+    <div class="fila-btn"><span class="peq">«Coger» vale para todo y empobrece el texto. Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 10 · ACTIVIDAD 7 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 6</span><h2>¿Qué significa? <small>(1/2)</small></h2><span class="pts">0,75 puntos</span></div>
+  <div class="cuerpo">
+    <div class="una-col elegir sig">
+      <div class="frase"><span class="n">1</span><div class="tx"><p><b>Cima</b>:</p><p><button class="op" data-ok>la parte más alta de una montaña</button> <button class="op">un tipo de nieve</button> <button class="op">el campo base</button></p><p class="exp">→ <b>la parte más alta</b> (cumbre).</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p><b>Precipicio</b>:</p><p><button class="op">un camino ancho</button> <button class="op" data-ok>una caída muy alta y peligrosa</button> <button class="op">un refugio</button></p><p class="exp">→ <b>una caída muy alta</b>, como la del vídeo.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p><b>Agotado</b>:</p><p><button class="op" data-ok>muy cansado</button> <button class="op">muy contento</button> <button class="op">perdido</button></p><p class="exp">→ <b>muy cansado</b>, sin fuerzas.</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">Rodea el significado correcto.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 10 · ACTIVIDAD 7 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 6</span><h2>¿Qué significa? <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="una-col elegir sig">
+      <div class="frase"><span class="n">4</span><div class="tx"><p>Lo contrario de <b>ascenso</b> es:</p><p><button class="op">cumbre</button> <button class="op" data-ok>descenso</button> <button class="op">récord</button></p><p class="exp">→ <b>descenso</b>: subir ≠ bajar.</p></div></div>
+      <div class="frase"><span class="n">5</span><div class="tx"><p><b>Aclimatarse</b>:</p><p><button class="op">ponerse crema</button> <button class="op" data-ok>acostumbrarse a la altura o al clima</button> <button class="op">mirar el tiempo</button></p><p class="exp">→ <b>acostumbrarse</b> poco a poco a la altura.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p><b>Hazaña</b>:</p><p><button class="op">un error</button> <button class="op" data-ok>algo muy difícil y admirable</button> <button class="op">una mochila</button></p><p class="exp">→ <b>algo muy difícil y admirable</b>, como subir el Everest.</p></div></div>
+    </div>
+    <div class="fila-btn"><span class="peq">Rodea el significado correcto.</span><button class="btn az" style="margin-left:auto" data-borrar>↺ Borrar</button><button class="btn ve" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 11 · ACTIVIDAD 8 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 7</span><h2>a) Une las ideas con un conector <small>(1/2)</small></h2><span class="pts">0,75 puntos</span></div>
+  <div class="cuerpo">
+    <div class="banco"><b>a) Completa con:</b><span>pero</span><span>porque</span><span>aunque</span><span>así que</span><span>cuando</span><span>de repente</span></div>
+    <div class="una-col norma">
+      <button class="frase"><span class="n">1</span><div class="tx"><p>Quería llegar a la cima, ______ empezó a nevar.</p><p class="exp">→ <b>pero</b>: algo se opone a lo que quería.</p></div></button>
+      <button class="frase"><span class="n">2</span><div class="tx"><p>Bajó despacio ______ el camino estaba helado.</p><p class="exp">→ <b>porque</b>: explica la causa.</p></div></button>
+      <button class="frase"><span class="n">3</span><div class="tx"><p>Siguió subiendo ______ estaba agotado.</p><p class="exp">→ <b>aunque</b>: lo hace a pesar del cansancio.</p></div></button>
+    </div>
+    <div class="fila-btn"><span class="peq">Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 11 · ACTIVIDAD 8 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 7</span><h2>a) Une las ideas con un conector <small>(2/2)</small></h2></div>
+  <div class="cuerpo">
+    <div class="banco"><b>a) Completa con:</b><span>pero</span><span>porque</span><span>aunque</span><span>así que</span><span>cuando</span><span>de repente</span></div>
+    <div class="una-col norma">
+      <button class="frase"><span class="n">4</span><div class="tx"><p>No le quedaba agua, ______ volvió al refugio.</p><p class="exp">→ <b>así que</b>: es la consecuencia.</p></div></button>
+      <button class="frase"><span class="n">5</span><div class="tx"><p>______ llegó arriba, hizo una foto.</p><p class="exp">→ <b>Cuando</b>: dice el momento.</p></div></button>
+      <button class="frase"><span class="n">6</span><div class="tx"><p>Iba tranquilo y, ______, se abrió la niebla.</p><p class="exp">→ <b>de repente</b>: algo pasa sin esperarlo.</p></div></button>
+    </div>
+    <div class="fila-btn"><span class="peq">Pulsa una frase para ver su solución.</span><button class="btn ve" style="margin-left:auto" data-sol>Ver solución</button></div>
+  </div>
+</section>
+
+<!-- 15b · ACTIVIDAD 8 b -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 7</span><h2>b) Termina las frases con tus palabras</h2></div>
+  <div class="cuerpo">
+    <div class="una-col">
+      <div class="bloque" style="--c:#2b7bb9"><h3>🤔 Lo que más me sorprende</h3><span class="mano">Lo que más me sorprende de Kilian es… porque…</span><div class="hueco"></div></div>
+      <div class="bloque" style="--c:#ff6b35"><h3>⛰️ ¿Y yo?</h3><span class="mano">Yo no subiría a esa montaña porque…, pero sí me gustaría…</span><div class="hueco"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · ACTIVIDAD 9, PASO 1 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 8</span><h2>Mi diario de un día difícil · Paso 1: elige</h2><span class="pts">3 puntos</span></div>
+  <div class="cuerpo">
+    <div class="destaca">En sus diarios, Kilian escribe sobre <b>días duros</b>: el frío, el cansancio, el miedo y lo que aprende. Ahora te toca a ti. Primero, <b>rodea</b> una opción de cada fila. No hay respuestas malas.</div>
+    <div class="elige">
+      <div class="fila"><b>Mi día difícil fue…</b> <button class="op">en el taller</button> <button class="op">en un partido</button> <button class="op">en el trabajo</button> <button class="op">en una excursión</button> <button class="op">otro: ______</button></div>
+      <div class="fila"><b>Ese día estaba…</b> <button class="op">nervioso</button> <button class="op">cansado</button> <button class="op">enfadado</button> <button class="op">motivado</button> <button class="op">agobiado</button></div>
+      <div class="fila"><b>Lo hice…</b> <button class="op">solo</button> <button class="op">con amigos</button> <button class="op">con mi familia</button> <button class="op">con compañeros</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · ACTIVIDAD 9, PASO 2 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 8</span><h2>Paso 2: completa cada bloque (unas dos líneas)</h2></div>
+  <div class="cuerpo">
+    <div class="bloques">
+      <div class="bloque" style="--c:#2b7bb9"><h3>🌅 Cómo empezó</h3><span class="mano">Aquel día me levanté a las… y…</span><div class="hueco"></div></div>
+      <div class="bloque" style="--c:#2d6a4f"><h3>➡️ Lo que pasó</h3><span class="mano">Primero… Después… De repente…</span><div class="hueco"></div></div>
+      <div class="bloque" style="--c:#ff6b35"><h3>⛰️ Lo más difícil</h3><span class="mano">Lo peor fue… porque…</span><div class="hueco"></div></div>
+      <div class="bloque" style="--c:#7b4fa0"><h3>🏁 Cómo acabó</h3><span class="mano">Al final… Ese día aprendí que…</span><div class="hueco"></div></div>
+    </div>
+    <div class="banco"><b>Banco de palabras:</b><span>primero</span><span>después</span><span>luego</span><span>de repente</span><span>entonces</span><span>al final</span><span>agotado</span><span>orgulloso</span><span>frustrado</span><span>aliviado</span><button class="btn" style="margin-left:auto" data-modal="m-ej">Ver un ejemplo</button></div>
+  </div>
+</section>
+
+<!-- 3 · ACTIVIDAD 1 -->
+<section class="slide">
+  <div class="cab"><span class="etq act">Actividad 9</span><h2>Cazafaltas: el diario de Kilian</h2><span class="pts">1 punto</span></div>
+  <div class="cuerpo">
+    <div class="marc">
+      <span class="pistas"><span>Así podría ser su diario… aunque seguro que <b>él no cometería</b> estas <b>6 faltas</b>:</span><span>2 de <b>h</b></span><span>2 de <b>b / v</b></span><span>2 de <b>tilde</b></span></span>
+      <span style="margin-left:auto" class="marc"><button class="btn az" id="bcrono">⏱ Empezar</button><span id="crono">4:00</span><span>Encontradas: <span id="cuenta">0</span> / 6</span></span>
+    </div>
+    <div class="papel" id="diario">
+      <b>Día 3. Campo base.</b> Me despierto a las cuatro de la mañana. Fuera <span class="f" data-ok="hace">ace</span> un frío terrible y el viento golpea la tienda. Desayuno rápido: un té y un trozo de pan. <span class="f" data-ok="Llevo">Llebo</span> la mochila ligera. Hoy quiero llegar a la cima, pero no <span class="f" data-ok="sé">se</span> si el tiempo me dejará. <span class="f" data-ok="Después">Despues</span> de dos horas, la nieve me llega a las rodillas y casi no puedo respirar. Me paro y pienso: «A ver si aguanto un poco más». De repente se abre la niebla y <span class="f" data-ok="veo">beo</span> la cumbre. Al final, cuando llego arriba, no hay nadie: solo el silencio. Estoy agotado, pero feliz. Mañana toca bajar… y <span class="f" data-ok="hay">ay</span> que tener mucho cuidado.
+    </div>
+    <div class="fila-btn"><span class="peq">Pulsa en la palabra que creas que está mal.</span><button class="btn ve" style="margin-left:auto" data-modal="m-a1">Ver solución</button></div>
+  </div>
+</section>
+
+
+
+<!-- ======================= VENTANAS ======================= -->
+<div class="modal-src" id="m-a1">
+  <h3>✔ Actividad 1 · Las 6 faltas</h3>
+  <table class="tsol">
+    <tr><td>ace</td><td class="sol">hace (con h, del verbo hacer)</td></tr>
+    <tr><td>Llebo</td><td class="sol">Llevo (con v)</td></tr>
+    <tr><td>se</td><td class="sol">sé (con tilde: del verbo saber)</td></tr>
+    <tr><td>Despues</td><td class="sol">Después (con tilde)</td></tr>
+    <tr><td>beo</td><td class="sol">veo (con v, del verbo ver)</td></tr>
+    <tr><td>ay</td><td class="sol">hay (con h: «existe»)</td></tr>
+  </table>
+</div>
+<div class="modal-src" id="m-ej">
+  <h3>📓 Un ejemplo: «La rueda que no salía»</h3>
+  <p class="sol">Mi día difícil fue en el taller. Aquel día me levanté a las siete y media y llegué al instituto con mucho sueño. Primero, el profesor nos explicó cómo cambiar una rueda. Después me tocó a mí y, de repente, una tuerca no salía. Lo peor fue que todos me miraban, porque yo quería hacerlo rápido y me puse nervioso. Al final, con la llave de cruz y un poco de paciencia, lo conseguí. Ese día aprendí que con calma las cosas salen mejor. Estaba agotado, pero orgulloso.</p>
+</div>
+
+<!-- ======================= NAVEGACIÓN Y VENTANA ======================= -->
+<button class="nav" id="prev" aria-label="Anterior">‹</button>
+<button class="nav" id="next" aria-label="Siguiente">›</button>
+<div id="pie"><span id="contador"></span><button id="pantalla" title="Pantalla completa">⛶</button></div>
+<div id="barra"></div>
+<div id="girar">
+  <div class="movil">📱</div>
+  <p><b>Gira el móvil</b> para ver la presentación en horizontal.</p>
+  <button class="si" id="girar-si">Ver en horizontal</button>
+  <button class="no" id="girar-no">Seguir en vertical</button>
+</div>
+<div id="fondo"><div id="modal"><button id="cerrar" aria-label="Cerrar">✕</button><div id="modal-in"></div></div></div>
+
+<script>
+/* orientación: pantalla completa y bloqueo horizontal (Android); en iPhone hay que girar a mano */
+document.getElementById('girar-si').onclick=async()=>{
+  try{await document.documentElement.requestFullscreen();}catch(e){}
+  try{await screen.orientation.lock('landscape');}catch(e){
+    document.querySelector('#girar p').innerHTML='Tu móvil no permite girarla solo: <b>gíralo con la mano</b> (y quita el bloqueo de rotación si lo tienes activado).';
+  }
+};
+document.getElementById('girar-no').onclick=()=>document.body.classList.add('vertical-ok');
+
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  let actual=0;
+  const maxFuente=()=>Math.min(innerHeight/17, innerWidth/26);
+
+  function desborda(els){return els.some(e=>e&&(e.scrollHeight>e.clientHeight+1||e.scrollWidth>e.clientWidth+1));}
+  function ajustar(cont,medir,max){
+    let lo=9,hi=max; cont.style.fontSize=hi+'px';
+    if(!desborda(medir)) return hi;
+    for(let k=0;k<16;k++){const m=(lo+hi)/2;cont.style.fontSize=m+'px';if(desborda(medir))hi=m;else lo=m;}
+    cont.style.fontSize=lo+'px'; return lo;
+  }
+  /* si sobra sitio en las cajas, las soluciones crecen hasta llenarlo (máx. ×1,3) */
+  function crecerSol(s,medir){
+    s.style.setProperty('--expf',1);
+    if(!s.querySelector('.frase.ver .exp')) return;
+    let lo=1,hi=1.3; s.style.setProperty('--expf',hi);
+    if(!desborda(medir)) return;
+    for(let k=0;k<10;k++){const m=(lo+hi)/2;s.style.setProperty('--expf',m);if(desborda(medir))hi=m;else lo=m;}
+    s.style.setProperty('--expf',lo);
+  }
+  function ajustarSlide(s){
+    const medir=[s,s.querySelector('.cuerpo'),...s.querySelectorAll('.cita-k,.pistas,.banco,.trucos-t,.tr,.col,.caja,.carta,.carta>div,.cartas,.rasgos,.rasgo,.papel,.trucos,.truco,.dos-col,.una-col,.frase,.palabras,.pal,.elige,.fila,.bloques,.bloque,.check,.ck,.g2,.tit')];
+    s.style.setProperty('--expf',1);
+    const f=ajustar(s,medir,maxFuente());
+    crecerSol(s,medir);
+    return f;
+  }
+  /* vídeos: dentro de la diapositiva, sin repetirse al terminar (se cierra y queda «Ver otra vez») */
+  const LOCAL=location.protocol==='file:';
+  let apiLista=null;
+  function cargarAPI(){if(apiLista)return apiLista;apiLista=new Promise(r=>{if(window.YT&&YT.Player)return r();
+    const prev=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{prev&&prev();r();};
+    const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';s.onerror=()=>r();document.head.append(s);});return apiLista;}
+  function poster(v,txt){
+    const id=v.dataset.yt;v.innerHTML='';
+    const p=document.createElement('div');p.className='poster';p.style.backgroundImage='url(https://i.ytimg.com/vi/'+id+'/hqdefault.jpg)';
+    p.innerHTML=(LOCAL?'<small>Para verlo aquí dentro, abre la presentación desde la web de recursos.</small>':'<button type="button">'+txt+'</button>')+'<a href="https://youtube.com/shorts/'+id+'" target="_blank" rel="noopener">▶ Abrir en YouTube</a>';
+    const b=p.querySelector('button');if(b)b.onclick=()=>reproducir(v,true);v.append(p);
+  }
+  function reproducir(v,auto){
+    const id=v.dataset.yt;v.innerHTML='';const d=document.createElement('div');v.append(d);
+    cargarAPI().then(()=>{
+      if(!v.isConnected||!v.firstChild||v.firstChild!==d)return;
+      if(!(window.YT&&YT.Player)){d.outerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&playsinline=1'+(auto?'&autoplay=1':'')+'" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Vídeo"></iframe>';return;}
+      v._p=new YT.Player(d,{videoId:id,host:'https://www.youtube-nocookie.com',width:'100%',height:'100%',
+        playerVars:{rel:0,playsinline:1,modestbranding:1,autoplay:auto?1:0,origin:location.origin},
+        events:{onStateChange:e=>{if(e.data===0){try{v._p.destroy()}catch(x){}v._p=null;poster(v,'↺ Ver otra vez');}}}});
+    });
+  }
+  function videos(s,on){s.querySelectorAll('.video[data-yt]').forEach(v=>{
+    if(on){ if(!v.firstChild){ if(LOCAL) poster(v,''); else reproducir(v,false);} }
+    else { if(v._p){try{v._p.destroy()}catch(x){}v._p=null;} v.innerHTML=''; }
+  });}
+  function mostrar(i){
+    const ant=slides[actual];
+    actual=Math.max(0,Math.min(slides.length-1,i));
+    if(ant!==slides[actual]) videos(ant,false);
+    slides.forEach((s,k)=>s.classList.toggle('activa',k===actual));
+    document.body.classList.toggle('oscuro',slides[actual].classList.contains('oscuro'));
+    videos(slides[actual],true);
+    ajustarSlide(slides[actual]);
+    document.getElementById('contador').textContent=(actual+1)+' / '+slides.length;
+    document.getElementById('barra').style.width=((actual+1)/slides.length*100)+'%';
+  }
+  window.__mostrar=mostrar; window.__ajustarSlide=ajustarSlide; window.__nSlides=slides.length;
+
+  document.getElementById('prev').onclick=()=>mostrar(actual-1);
+  document.getElementById('next').onclick=()=>mostrar(actual+1);
+  document.getElementById('pantalla').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
+
+  /* ventana */
+  const fondo=document.getElementById('fondo'),modal=document.getElementById('modal'),mIn=document.getElementById('modal-in');
+  function abrir(id){
+    mIn.innerHTML=document.getElementById(id).innerHTML;
+    fondo.classList.add('on');
+    ajustar(modal,[modal,mIn,...mIn.querySelectorAll('.m2')],Math.min(innerHeight/15,innerWidth/28));
+  }
+  function cerrar(){fondo.classList.remove('on');}
+  window.__abrir=abrir; window.__modal=modal; window.__mIn=mIn;
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-modal]');if(b){e.stopPropagation();abrir(b.dataset.modal);}});
+  document.getElementById('cerrar').onclick=cerrar;
+  fondo.addEventListener('click',e=>{if(e.target===fondo)cerrar();});
+
+  document.addEventListener('keydown',e=>{
+    if(fondo.classList.contains('on')){if(e.key==='Escape')cerrar();return;}
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();mostrar(actual+1);}
+    if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();mostrar(actual-1);}
+    if(e.key==='Home')mostrar(0); if(e.key==='End')mostrar(slides.length-1);
+  });
+
+  /* actividad 1: cazafaltas */
+  const diario=document.getElementById('diario');
+  (function envolver(n){[...n.childNodes].forEach(c=>{
+    if(c.nodeType===3&&c.textContent.trim()){const fr=document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){fr.append(t);return;}const s=document.createElement('span');s.className='w';s.textContent=t;fr.append(s);});
+      c.replaceWith(fr);}
+    else if(c.nodeType===1&&!c.classList.contains('f')&&c.tagName!=='B') envolver(c);
+  });})(diario);
+  const cuenta=document.getElementById('cuenta');
+  diario.addEventListener('click',e=>{
+    const f=e.target.closest('.f'); if(f){f.classList.add('pillada');cuenta.textContent=diario.querySelectorAll('.f.pillada').length;return;}
+    const w=e.target.closest('.w'); if(w){w.classList.add('no');setTimeout(()=>w.classList.remove('no'),600);}
+  });
+  let t=null;const crono=document.getElementById('crono'),bcr=document.getElementById('bcrono');
+  bcr.onclick=()=>{
+    if(t){clearInterval(t);t=null;bcr.textContent='⏱ Empezar';crono.textContent='4:00';crono.classList.remove('fin');diario.querySelectorAll('.f').forEach(f=>f.classList.remove('pillada'));cuenta.textContent=0;return;}
+    let s=240;bcr.textContent='↺ Reiniciar';
+    t=setInterval(()=>{s--;crono.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(t);crono.textContent='¡Tiempo!';crono.classList.add('fin');}},1000);
+  };
+
+  /* actividades de elegir (2 y 3) */
+  document.querySelectorAll('.elegir .op').forEach(o=>o.onclick=()=>{
+    o.parentElement.querySelectorAll('.op').forEach(x=>x.classList.remove('bien','malr'));
+    o.classList.add(o.hasAttribute('data-ok')?'bien':'malr');
+  });
+  document.querySelectorAll('[data-borrar]').forEach(b=>b.onclick=()=>b.closest('.slide').querySelectorAll('.op').forEach(x=>x.classList.remove('bien','malr')));
+  /* pulsar una frase (corrige, coger, conectores) muestra su solución; «Ver solución» las muestra todas */
+  document.querySelectorAll('.norma .frase').forEach(f=>f.onclick=()=>{f.classList.toggle('ver');ajustarSlide(slides[actual]);});
+  document.querySelectorAll('[data-sol]').forEach(b=>b.onclick=()=>{const fs=[...b.closest('.slide').querySelectorAll('.frase')];const on=!fs.every(f=>f.classList.contains('ver'));fs.forEach(f=>f.classList.toggle('ver',on));ajustarSlide(slides[actual]);b.textContent=on?'Ocultar solución':'Ver solución';});
+
+  /* diario */
+  document.querySelectorAll('.fila').forEach(f=>f.querySelectorAll('.op').forEach(o=>o.onclick=()=>{f.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===o));}));
+  document.querySelectorAll('.ck').forEach(c=>c.onclick=()=>c.classList.toggle('on'));
+
+  addEventListener('resize',()=>{ajustarSlide(slides[actual]); if(fondo.classList.contains('on')) ajustar(modal,[modal,mIn,...mIn.querySelectorAll('.m2')],Math.min(innerHeight/15,innerWidth/28));});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>ajustarSlide(slides[actual]));
+  mostrar(0);
+})();
+</script>
+<a id="volverPanel" href="../../03_FPB/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:52px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+<!--irdiapo:inicio-->
+<style>
+#irdBtn{position:fixed;left:84px;bottom:8px;z-index:2147483600;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;border:none;cursor:pointer;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+#irdBtn:hover{opacity:1}
+#irdOv{position:fixed;inset:0;z-index:2147483601;background:rgba(15,22,35,.7);display:none;align-items:center;justify-content:center;padding:3vh 3vw;font-family:system-ui,Arial,sans-serif}
+#irdOv.on{display:flex}
+#irdBox{background:#fff;color:#1d2b36;border-radius:20px;width:100%;max-height:92vh;overflow:auto;padding:16px 20px 20px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#irdBox h3{margin:0 44px 10px 0;font-size:clamp(18px,2.2vw,30px);text-align:left}
+#irdX{position:absolute;top:10px;right:12px;width:38px;height:38px;border-radius:50%;border:none;background:#1d2b36;color:#fff;font-size:18px;cursor:pointer}
+#irdGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+#irdGrid button{display:flex;gap:10px;align-items:center;text-align:left;border:2px solid #d9dde3;background:#f6f7f9;border-radius:12px;padding:8px 10px;cursor:pointer;font:500 clamp(13px,1.15vw,18px)/1.2 system-ui,Arial,sans-serif;color:#1d2b36;min-height:52px}
+#irdGrid button b{flex:none;min-width:2em;height:2em;border-radius:50%;background:#1d2b36;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05em}
+#irdGrid button span{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#irdGrid button.cur{border-color:#f2c230;background:#fdf4d6}
+#irdGrid button:hover{border-color:#2f7fb5}
+#irdNum{display:flex;gap:8px;align-items:center;margin:0 0 12px;font-size:clamp(14px,1.3vw,20px)}
+#irdNum input{width:5em;font:inherit;padding:6px 8px;border:2px solid #1d2b36;border-radius:8px}
+#irdNum button{font:inherit;font-weight:700;border:none;border-radius:8px;padding:7px 14px;background:#2e9a4b;color:#fff;cursor:pointer}
+@media print{#irdBtn,#irdOv{display:none!important}}
+</style>
+<button id="irdBtn" type="button" title="Ir a unha diapositiva">▦ <span id="irdLbl"></span></button>
+<div id="irdOv"><div id="irdBox"><button id="irdX" type="button" aria-label="Pechar">✕</button><h3>Ir á diapositiva…</h3><div id="irdNum">Número: <input id="irdIn" type="number" min="1"><button id="irdGo" type="button">Ir</button></div><div id="irdGrid"></div></div></div>
+<script>
+(function(){
+  var G=function(n){if(n.indexOf('__')===0)return window[n];try{return (0,eval)('typeof '+n+'!=="undefined"?'+n+':undefined')}catch(e){return undefined}};
+  var SEL='.slide, .diapo, [data-slide], #stage > section';
+  function domSlides(){
+    var all=[].slice.call(document.querySelectorAll(SEL)).filter(function(e){return !e.closest('#irdOv')});
+    return all.filter(function(e){var p=e.parentElement&&e.parentElement.closest(SEL);return !p&&!e.classList.contains('extra')});
+  }
+  function vis(e){var cb=/\b(on|active|activa|current|actual|visible|show)\b/.test(e.className)?1e9:0;var s=getComputedStyle(e);if(s.display==='none'||s.visibility==='hidden')return cb;var r=e.getBoundingClientRect();if(r.width<2||r.height<2)return 0;
+    var ix=Math.max(0,Math.min(r.right,innerWidth)-Math.max(r.left,0)),iy=Math.max(0,Math.min(r.bottom,innerHeight)-Math.max(r.top,0));
+    return ix*iy*(parseFloat(s.opacity)||0)+cb}
+  function arr(){var a=['slides','S','diapos','DIAPOSITIVAS','SLIDES'];for(var i=0;i<a.length;i++){var v=G(a[i]);if(Array.isArray(v)&&v.length>1)return v}return null}
+  function idxVar(){var a=['cur','actual','current','idx','index'];for(var i=0;i<a.length;i++){var v=G(a[i]);if(typeof v==='number')return v}return null}
+  function state(){
+    var d=domSlides();
+    if(d.length>1){var best=-1,bv=0;d.forEach(function(e,i){var v=vis(e);if(v>bv){bv=v;best=i}});return {n:d.length,i:best,els:d}}
+    var a=arr(),c=idxVar();if(a&&c!==null)return {n:a.length,i:c,list:a};
+    return null;
+  }
+  function title(st,i){
+    if(st.els){var e=st.els[i],h=e.querySelector('h1,h2,h3,.titulo,.title');var t='';if(h){var c=h.cloneNode(true);[].forEach.call(c.querySelectorAll('.tag,.num,.pax,.badge,.chip,.pill'),function(x){x.remove()});[].forEach.call(c.querySelectorAll('br'),function(x){x.replaceWith(' ')});t=c.textContent;if(t.trim().length<3)t=h.textContent}else t=e.textContent||'';return t.replace(/\s+/g,' ').trim().slice(0,80)}
+    var o=st.list[i];if(o&&typeof o==='object'){var t2=o.title||o.t||o.titulo||o.tit||o.h||o.word||o.palabra;if(typeof t2==='string')return t2.replace(/<[^>]+>/g,'').slice(0,80)}
+    return '';
+  }
+  function key(k,c){var ev=new KeyboardEvent('keydown',{key:k,code:k,keyCode:c,which:c,bubbles:true,cancelable:true});document.body.dispatchEvent(ev)}
+  var busy=false;
+  function goTo(t){
+    var st=state();if(!st||busy)return;t=Math.max(0,Math.min(st.n-1,t));
+    var fs=['__go','__mostrar','__show','__goTo','__ir','goTo','go','ir','show','mostrar','irA','goToSlide','showSlide'];for(var k=0;k<fs.length;k++){var fn=G(fs[k]);if(typeof fn==='function'&&fn.length<=2){try{fn(t)}catch(e){}var s1=state();if(s1&&s1.i===t){upd();return}}}
+    busy=true;
+    var t0=Date.now(),stuck=0,last=st.i,wait=0;
+    (function loop(){
+      var s=state();if(!s||s.i===t||Date.now()-t0>15000){busy=false;upd();return}
+      if(s.i<0&&++wait<12){setTimeout(loop,60);return}
+      if(s.i===last)stuck++;else{stuck=0;last=s.i}
+      if(stuck===4){var fs2=['goTo','go','ir','show','mostrar'];for(var k=0;k<fs2.length;k++){var f2=G(fs2[k]);if(typeof f2==='function'){try{f2(t)}catch(e){}var s4=state();if(s4&&s4.i===t){busy=false;upd();return}}}}
+      var n=0;while(n<80){var s2=state();if(!s2||s2.i===t||(s2.i<0&&wait<12))break;if(s2.i<t)key('ArrowRight',39);else key('ArrowLeft',37);n++;var s3=state();if(s3&&s3.i===s2.i&&n>40)break}
+      setTimeout(loop,stuck>2?250:30);
+    })();
+  }
+  var ov=document.getElementById('irdOv'),grid=document.getElementById('irdGrid'),inp=document.getElementById('irdIn'),lbl=document.getElementById('irdLbl'),btn=document.getElementById('irdBtn');
+  function upd(){var st=state();if(!st){btn.style.display='none';return}btn.style.display='';lbl.textContent=(st.i+1)+' / '+st.n}
+  function open(){var st=state();if(!st)return;grid.innerHTML='';
+    for(var i=0;i<st.n;i++){(function(i){var b=document.createElement('button');b.type='button';if(i===st.i)b.className='cur';b.innerHTML='<b>'+(i+1)+'</b><span></span>';b.querySelector('span').textContent=title(st,i)||'Diapositiva '+(i+1);b.onclick=function(){close();setTimeout(function(){goTo(i)},30)};grid.appendChild(b)})(i)}
+    inp.max=st.n;inp.value='';ov.classList.add('on');setTimeout(function(){inp.focus()},50);}
+  function close(){ov.classList.remove('on')}
+  btn.onclick=function(e){e.stopPropagation();open()};
+  document.getElementById('irdX').onclick=close;
+  ov.addEventListener('click',function(e){if(e.target===ov)close()});
+  function goIn(){var v=parseInt(inp.value,10);if(v>0){close();setTimeout(function(){goTo(v-1)},30)}}
+  document.getElementById('irdGo').onclick=goIn;
+  window.addEventListener('keydown',function(e){if(!ov.classList.contains('on'))return;e.stopImmediatePropagation();if(e.key==='Escape')close();if(e.key==='Enter'&&e.target===inp)goIn()},true);
+  ['click','touchstart','touchend','mousedown','pointerdown'].forEach(function(t){ov.addEventListener(t,function(e){e.stopPropagation()})});
+  btn.addEventListener('touchstart',function(e){e.stopPropagation()},{passive:true});btn.addEventListener('touchend',function(e){e.stopPropagation()});
+  window.irADiapositiva=function(n){goTo(n-1)};
+  setInterval(upd,400);setTimeout(upd,300);
+})();
+</script>
+<!--irdiapo:fin-->
+
+</body>
+</html>
