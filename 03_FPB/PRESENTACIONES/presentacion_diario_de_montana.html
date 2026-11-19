@@ -208,6 +208,24 @@ button.frase{border:none;text-align:left;color:inherit}
 .papel .w.nofalta{background:#fdecea;color:var(--mal);outline:none}
 .papel .f.pillada{background:none;outline:none}
 
+/* corrige el error: seleccionar palabras */
+.sel-frase{touch-action:none;user-select:none;-webkit-user-select:none}
+.sel-frase .tk{cursor:pointer;border-radius:.25em;padding:0 .05em;transition:background .1s}
+.sel-frase .tk:hover{background:#fff1c7}
+.sel-frase .tk.selw{background:#ffd76a}
+.sel-frase .tk.tachada{color:var(--mal);text-decoration:line-through;text-decoration-thickness:.08em;background:#fde2df}
+.sel-frase .tk.erreal{outline:.12em dashed var(--mal);outline-offset:.05em}
+.hecho .sel-frase .tk{cursor:default}
+.hecho .sel-frase .tk:hover{background:none}
+.hecho .sel-frase .tk.selw{background:#fff3c4}
+.corr{display:inline-block;margin:0 .3em;padding:0 .5em;border-radius:2em;background:var(--sol);color:var(--noche);font-weight:900;cursor:pointer}
+.corr.bien{background:var(--ok);color:#fff}
+.corr.malr{background:var(--mal);color:#fff}
+.peq.aviso{color:var(--mal);font-weight:800;animation:tiembla .3s}
+/* ✔ / ✘ al comprobar */
+.res-ic{margin-left:auto;align-self:center;flex:0 0 auto;font-size:1.5em;font-weight:900;line-height:1;padding-left:.4em}
+.res-ic.si{color:var(--ok)} .res-ic.no{color:var(--mal)}
+
 /* ---------- NAVEGACIÓN ---------- */
 .nav{position:fixed;top:50%;transform:translateY(-50%);width:4.2vw;height:16vh;border:none;background:rgba(15,28,46,.13);color:var(--noche);font-size:4.5vh;border-radius:1vh;z-index:20;display:flex;align-items:center;justify-content:center}
 .nav:hover{background:rgba(15,28,46,.28)}
@@ -381,14 +399,14 @@ body.oscuro #pie{color:#cbd5e1}
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 4</span><h2>Corrige el error <small>(1/2)</small></h2><span class="pts">1 punto</span></div>
   <div class="cuerpo">
-    <div class="banco banco-d"><b>Correcciones:</b><button class="chip" data-w="undécimo">undécimo</button><button class="chip" data-w="según">según</button><button class="chip" data-w="un poco de">un poco de</button><button class="chip" data-w="les">les</button><button class="chip" data-w="dijiste">dijiste</button><button class="chip" data-w="superior al">superior al</button><button class="chip" data-w="cuanto más">cuanto más</button><button class="chip" data-w="venid">venid</button></div>
-    <div class="una-col arrastre">
-      <div class="frase"><span class="n">1</span><div class="tx"><p>Tú me <span class="hueco-d err" data-ok="dijiste">dijistes</span> que Kilian subió al Everest.</p><p class="exp">→ Tú me <b>dijiste</b>… Con «tú» no lleva -s al final.</p></div></div>
-      <div class="frase"><span class="n">2</span><div class="tx"><p><span class="hueco-d err" data-ok="cuanto más" data-cap>Contra más</span> subes, menos oxígeno hay.</p><p class="exp">→ <b>Cuanto más</b> subes… «Contra más» es incorrecto.</p></div></div>
-      <div class="frase"><span class="n">3</span><div class="tx"><p>Échale <span class="hueco-d err" data-ok="un poco de">una poca de</span> agua a la cantimplora.</p><p class="exp">→ Échale <b>un poco de</b> agua. «Poco» no cambia.</p></div></div>
-      <div class="frase"><span class="n">4</span><div class="tx"><p>Su tiempo es <span class="hueco-d err" data-ok="superior al">superior que el</span> del año pasado.</p><p class="exp">→ …es <b>superior al</b> del año pasado. Se dice «superior a».</p></div></div>
+    <div class="banco banco-d"><b>Correcciones:</b><button class="chip" data-w="cuanto más">cuanto más</button><button class="chip" data-w="dijiste">dijiste</button><button class="chip" data-w="un poco de">un poco de</button><button class="chip" data-w="venid">venid</button><button class="chip" data-w="al">al</button><button class="chip" data-w="les">les</button><button class="chip" data-w="undécimo">undécimo</button><button class="chip" data-w="según">según</button></div>
+    <div class="una-col corrige">
+      <div class="frase"><span class="n">1</span><div class="tx"><p class="sel-frase" data-ok="dijiste"><span class="tk">Tú</span> <span class="tk">me</span> <span class="tk" data-c>dijistes</span> <span class="tk">que</span> <span class="tk">Kilian</span> <span class="tk">subió</span> <span class="tk">al</span> <span class="tk">Everest</span>.</p><p class="exp">→ Tú me <b>dijiste</b>… Con «tú» no lleva -s al final.</p></div></div>
+      <div class="frase"><span class="n">2</span><div class="tx"><p class="sel-frase" data-ok="cuanto más"><span class="tk" data-c>Contra</span> <span class="tk" data-c>más</span> <span class="tk">subes</span>, <span class="tk">menos</span> <span class="tk">oxígeno</span> <span class="tk">hay</span>.</p><p class="exp">→ <b>Cuanto más</b> subes… «Contra más» es incorrecto.</p></div></div>
+      <div class="frase"><span class="n">3</span><div class="tx"><p class="sel-frase" data-ok="un poco de"><span class="tk">Échale</span> <span class="tk" data-c>una</span> <span class="tk" data-c>poca</span> <span class="tk" data-c>de</span> <span class="tk">agua</span> <span class="tk">a</span> <span class="tk">la</span> <span class="tk">cantimplora</span>.</p><p class="exp">→ Échale <b>un poco de</b> agua. «Poco» no cambia.</p></div></div>
+      <div class="frase"><span class="n">4</span><div class="tx"><p class="sel-frase" data-ok="al"><span class="tk">Su</span> <span class="tk">tiempo</span> <span class="tk">es</span> <span class="tk">superior</span> <span class="tk" data-c>que</span> <span class="tk" data-c>el</span> <span class="tk">del</span> <span class="tk">año</span> <span class="tk">pasado</span>.</p><p class="exp">→ …es superior <b>al</b> del año pasado. Se dice «superior a», no «superior que».</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Arrastra la forma correcta sobre el error (o tócala y toca el error) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
+    <div class="fila-btn"><span class="peq"><b>1.</b> Pasa el dedo o el ratón por encima de la palabra o palabras incorrectas. <b>2.</b> Toca (o arrastra) la corrección. Luego pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -396,14 +414,14 @@ body.oscuro #pie{color:#cbd5e1}
 <section class="slide">
   <div class="cab"><span class="etq act">Actividad 4</span><h2>Corrige el error <small>(2/2)</small></h2></div>
   <div class="cuerpo">
-    <div class="banco banco-d"><b>Correcciones:</b><button class="chip" data-w="superior al">superior al</button><button class="chip" data-w="un poco de">un poco de</button><button class="chip" data-w="según">según</button><button class="chip" data-w="cuanto más">cuanto más</button><button class="chip" data-w="undécimo">undécimo</button><button class="chip" data-w="dijiste">dijiste</button><button class="chip" data-w="les">les</button><button class="chip" data-w="venid">venid</button></div>
-    <div class="una-col arrastre">
-      <div class="frase"><span class="n">5</span><div class="tx"><p>Ya <span class="hueco-d err" data-ok="les">le</span> dieron las medallas a todos los corredores.</p><p class="exp">→ Ya <b>les</b> dieron… Son varios corredores: les.</p></div></div>
-      <div class="frase"><span class="n">6</span><div class="tx"><p>¡<span class="hueco-d err" data-ok="venid" data-cap>Venir</span> aquí, que empieza la carrera!</p><p class="exp">→ ¡<b>Venid</b> aquí…! Para mandar a «vosotros»: venid.</p></div></div>
-      <div class="frase"><span class="n">7</span><div class="tx"><p>Llegó el <span class="hueco-d err" data-ok="undécimo">onceavo</span> de cien corredores.</p><p class="exp">→ Llegó el <b>undécimo</b>. «Onceavo» es una parte de 11.</p></div></div>
-      <div class="frase"><span class="n">8</span><div class="tx"><p>Decidió no subir <span class="hueco-d err" data-ok="según">en base a</span> la previsión del tiempo.</p><p class="exp">→ Decidió no subir <b>según</b> la previsión del tiempo.</p></div></div>
+    <div class="banco banco-d"><b>Correcciones:</b><button class="chip" data-w="según">según</button><button class="chip" data-w="venid">venid</button><button class="chip" data-w="dijiste">dijiste</button><button class="chip" data-w="cuanto más">cuanto más</button><button class="chip" data-w="al">al</button><button class="chip" data-w="les">les</button><button class="chip" data-w="undécimo">undécimo</button><button class="chip" data-w="un poco de">un poco de</button></div>
+    <div class="una-col corrige">
+      <div class="frase"><span class="n">5</span><div class="tx"><p class="sel-frase" data-ok="les"><span class="tk">Ya</span> <span class="tk" data-c>le</span> <span class="tk">dieron</span> <span class="tk">las</span> <span class="tk">medallas</span> <span class="tk">a</span> <span class="tk">todos</span> <span class="tk">los</span> <span class="tk">corredores</span>.</p><p class="exp">→ Ya <b>les</b> dieron… Son varios corredores: les.</p></div></div>
+      <div class="frase"><span class="n">6</span><div class="tx"><p class="sel-frase" data-ok="venid">¡<span class="tk" data-c>Venir</span> <span class="tk">aquí</span>, <span class="tk">que</span> <span class="tk">empieza</span> <span class="tk">la</span> <span class="tk">carrera</span>!</p><p class="exp">→ ¡<b>Venid</b> aquí…! Para mandar a «vosotros»: venid.</p></div></div>
+      <div class="frase"><span class="n">7</span><div class="tx"><p class="sel-frase" data-ok="undécimo"><span class="tk">Llegó</span> <span class="tk">el</span> <span class="tk" data-c>onceavo</span> <span class="tk">de</span> <span class="tk">cien</span> <span class="tk">corredores</span>.</p><p class="exp">→ Llegó el <b>undécimo</b>. «Onceavo» es una parte de 11.</p></div></div>
+      <div class="frase"><span class="n">8</span><div class="tx"><p class="sel-frase" data-ok="según"><span class="tk">Decidió</span> <span class="tk">no</span> <span class="tk">subir</span> <span class="tk" data-c>en</span> <span class="tk" data-c>base</span> <span class="tk" data-c>a</span> <span class="tk">la</span> <span class="tk">previsión</span> <span class="tk">del</span> <span class="tk">tiempo</span>.</p><p class="exp">→ Decidió no subir <b>según</b> la previsión del tiempo.</p></div></div>
     </div>
-    <div class="fila-btn"><span class="peq">Arrastra la forma correcta sobre el error (o tócala y toca el error) y pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
+    <div class="fila-btn"><span class="peq"><b>1.</b> Pasa el dedo o el ratón por encima de la palabra o palabras incorrectas. <b>2.</b> Toca (o arrastra) la corrección. Luego pulsa <b>Comprobar</b>. Solo <b>una vez</b>.</span><span class="nota"></span><button class="btn ve" style="margin-left:auto" data-comp>✔ Comprobar</button></div>
   </div>
 </section>
 
@@ -595,7 +613,7 @@ document.getElementById('girar-no').onclick=()=>document.body.classList.add('ver
     s.style.setProperty('--expf',lo);
   }
   function ajustarSlide(s){
-    const medir=[s,s.querySelector('.cuerpo'),...s.querySelectorAll('.cita-k,.pistas,.banco,.trucos-t,.tr,.col,.caja,.carta,.carta>div,.cartas,.rasgos,.rasgo,.papel,.trucos,.truco,.dos-col,.una-col,.frase,.palabras,.pal,.elige,.fila,.bloques,.bloque,.check,.ck,.g2,.tit')];
+    const medir=[s,s.querySelector('.cuerpo'),...s.querySelectorAll('.cita-k,.pistas,.banco,.corrige,.trucos-t,.tr,.col,.caja,.carta,.carta>div,.cartas,.rasgos,.rasgo,.papel,.trucos,.truco,.dos-col,.una-col,.frase,.palabras,.pal,.elige,.fila,.bloques,.bloque,.check,.ck,.g2,.tit')];
     s.style.setProperty('--expf',1);
     const f=ajustar(s,medir,maxFuente());
     crecerSol(s,medir);
@@ -708,7 +726,8 @@ document.getElementById('girar-no').onclick=()=>document.body.classList.add('ver
     delete h.dataset.w;h.innerHTML=h.dataset.orig;h.classList.remove('lleno');
   }
   document.querySelectorAll('.chip').forEach(ch=>{
-    ch.addEventListener('click',()=>{if(ch.closest('.slide').classList.contains('hecho')||ch.classList.contains('usada'))return;
+    ch.addEventListener('click',()=>{if(ch._arr||ch.closest('.slide').classList.contains('hecho')||ch.classList.contains('usada'))return;
+      if(ch.closest('.slide').querySelector('.corrige')){aplicarSel(ch);return;}
       const on=!ch.classList.contains('cogida');ch.closest('.slide').querySelectorAll('.chip').forEach(c=>c.classList.remove('cogida'));ch.classList.toggle('cogida',on);});
     ch.addEventListener('pointerdown',e=>{
       if(ch.closest('.slide').classList.contains('hecho')||ch.classList.contains('usada'))return;
@@ -723,8 +742,11 @@ document.getElementById('girar-no').onclick=()=>document.body.classList.add('ver
         removeEventListener('pointermove',mover);removeEventListener('pointerup',soltar);removeEventListener('pointercancel',soltar);
         document.querySelectorAll('.hueco-d.sobre').forEach(x=>x.classList.remove('sobre'));
         if(!fan)return;fan.remove();
-        const h=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.hueco-d');
+        const el=document.elementFromPoint(ev.clientX,ev.clientY);
+        const h=el?.closest('.hueco-d');
         if(h&&h.closest('.slide')===ch.closest('.slide'))poner(h,ch);
+        const fp=el?.closest('.frase')?.querySelector('.sel-frase');
+        if(fp&&fp.closest('.slide')===ch.closest('.slide')){if(fp.querySelector('.tk.selw'))fActiva=fp;aplicarSel(ch,fp);}
         ch._arr=true;setTimeout(()=>ch._arr=false,0);
       };
       addEventListener('pointermove',mover);addEventListener('pointerup',soltar);addEventListener('pointercancel',soltar);
@@ -735,20 +757,65 @@ document.getElementById('girar-no').onclick=()=>document.body.classList.add('ver
     const c=sl.querySelector('.chip.cogida');if(c){poner(h,c);return;}
     if(h.dataset.w){quitar(h);ajustarSlide(slides[actual]);}
   }));
-  /* comprobar */
   const norm=w=>(w||'').trim().toLowerCase();
+  /* ===== ACTIVIDAD «CORRIGE EL ERROR»: seleccionar las palabras incorrectas y poner la corrección ===== */
+  let fActiva=null;
+  function limpiarCorr(p){
+    const c=p.querySelector('.corr');if(c){c.remove();}
+    if(p.dataset.w){const ch=[...p.closest('.slide').querySelectorAll('.chip.usada')].find(x=>x.dataset.w===p.dataset.w);if(ch)ch.classList.remove('usada');delete p.dataset.w;}
+    p.querySelectorAll('.tk.tachada').forEach(x=>x.classList.remove('tachada'));
+  }
+  function aplicarSel(ch,p){
+    p=p||fActiva;const sl=ch.closest('.slide');
+    if(!p||p.closest('.slide')!==sl||!p.querySelector('.tk.selw')){const pq=sl.querySelector('.fila-btn .peq');pq.classList.add('aviso');setTimeout(()=>pq.classList.remove('aviso'),900);return;}
+    limpiarCorr(p);
+    const ts=[...p.querySelectorAll('.tk.selw')];ts.forEach(x=>x.classList.add('tachada'));
+    const c=document.createElement('span');c.className='corr';c.textContent=ch.dataset.w;ts[ts.length-1].after(c);
+    c.addEventListener('click',e=>{e.stopPropagation();if(sl.classList.contains('hecho'))return;limpiarCorr(p);p.querySelectorAll('.tk.selw').forEach(x=>x.classList.remove('selw'));ajustarSlide(slides[actual]);});
+    p.dataset.w=ch.dataset.w;ch.classList.add('usada');
+    ajustarSlide(slides[actual]);
+  }
+  document.querySelectorAll('.sel-frase').forEach(p=>{
+    const tks=[...p.querySelectorAll('.tk')];let ini=-1,arr=false,unaSola=null;
+    const marcar=(a,b)=>{const [x,y]=a<b?[a,b]:[b,a];tks.forEach((t,i)=>t.classList.toggle('selw',i>=x&&i<=y));};
+    p.addEventListener('pointerdown',e=>{
+      const tk=e.target.closest('.tk');if(!tk||p.closest('.slide').classList.contains('hecho'))return;
+      e.preventDefault();
+      unaSola=(tk.classList.contains('selw')&&p.querySelectorAll('.tk.selw').length===1)?tk:null;
+      if(p.dataset.w)limpiarCorr(p);
+      fActiva=p;ini=tks.indexOf(tk);arr=true;marcar(ini,ini);
+      const mover=ev=>{if(!arr)return;const t2=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.tk');if(t2&&tks.includes(t2)){unaSola=null;marcar(ini,tks.indexOf(t2));}};
+      const fin=()=>{arr=false;removeEventListener('pointermove',mover);removeEventListener('pointerup',fin);removeEventListener('pointercancel',fin);
+        if(unaSola){tks.forEach(t=>t.classList.remove('selw'));unaSola=null;}};
+      addEventListener('pointermove',mover);addEventListener('pointerup',fin);addEventListener('pointercancel',fin);
+    });
+  });
+  function okCorrige(p){
+    if(norm(p.dataset.w)!==norm(p.dataset.ok))return false;
+    const ts=[...p.querySelectorAll('.tk')];
+    return ts.every(x=>!x.hasAttribute('data-c')||x.classList.contains('selw'))&&ts.every(x=>!x.classList.contains('selw')||x.hasAttribute('data-c')||x.hasAttribute('data-o'));
+  }
+  function icono(f,ok){const s=document.createElement('span');s.className='res-ic '+(ok?'si':'no');s.textContent=ok?'✔':'✘';f.append(s);}
+
+  /* comprobar */
   document.querySelectorAll('[data-comp]').forEach(b=>b.onclick=()=>{
     const sl=b.closest('.slide');if(sl.classList.contains('hecho'))return;
     let bien=0,total=0;
     if(sl.querySelector('#diario')){
       diario.querySelectorAll('.f').forEach(f=>{total++;if(f.classList.contains('marca')){bien++;f.classList.add('pillada');}else f.classList.add('perdida');});
       diario.querySelectorAll('.w.marca').forEach(w=>w.classList.add('nofalta'));
+    } else if(sl.querySelector('.corrige')){
+      sl.querySelectorAll('.sel-frase').forEach(p=>{total++;const ok=okCorrige(p);if(ok)bien++;
+        const c=p.querySelector('.corr');if(c)c.classList.add(ok?'bien':'malr');
+        p.querySelectorAll('.tk[data-c]').forEach(x=>{if(!ok)x.classList.add('erreal');});
+        icono(p.closest('.frase'),ok);});
     } else if(sl.querySelector('.arrastre')){
-      sl.querySelectorAll('.hueco-d').forEach(h=>{total++;const ok=norm(h.dataset.w)===norm(h.dataset.ok);if(ok)bien++;h.classList.add(ok?'bien':'malr');});
+      sl.querySelectorAll('.frase').forEach(f=>{const hs=[...f.querySelectorAll('.hueco-d')];if(!hs.length)return;let ok=true;
+        hs.forEach(h=>{total++;const k=norm(h.dataset.w)===norm(h.dataset.ok);if(k)bien++;else ok=false;h.classList.add(k?'bien':'malr');});icono(f,ok);});
     } else {
       sl.querySelectorAll('.frase').forEach(f=>{const ops=f.querySelectorAll('.op');if(!ops.length)return;total++;
         ops.forEach(o=>{if(o.hasAttribute('data-ok'))o.classList.add(o.classList.contains('sel')?'bien':'falta');else if(o.classList.contains('sel'))o.classList.add('malr');});
-        if(f.querySelector('.op.sel[data-ok]'))bien++;});
+        const ok=!!f.querySelector('.op.sel[data-ok]');if(ok)bien++;icono(f,ok);});
     }
     sl.classList.add('hecho');sl.querySelectorAll('.frase').forEach(f=>f.classList.add('ver'));
     b.disabled=true;b.textContent='Comprobado';
