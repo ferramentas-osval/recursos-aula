@@ -507,7 +507,7 @@
         <p style="margin:12px 0 4px;">Me hago una idea general del tema:</p>
         <textarea placeholder="Escribe en una frase de qué crees que va a tratar el texto..."></textarea>
         <button class="sol-btn" onclick="toggleSol(this)">💡 Ver posible solución</button>
-        <div class="solution"><p>El texto trata sobre cómo han cambiado las formas de divertirse de los adolescentes: videojuegos en línea y en directo, redes sociales, series en streaming y, como contraste, una vuelta a planes sin pantallas.</p></div>
+        <div class="solution" data-cd="0"></div>
       </div>
       <div class="activity-step">
         <div class="step-label"><span class="dot">P</span> Preguntar</div>
@@ -518,13 +518,7 @@
         <textarea placeholder="Pregunta 4..." style="margin-top:8px;"></textarea>
         <textarea placeholder="Pregunta 5..." style="margin-top:8px;"></textarea>
         <button class="sol-btn" onclick="toggleSol(this)">💡 Ver posible solución</button>
-        <div class="solution">
-          <p>¿Cómo se divierten hoy los adolescentes?</p>
-          <p>¿Por qué el videojuego ya no se juega solo?</p>
-          <p>¿Por qué las redes sociales son el nuevo patio de recreo?</p>
-          <p>¿Qué son las maratones de series y quiénes son los creadores de contenido?</p>
-          <p>¿En qué consiste la vuelta a lo analógico?</p>
-        </div>
+        <div class="solution" data-cd="1"></div>
       </div>
     </div>
   </section>
@@ -540,19 +534,14 @@
         <textarea placeholder="Maratones de series y creadores de contenido..." style="margin-top:8px;"></textarea>
         <textarea placeholder="La vuelta a lo analógico..." style="margin-top:8px;"></textarea>
         <button class="sol-btn" onclick="toggleSol(this)">💡 Ver posible solución</button>
-        <div class="solution">
-          <p><b>El videojuego ya no se juega solo:</b> ahora se juega en equipo, por voz, con amigos de cualquier lugar, y también se ven a streamers jugar en directo.</p>
-          <p><b>Las redes sociales, el nuevo patio de recreo:</b> TikTok, Instagram o WhatsApp sustituyen al recreo como lugar de socialización, sobre todo con vídeos cortos.</p>
-          <p><b>Maratones de series y creadores de contenido:</b> el streaming permite ver varios capítulos seguidos, y se sigue más a youtubers o streamers que a actores tradicionales.</p>
-          <p><b>La vuelta a lo analógico:</b> crece la tendencia de desconectar y quedar para juegos de mesa, deporte o estar sin el móvil.</p>
-        </div>
+        <div class="solution" data-cd="2"></div>
       </div>
       <div class="activity-step">
         <div class="step-label"><span class="dot">R</span> Recitar / Responder</div>
         <p style="margin:0 0 6px;">Sin mirar el texto, responde a tus preguntas y haz un esquema o resumen:</p>
         <textarea placeholder="Responde con tus palabras y esquematiza o resume lo que recuerdas..." style="min-height:100px;"></textarea>
         <button class="sol-btn" onclick="toggleSol(this)">💡 Ver posible solución</button>
-        <div class="solution"><p>El ocio adolescente ha cambiado mucho: los videojuegos ahora se juegan en equipo y también se ven en directo; las redes sociales (TikTok, Instagram, WhatsApp) funcionan como el nuevo patio de recreo; el streaming ha cambiado el consumo de series y ha creado nuevos referentes (youtubers, streamers); y, como reacción, cada vez más jóvenes valoran también los planes sin pantallas.</p></div>
+        <div class="solution" data-cd="3"></div>
       </div>
       <div class="activity-step">
         <div class="step-label"><span class="dot">R</span> Repasar</div>
@@ -576,12 +565,7 @@
         <p style="margin:0 0 6px;">Fíjate en la curva: cuanto antes repases, menos cuesta y más dura el recuerdo. Escribe ahora tu plan de repaso para las próximas dos semanas (qué días vas a repasar y qué vas a repasar cada vez):</p>
         <textarea placeholder="Día 3: repaso rápido de... / Día 7: repaso de... / Día 14: repaso final de..." style="min-height:110px;"></textarea>
         <button class="sol-btn" onclick="toggleSol(this)">💡 Ver posible solución</button>
-        <div class="solution">
-          <p><b>Hoy:</b> releo mi esquema y me hago las preguntas sin mirar el texto.</p>
-          <p><b>Día 3:</b> repaso el esquema sin mirarlo; si fallo algo, lo repaso otra vez y lo anoto.</p>
-          <p><b>Día 7:</b> repaso de nuevo y amplío o mejoro el esquema con lo que aún se me olvida.</p>
-          <p><b>Día 14:</b> último repaso rápido, ya casi sin esfuerzo: la información se ha consolidado.</p>
-        </div>
+        <div class="solution" data-cd="4"></div>
       </div>
     </div>
   </section>
@@ -665,5 +649,114 @@
   show(0);
 </script>
 <a id="volverPanel" href="../TALLERES_Y_TECNICAS_DE_ESTUDIO/index.html" title="Volver al panel de recursos" style="position:fixed;left:8px;bottom:8px;z-index:2147483647;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;background:rgba(20,28,48,.72);color:#fff;text-decoration:none;opacity:.6;box-shadow:0 1px 4px rgba(0,0,0,.25)" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" onclick="var u=this.href,p=null;try{var m=u.split('?')[0].match(/([^\/]+)\/(index\.html)?$/);p=m&amp;&amp;localStorage.getItem('panel:'+m[1])}catch(e){}if(p)u=p;if((window.opener&amp;&amp;!window.opener.closed)||history.length===1){try{window.opener&amp;&amp;window.opener.focus();window.close()}catch(e){}setTimeout(function(){location.href=u},300);return false}if(p&amp;&amp;document.referrer&amp;&amp;document.referrer.split('#')[0]===p&amp;&amp;history.length&gt;1){history.back();return false}location.href=u;return false">⌂ Panel</a><style>@media print{#volverPanel{display:none!important}}</style>
+<!--candado:inicio--><!--cifrar:div.solution--><script>window.CANDADO=Object.assign({id:"TALLERES_Y_TECNICAS_DE_ESTUDIO/epl2r.html"},{ocultar:'.sol-btn, .solution'});</script><script type="application/json" id="cdDatos">{"i": "qoi/NKtU0/PtaN9m", "n": 150000, "c": "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"}</script>
+<!--candadoblq:inicio-->
+<style>
+#cdBtn{position:fixed;right:8px;bottom:8px;z-index:2147483600;width:30px;height:30px;padding:0;border:none;border-radius:50%;background:transparent;font-size:15px;line-height:30px;text-align:center;cursor:pointer;opacity:.25;transition:opacity .2s,background .2s}
+#cdBtn:hover{opacity:.9}
+#cdBtn.on{opacity:1;background:#2e7d32;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#cdBtn.lib{opacity:.25;background:transparent;box-shadow:none}
+#cdBtn.lib:hover{opacity:.9}
+#cdLibBtn{position:fixed;right:44px;bottom:8px;z-index:2147483600;height:30px;padding:0 10px;border:none;border-radius:999px;background:#1d4f91;color:#fff;font:600 12px/30px system-ui,Arial,sans-serif;cursor:pointer;opacity:.85;box-shadow:0 2px 8px rgba(0,0,0,.25);display:none;white-space:nowrap}
+#cdLibBtn:hover{opacity:1}
+#cdLibBtn.on{display:block}
+#cdPop,#cdLibPop{position:fixed;right:8px;bottom:44px;z-index:2147483601;display:none;background:#fff;color:#222;border:1px solid #c9c9c9;border-radius:10px;padding:8px 10px;box-shadow:0 6px 20px rgba(0,0,0,.25);font:14px/1.3 system-ui,Arial,sans-serif;text-align:left}
+#cdPop.on,#cdLibPop.on{display:block}
+#cdLibPop{max-width:min(300px,calc(100vw - 16px))}
+#cdLibPop p{margin:0 0 8px}
+#cdPop label{display:block;font-weight:700;margin-bottom:5px}
+#cdPop .f,#cdLibPop .f{display:flex;gap:4px;align-items:center}
+#cdIn{width:8.5em;font:inherit;padding:5px 7px;border:1px solid #999;border-radius:6px;color:#222;background:#fff}
+#cdOjo,#cdOk,#cdLibSi,#cdLibNo{font:inherit;border:1px solid #999;background:#fff;color:#222;border-radius:6px;padding:5px 8px;cursor:pointer;line-height:1.1}
+#cdOk,#cdLibSi{background:#2e7d32;border-color:#2e7d32;color:#fff;font-weight:700}
+#cdLibSi.oc{background:#b00020;border-color:#b00020}
+#cdMsg,#cdLibMsg{color:#b00020;min-height:1em;font-size:12px;margin-top:4px}
+#cdLibMsg.ok{color:#2e7d32}
+#cdAviso{position:fixed;right:8px;bottom:46px;z-index:2147483602;background:#2e7d32;color:#fff;font:600 13px/1 system-ui,Arial,sans-serif;padding:8px 12px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+#cdAviso.on{opacity:1;transform:none}
+[data-cd]:empty{display:none!important}
+@media print{#cdBtn,#cdPop,#cdAviso,#cdLibBtn,#cdLibPop{display:none!important}}
+</style>
+<button id="cdBtn" type="button">🔒</button>
+<button id="cdLibBtn" type="button"></button>
+<div id="cdPop" role="dialog"><label for="cdIn" id="cdLab"></label><div class="f"><input id="cdIn" type="password" autocomplete="off"><button id="cdOjo" type="button">👁</button><button id="cdOk" type="button"></button></div><div id="cdMsg"></div></div>
+<div id="cdLibPop" role="dialog"><p id="cdLibTxt"></p><div class="f"><button id="cdLibSi" type="button"></button><button id="cdLibNo" type="button"></button></div><div id="cdLibMsg"></div></div>
+<div id="cdAviso"></div>
+<script>
+(function(){
+  var C=window.CANDADO||{},GL=/^gl/i.test(document.documentElement.lang||'');
+  var T=GL?{lab:'Código do profesor',ok:'Abrir',err:'Código incorrecto',av:'Solucións desbloqueadas',t1:'Solucións (profesor)',t2:'Volver bloquear',ojo:'Mostrar ou ocultar',
+             lib:'🌐 Liberar para todos',oc:'🌐 Ocultar para todos',qlib:'Liberar as solucións deste recurso para todo o alumnado?',qoc:'Volver ocultar as solucións ao alumnado?',si:'Liberar',sio:'Ocultar',no:'Cancelar',env:'Enviando…',hecho:'✔ Feito. O alumnado verao nuns minutos.',fallo:'Non se puido: '}
+           :{lab:'Código del profesor',ok:'Abrir',err:'Código incorrecto',av:'Soluciones desbloqueadas',t1:'Soluciones (profesor)',t2:'Volver a bloquear',ojo:'Mostrar u ocultar',
+             lib:'🌐 Liberar para todos',oc:'🌐 Ocultar para todos',qlib:'¿Liberar las soluciones de este recurso para todo el alumnado?',qoc:'¿Volver a ocultar las soluciones al alumnado?',si:'Liberar',sio:'Ocultar',no:'Cancelar',env:'Enviando…',hecho:'✔ Hecho. El alumnado lo verá en unos minutos.',fallo:'No se ha podido: '};
+  var $=function(i){return document.getElementById(i)};
+  var B=document.body,btn=$('cdBtn'),pop=$('cdPop'),inp=$('cdIn'),msg=$('cdMsg'),av=$('cdAviso'),lb=$('cdLibBtn'),lp=$('cdLibPop'),lm=$('cdLibMsg');
+  $('cdLab').textContent=T.lab;$('cdOk').textContent=T.ok;$('cdOjo').title=T.ojo;$('cdLibNo').textContent=T.no;
+  if(C.ocultar){var st=document.createElement('style');st.textContent=C.ocultar.split(',').map(function(s){return 'body:not(.cd-abierto) '+s.trim()}).join(',')+'{display:none!important}'+(C.invisible?C.invisible.split(',').map(function(s){return 'body:not(.cd-abierto) '+s.trim()}).join(',')+'{visibility:hidden!important}':'');document.head.appendChild(st)}
+  if(C.css){var s2=document.createElement('style');s2.textContent=C.css;document.head.appendChild(s2)}
+  var D=null;try{var dj=$('cdDatos');if(dj)D=JSON.parse(dj.textContent)}catch(e){}
+  var N=(D&&D.n)||150000,TE=new TextEncoder(),b64=function(x){return Uint8Array.from(atob(x),function(c){return c.charCodeAt(0)})};
+  function derivar(code,exp){return crypto.subtle.importKey('raw',TE.encode(code),'PBKDF2',false,['deriveKey']).then(function(km){return crypto.subtle.deriveKey({name:'PBKDF2',salt:TE.encode('recursos-aula:'+C.id),iterations:N,hash:'SHA-256'},km,{name:'AES-GCM',length:256},!!exp,['decrypt'])})}
+  function opn(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:b64(D.i)},k,b64(D.c)).then(function(p){return JSON.parse(new TextDecoder().decode(p))})}
+  function porClave(raw){return crypto.subtle.importKey('raw',b64(raw),'AES-GCM',false,['decrypt']).then(opn)}
+  function claveB64(code){return derivar(code,true).then(function(k){return crypto.subtle.exportKey('raw',k)}).then(function(r){return btoa(String.fromCharCode.apply(null,new Uint8Array(r)))})}
+  var abierto=false,lib=false,prof=null,SOL=null,URL_LIB=null;
+  function poner(arr){SOL=arr;[].forEach.call(document.querySelectorAll('[data-cd]'),function(e){var k=+e.getAttribute('data-cd');if(arr&&arr[k]!=null)e.innerHTML=arr[k]});[].forEach.call(document.querySelectorAll('[data-cda]'),function(e){var v=e.getAttribute('data-cda').split(':');if(arr&&arr[+v[0]]!=null)e.setAttribute(v[1],arr[+v[0]])})}
+  function quitar(){[].forEach.call(document.querySelectorAll('[data-cd]'),function(e){e.innerHTML=''});[].forEach.call(document.querySelectorAll('[data-cda]'),function(e){e.removeAttribute(e.getAttribute('data-cda').split(':')[1])})}
+  function pinta(){btn.textContent=abierto?'🔓':'🔒';btn.classList.toggle('on',abierto&&!lib);btn.classList.toggle('lib',lib);btn.title=lib?T.t1:(abierto?T.t2:T.t1);
+    lb.textContent=lib?T.oc:T.lib;lb.classList.toggle('on',!!(prof&&URL_LIB))}
+  function estado(a,aviso){abierto=a;B.classList.toggle('cd-abierto',a);pinta();
+    if(aviso){av.textContent='🔓 '+T.av;av.classList.add('on');clearTimeout(av._t);av._t=setTimeout(function(){av.classList.remove('on')},2200)}
+    try{if(typeof C.alCambiar==='function')C.alCambiar(a)}catch(e){}}
+  function comprobar(code){
+    if(typeof C.abrir==='function')return Promise.resolve(C.abrir(code));
+    if(D)return derivar(code).then(opn).then(poner);
+    return Promise.reject(new Error('sin datos'));
+  }
+  function abrir(code,aviso){return comprobar(code).then(function(){prof=code;try{sessionStorage.setItem('cd:'+C.id,code)}catch(e){}estado(true,aviso&&!lib)})}
+  function cerrar(){try{sessionStorage.removeItem('cd:'+C.id)}catch(e){}prof=null;cerrarLib();if(typeof C.cerrar==='function'){try{C.cerrar()}catch(e){}}else quitar();estado(false)}
+  function cerrarPop(){pop.classList.remove('on');inp.value='';inp.type='password';msg.textContent=''}
+  function cerrarLib(){lp.classList.remove('on');lm.textContent='';lm.className=''}
+  function intentar(){var v=inp.value.trim();if(!v)return;msg.textContent='…';abrir(v,true).then(cerrarPop,function(){msg.textContent=T.err;inp.select()})}
+  btn.onclick=function(e){e.stopPropagation();cerrarLib();
+    if(lib&&prof)return;
+    if(abierto&&!lib){cerrar();return}
+    if(pop.classList.toggle('on')){msg.textContent='';setTimeout(function(){inp.focus()},30)}};
+  lb.onclick=function(e){e.stopPropagation();cerrarPop();av.classList.remove('on');if(lp.classList.toggle('on')){$('cdLibTxt').textContent=lib?T.qoc:T.qlib;var si=$('cdLibSi');si.textContent=lib?T.sio:T.si;si.classList.toggle('oc',lib);si.disabled=false;lm.textContent='';lm.className=''}};
+  $('cdLibNo').onclick=cerrarLib;
+  $('cdLibSi').onclick=function(){
+    var si=this,acc=lib?'ocultar':'liberar';si.disabled=true;lm.className='';lm.textContent=T.env;
+    (acc==='liberar'?claveB64(prof):Promise.resolve('')).then(function(k){
+      return fetch(URL_LIB,{method:'POST',body:JSON.stringify({accion:acc,id:C.id,clave:k,codigo:prof})}).then(function(r){return r.json()});
+    }).then(function(r){
+      if(!r||!r.ok)throw new Error(r&&r.error||'?');
+      lib=(acc==='liberar');lm.className='ok';lm.textContent=T.hecho;pinta();setTimeout(cerrarLib,3500);
+    }).catch(function(err){si.disabled=false;lm.className='';lm.textContent=T.fallo+(err&&err.message||err)});
+  };
+  $('cdOk').onclick=intentar;
+  $('cdOjo').onclick=function(){inp.type=inp.type==='password'?'text':'password';inp.focus()};
+  inp.addEventListener('keydown',function(e){e.stopPropagation();if(e.key==='Enter')intentar();if(e.key==='Escape')cerrarPop()});
+  ['keyup','keypress'].forEach(function(t){inp.addEventListener(t,function(e){e.stopPropagation()})});
+  document.addEventListener('click',function(e){if(!e.target.closest('#cdPop,#cdBtn,#cdLibPop,#cdLibBtn')){if(pop.classList.contains('on'))cerrarPop();if(lp.classList.contains('on'))cerrarLib()}},true);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lp.classList.contains('on'))cerrarLib()});
+  [pop,btn,lb,lp].forEach(function(el){['click','mousedown','pointerdown','touchstart','touchend'].forEach(function(t){el.addEventListener(t,function(e){e.stopPropagation()},{passive:t.indexOf('touch')===0})})});
+  window.Candado={abierto:function(){return abierto},liberado:function(){return lib},soluciones:function(){return SOL}};
+  /* sesión: si el profesor ya lo abrió en esta pestaña */
+  try{var sp=sessionStorage.getItem('cd:'+C.id);if(sp)abrir(sp,false).catch(function(){})}catch(e){}
+  /* configuración común y soluciones liberadas para todos (GitHub) */
+  if(C.id){
+    var BASE='https://ferramentas-osval.github.io/recursos-aula/assets/';
+    fetch(BASE+'candado_config.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){if(j&&j.liberar_url){URL_LIB=j.liberar_url;pinta()}}).catch(function(){});
+    fetch(BASE+'soluciones_liberadas.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){var k=j[C.id];if(!k)return;
+      var fin=function(){lib=true;estado(true)};
+      if(typeof C.liberado==='function'){Promise.resolve(C.liberado(k)).then(fin).catch(function(){})}
+      else if(D&&D.c&&k.length>8){porClave(k).then(function(a){poner(a);fin()}).catch(function(){})}
+      else fin();
+    }).catch(function(){});
+  }
+})();
+</script>
+<!--candadoblq:fin-->
+<!--candado:fin-->
 </body>
 </html>

@@ -99,13 +99,19 @@ Todo recurso con soluciones, ejemplos o panel del profesor lleva antes de `</bod
 - Al acertar: 🔓 sobre círculo verde y aviso pequeño «Soluciones desbloqueadas» que se va solo. Pulsando otra vez, se vuelve a bloquear. Con el candado cerrado no se ven soluciones ni ejemplos. El candado y el aviso no se imprimen.
 - **Cifrado:** el contenido de los elementos indicados con `--cifrar` (y los atributos de `--cifrar-atr`) se guarda cifrado en el propio HTML (AES-GCM, clave PBKDF2 del código y de la ruta del archivo); en el código fuente quedan vacíos. Lo que la página genera por JavaScript (p. ej. el reto de comunicación) solo se oculta.
 - Uso: `python3 tools/candado.py <ruta.html> --cifrar ".solution;details.filmsol" --config "{ocultar:'.solbtn, .solution'}"`. `ocultar` = selectores que no se ven con el candado cerrado; opcionales `css` (ajustes de posición), `alCambiar(abierto)` y, en los recursos con su propio cifrado antiguo (`window.__ENC`), `abrir(código)`, `cerrar()` y `liberado(clave)`. La configuración queda guardada en el archivo: para actualizar el bloque basta con `python3 tools/candado.py <ruta.html>` (si se edita una solución cifrada, primero `--quitar`, editar y volver a ejecutar).
-- No llevan candado los materiales pensados para que el alumnado vea las soluciones (modelos de examen resueltos, apuntes, esquemas) ni las prácticas autocorregibles.
+- Llevan candado: 1.º ESO, PDC y Talleres y técnicas de estudio (ver abajo qué no lo lleva).
 - Presentación extra de Batman y Robin: entera con PIN (es solo para el profesor), sin cambios.
 
 ### Liberar las soluciones para todos
 
-Cuando el profesor pide **liberar las soluciones para todos**, no se vuelve a subir el recurso: se añade su clave a `assets/soluciones_liberadas.json` con
-`node tools/liberar_soluciones.mjs <ruta del recurso> eclipse` (o `--ocultar` para quitarla) y se hace commit. Cada recurso consulta ese JSON al abrirse (también desde el aula virtual o descargado, si hay internet): las soluciones aparecen y el candado desaparece. Los cambios tardan unos minutos en verse por la caché de GitHub Pages.
+**Desde el propio recurso (lo normal):** con el candado abierto con el código aparece al lado el botón «🌐 Liberar para todos» (en gallego, según el idioma del recurso). Tras confirmar, el recurso envía su clave a la aplicación web de Apps Script de la cuenta ferramentas.osval@gmail.com (`tools/apps_script_liberar_soluciones.gs`), que la añade a `assets/soluciones_liberadas.json` con un commit. Con el recurso liberado, el botón pasa a «🌐 Ocultar para todos». El alumnado lo ve en unos minutos (caché de GitHub Pages).
+- La URL de la aplicación web va en `assets/candado_config.json` (`liberar_url`). Si está vacía, el botón no aparece.
+- Propiedades del script: `GITHUB_TOKEN` (token fine-grained solo para este repositorio, permiso Contents: lectura y escritura), `CODIGO` (el código del candado) y `REPO` (`ferramentas-osval/recursos-aula`). El token nunca va en los HTML.
+- Con el recurso liberado, el 🔒 sigue visible pero discreto: el profesor lo abre con el código para ver el botón «Ocultar para todos».
+
+**A mano (alternativa):** `node tools/liberar_soluciones.mjs <ruta del recurso> eclipse` (o `--ocultar` para quitarla) y commit.
+
+**Sin candado (decidido):** modelos de examen resueltos, apuntes y esquemas (1.º ESO y PDC, incluido `04_PDC/TAREAS/primer_parcial_1a_evaluacion_3eso_pdc.html`); prácticas y juegos autocorregibles (`ejercicios_tipos_frases`, `reto_substantivo_…`, sujeto y complementos, práctica y prueba de comunicación, vocabulario); prompts y presentaciones sin soluciones.
 
 ## Botón «🖨️ Imprimir»
 
