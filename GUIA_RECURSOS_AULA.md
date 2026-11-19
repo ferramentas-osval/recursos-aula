@@ -113,7 +113,8 @@ Todo recurso con soluciones, ejemplos o panel del profesor lleva antes de `</bod
 
 **Modelos de examen:** llevan candado y el profesor los libera cuando quiere (1.º ESO y PDC). En el panel ya no se titulan «resuelto»: la etiqueta «✅ Con soluciones» indica cuándo están liberados. En el de PDC, las formas rodeadas (`i.circle`) tampoco están en el código: sus posiciones van cifradas en `template#cdCirculos` y se repintan al abrir.
 
-**Sin candado (decidido):** apuntes y esquemas; prácticas y juegos autocorregibles (`ejercicios_tipos_frases`, `reto_substantivo_…`, sujeto y complementos, práctica y prueba de comunicación, vocabulario); prompts y presentaciones sin soluciones.
+**Sin candado (decidido):** apuntes y esquemas; prácticas y juegos autocorregibles (`reto_substantivo_…`, sujeto y complementos, práctica y prueba de comunicación, vocabulario); prompts y presentaciones sin soluciones.
+- `04_PDC/ACTIVIDADES/ejercicios_tipos_frases.html` sí lleva candado: las prácticas A, B y C siguen corrigiéndose solas, y además tienen «Ver solución» (oculto y cifrado) que abre la solución completa en la ventana grande.
 
 ## Botón «🖨️ Imprimir»
 
