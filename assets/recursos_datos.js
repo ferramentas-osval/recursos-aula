@@ -357,12 +357,12 @@ window.RECURSOS=[
       "h": "04_PDC/ACTIVIDADES/boletin_galicia_idade_media_lirica_medieval.html"
      },
      {
-      "t": "Boletín: las relaciones semánticas",
-      "h": "04_PDC/ACTIVIDADES/boletin_relaciones_semanticas.html"
-     },
-     {
       "t": "Boletín: formación de palabras",
       "h": "04_PDC/ACTIVIDADES/boletin_formacion_palabras.html"
+     },
+     {
+      "t": "Boletín: las relaciones semánticas",
+      "h": "04_PDC/ACTIVIDADES/boletin_relaciones_semanticas.html"
      },
      {
       "t": "Fichas de repaso: historia e galego (con apuntes)",
