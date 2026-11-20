@@ -41,13 +41,16 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 .gcard .gn{font-family:var(--f-tit);font-size:1.25rem;letter-spacing:.05em;border:none;border-bottom:2px dashed var(--punto);background:transparent;width:100%}
 .gcard input.al{border:none;background:var(--papel);border-radius:.35rem;padding:.12rem .35rem;font-size:.85rem;width:100%}
 .rondas{display:flex;flex-direction:column;gap:.35rem}
-.rd{display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid var(--ink);border-radius:.6rem;padding:.25rem .5rem}
+.rd{display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid var(--ink);border-radius:.6rem;padding:.12rem .5rem}
 .rd.off{opacity:.45;background:transparent}
-.rd .ri{font-size:1.5rem;width:2rem;text-align:center}
+.rd .ri{font-size:1.3rem;width:2rem;text-align:center}
 .rd .rn{flex:1;min-width:0;font-weight:700;font-size:.95rem;line-height:1.15}.rd .rn small{display:block;font-weight:400;color:var(--suave);font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rd input[type=number]{width:3.6rem;border:2px solid var(--ink);border-radius:.4rem;padding:.05rem .25rem;text-align:center}
-.rd .mv{border:none;background:none;font-size:1rem;padding:0 .15rem}
-.est{font-weight:700;padding:.4rem .7rem;border-radius:.6rem;background:var(--verde2);border:2px solid var(--verde)}
+.rd .mv{border:2px solid var(--ink);background:#fff;border-radius:.4rem;font-size:.85rem;padding:0 .3rem;line-height:1.3}
+.rd .asa{cursor:grab;touch-action:none;font-size:1.2rem;color:var(--suave);padding:0 .1rem;user-select:none}
+.rd .pos{font-family:var(--f-tit);font-size:1.4rem;width:1.4rem;text-align:center}
+.rd.arr{outline:3px dashed var(--azul);background:var(--azul2)}
+.est{font-weight:700;font-size:.9rem;padding:.25rem .6rem;border-radius:.6rem;background:var(--verde2);border:2px solid var(--verde)}
 .est.mal{background:var(--rosa2);border-color:var(--rosa)}
 .pinbox{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
 .pinbox input{border:2px solid var(--ink);border-radius:.5rem;padding:.2rem .5rem;width:9rem}
@@ -181,6 +184,12 @@ table.notas td.izq{text-align:left}
 table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;font-weight:700;width:1.6rem}
 .guardado{font-weight:700;padding:.45rem .8rem;border-radius:.6rem;border:2px solid var(--ink)}
 .guardado.si{background:var(--verde2)}.guardado.no{background:var(--rosa2)}.guardado.esp{background:var(--am2)}
+#nav{position:fixed;inset:0;background:rgba(28,27,51,.6);display:none;align-items:center;justify-content:center;z-index:80;padding:2rem}
+#nav.on{display:flex}
+#nav .box{background:var(--papel);border:4px solid var(--ink);border-radius:1.2rem;box-shadow:.4rem .4rem 0 var(--am);width:100%;max-height:100%;padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:.6rem;position:relative}
+#nav .x{position:absolute;top:.6rem;right:.8rem;width:3rem;height:3rem;border-radius:50%;border:3px solid var(--ink);background:#fff;font-size:1.5rem;font-weight:700}
+.navt td{padding:.25rem}.navt .ir{width:100%;border:2px solid var(--ink);border-radius:.5rem;background:#fff;font-weight:700;padding:.35rem .2rem;font-size:1rem}
+.navt .ir.hecho{background:var(--verde2)}.navt .ir.act{background:var(--am);box-shadow:.12rem .12rem 0 var(--ink)}
 #toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.45rem 1rem;border-radius:.6rem;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
 #toast.on{opacity:1}
 .jugando .panelbtn{display:none}
@@ -206,20 +215,20 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
       <p class="small">Pega la lista de la clase (un nombre por línea) y haz los grupos al azar, o escribe directamente los nombres en cada tarjeta. La lista se queda guardada en este ordenador para la próxima vez.</p>
       <textarea class="lista" id="lista" placeholder="Un nombre por línea…"></textarea>
       <div class="row" style="flex-wrap:wrap;align-items:center;gap:.5rem">
-        <button class="btn" id="hacer3">🎲 Grupos de 3</button>
-        <button class="btn blanco" id="hacer2">🎲 Grupos de 2</button>
+        <button class="btn" id="hacer3">🎲 Grupos de 4</button>
+        <button class="btn blanco" id="hacer2">🎲 Grupos de 5</button>
         <span class="small" style="margin-left:auto">Número de grupos</span>
-        <button class="btn blanco" id="menosG" style="padding:.1rem .6rem">−</button><b id="nG" style="font-family:var(--f-tit);font-size:1.6rem">8</b><button class="btn blanco" id="masG" style="padding:.1rem .6rem">+</button>
+        <button class="btn blanco" id="menosG" style="padding:.1rem .6rem">−</button><b id="nG" style="font-family:var(--f-tit);font-size:1.6rem">5</b><button class="btn blanco" id="masG" style="padding:.1rem .6rem">+</button>
       </div>
       <div class="grupos grow" id="grupos"></div>
     </div>
     <div class="panel col">
       <h3>2 · Las rondas</h3>
-      <p class="small">Marca las rondas y su orden. Si se acaba la clase, el reto se cierra al terminar una ronda completa, así todos los grupos habrán hecho lo mismo. En cada ronda el orden de salida se invierte.</p>
+      <p class="small">Marca las rondas que quieras y ordénalas a tu gusto: arrastra ⠿ o usa ▲ ▼. Si se acaba la clase, el reto se cierra al terminar una ronda completa, así todos los grupos habrán hecho lo mismo. En cada ronda el orden de salida se invierte.</p>
       <div class="rondas" id="rondas"></div>
       <div class="est" id="estim"></div>
-      <h3 style="margin-top:.2rem">3 · Guardar las notas</h3>
-      <p class="small">Al terminar, las notas se guardan en este navegador, se descarga un archivo CSV (se abre con Excel) y se envían a tu hoja de Google si escribes aquí tu código.</p>
+      <h3>3 · Guardar las notas</h3>
+      <p class="small">Se guardan en este navegador y en un CSV; con tu código, también en tu hoja de Google.</p>
       <div class="pinbox" style="margin-top:auto"><span class="small" style="font-weight:700">🔒 Código</span><input type="password" id="pin" autocomplete="off" placeholder="Opcional"><button class="ojo" id="ojo" type="button" aria-label="Mostrar u ocultar el código">👁</button><span style="flex:1"></span><button class="btn big rosa" id="empezar">¡Empezar el reto! ▶</button></div>
     </div>
   </div>
@@ -230,7 +239,7 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
   <div class="top">
     <div class="ronda"><span class="ico" id="rIco"></span><div class="col" style="gap:.1rem"><span class="tag" id="rNum"></span><h3 id="rNom"></h3></div></div>
     <div class="grupo"><div class="gnom" id="gNom"></div><div class="gal" id="gAl"></div></div>
-    <div class="ctrl"><button class="btn blanco" id="pausa" title="Pausar el reloj">⏸ Pausa</button><button class="btn blanco" id="mas15" title="Añadir 15 segundos">+15 s</button></div>
+    <div class="ctrl"><button class="btn blanco" id="navBtn" title="Ir a otra ronda, otro grupo, al inicio…">🧭 Ir a…</button><button class="btn blanco" id="pausa" title="Pausar el reloj">⏸ Pausa</button><button class="btn blanco" id="mas15" title="Añadir 15 segundos">+15 s</button></div>
     <div class="reloj" id="reloj"><span id="seg">60</span></div>
   </div>
   <div id="zona"></div>
@@ -249,12 +258,13 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
     <button class="btn blanco" id="copiar">📋 Copiar tabla</button>
     <a class="btn blanco" id="abrirHoja" target="_blank" rel="noopener" style="display:none;text-decoration:none">📊 Abrir la hoja</a>
     <span style="flex:1"></span>
-    <button class="btn blanco" id="volver">↩ Volver al reto</button>
+    <button class="btn blanco" id="navBtn2">🧭 Ir a…</button><button class="btn blanco" id="volver">↩ Volver al reto</button>
     <button class="btn rosa" id="nuevo">🗑 Empezar otro reto</button>
   </div>
   <p class="small muted">Los ajustes ± de la tabla sirven para corregir puntos a mano (por ejemplo, si hay una reclamación justa). Cualquier cambio vuelve a guardarse en este navegador; para la hoja de Google, pulsa otra vez «Enviar».</p>
 </section>
 
+<div id="nav" role="dialog" aria-modal="true"><div class="box"><button class="x" id="navX" aria-label="Cerrar">✕</button><h2 style="flex:none">🧭 Ir a…</h2><div id="navc" class="col" style="flex:1 1 auto;min-height:0;overflow:auto"></div></div></div>
 <div id="toast"></div>
 <a class="panelbtn" href="https://ferramentas-osval.github.io/recursos-aula/" target="_top">⌂ Recursos del aula</a>
 
@@ -414,7 +424,7 @@ function guarda(){ls(KEY,JSON.stringify(S))}
 try{S=JSON.parse(ls(KEY)||'null')}catch(e){S=null}
 if(!S||S.v!==1)S=nuevoEstado();
 ORDEN0.forEach(function(id){if(S.tiempos[id]==null)S.tiempos[id]=R[id].t});
-if(!S.grupos.length)ponGrupos(8);
+if(!S.grupos.length)ponGrupos(5);
 function ponGrupos(n){n=Math.max(2,Math.min(12,n));while(S.grupos.length<n)S.grupos.push({nom:'Grupo '+(S.grupos.length+1),al:['','',''],pts:{},robos:0,aj:0});S.grupos.length=n}
 function rondasJuego(){return S.orden.filter(function(id){return S.activas[id]})}
 function ordenSalida(ri){var o=S.grupos.map(function(_,i){return i});return ri%2?o.reverse():o}
@@ -431,34 +441,41 @@ function pintaInicio(){
   var cont=$('#grupos');cont.innerHTML='';
   S.grupos.forEach(function(G,i){var c=h('div',{class:'gcard'});
     var nm=h('input',{class:'gn',value:G.nom,'aria-label':'Nombre del grupo '+(i+1)});nm.oninput=function(){G.nom=nm.value||('Grupo '+(i+1));guarda()};c.appendChild(nm);
-    var n=Math.max(3,G.al.length);for(var k=0;k<n;k++)(function(k){var a=h('input',{class:'al',placeholder:'Alumno/a '+(k+1),value:G.al[k]||''});a.oninput=function(){G.al[k]=a.value;guarda()};c.appendChild(a)})(k);
+    var n=Math.max(5,G.al.length);for(var k=0;k<n;k++)(function(k){var a=h('input',{class:'al',placeholder:'Alumno/a '+(k+1),value:G.al[k]||''});a.oninput=function(){G.al[k]=a.value;guarda()};c.appendChild(a)})(k);
     cont.appendChild(c)});
   var rc=$('#rondas');rc.innerHTML='';
   S.orden.forEach(function(id,i){var d=R[id],row=h('div',{class:'rd'+(S.activas[id]?'':' off')});
-    row.innerHTML='<input type="checkbox" '+(S.activas[id]?'checked':'')+' aria-label="Jugar esta ronda"><span class="ri">'+d.ico+'</span><span class="rn">'+d.nom+'<small>'+d.desc+' · '+d.n+' preguntas + 1 punto por pleno</small></span><input type="number" min="20" max="300" step="5" value="'+S.tiempos[id]+'" aria-label="Segundos"><span class="small">s</span><button class="mv" aria-label="Subir">▲</button><button class="mv" aria-label="Bajar">▼</button>';
+    row.dataset.id=id;row.innerHTML='<span class="asa" title="Arrastra para cambiar el orden">⠿</span><span class="pos">'+(S.activas[id]?(rondasJuego().indexOf(id)+1):'')+'</span><input type="checkbox" '+(S.activas[id]?'checked':'')+' aria-label="Jugar esta ronda"><span class="ri">'+d.ico+'</span><span class="rn">'+d.nom+'<small>'+d.desc+' · '+d.n+' preguntas + 1 punto por pleno</small></span><input type="number" min="20" max="300" step="5" value="'+S.tiempos[id]+'" aria-label="Segundos"><span class="small">s</span><button class="mv" aria-label="Subir">▲</button><button class="mv" aria-label="Bajar">▼</button>';
     var ins=row.querySelectorAll('input'),mv=row.querySelectorAll('.mv');
     ins[0].onchange=function(){S.tocado=true;S.activas[id]=ins[0].checked;guarda();pintaInicio()};
     ins[1].onchange=function(){S.tiempos[id]=Math.max(20,Math.min(300,+ins[1].value||R[id].t));guarda();pintaEst()};
     mv[0].onclick=function(){if(i>0){S.orden.splice(i,1);S.orden.splice(i-1,0,id);guarda();pintaInicio()}};
     mv[1].onclick=function(){if(i<S.orden.length-1){S.orden.splice(i,1);S.orden.splice(i+1,0,id);guarda();pintaInicio()}};
     rc.appendChild(row)});
+  arrastraRondas(rc);
   pintaEst();
 }
+function arrastraRondas(rc){var d=null;
+  rc.onpointerdown=function(e){var a=e.target.closest('.asa');if(!a)return;e.preventDefault();d={row:a.parentNode};d.row.classList.add('arr');a.setPointerCapture&&a.setPointerCapture(e.pointerId)};
+  rc.onpointermove=function(e){if(!d)return;var t=document.elementFromPoint(e.clientX,e.clientY),o=t&&t.closest('.rd');
+    if(o&&o!==d.row&&o.parentNode===rc){var r=o.getBoundingClientRect();rc.insertBefore(d.row,e.clientY<r.top+r.height/2?o:o.nextSibling)}};
+  rc.onpointerup=rc.onpointercancel=function(){if(!d)return;d.row.classList.remove('arr');d=null;
+    S.orden=$$('.rd',rc).map(function(r){return r.dataset.id});guarda();pintaInicio()}}
 function pintaEst(){var n=S.grupos.length,rs=rondasJuego(),seg=0;rs.forEach(function(id){seg+=(S.tiempos[id]+CAMBIO)*n});
   var m=Math.round(seg/60),e=$('#estim');
   e.className='est'+(m>41?' mal':'');
-  e.textContent=rs.length?('⏱️ '+rs.length+' ronda'+(rs.length>1?'s':'')+' × '+n+' grupos ≈ '+m+' min'+(m>41?' · Demasiado para 40 min: quita una ronda o baja los tiempos.':' (incluye el cambio de grupo)')):'Marca al menos una ronda.';
+  e.textContent=rs.length?('⏱️ '+rs.length+' ronda'+(rs.length>1?'s':'')+' × '+n+' grupos ≈ '+m+' min'+(m>41?' · Más de 40 min: quita una ronda o baja los tiempos':' (con los cambios de grupo)')):'Marca al menos una ronda.';
   $('#empezar').disabled=!rs.length}
 $('#lista').value=ls(KLISTA)||'';
 $('#lista').oninput=function(){ls(KLISTA,$('#lista').value)};
 function hacer(tam){var nom=$('#lista').value.split(/\n|;/).map(function(s){return s.trim()}).filter(Boolean);
   if(nom.length<2){toast('Pega primero la lista de la clase');return}
   nom=mezcla(nom,Date.now()%100000+7);
-  var ng=tam===3?Math.ceil(nom.length/3):Math.floor(nom.length/2);ng=Math.max(2,Math.min(12,ng));
+  var ng=Math.max(2,Math.min(12,Math.floor(nom.length/tam)));
   S.grupos=[];for(var i=0;i<ng;i++)S.grupos.push({nom:'Grupo '+(i+1),al:[],pts:{},robos:0,aj:0});
   nom.forEach(function(n,i){S.grupos[i%ng].al.push(n)});
   autoRondas();guarda();pintaInicio();toast(ng+' grupos hechos al azar')}
-$('#hacer3').onclick=function(){hacer(3)};$('#hacer2').onclick=function(){hacer(2)};
+$('#hacer3').onclick=function(){hacer(4)};$('#hacer2').onclick=function(){hacer(5)};
 $('#menosG').onclick=function(){ponGrupos(S.grupos.length-1);autoRondas();guarda();pintaInicio()};
 $('#masG').onclick=function(){ponGrupos(S.grupos.length+1);autoRondas();guarda();pintaInicio()};
 function ojo(b,i){b.onclick=function(){var x=$(i);x.type=x.type==='password'?'text':'password';b.textContent=x.type==='password'?'👁':'🙈'}}
@@ -466,7 +483,10 @@ ojo($('#ojo'),'#pin');ojo($('#ojo2'),'#pin2');
 $('#pin').value=ss('solpin')||'';$('#pin2').value=ss('solpin')||'';
 $('#pin').oninput=function(){ss('solpin',$('#pin').value);$('#pin2').value=$('#pin').value};
 $('#pin2').oninput=function(){ss('solpin',$('#pin2').value);$('#pin').value=$('#pin2').value};
+var empArm=0;
+function hayPuntos(){return S.grupos.some(function(G){return Object.keys(G.pts).length})}
 $('#empezar').onclick=function(){
+  if(hayPuntos()&&Date.now()-empArm>4000){empArm=Date.now();toast('Hay un reto con puntos. Pulsa otra vez para empezar de cero (o usa «Continuar el reto»)');return}
   S.grupos.forEach(function(G){G.pts={};G.robos=0;G.aj=0;G.al=G.al.map(function(a){return a.trim()}).filter(Boolean)});
   S.fase='juego';S.ri=0;S.ti=0;S.paso='sale';S.fin=null;S.auto=false;S.inicio=Date.now();guarda();muestra()};
 
@@ -474,7 +494,10 @@ $('#empezar').onclick=function(){
 function muestra(){
   $$('.scr').forEach(function(s){s.classList.remove('on')});document.body.classList.toggle('jugando',S.fase==='juego');
   if(S.fase==='inicio'){$('#inicio').classList.add('on');pintaInicio();
-    var c=$('#continuar');c.style.display='none';return}
+    var c=$('#continuar');c.style.display='none';
+    if(hayPuntos()){c.style.display='';c.innerHTML='<b>Hay un reto con puntuaciones guardadas.</b> <button class="btn verde" id="contR" style="padding:.1rem .6rem;font-size:.9rem">▶ Continuar el reto</button> <button class="btn blanco" id="verAnt" style="padding:.1rem .6rem;font-size:.9rem">🏆 Ver resultados</button> <span class="small">(Si cambias los grupos o las rondas, pulsa «Empezar el reto» para empezar de cero.)</span>';
+      $('#contR').onclick=function(){S.fase='juego';guarda();muestra()};$('#verAnt').onclick=function(){S.fase='final';S.auto=true;guarda();muestra()}}
+    return}
   if(S.fase==='final'){$('#final').classList.add('on');pintaFinal();return}
   $('#juego').classList.add('on');
   if(S.paso==='jugando'||S.paso==='corr')S.paso='sale';
@@ -496,7 +519,7 @@ function pintaTurno(){
   if(S.paso==='clas'){cabecera();return pintaClas()}
   cabecera();
   var w=h('div',{class:'sale'});
-  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="tag" style="align-self:flex-start;font-size:1.1rem">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span><h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+S.tiempos[id]+' segundos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
+  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="tag" style="align-self:flex-start;font-size:1.1rem">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+S.tiempos[id]+' segundos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
   z.appendChild(w);$('#go').onclick=empiezaTurno;
 }
 function empiezaTurno(){S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
@@ -532,6 +555,37 @@ function pintaClas(){var z=$('#zona'),rs=rondasJuego();
   if($('#sigR'))$('#sigR').onclick=function(){S.ri++;S.ti=0;S.paso='sale';guarda();pintaTurno()};
   $('#acabar').onclick=function(){S.fase='final';guarda();muestra()};
 }
+
+/* ------------ NAVEGACIÓN ------------ */
+var navPausa=false;
+function abreNav(){var rs=rondasJuego(),c=$('#navc');
+  if(T.iv&&!T.pausa){$('#pausa').click();navPausa=true}
+  var enJuego=S.fase==='juego',ord=ordenSalida(S.ri),pos=enJuego&&S.paso!=='clas';
+  var hb='<div class="row" style="flex-wrap:wrap;gap:.5rem;flex:none">'+
+   '<button class="btn blanco" data-nav="inicio">⌂ Inicio (grupos y rondas)</button>'+
+   '<button class="btn blanco" data-nav="ant"'+(enJuego&&(S.ti>0||S.ri>0||S.paso==='clas')?'':' disabled')+'>◀ Turno anterior</button>'+
+   '<button class="btn blanco" data-nav="sig"'+(enJuego&&!(S.paso==='clas'&&S.ri>=rs.length-1)?'':' disabled')+'>Turno siguiente ▶</button>'+
+   '<button class="btn" data-nav="clas">📊 Clasificación</button>'+
+   '<button class="btn rosa" data-nav="final">🏆 Resultados finales</button></div>';
+  var t='<table class="notas navt"><tr><th>Ronda</th>'+S.grupos.map(function(G){return'<th>'+esc(G.nom)+'</th>'}).join('')+'</tr>'+
+   rs.map(function(id,r){return'<tr><td class="izq"><b>'+(r+1)+'. '+R[id].ico+' '+R[id].nom+'</b></td>'+S.grupos.map(function(G,g){var p=G.pts[id],act=enJuego&&r===S.ri&&S.paso!=='clas'&&gAct()===g;
+     return'<td><button class="ir'+(act?' act':'')+(p!=null?' hecho':'')+'" data-r="'+r+'" data-g="'+g+'">'+(p!=null?p+' pts':'—')+'</button></td>'}).join('')+'</tr>'}).join('')+'</table>';
+  c.innerHTML=hb+'<p class="small" style="margin:.2rem 0">Toca una casilla para ir a ese turno (ronda y grupo). Si un grupo repite una prueba, cuenta la nueva puntuación. Volver al inicio no borra nada.</p>'+t;
+  $$('[data-nav]',c).forEach(function(b){b.onclick=function(){navega(b.dataset.nav)}});
+  $$('.ir',c).forEach(function(b){b.onclick=function(){var r=+b.dataset.r,g=+b.dataset.g;cierraNav(true);S.fase='juego';S.ri=r;S.ti=ordenSalida(r).indexOf(g);S.paso='sale';guarda();muestra()}});
+  $('#nav').classList.add('on')}
+function cierraNav(sinSeguir){$('#nav').classList.remove('on');if(navPausa){navPausa=false;if(!sinSeguir&&T.pausa)$('#pausa').click()}}
+function navega(a){var rs=rondasJuego();cierraNav(true);paraReloj();
+  if(a==='inicio'){S.fase='inicio'}
+  else if(a==='final'){S.fase='final'}
+  else if(a==='clas'){S.fase='juego';S.paso='clas'}
+  else if(a==='ant'){if(S.paso==='clas'){S.ti=S.grupos.length-1}else if(S.ti>0)S.ti--;else{S.ri--;S.ti=S.grupos.length-1}S.paso='sale'}
+  else if(a==='sig'){if(S.paso==='clas'){S.ri++;S.ti=0}else if(S.ti<S.grupos.length-1)S.ti++;else{S.paso='clas';guarda();return muestra()}S.paso='sale'}
+  guarda();muestra()}
+$('#navBtn').onclick=abreNav;$('#navBtn2').onclick=abreNav;
+$('#navX').onclick=function(){cierraNav()};
+$('#nav').addEventListener('click',function(e){if(e.target.id==='nav')cierraNav()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#nav').classList.contains('on'))cierraNav()});
 
 /* ------------ RELOJ Y SONIDO ------------ */
 var T={fin:0,resto:0,total:60,iv:null,pausa:false,cb:null};
@@ -757,7 +811,6 @@ try{fetch('https://ferramentas-osval.github.io/recursos-aula/assets/candado_conf
 if(!Object.keys(S.activas).length)autoRondas();
 if(S.fase==='juego'){var c=$('#continuar');}
 muestra();
-if(S.fase==='inicio'&&S.grupos.some(function(G){return Object.keys(G.pts).length})){var c2=$('#continuar');c2.style.display='';c2.innerHTML='Hay notas de un reto anterior en este navegador. <button class="btn blanco" id="verAnt" style="padding:.1rem .5rem;font-size:.85rem">Ver resultados</button>';$('#verAnt').onclick=function(){S.fase='final';S.auto=true;guarda();muestra()}}
 window.__RETO={S:function(){return S},R:R};
 })();
 
