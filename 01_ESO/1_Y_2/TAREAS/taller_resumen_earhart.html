@@ -570,6 +570,8 @@
 
   .example-box mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0 .05rem; font-style:normal; }
   .example-box p { margin:.4rem 0; }
+  .sol-rich { color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; border:1px solid var(--border); border-radius:8px; padding:.7rem .9rem; line-height:1.7; text-align:justify; margin-bottom:.4rem; }
+  .sol-rich strong { color:#0d2f6e; }
   textarea.sol-on { overflow:hidden; resize:none; color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; }
   /* ── VOCABULARIO EN EL TEXTO ── */
   .gl { border-bottom:2px dotted #3b7dd8; cursor:help; position:relative; }
@@ -1050,7 +1052,7 @@
       <div class="task-block">
         <div class="task-label">✏️ Tu resumen</div>
         <div class="task-question">Escribe aquí el resumen del texto en un único párrafo. Ten en cuenta que el texto original tiene unas <strong><span data-total-lines>46</span> líneas</strong>; el resumen debería tener entre <strong><span data-resumen-range>12 y 14</span> líneas</strong> aproximadamente (25-30 % del original).</div>
-        <textarea id="t5_resumen" data-solution="Amelia Earhart, mujer de carácter curioso y aventurero desde niña, decide dedicarse a la aviación tras su primer vuelo como pasajera y pronto consigue su licencia de piloto. En primer lugar, se convierte en la primera mujer en cruzar el Atlántico en avión y, más tarde, en hacerlo en solitario, lo que la hace mundialmente famosa y le permite batir nuevos récords. Además, impulsa la presencia de las mujeres en la aviación, fundando una organización de apoyo a las pilotos y animando a otras mujeres a formarse en profesiones técnicas. Sin embargo, durante un intento de dar la vuelta al mundo, su avión pierde el contacto por radio y desaparece en el Pacífico, sin que se hallen sus restos pese a la intensa búsqueda. Finalmente, Earhart se convierte en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres, y numerosos homenajes mantienen viva su memoria." rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
+        <textarea id="t5_resumen" data-solution="Amelia Earhart, mujer de carácter curioso y aventurero desde niña, decide dedicarse a la aviación tras su primer vuelo como pasajera y pronto consigue su licencia de piloto. En primer lugar, se convierte en la primera mujer en cruzar el Atlántico en avión y, más tarde, en hacerlo en solitario, lo que la hace mundialmente famosa y le permite batir nuevos récords. Además, impulsa la presencia de las mujeres en la aviación, fundando una organización de apoyo a las pilotos y animando a otras mujeres a formarse en profesiones técnicas. Sin embargo, durante un intento de dar la vuelta al mundo, su avión pierde el contacto por radio y desaparece en el Pacífico, sin que se hallen sus restos pese a la intensa búsqueda. Finalmente, Earhart se convierte en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres, y numerosos homenajes mantienen viva su memoria." data-solution-html="Amelia Earhart, mujer de carácter curioso y aventurero desde niña, decide dedicarse a la aviación tras su primer vuelo como pasajera y pronto consigue su licencia de piloto. &lt;strong&gt;En primer lugar,&lt;/strong&gt; se convierte en la primera mujer en cruzar el Atlántico en avión y, &lt;strong&gt;más tarde,&lt;/strong&gt; en hacerlo en solitario, lo que la hace mundialmente famosa y le permite batir nuevos récords. &lt;strong&gt;Además,&lt;/strong&gt; impulsa la presencia de las mujeres en la aviación, fundando una organización de apoyo a las pilotos y animando a otras mujeres a formarse en profesiones técnicas. &lt;strong&gt;Sin embargo,&lt;/strong&gt; durante un intento de dar la vuelta al mundo, su avión pierde el contacto por radio y desaparece en el Pacífico, sin que se hallen sus restos pese a la intensa búsqueda. &lt;strong&gt;Finalmente,&lt;/strong&gt; Earhart se convierte en un símbolo de la lucha de las mujeres por abrirse paso en terrenos dominados por hombres, y numerosos homenajes mantienen viva su memoria." rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
         <div class="char-count" id="c5_resumen">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex5_resumen')">💡 Ver resumen resuelto</button>
         <div class="example-box" id="ex5_resumen">
@@ -1116,7 +1118,8 @@
   }
 
   function restoreSolutions() {
-    document.querySelectorAll('textarea.sol-on').forEach(t => { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; });
+    document.querySelectorAll('textarea.sol-on').forEach(t => { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; t.style.display = ''; });
+    document.querySelectorAll('.sol-rich').forEach(d => d.remove());
     document.querySelectorAll('.example-box.visible').forEach(b => b.classList.remove('visible'));
   }
   function toggleExample(id) {
@@ -1128,8 +1131,9 @@
     const on = !(tas[0] && tas[0].classList.contains('sol-on')) && !(box && !tas.length && box.classList.contains('visible'));
     tas.forEach(t => {
       if (!t.dataset.solution) return;
-      if (on) { t.dataset.prev = t.value; t.value = t.dataset.solution; t.readOnly = true; t.classList.add('sol-on'); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; }
-      else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; }
+      if (on) { t.dataset.prev = t.value; t.value = t.dataset.solution; t.readOnly = true; t.classList.add('sol-on'); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px';
+        if (t.dataset.solutionHtml) { const d = document.createElement('div'); d.className = 'sol-rich'; d.innerHTML = t.dataset.solutionHtml; t.after(d); t.style.display = 'none'; } }
+      else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; t.style.display = ''; const d = t.nextElementSibling; if (d && d.classList.contains('sol-rich')) d.remove(); }
     });
     if (box) box.classList.toggle('visible', on);
     if (id === 'ex1_sub') fitExFlow();

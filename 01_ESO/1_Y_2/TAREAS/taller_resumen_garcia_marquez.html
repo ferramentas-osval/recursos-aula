@@ -570,6 +570,8 @@
 
   .example-box mark { background:linear-gradient(transparent 55%,#ffd54a 55%); color:inherit; padding:0 .05rem; font-style:normal; }
   .example-box p { margin:.4rem 0; }
+  .sol-rich { color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; border:1px solid var(--border); border-radius:8px; padding:.7rem .9rem; line-height:1.7; text-align:justify; margin-bottom:.4rem; }
+  .sol-rich strong { color:#0d2f6e; }
   textarea.sol-on { overflow:hidden; resize:none; color:#1d4fa8; font-family:'Segoe Print','Comic Sans MS','Comic Neue',cursive; background:#f1f6ff; }
   /* ── VOCABULARIO EN EL TEXTO ── */
   .gl { border-bottom:2px dotted #3b7dd8; cursor:help; position:relative; }
@@ -960,15 +962,15 @@
         <div class="task-question">Vuelve a mirar los 7 párrafos que has trabajado en la fase anterior y decide cómo se agrupan en las tres partes del texto. Para cada parte, escribe <strong>si es el planteamiento, el nudo o el desenlace</strong>, qué líneas abarca y de qué trata:</div>
 
         <p style="font-size:.9rem; margin-bottom:.3rem; font-weight:600;">Parte 1 — ¿Planteamiento, nudo o desenlace? (¿qué líneas? ¿de qué trata?)</p>
-        <textarea rows="2" id="t35_parte1" data-solution="Es el planteamiento: líneas 1-4 (párrafo 1). Presenta la situación inicial: una señora vieja con el presentimiento de que algo muy grave va a suceder en su pueblo." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte1','c35_parte1')"></textarea>
+        <textarea rows="2" id="t35_parte1" data-solution="Párrafo 1 (líneas 1-4): planteamiento. Presenta la situación: una señora vieja comunica a sus hijos el presentimiento de que algo muy grave va a suceder en su pueblo." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte1','c35_parte1')"></textarea>
         <div class="char-count" id="c35_parte1">0 caracteres</div>
 
         <p style="font-size:.9rem; margin:.8rem 0 .3rem; font-weight:600;">Parte 2 — ¿Planteamiento, nudo o desenlace? (¿qué líneas? ¿de qué trata?)</p>
-        <textarea rows="2" id="t35_parte2" data-solution="Es el nudo: líneas 5-47 (párrafos 2 a 6). Aparece el conflicto y se desencadenan las acciones: la burla al hijo, la propagación del rumor, el miedo colectivo y la marcha del primer vecino." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte2','c35_parte2')"></textarea>
+        <textarea rows="2" id="t35_parte2" data-solution="Párrafos 2 a 6 (líneas 5-47): nudo. Aparece el conflicto y se desencadenan las acciones: la burla al hijo, la propagación del rumor, el miedo colectivo y la marcha del primer vecino." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte2','c35_parte2')"></textarea>
         <div class="char-count" id="c35_parte2">0 caracteres</div>
 
         <p style="font-size:.9rem; margin:.8rem 0 .3rem; font-weight:600;">Parte 3 — ¿Planteamiento, nudo o desenlace? (¿qué líneas? ¿de qué trata?)</p>
-        <textarea rows="2" id="t35_parte3" data-solution="Es el desenlace: líneas 48-52 (párrafo 7). Trata de la huida de todo el pueblo y del cumplimiento del presagio." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte3','c35_parte3')"></textarea>
+        <textarea rows="2" id="t35_parte3" data-solution="Párrafo 7 (líneas 48-52): desenlace. Todo el pueblo huye, cumpliéndose el presagio." placeholder="Es el… — líneas… — trata de…" oninput="updateCount('t35_parte3','c35_parte3')"></textarea>
         <div class="char-count" id="c35_parte3">0 caracteres</div>
 
         <button class="example-toggle" onclick="toggleExample('ex35_partes')">💡 Ver propuesta</button>
@@ -1078,11 +1080,11 @@
       <div class="task-block">
         <div class="task-label">✏️ Tu resumen</div>
         <div class="task-question">Escribe aquí el resumen del texto en un único párrafo. Ten en cuenta que el texto original tiene unas <strong><span data-total-lines>60</span> líneas</strong>; el resumen debería tener entre <strong><span data-resumen-range>15 y 18</span> líneas</strong> aproximadamente (25-30 % del original).</div>
-        <textarea id="t5_resumen" data-solution="Una anciana amanece con el presentimiento de que algo muy grave va a suceder en su pueblo y se lo cuenta a sus hijos. Poco después, su hijo pierde una apuesta de billar por la preocupación y los demás se burlan de él, aunque algunos se toman en serio el presagio. A continuación, el rumor se extiende y los vecinos acaparan comida mientras todo el pueblo espera la desgracia. Entonces, hechos normales, como el calor o la llegada de un pajarito, se interpretan como señales de peligro. Con el tiempo, la tensión se hace insoportable y, cuando un vecino se atreve a marcharse, todos lo imitan. Finalmente, los habitantes incendian sus casas y huyen presos del pánico, y la anciana comprueba que su presagio se ha cumplido." rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
+        <textarea id="t5_resumen" data-solution="Una anciana amanece con el presentimiento de que algo muy grave va a suceder en su pueblo y se lo cuenta a sus hijos. Poco después, su hijo pierde una apuesta de billar por la preocupación y los demás se burlan de él. A continuación, el rumor se extiende y los vecinos acaparan comida mientras todo el pueblo espera la desgracia. Entonces, hechos normales se interpretan como señales de peligro. Con el tiempo, la tensión se hace insoportable y, cuando un vecino se atreve a marcharse, todos lo imitan. Finalmente, los habitantes huyen del pueblo tras incendiar sus casas y la anciana comprueba que su presagio se ha cumplido." data-solution-html="Una anciana amanece con el presentimiento de que algo muy grave va a suceder en su pueblo y se lo cuenta a sus hijos. &lt;strong&gt;Poco después,&lt;/strong&gt; su hijo pierde una apuesta de billar por la preocupación y los demás se burlan de él. &lt;strong&gt;A continuación,&lt;/strong&gt; el rumor se extiende y los vecinos acaparan comida mientras todo el pueblo espera la desgracia. &lt;strong&gt;Entonces,&lt;/strong&gt; hechos normales se interpretan como señales de peligro. &lt;strong&gt;Con el tiempo,&lt;/strong&gt; la tensión se hace insoportable y, cuando un vecino se atreve a marcharse, todos lo imitan. &lt;strong&gt;Finalmente,&lt;/strong&gt; los habitantes huyen del pueblo tras incendiar sus casas y la anciana comprueba que su presagio se ha cumplido." rows="10" placeholder="Escribe aquí tu resumen en un único párrafo…" oninput="updateCount('t5_resumen','c5_resumen')"></textarea>
         <div class="char-count" id="c5_resumen">0 caracteres</div>
         <button class="example-toggle" onclick="toggleExample('ex5_resumen')">💡 Ver resumen resuelto</button>
         <div class="example-box" id="ex5_resumen">
-          <strong>Conectores del modelo:</strong> <span class="conector">Poco después,</span> · <span class="conector">A continuación,</span> · <span class="conector">Entonces,</span> · <span class="conector">Con el tiempo,</span> · <span class="conector">Finalmente,</span> · <span class="conector">conectores</span>. Enlazan las ideas y dan cohesión al resumen.
+          <strong>Conectores del modelo:</strong> <span class="conector">Poco después,</span> · <span class="conector">A continuación,</span> · <span class="conector">Entonces,</span> · <span class="conector">Con el tiempo,</span> · <span class="conector">Finalmente,</span>. Enlazan las ideas y dan cohesión al resumen.
         </div>
       </div>
 
@@ -1142,7 +1144,8 @@
   }
 
   function restoreSolutions() {
-    document.querySelectorAll('textarea.sol-on').forEach(t => { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; });
+    document.querySelectorAll('textarea.sol-on').forEach(t => { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; t.style.display = ''; });
+    document.querySelectorAll('.sol-rich').forEach(d => d.remove());
     document.querySelectorAll('.example-box.visible').forEach(b => b.classList.remove('visible'));
   }
   function toggleExample(id) {
@@ -1154,8 +1157,9 @@
     const on = !(tas[0] && tas[0].classList.contains('sol-on')) && !(box && !tas.length && box.classList.contains('visible'));
     tas.forEach(t => {
       if (!t.dataset.solution) return;
-      if (on) { t.dataset.prev = t.value; t.value = t.dataset.solution; t.readOnly = true; t.classList.add('sol-on'); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; }
-      else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; }
+      if (on) { t.dataset.prev = t.value; t.value = t.dataset.solution; t.readOnly = true; t.classList.add('sol-on'); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px';
+        if (t.dataset.solutionHtml) { const d = document.createElement('div'); d.className = 'sol-rich'; d.innerHTML = t.dataset.solutionHtml; t.after(d); t.style.display = 'none'; } }
+      else { t.value = t.dataset.prev || ''; t.readOnly = false; t.classList.remove('sol-on'); t.style.height = ''; t.style.display = ''; const d = t.nextElementSibling; if (d && d.classList.contains('sol-rich')) d.remove(); }
     });
     if (box) box.classList.toggle('visible', on);
     if (id === 'ex1_sub') fitExFlow();
