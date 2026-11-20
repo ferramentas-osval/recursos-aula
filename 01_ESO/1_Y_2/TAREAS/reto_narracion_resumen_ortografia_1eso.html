@@ -31,7 +31,11 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 .grow{flex:1 1 0;min-height:0}
 .tag{display:inline-block;background:var(--ink);color:#fff;border-radius:.4rem;padding:.12rem .55rem;font-weight:700;font-size:.85rem}
 /* ---------- INICIO ---------- */
-#inicio{overflow:auto}
+#inicio{overflow:hidden;gap:.6rem}
+#inicio .cfg .panel{overflow:auto}
+#inicio .p{flex:none}
+.pie{flex:none;display:flex;align-items:center;gap:1rem;background:#fff;border:3px solid var(--ink);border-radius:1rem;box-shadow:.3rem .3rem 0 var(--ink);padding:.4rem 1rem}
+@media (max-height:720px){.cab svg{height:5.5rem}.cab h1{font-size:3.2rem}.cab p{font-size:.95rem!important}}
 .cab{display:flex;align-items:center;gap:1.2rem}
 .cab svg{height:7.5rem;flex:none}
 .cfg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:1rem;flex:1;min-height:0}
@@ -188,7 +192,7 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
 #nav.on{display:flex}
 #nav .box{background:var(--papel);border:4px solid var(--ink);border-radius:1.2rem;box-shadow:.4rem .4rem 0 var(--am);width:100%;max-height:100%;padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:.6rem;position:relative}
 #nav .x{position:absolute;top:.6rem;right:.8rem;width:3rem;height:3rem;border-radius:50%;border:3px solid var(--ink);background:#fff;font-size:1.5rem;font-weight:700}
-.navt td{padding:.25rem}.navt .ir{width:100%;border:2px solid var(--ink);border-radius:.5rem;background:#fff;font-weight:700;padding:.35rem .2rem;font-size:1rem}
+.navt td{padding:.25rem}.navt .irR{width:100%;text-align:left;border:2px solid var(--ink);border-radius:.5rem;background:var(--am2);font-weight:700;padding:.35rem .5rem;font-size:1rem}.navt .ir{width:100%;border:2px solid var(--ink);border-radius:.5rem;background:#fff;font-weight:700;padding:.35rem .2rem;font-size:1rem}
 .navt .ir.hecho{background:var(--verde2)}.navt .ir.act{background:var(--am);box-shadow:.12rem .12rem 0 var(--ink)}
 #toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.45rem 1rem;border-radius:.6rem;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
 #toast.on{opacity:1}
@@ -224,13 +228,15 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
     </div>
     <div class="panel col">
       <h3>2 · Las rondas</h3>
-      <p class="small">Marca las rondas que quieras y ordénalas a tu gusto: arrastra ⠿ o usa ▲ ▼. Si se acaba la clase, el reto se cierra al terminar una ronda completa, así todos los grupos habrán hecho lo mismo. En cada ronda el orden de salida se invierte.</p>
+      <p class="small">Marca las rondas que quieras y ordénalas: arrastra ⠿ o usa ▲ ▼. En cada ronda el orden de salida se invierte.</p>
       <div class="rondas" id="rondas"></div>
       <div class="est" id="estim"></div>
-      <h3>3 · Guardar las notas</h3>
-      <p class="small">Se guardan en este navegador y en un CSV; con tu código, también en tu hoja de Google.</p>
-      <div class="pinbox" style="margin-top:auto"><span class="small" style="font-weight:700">🔒 Código</span><input type="password" id="pin" autocomplete="off" placeholder="Opcional"><button class="ojo" id="ojo" type="button" aria-label="Mostrar u ocultar el código">👁</button><span style="flex:1"></span><button class="btn big rosa" id="empezar">¡Empezar el reto! ▶</button></div>
     </div>
+  </div>
+  <div class="pie">
+    <div class="col" style="gap:.1rem;flex:1;min-width:0"><b class="tit" style="font-size:1.35rem">3 · Guardar las notas</b><span class="small">Se guardan en este navegador y en un CSV al terminar; si escribes tu código, también en tu hoja de Google.</span></div>
+    <div class="pinbox"><span class="small" style="font-weight:700">🔒 Código</span><input type="password" id="pin" autocomplete="off" placeholder="Opcional"><button class="ojo" id="ojo" type="button" aria-label="Mostrar u ocultar el código">👁</button></div>
+    <button class="btn big rosa" id="empezar">¡Empezar el reto! ▶</button>
   </div>
 </section>
 
@@ -239,7 +245,7 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
   <div class="top">
     <div class="ronda"><span class="ico" id="rIco"></span><div class="col" style="gap:.1rem"><span class="tag" id="rNum"></span><h3 id="rNom"></h3></div></div>
     <div class="grupo"><div class="gnom" id="gNom"></div><div class="gal" id="gAl"></div></div>
-    <div class="ctrl"><button class="btn blanco" id="navBtn" title="Ir a otra ronda, otro grupo, al inicio…">🧭 Ir a…</button><button class="btn blanco" id="pausa" title="Pausar el reloj">⏸ Pausa</button><button class="btn blanco" id="mas15" title="Añadir 15 segundos">+15 s</button></div>
+    <div class="ctrl"><button class="btn" id="navBtn" title="Ir a otra ronda, otro grupo, al inicio o cancelar el reto">🧭 Ir a… / Cancelar</button><button class="btn blanco" id="pausa" title="Pausar el reloj">⏸ Pausa</button><button class="btn blanco" id="mas15" title="Añadir 15 segundos">+15 s</button></div>
     <div class="reloj" id="reloj"><span id="seg">60</span></div>
   </div>
   <div id="zona"></div>
@@ -384,6 +390,34 @@ var ERR=['✅ Correcta','🙋 Opinión personal','👤 Primera persona','⏪ No 
 var ERRWHY=['Tercera persona, presente y sin opinar: así se escribe un resumen.','Valora lo que pasa («injusto», «bonito», «lo mejor»…). En un resumen no se opina.','El que resume se mete en el texto («vemos», «descubrimos»…). Se escribe en 3.ª persona.','El verbo está en pasado. El resumen se escribe en presente de indicativo.','No se empieza con «Este texto trata de…»: se va directamente a los hechos.',''];
 var LINEAS=[43,47,52,56,61,64,48,53,57,62,44,59];
 
+/* ¿Cuál está bien escrita? (la primera es la correcta) */
+var ORTO={
+ 'PERSPICAZ':{p:'Plural de «perspicaz»: dos alumnas muy…',o:['perspicaces','perspicazes','perpicaces']},
+ 'HIPÉRBOLE':{o:['hipérbole','hipérvole','hiperbole']},
+ 'DESAHOGO':{o:['desahogo','desaogo','deshaogo']},
+ 'ADVERBIO':{o:['adverbio','adberbio','abverbio']},
+ 'INHÓSPITO':{o:['inhóspito','inóspito','inhospito']},
+ 'YACIMIENTO':{o:['yacimiento','llacimiento','yacimento']},
+ 'ESBELTO':{o:['esbelto','esvelto','ezbelto']},
+ 'URGENCIA':{o:['urgencia','urjencia','urgéncia']},
+ 'APOGEO':{o:['apogeo','apojeo','apogéo']},
+ 'VALLA':{p:'Completa: «El perro saltó la ___ del jardín».',o:['valla','vaya','baya']},
+ 'VISLUMBRAR':{o:['vislumbrar','bislumbrar','vislunbrar']},
+ 'ESPARCIR':{o:['esparcir','esparsir','exparcir']},
+ 'EXPLÍCITO':{o:['explícito','esplícito','explicito']},
+ 'PSICÓLOGO':{o:['psicólogo','psicologo','psicólojo']},
+ 'YACER':{o:['yacer','llacer','yaser']},
+ 'CONSERJE':{o:['conserje','conserge','consérje']},
+ 'EXTRAESCOLAR':{o:['extraescolar','estraescolar','extrahescolar']},
+ 'OBSTRUCCIÓN':{o:['obstrucción','obstrución','obtrucción']},
+ 'EXIGIR':{p:'Completa: «Yo te ___ que me lo devuelvas mañana».',o:['exijo','exigo','exíjo']},
+ 'COHESIÓN':{o:['cohesión','coesión','cohexión']},
+ 'OQUEDAD':{o:['oquedad','hoquedad','oquedaz']},
+ 'BUHARDILLA':{o:['buhardilla','buardilla','buhardiya']},
+ 'ATRAYENTE':{o:['atrayente','atrallente','atraiente']},
+ 'INVERSIÓN':{o:['inversión','imversión','inbersión']}
+};
+
 var CRUCI={"defs": {"PERSPICAZ": "Que se da cuenta enseguida de lo que no es evidente; muy listo y observador.", "HIPÉRBOLE": "Figura literaria que consiste en exagerar mucho la realidad.", "DESAHOGO": "Alivio que se siente al contar una pena o soltar lo que se lleva dentro.", "ADVERBIO": "Clase de palabra invariable, como «aquí», «mañana» o «rápidamente».", "INHÓSPITO": "Dicho de un lugar: poco acogedor, incómodo o difícil para vivir.", "YACIMIENTO": "Lugar donde se encuentran restos arqueológicos, fósiles o minerales.", "ESBELTO": "Alto, delgado y de figura elegante.", "URGENCIA": "Necesidad de hacer algo con mucha prisa, sin poder esperar.", "APOGEO": "Momento de mayor esplendor o intensidad de algo.", "VALLA": "Cerca de madera o metal que rodea un terreno (no es una exclamación ni un fruto).", "VISLUMBRAR": "Ver algo de forma confusa, a lo lejos o con poca luz.", "ESPARCIR": "Separar y extender por un lugar lo que estaba junto.", "EXPLÍCITO": "Que se dice de forma clara y directa, sin dar nada por supuesto.", "PSICÓLOGO": "Profesional que estudia la mente y la conducta y ayuda con los problemas emocionales.", "YACER": "Estar tendido o enterrado.", "CONSERJE": "Persona que cuida un edificio, abre y cierra las puertas y atiende a quien llega.", "EXTRAESCOLAR": "Dicho de una actividad: que se hace fuera del horario de clase.", "OBSTRUCCIÓN": "Acción de atascar o bloquear un conducto o un paso.", "EXIGIR": "Pedir algo con firmeza, como si fuera un derecho.", "COHESIÓN": "Propiedad del texto: sus partes están bien unidas con conectores, sinónimos, pronombres…", "OQUEDAD": "Espacio vacío en el interior de un cuerpo sólido; un hueco.", "BUHARDILLA": "Habitación bajo el tejado de una casa, con el techo inclinado.", "ATRAYENTE": "Que atrae o resulta interesante.", "INVERSIÓN": "Acción de poner dinero en algo para obtener beneficios."}, "grids": [{"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "YACIMIENTO", "x": 0, "y": 7, "d": 0}, {"w": "PERSPICAZ", "x": 1, "y": 0, "d": 1}, {"w": "ADVERBIO", "x": 3, "y": 1, "d": 1}, {"w": "YACER", "x": 6, "y": 4, "d": 1}, {"w": "INHÓSPITO", "x": 8, "y": 0, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "EXPLÍCITO", "x": 0, "y": 4, "d": 0}, {"w": "CONSERJE", "x": 0, "y": 0, "d": 1}, {"w": "OBSTRUCCIÓN", "x": 0, "y": 1, "d": 0}, {"w": "EXTRAESCOLAR", "x": 0, "y": 7, "d": 0}, {"w": "EXIGIR", "x": 11, "y": 2, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "ESBELTO", "x": 0, "y": 3, "d": 0}, {"w": "OQUEDAD", "x": 0, "y": 0, "d": 1}, {"w": "URGENCIA", "x": 3, "y": 0, "d": 1}, {"w": "BUHARDILLA", "x": 2, "y": 0, "d": 0}, {"w": "INVERSIÓN", "x": 3, "y": 6, "d": 0}]}, {"s": 90.25, "w": 11, "h": 8, "p": [{"w": "VISLUMBRAR", "x": 1, "y": 6, "d": 0}, {"w": "ESPARCIR", "x": 2, "y": 0, "d": 1}, {"w": "DESAHOGO", "x": 1, "y": 0, "d": 0}, {"w": "PSICÓLOGO", "x": 2, "y": 2, "d": 0}, {"w": "ATRAYENTE", "x": 0, "y": 4, "d": 0}]}, {"s": 83.5, "w": 10, "h": 8, "p": [{"w": "APOGEO", "x": 0, "y": 1, "d": 0}, {"w": "COHESIÓN", "x": 2, "y": 0, "d": 1}, {"w": "HIPÉRBOLE", "x": 1, "y": 5, "d": 0}, {"w": "PERSPICAZ", "x": 1, "y": 3, "d": 0}, {"w": "VALLA", "x": 8, "y": 2, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "EXTRAESCOLAR", "x": 0, "y": 0, "d": 0}, {"w": "ESPARCIR", "x": 0, "y": 0, "d": 1}, {"w": "CONSERJE", "x": 7, "y": 0, "d": 1}, {"w": "INHÓSPITO", "x": 3, "y": 3, "d": 0}, {"w": "COHESIÓN", "x": 4, "y": 7, "d": 0}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "OBSTRUCCIÓN", "x": 1, "y": 7, "d": 0}, {"w": "YACER", "x": 5, "y": 3, "d": 1}, {"w": "OQUEDAD", "x": 0, "y": 4, "d": 0}, {"w": "APOGEO", "x": 3, "y": 0, "d": 1}, {"w": "HIPÉRBOLE", "x": 1, "y": 1, "d": 0}]}, {"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "VISLUMBRAR", "x": 0, "y": 2, "d": 0}, {"w": "INVERSIÓN", "x": 0, "y": 0, "d": 1}, {"w": "VALLA", "x": 3, "y": 0, "d": 1}, {"w": "URGENCIA", "x": 7, "y": 1, "d": 1}, {"w": "ATRAYENTE", "x": 9, "y": 0, "d": 1}]}, {"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "ADVERBIO", "x": 2, "y": 0, "d": 0}, {"w": "EXPLÍCITO", "x": 5, "y": 0, "d": 1}, {"w": "EXIGIR", "x": 3, "y": 6, "d": 0}, {"w": "DESAHOGO", "x": 0, "y": 8, "d": 0}, {"w": "PSICÓLOGO", "x": 0, "y": 3, "d": 0}]}, {"s": 106, "w": 10, "h": 10, "p": [{"w": "ESBELTO", "x": 1, "y": 0, "d": 0}, {"w": "BUHARDILLA", "x": 3, "y": 0, "d": 1}, {"w": "YACIMIENTO", "x": 0, "y": 6, "d": 0}, {"w": "INHÓSPITO", "x": 1, "y": 2, "d": 0}, {"w": "DESAHOGO", "x": 0, "y": 9, "d": 0}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "URGENCIA", "x": 3, "y": 4, "d": 0}, {"w": "ADVERBIO", "x": 4, "y": 0, "d": 1}, {"w": "EXTRAESCOLAR", "x": 0, "y": 0, "d": 0}, {"w": "HIPÉRBOLE", "x": 3, "y": 6, "d": 0}, {"w": "EXIGIR", "x": 0, "y": 0, "d": 1}]}, {"s": 102.77777777777777, "w": 11, "h": 9, "p": [{"w": "ESBELTO", "x": 3, "y": 5, "d": 0}, {"w": "ATRAYENTE", "x": 3, "y": 0, "d": 1}, {"w": "PERSPICAZ", "x": 1, "y": 2, "d": 0}, {"w": "BUHARDILLA", "x": 0, "y": 0, "d": 0}, {"w": "OBSTRUCCIÓN", "x": 0, "y": 7, "d": 0}]}]};
 (function(){
 'use strict';
@@ -398,14 +432,14 @@ var R={
    ins:'Cinco palabras de los repasos de ortografía. Una sola letra o una tilde mal y la palabra no cuenta.'},
  puz:{ico:'🧩',nom:'Puzzle del resumen',desc:'Ordenar las cinco oraciones de un resumen y elegir su tema.',t:75,n:6,col:'#2fae6a',
    ins:'Ordenad las cinco oraciones del resumen y elegid cuál es el tema bien formulado.'},
- cal:{ico:'🧮',nom:'Las cuentas del resumen',desc:'25-30 %, numerar líneas de 5 en 5… con papel y boli.',t:90,n:5,col:'#7b4dde',
-   ins:'Cuentas del taller del resumen. Podéis usar papel y boli, pero no calculadora.'},
+ orto:{ico:'🔤',nom:'¿Cuál está bien escrita?',desc:'Cinco palabras difíciles de los repasos (distintas de las del crucigrama), tres formas cada una.',t:60,n:5,col:'#7b4dde',
+   ins:'Cinco palabras difíciles de los repasos de ortografía. De cada una hay tres formas: solo una está bien escrita.'},
  mod:{ico:'🎭',nom:'DEP ADN: ¿qué modalidad es?',desc:'Cuatro fragmentos y seis modalidades textuales.',t:60,n:4,col:'#ff4f7b',
    ins:'Cuatro fragmentos y seis modalidades. ¡Ojo, que sobran dos!'},
  err:{ico:'🔍',nom:'Caza el error del resumen',desc:'Cinco frases de un resumen: ¿cuál está bien y qué fallo tiene cada una?',t:70,n:5,col:'#1c1b33',
    ins:'Cinco frases de un resumen. Solo una está bien escrita: decid qué fallo tiene cada una de las demás.'}
 };
-var ORDEN0=['nar','cru','puz','cal','mod','err'];
+var ORDEN0=['nar','cru','puz','orto','mod','err'];
 var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
 function h(t,a,html){var e=document.createElement(t);if(a)for(var k in a)e.setAttribute(k,a[k]);if(html!=null)e.innerHTML=html;return e}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -413,7 +447,7 @@ function toast(t){var e=$('#toast');e.textContent=t;e.classList.add('on');clearT
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
 function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k);sessionStorage.setItem(k,v)}catch(e){return null}}
 /* aleatorio con semilla (para que cada grupo tenga siempre el mismo ejercicio aunque se recargue) */
-function rng(s){s=s%2147483647;if(s<=0)s+=2147483646;return function(){s=s*16807%2147483647;return(s-1)/2147483646}}
+function rng(a){a=(a*2654435761)>>>0;return function(){a=(a+0x6D2B79F5)>>>0;var t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
 function mezcla(a,seed){var r=rng(seed),b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(r()*(i+1)),t=b[i];b[i]=b[j];b[j]=t}return b}
 function seedDe(rid,g){return 1000+ORDEN0.indexOf(rid)*97+g*13}
 
@@ -423,6 +457,9 @@ function nuevoEstado(){return{v:1,fase:'inicio',grupos:[],orden:ORDEN0.slice(),a
 function guarda(){ls(KEY,JSON.stringify(S))}
 try{S=JSON.parse(ls(KEY)||'null')}catch(e){S=null}
 if(!S||S.v!==1)S=nuevoEstado();
+S.orden=S.orden.filter(function(id){return R[id]});ORDEN0.forEach(function(id){if(S.orden.indexOf(id)<0)S.orden.push(id)});
+for(var _k in S.activas)if(!R[_k])delete S.activas[_k];
+S.grupos.forEach(function(G){for(var k in G.pts)if(!R[k])delete G.pts[k]});
 ORDEN0.forEach(function(id){if(S.tiempos[id]==null)S.tiempos[id]=R[id].t});
 if(!S.grupos.length)ponGrupos(5);
 function ponGrupos(n){n=Math.max(2,Math.min(12,n));while(S.grupos.length<n)S.grupos.push({nom:'Grupo '+(S.grupos.length+1),al:['','',''],pts:{},robos:0,aj:0});S.grupos.length=n}
@@ -495,8 +532,8 @@ function muestra(){
   $$('.scr').forEach(function(s){s.classList.remove('on')});document.body.classList.toggle('jugando',S.fase==='juego');
   if(S.fase==='inicio'){$('#inicio').classList.add('on');pintaInicio();
     var c=$('#continuar');c.style.display='none';
-    if(hayPuntos()){c.style.display='';c.innerHTML='<b>Hay un reto con puntuaciones guardadas.</b> <button class="btn verde" id="contR" style="padding:.1rem .6rem;font-size:.9rem">▶ Continuar el reto</button> <button class="btn blanco" id="verAnt" style="padding:.1rem .6rem;font-size:.9rem">🏆 Ver resultados</button> <span class="small">(Si cambias los grupos o las rondas, pulsa «Empezar el reto» para empezar de cero.)</span>';
-      $('#contR').onclick=function(){S.fase='juego';guarda();muestra()};$('#verAnt').onclick=function(){S.fase='final';S.auto=true;guarda();muestra()}}
+    if(hayPuntos()){c.style.display='';c.innerHTML='<b>Hay un reto con puntuaciones guardadas.</b> <button class="btn verde" id="contR" style="padding:.1rem .6rem;font-size:.9rem">▶ Continuar el reto</button> <button class="btn blanco" id="verAnt" style="padding:.1rem .6rem;font-size:.9rem">🏆 Ver resultados</button> <button class="btn rosa" id="cancR" style="padding:.1rem .6rem;font-size:.9rem">✖ Cancelar ese reto</button>';
+      $('#contR').onclick=function(){S.fase='juego';guarda();muestra()};$('#cancR').onclick=function(){cancelar()};$('#verAnt').onclick=function(){S.fase='final';S.auto=true;guarda();muestra()}}
     return}
   if(S.fase==='final'){$('#final').classList.add('on');pintaFinal();return}
   $('#juego').classList.add('on');
@@ -557,6 +594,9 @@ function pintaClas(){var z=$('#zona'),rs=rondasJuego();
 }
 
 /* ------------ NAVEGACIÓN ------------ */
+var cancArm=0;
+function cancelar(){if(Date.now()-cancArm>4000){cancArm=Date.now();toast('¿Cancelar el reto? Se borran sus puntos. Pulsa otra vez para confirmar');return}
+  cierraNav(true);paraReloj();S.grupos.forEach(function(G){G.pts={};G.robos=0;G.aj=0});S.fase='inicio';S.ri=0;S.ti=0;S.paso='sale';S.fin=null;S.auto=false;guarda();muestra();toast('Reto cancelado')}
 var navPausa=false;
 function abreNav(){var rs=rondasJuego(),c=$('#navc');
   if(T.iv&&!T.pausa){$('#pausa').click();navPausa=true}
@@ -566,12 +606,15 @@ function abreNav(){var rs=rondasJuego(),c=$('#navc');
    '<button class="btn blanco" data-nav="ant"'+(enJuego&&(S.ti>0||S.ri>0||S.paso==='clas')?'':' disabled')+'>◀ Turno anterior</button>'+
    '<button class="btn blanco" data-nav="sig"'+(enJuego&&!(S.paso==='clas'&&S.ri>=rs.length-1)?'':' disabled')+'>Turno siguiente ▶</button>'+
    '<button class="btn" data-nav="clas">📊 Clasificación</button>'+
-   '<button class="btn rosa" data-nav="final">🏆 Resultados finales</button></div>';
+   '<button class="btn verde" data-nav="final">🏆 Resultados finales</button>'+
+   '<button class="btn rosa" data-nav="cancelar" style="margin-left:auto">✖ Cancelar el reto</button></div>';
   var t='<table class="notas navt"><tr><th>Ronda</th>'+S.grupos.map(function(G){return'<th>'+esc(G.nom)+'</th>'}).join('')+'</tr>'+
-   rs.map(function(id,r){return'<tr><td class="izq"><b>'+(r+1)+'. '+R[id].ico+' '+R[id].nom+'</b></td>'+S.grupos.map(function(G,g){var p=G.pts[id],act=enJuego&&r===S.ri&&S.paso!=='clas'&&gAct()===g;
+   rs.map(function(id,r){return'<tr><td class="izq"><button class="irR" data-r="'+r+'">'+(r+1)+'. '+R[id].ico+' '+R[id].nom+' ▶</button></td>'+S.grupos.map(function(G,g){var p=G.pts[id],act=enJuego&&r===S.ri&&S.paso!=='clas'&&gAct()===g;
      return'<td><button class="ir'+(act?' act':'')+(p!=null?' hecho':'')+'" data-r="'+r+'" data-g="'+g+'">'+(p!=null?p+' pts':'—')+'</button></td>'}).join('')+'</tr>'}).join('')+'</table>';
-  c.innerHTML=hb+'<p class="small" style="margin:.2rem 0">Toca una casilla para ir a ese turno (ronda y grupo). Si un grupo repite una prueba, cuenta la nueva puntuación. Volver al inicio no borra nada.</p>'+t;
-  $$('[data-nav]',c).forEach(function(b){b.onclick=function(){navega(b.dataset.nav)}});
+  c.innerHTML=hb+'<p class="small" style="margin:.2rem 0">Toca el nombre de una ronda para jugarla ya (empieza por el primer grupo que no la haya hecho) o una casilla para ir a ese turno concreto. Si un grupo repite una prueba, cuenta la nueva puntuación. Volver al inicio no borra nada.</p>'+t;
+  $$('[data-nav]',c).forEach(function(b){b.onclick=function(){if(b.dataset.nav==='cancelar')return cancelar();navega(b.dataset.nav)}});
+  $$('.irR',c).forEach(function(b){b.onclick=function(){var r=+b.dataset.r;cierraNav(true);paraReloj();S.fase='juego';S.ri=r;
+    var o=ordenSalida(r),k=o.findIndex(function(g){return S.grupos[g].pts[rs[r]]==null});S.ti=k<0?0:k;S.paso='sale';guarda();muestra()}});
   $$('.ir',c).forEach(function(b){b.onclick=function(){var r=+b.dataset.r,g=+b.dataset.g;cierraNav(true);S.fase='juego';S.ri=r;S.ti=ordenSalida(r).indexOf(g);S.paso='sale';guarda();muestra()}});
   $('#nav').classList.add('on')}
 function cierraNav(sinSeguir){$('#nav').classList.remove('on');if(navPausa){navPausa=false;if(!sinSeguir&&T.pausa)$('#pausa').click()}}
@@ -719,6 +762,19 @@ RET.cal=function(z,v){var N=420+40*v,L=LINEAS[v],tipo=v%3,Rw=Math.round(N*[0.2,0
       i.parentNode.querySelector('.qt').insertAdjacentHTML('beforeend','<br><span class="cuenta">'+expl[k]+'</span>')});
     if(corrigeOps(vw,val))ok++;qv.insertAdjacentHTML('beforeend','<span class="cuenta">Debe tener entre '+mn+' y '+mx+' palabras.</span>');tec.remove();return{ok:ok,n:5}}}};
 
+/* 5b. ¿Cuál está bien escrita? */
+RET.orto=function(z,v){var usadas=CRUCI.grids[v].p.map(function(w){return w.w});
+  var libres=Object.keys(ORTO).filter(function(k){return usadas.indexOf(k)<0});
+  var it=mezcla(libres,seedDe('orto',v)).slice(0,5);
+  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.orto.ico+'</span>¿Cuál está bien escrita? Fijaos en cada letra y en las tildes.</div>');
+  var c=h('div',{class:'errs',style:'padding-bottom:4.6rem;justify-content:center'}),ws=[],sol=[];
+  it.forEach(function(k,i){var O=ORTO[k],ord=mezcla([0,1,2],seedDe('orto',v)+i*7);
+    var e=h('div',{class:'er'},'<span class="fs">'+(i+1)+'. '+(O.p||CRUCI.defs[k])+'</span>');
+    var w=opciones(e,ord.map(function(j){return O.o[j]}));$$('.op',w).forEach(function(b){b.style.fontSize='1.35rem';b.style.padding='.2rem 1.1rem'});
+    ws.push(w);sol.push(ord.indexOf(0));c.appendChild(e)});
+  z.appendChild(c);
+  return{grade:function(){var ok=0;ws.forEach(function(w,i){if(corrigeOps(w,sol[i]))ok++});return{ok:ok,n:5}}}};
+
 /* 6. Minicrucigrama */
 var teclaCru=null;
 document.addEventListener('keydown',function(e){if(teclaCru&&S.paso==='jugando')teclaCru(e)});
@@ -811,7 +867,7 @@ try{fetch('https://ferramentas-osval.github.io/recursos-aula/assets/candado_conf
 if(!Object.keys(S.activas).length)autoRondas();
 if(S.fase==='juego'){var c=$('#continuar');}
 muestra();
-window.__RETO={S:function(){return S},R:R};
+window.__RETO={S:function(){return S},R:R,RET:RET};
 })();
 
 </script>
