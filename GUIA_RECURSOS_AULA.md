@@ -115,6 +115,8 @@ Todo recurso con soluciones, ejemplos o panel del profesor lleva antes de `</bod
 **Modelos de examen:** llevan candado y el profesor los libera cuando quiere (1.º ESO y PDC). En el panel ya no se titulan «resuelto»: la etiqueta «✅ Con soluciones» indica cuándo están liberados. En el de PDC, las formas rodeadas (`i.circle`) tampoco están en el código: sus posiciones van cifradas en `template#cdCirculos` y se repintan al abrir.
 
 **Sin candado (decidido):** apuntes y esquemas; prácticas y juegos autocorregibles (`reto_substantivo_…`, sujeto y complementos, práctica y prueba de comunicación, vocabulario); prompts y presentaciones sin soluciones.
+
+**Notas de los retos por grupos (decidido):** los retos que dan nota (p. ej. `01_ESO/1_Y_2/TAREAS/reto_narracion_resumen_ortografia_1eso.html`) guardan el estado en `localStorage` en cada cambio (se puede recargar sin perder nada), al terminar descargan solos un CSV (`;`, abre en Excel) y guardan una copia en el historial del navegador, y, si el profesor escribe su código, envían una fila por alumno a la hoja privada «Notas de los retos · recursos-aula» de ferramentas.osval mediante la acción `notas` del Apps Script (`tools/apps_script_liberar_soluciones.gs`, misma URL que liberar soluciones). Las notas nunca se suben al repositorio.
 - `04_PDC/ACTIVIDADES/ejercicios_tipos_frases.html` sí lleva candado: las prácticas A, B y C siguen corrigiéndose solas, y además tienen «Ver solución» (oculto y cifrado) que abre la solución completa en la ventana grande.
 
 ## Botón «🖨️ Imprimir»
