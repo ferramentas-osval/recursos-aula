@@ -335,11 +335,12 @@ body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;marg
 
 <header class="top">
   <div class="brand"><span class="pauta" style="display:inline-block">[V]OCA[B]ULARIO</span></div>
+  <button class="ctl" id="btnHome" title="Volver a la portada">⌂ Inicio</button>
   <label>
     <select class="ctl" id="week" aria-label="Elegir vocabulario"></select>
   </label>
   <button class="ctl" id="btnAll">Mostrar todo</button>
-  <button class="ctl" id="btnReto" aria-pressed="false" title="Oculta las palabras, muestra el significado y deja un renglón para escribirlas en la pizarra">Modo reto</button>
+  <button class="ctl" id="btnReto" aria-pressed="false" title="Palabra borrosa, definición, sinónimos como pista y recuadro para escribir la palabra">👥 Reto colectivo</button>
   <button class="ctl" id="btnFull" title="Pantalla completa (F)">⛶ Pantalla completa</button>
 </header>
 
@@ -413,9 +414,9 @@ function render(){
       <span class="note">¡Ojo a las letras en rojo!</span>
       ${n ? `<div class="btns"><button class="big" id="go">Empezar</button><button class="big alt" id="goCol">👥 Reto colectivo</button><button class="big alt" id="goAll">🦁 Reto individual</button></div>` : `<p class="empty">No hay palabras en este vocabulario.</p>`}
     </section>`;
-    const go = $('#go'); if(go) go.onclick = () => goTo(1);
+    const go = $('#go'); if(go) go.onclick = () => { ponReto(false); goTo(1); };
     const ga = $('#goAll'); if(ga) ga.onclick = () => { VAL.fase = 'reglas'; goTo(slides.length-1); };
-    const gc = $('#goCol'); if(gc) gc.onclick = () => { alcance = ($('#week').value==='all' || semanas.length<2) ? 'actual' : 'todas'; quiz = null; goTo(slides.findIndex(x=>x.type==='quiz')); };
+    const gc = $('#goCol'); if(gc) gc.onclick = () => { ponReto(true); goTo(1); };
   }
   else if(s.type==='words'){
     st.innerHTML = `<section class="slide"><div class="grid">${s.items.map(card).join('')}</div></section>`;
@@ -528,7 +529,7 @@ function renderQuiz(){
   const ultima = !mazo.length;
   $('#stage').innerHTML = `<section class="slide quiz">
     ${alcanceHTML()}
-    <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">👥 Reto colectivo: ¿qué palabra es?</h2>
+    <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">¿Qué palabra es?</h2>
     <p class="q">${esc(q.target.significado)}</p>
     <div class="hints" id="hints"></div>
     <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
@@ -706,11 +707,12 @@ $('#prev').onclick = () => goTo(cur-1);
 $('#next').onclick = () => goTo(cur+1);
 $('#btnAll').onclick = showAll;
 $('#week').onchange = () => { build(); quiz=null; alcance='actual'; goTo(slides.length>1 ? 1 : 0); };
-$('#btnReto').onclick = e => {
-  const on = document.body.classList.toggle('reto');
-  e.currentTarget.setAttribute('aria-pressed', on);
-  render();
-};
+function ponReto(on){
+  document.body.classList.toggle('reto', on);
+  $('#btnReto').setAttribute('aria-pressed', on);
+}
+$('#btnReto').onclick = () => { ponReto(!document.body.classList.contains('reto')); render(); };
+$('#btnHome').onclick = () => goTo(0);
 function toggleFull(){
   if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
   else document.exitFullscreen?.();
