@@ -245,19 +245,21 @@ body.reto .word:not(.shown){filter:blur(14px);cursor:pointer;user-select:none}
 body.reto .word:not(.shown) .hl::after{display:none}
 body.reto .pista:not(.shown){visibility:hidden}
 /* renglón para que un alumno escriba la palabra en la pizarra antes de destaparla */
+/* recuadro para escribir la palabra con el teclado antes de destaparla */
 .escribe{display:none}
-body.reto .escribe,.quiz .escribe{
-  display:block;position:relative;margin-top:.4rem;
-  height:clamp(80px,14vh,150px);background:#fff;border-radius:10px 10px 0 0;
-  border-bottom:4px solid var(--ink);
-  background-image:linear-gradient(to bottom,transparent calc(50% - 1px),#9fb3d9 calc(50% - 1px),#9fb3d9 calc(50% + 1px),transparent calc(50% + 1px));
-  background-size:100% 100%;
+body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;margin-top:.4rem}
+.quiz .escribe{width:min(100%,900px);margin-top:0}
+.resp{
+  flex:1;min-width:0;font:600 clamp(1.6rem,3vw,3rem) "Lexend",system-ui,sans-serif;color:var(--ink);
+  background:#fff;border:3px solid var(--ink);border-radius:12px;padding:.25em .5em;outline:none;
 }
-body.reto .escribe::before,.quiz .escribe::before{
-  content:"✍️ Escribe aquí la palabra";position:absolute;left:.6rem;top:.35rem;
-  font-family:"Caveat",cursive;font-size:clamp(1rem,1.5vw,1.4rem);color:var(--ink-soft);opacity:.75;
-}
-
+.quiz .resp{font-size:clamp(1.5rem,2.6vw,2.4rem);padding:.15em .5em}
+.resp::placeholder{font-family:"Caveat",cursive;font-weight:600;font-size:.75em;color:var(--ink-soft);opacity:.7}
+.resp:focus{box-shadow:0 0 0 4px rgba(46,155,125,.35)}
+.escribe.ok .resp{border-color:var(--teal);background:#DDF5EC}
+.escribe.ko .resp{border-color:var(--red);background:#FCE3E6}
+.escribe .marca{font-size:clamp(1.6rem,3vw,2.8rem);font-weight:800;line-height:1}
+.escribe.ok .marca{color:var(--teal)} .escribe.ko .marca{color:var(--red)}
 /* ---------- juego ---------- */
 .quiz{gap:1.2rem}
 .quiz .q{font-size:clamp(1.3rem,2.6vw,2.3rem);line-height:1.35;max-width:36ch;border-left:5px solid var(--teal);padding-left:1rem}
@@ -270,14 +272,6 @@ body.reto .escribe::before,.quiz .escribe::before{
 .opt.ko{border-color:var(--red);background:#FCE3E6;text-decoration:line-through}
 .fb{font-family:"Caveat",cursive;font-size:clamp(1.5rem,2.6vw,2.4rem);min-height:1.3em}
 .fb.ok{color:var(--teal)} .fb.ko{color:var(--red)}
-.quiz .escribe{width:min(100%,900px);height:clamp(80px,15vh,160px);margin-top:0}
-.escribe{touch-action:none;cursor:crosshair}
-.escribe canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.escribe.usada::before{opacity:0 !important}
-.escribe .borrar{
-  position:absolute;right:.4rem;top:.4rem;z-index:2;border:2px solid var(--ink);background:#fff;
-  border-radius:999px;padding:.15rem .7rem;font:600 clamp(.8rem,1vw,.95rem) inherit;cursor:pointer;opacity:.85
-}
 .alc{display:flex;gap:.6rem;flex-wrap:wrap;align-self:flex-start}
 .alc .tog{font-size:clamp(.95rem,1.3vw,1.15rem);padding:.45rem 1rem}
 .cover .btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
@@ -415,7 +409,7 @@ function card(p){
     </div>
     <div class="box sig ${reto?'open':''}">${esc(p.significado)}</div>
     <div class="box sin"><ul class="chips">${p.sinonimos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-    <div class="escribe" aria-hidden="true"></div>
+    <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
   </article>`;
 }
 
@@ -427,8 +421,10 @@ function bindCard(c){
     b.setAttribute('aria-expanded', open);
   });
   const w = c.querySelector('.word');
-  const reveal = () => { w.classList.add('shown'); c.querySelector('.pista').classList.add('shown'); };
+  const reveal = () => { w.classList.add('shown'); c.querySelector('.pista').classList.add('shown'); comprobar(c, lista.find(x=>String(x.id)===c.dataset.id)?.palabra || w.getAttribute('aria-label')); };
   w.onclick = reveal;
+  const inp = c.querySelector('.resp');
+  if(inp) inp.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); reveal(); } };
   w.onkeydown = e => { if(e.key==='Enter'){ reveal(); } };
 }
 
@@ -500,7 +496,7 @@ function renderQuiz(){
     ${alcanceHTML()}
     <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">¿Qué palabra es?</h2>
     <p class="q">${esc(q.target.significado)}</p>
-    <div class="escribe" aria-hidden="true"></div>
+    <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
     <div class="opts"><button class="opt" id="reveal">Descubrir la palabra</button></div>
     <p class="fb" id="fb"></p>
     <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
@@ -511,6 +507,7 @@ function renderQuiz(){
   $('#reveal').onclick = () => {
     if(q.done) return;
     q.done = true;
+    comprobar($('#stage .quiz'), q.target.palabra);
     $('#reveal').parentElement.remove();
     const fb = $('#fb');
     fb.className = 'fb ok';
@@ -518,45 +515,21 @@ function renderQuiz(){
       <span class="fb-syn">Sinónimos: <ul class="chips">${q.target.sinonimos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></span>`;
   };
   $('#again').onclick = () => { newQuiz(); renderQuiz(); };
+  const qi = $('#stage .resp');
+  if(qi) qi.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); if(!q.done) $('#reveal').click(); else $('#again').click(); } };
   bindAlcance();
 }
 
-/* ---------- renglón para escribir a mano (dedo, lápiz de la pizarra digital o ratón) ---------- */
-function activarRenglon(el){
-  if(el.dataset.pad) return; el.dataset.pad = '1'; el.removeAttribute('aria-hidden');
-  const cv = document.createElement('canvas'), ctx = cv.getContext('2d');
-  const bo = document.createElement('button'); bo.type='button'; bo.className='borrar'; bo.textContent='🧽 Borrar';
-  el.append(cv, bo);
-  let dibujando = false, ult = null;
-  function ajustar(){
-    const r = el.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
-    if(!r.width || !r.height) return;
-    const copia = cv.width ? (()=>{const c=document.createElement('canvas');c.width=cv.width;c.height=cv.height;c.getContext('2d').drawImage(cv,0,0);return c;})() : null;
-    cv.width = Math.round(r.width*dpr); cv.height = Math.round(r.height*dpr);
-    if(copia) ctx.drawImage(copia,0,0);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#1F2A5A';
-    ctx.lineWidth = Math.max(4, r.height/22);
-  }
-  const pos = e => { const r = cv.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; };
-  cv.addEventListener('pointerdown', e => {
-    e.preventDefault(); cv.setPointerCapture(e.pointerId);
-    dibujando = true; ult = pos(e); el.classList.add('usada');
-    ctx.beginPath(); ctx.arc(ult.x, ult.y, ctx.lineWidth/2, 0, Math.PI*2); ctx.fillStyle = ctx.strokeStyle; ctx.fill();
-  });
-  cv.addEventListener('pointermove', e => {
-    if(!dibujando) return; e.preventDefault();
-    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
-    for(const ev of evs){ const q = pos(ev); ctx.beginPath(); ctx.moveTo(ult.x, ult.y); ctx.lineTo(q.x, q.y); ctx.stroke(); ult = q; }
-  });
-  ['pointerup','pointercancel','pointerleave'].forEach(t => cv.addEventListener(t, () => { dibujando = false; }));
-  bo.addEventListener('pointerdown', e => e.stopPropagation());
-  bo.onclick = e => { e.stopPropagation(); ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height); ctx.restore(); el.classList.remove('usada'); };
-  new ResizeObserver(ajustar).observe(el);
-  ajustar();
+/* ---------- comprobar lo escrito en el recuadro ---------- */
+const normal = t => t.trim().replace(/\s+/g,' ').toLowerCase();
+function comprobar(cont, palabra){
+  const esc_ = cont && cont.querySelector('.escribe'); if(!esc_) return;
+  const v = esc_.querySelector('.resp').value;
+  if(!v.trim()) return;
+  const ok = normal(v)===normal(plain(palabra));
+  esc_.classList.remove('ok','ko'); esc_.classList.add(ok?'ok':'ko');
+  esc_.querySelector('.marca').textContent = ok ? '✓' : '✗';
 }
-new MutationObserver(() => document.querySelectorAll('#stage .escribe').forEach(activarRenglon))
-  .observe(document.getElementById('stage'), {childList:true, subtree:true});
 
 /* ---------- navegación y controles ---------- */
 function goTo(i){ cur = Math.max(0, Math.min(slides.length-1, i)); render(); }
@@ -575,7 +548,7 @@ function toggleFull(){
 }
 $('#btnFull').onclick = toggleFull;
 document.addEventListener('keydown', e => {
-  if(e.target.tagName==='SELECT') return;
+  if(e.target.tagName==='SELECT' || e.target.tagName==='INPUT') return;
   const onButton = e.target.tagName==='BUTTON';
   if(e.key==='ArrowRight' || e.key==='PageDown' || (e.key===' ' && !onButton)){ e.preventDefault(); goTo(cur+1); }
   else if(e.key==='ArrowLeft' || e.key==='PageUp'){ e.preventDefault(); goTo(cur-1); }
