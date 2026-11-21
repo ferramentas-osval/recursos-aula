@@ -593,8 +593,9 @@ const PUNTO = 0.05;
    (la que acaba en /viewform) y los códigos entry.XXXX de cada pregunta.
    Si se deja vacío, los resultados solo se guardan en este ordenador (botón «Resultados»). */
 const FORM = {
-  url: '',
-  campos: { fecha:'', grupo:'', alumno:'', palabras:'', aciertos:'', conPista:'', fallos:'', puntos:'', detalle:'' }
+  url: 'https://docs.google.com/forms/d/e/1FAIpQLSf64IultYXRpXO-HfMcUNhoybwDwQWQ6FftIx6nOjlioTq-5Q/viewform',
+  campos: { alumno:'entry.669692600', grupo:'entry.146505032', puntos:'entry.1137417179',   // Alumno/a · Curso · Puntuación final
+            fecha:'', palabras:'', aciertos:'', conPista:'', fallos:'', detalle:'' }
 };
 
 try{ VAL.grupo = localStorage.getItem('voc:grupo') || ''; }catch(e){}
