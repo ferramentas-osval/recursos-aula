@@ -249,7 +249,7 @@ body.reto .pista:not(.shown){visibility:hidden}
 /* recuadro para escribir la palabra con el teclado antes de destaparla */
 .escribe{display:none}
 body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;margin-top:.4rem}
-.quiz .escribe{width:min(100%,900px);margin-top:0}
+.quiz .escribe{width:min(100%,1100px);margin-top:0}
 .resp{
   flex:1;min-width:0;font:600 clamp(1.6rem,3vw,3rem) "Lexend",system-ui,sans-serif;color:var(--ink);
   background:#fff;border:3px solid var(--ink);border-radius:12px;padding:.25em .5em;outline:none;
@@ -263,7 +263,7 @@ body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;marg
 .escribe.ok .marca{color:var(--teal)} .escribe.ko .marca{color:var(--red)}
 /* ---------- juego ---------- */
 .quiz{gap:1.2rem}
-.quiz .q{font-size:clamp(1.3rem,2.6vw,2.3rem);line-height:1.35;max-width:36ch;border-left:5px solid var(--teal);padding-left:1rem}
+.quiz .q{font-size:clamp(1.3rem,2.6vw,2.3rem);line-height:1.35;max-width:none;border-left:5px solid var(--teal);padding-left:1rem}
 .opts{display:flex;flex-wrap:wrap;gap:1rem}
 .opt{
   background:#fff;border:3px solid var(--ink);border-radius:14px;cursor:pointer;
@@ -514,6 +514,7 @@ function renderQuiz(){
     if(q.done) return;
     q.done = true;
     comprobar($('#stage .quiz'), q.target.palabra);
+    $('#hints').innerHTML = '';   // los sinónimos ya salen con la solución
     $('#reveal').parentElement.remove();
     const fb = $('#fb');
     fb.className = 'fb ok';
@@ -572,13 +573,16 @@ document.addEventListener('keydown', e => {
 });
 /* si el contenido no cabe en la pantalla, se reduce todo un poco (nunca se solapa) */
 function fitSlide(){
-  const sec = $('#stage .slide'), m = $('#stage'); if(!sec || !m) return;
+  const sec = $('#stage .slide'); if(!sec) return;
   sec.style.zoom = '';
-  const cabe = () => { const kids=[...sec.children]; if(!kids.length) return true;
-    const mb = m.getBoundingClientRect(), b = Math.max(...kids.map(k=>k.getBoundingClientRect().bottom)), t = Math.min(...kids.map(k=>k.getBoundingClientRect().top));
-    return b <= mb.bottom - 8 && t >= mb.top; };
-  let z = 1;
-  while(!cabe() && z > 0.5){ z -= 0.04; sec.style.zoom = z; }
+  /* altura que necesita el contenido (medida sin reducir) frente a la que hay */
+  const cs = getComputedStyle(sec), kids = [...sec.children].filter(k => k.offsetHeight);
+  if(!kids.length) return;
+  const gap = parseFloat(cs.rowGap) || 0;
+  const need = kids.reduce((t,k) => t + k.offsetHeight + (parseFloat(getComputedStyle(k).marginTop)||0) + (parseFloat(getComputedStyle(k).marginBottom)||0), 0)
+             + gap*(kids.length-1) + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+  const have = sec.clientHeight;
+  if(need > have) sec.style.zoom = Math.max(0.6, (have/need)*0.97).toFixed(3);
 }
 new MutationObserver(() => requestAnimationFrame(fitSlide)).observe(document.getElementById('stage'), {childList:true, subtree:true});
 window.addEventListener('resize', () => { if(slides[cur]?.type==='words') fitWords(); fitSlide(); });
