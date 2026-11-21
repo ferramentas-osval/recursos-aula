@@ -271,6 +271,13 @@ body.reto .escribe::before,.quiz .escribe::before{
 .fb{font-family:"Caveat",cursive;font-size:clamp(1.5rem,2.6vw,2.4rem);min-height:1.3em}
 .fb.ok{color:var(--teal)} .fb.ko{color:var(--red)}
 .quiz .escribe{width:min(100%,900px);height:clamp(80px,15vh,160px);margin-top:0}
+.escribe{touch-action:none;cursor:crosshair}
+.escribe canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.escribe.usada::before{opacity:0 !important}
+.escribe .borrar{
+  position:absolute;right:.4rem;top:.4rem;z-index:2;border:2px solid var(--ink);background:#fff;
+  border-radius:999px;padding:.15rem .7rem;font:600 clamp(.8rem,1vw,.95rem) inherit;cursor:pointer;opacity:.85
+}
 .alc{display:flex;gap:.6rem;flex-wrap:wrap;align-self:flex-start}
 .alc .tog{font-size:clamp(.95rem,1.3vw,1.15rem);padding:.45rem 1rem}
 .cover .btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
@@ -513,6 +520,43 @@ function renderQuiz(){
   $('#again').onclick = () => { newQuiz(); renderQuiz(); };
   bindAlcance();
 }
+
+/* ---------- renglón para escribir a mano (dedo, lápiz de la pizarra digital o ratón) ---------- */
+function activarRenglon(el){
+  if(el.dataset.pad) return; el.dataset.pad = '1'; el.removeAttribute('aria-hidden');
+  const cv = document.createElement('canvas'), ctx = cv.getContext('2d');
+  const bo = document.createElement('button'); bo.type='button'; bo.className='borrar'; bo.textContent='🧽 Borrar';
+  el.append(cv, bo);
+  let dibujando = false, ult = null;
+  function ajustar(){
+    const r = el.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    if(!r.width || !r.height) return;
+    const copia = cv.width ? (()=>{const c=document.createElement('canvas');c.width=cv.width;c.height=cv.height;c.getContext('2d').drawImage(cv,0,0);return c;})() : null;
+    cv.width = Math.round(r.width*dpr); cv.height = Math.round(r.height*dpr);
+    if(copia) ctx.drawImage(copia,0,0);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#1F2A5A';
+    ctx.lineWidth = Math.max(4, r.height/22);
+  }
+  const pos = e => { const r = cv.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; };
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    dibujando = true; ult = pos(e); el.classList.add('usada');
+    ctx.beginPath(); ctx.arc(ult.x, ult.y, ctx.lineWidth/2, 0, Math.PI*2); ctx.fillStyle = ctx.strokeStyle; ctx.fill();
+  });
+  cv.addEventListener('pointermove', e => {
+    if(!dibujando) return; e.preventDefault();
+    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+    for(const ev of evs){ const q = pos(ev); ctx.beginPath(); ctx.moveTo(ult.x, ult.y); ctx.lineTo(q.x, q.y); ctx.stroke(); ult = q; }
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(t => cv.addEventListener(t, () => { dibujando = false; }));
+  bo.addEventListener('pointerdown', e => e.stopPropagation());
+  bo.onclick = e => { e.stopPropagation(); ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height); ctx.restore(); el.classList.remove('usada'); };
+  new ResizeObserver(ajustar).observe(el);
+  ajustar();
+}
+new MutationObserver(() => document.querySelectorAll('#stage .escribe').forEach(activarRenglon))
+  .observe(document.getElementById('stage'), {childList:true, subtree:true});
 
 /* ---------- navegación y controles ---------- */
 function goTo(i){ cur = Math.max(0, Math.min(slides.length-1, i)); render(); }
