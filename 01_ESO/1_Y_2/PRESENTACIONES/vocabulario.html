@@ -299,6 +299,21 @@ body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;marg
 .val .resumen li{padding:.1em .5em;border-radius:8px;background:#DDF5EC}
 .val .resumen li.ko{background:#FCE3E6;text-decoration:line-through;text-decoration-color:var(--red)}
 #confeti{position:fixed;inset:0;pointer-events:none;z-index:50}
+.val .datos{display:flex;gap:1rem;flex-wrap:wrap}
+.val .nombre.grupo{width:min(100%,280px)}
+.val .verres{align-self:flex-start}
+.hints .mitad{color:var(--ink-soft);font-size:.8em}
+.guardado{color:var(--teal);font-weight:700;font-size:clamp(1rem,1.5vw,1.3rem)}
+.resov{position:fixed;inset:0;z-index:60;background:rgba(20,28,60,.55);display:grid;place-items:center;padding:2vh 2vw}
+.resbox{position:relative;background:#fff;border-radius:20px;padding:1.4rem 1.6rem;width:min(96vw,1400px);max-height:94vh;display:flex;flex-direction:column;gap:1rem;font-size:clamp(1rem,1.6vw,1.5rem)}
+.resbox h3{font-size:1.4em;margin:0;padding-right:2.5rem}
+.resx{position:absolute;top:.6rem;right:.8rem;border:0;background:none;font-size:2rem;cursor:pointer;color:var(--ink)}
+.restab{overflow:auto;min-height:0}
+.restab table{border-collapse:collapse;width:100%}
+.restab th,.restab td{border-bottom:1px solid #dde3f0;padding:.35em .6em;text-align:left;white-space:nowrap}
+.restab th{position:sticky;top:0;background:#F3F6FC}
+.resbtns{display:flex;gap:1rem;flex-wrap:wrap}
+.resnota{color:var(--ink-soft);font-size:.8em;margin:0}
 .hints{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:clamp(1.2rem,2.2vw,2rem);color:var(--ink)}
 .hints:empty{display:none}
 .hints b{padding:0 .3em;background:linear-gradient(100deg, transparent 2%, var(--yellow) 4%, var(--yellow) 94%, transparent 98%) 0 60% / 100% 70% no-repeat}
@@ -568,19 +583,34 @@ function renderQuiz(){
 }
 
 /* ---------- reto para valientes ---------- */
-/* +0,05 por acierto, −0,05 por fallo; el alumno elige entre 4 y 8 palabras de todas las vistas; sin pistas */
-const VAL = { fase:'reglas', nombre:'', n:0, pal:[], i:0, ok:0, ko:0, resp:false, res:[], sonido:true };
+/* Acierto +0,05 · acierto con pista (un sinónimo) +0,025 · fallo −0,05. Entre 4 y 8 palabras de todas las vistas. */
+const VAL = { fase:'reglas', nombre:'', grupo:'', n:0, pal:[], i:0, ok:0, okp:0, ko:0, resp:false, pista:false, res:[], sonido:true };
 let valUsadas = new Set();
 const PUNTO = 0.05;
-const fmtPts = x => { const v = Math.round(x*100)/100; return (v>0?'+':v<0?'−':'') + Math.abs(v).toFixed(2).replace('.',','); };
-const ptsVal = () => (VAL.ok - VAL.ko) * PUNTO;
+
+/* ===== FORMULARIO DE GOOGLE (opcional) =====
+   Para que cada resultado llegue a un formulario, pega aquí la dirección del formulario
+   (la que acaba en /viewform) y los códigos entry.XXXX de cada pregunta.
+   Si se deja vacío, los resultados solo se guardan en este ordenador (botón «Resultados»). */
+const FORM = {
+  url: '',
+  campos: { fecha:'', grupo:'', alumno:'', palabras:'', aciertos:'', conPista:'', fallos:'', puntos:'', detalle:'' }
+};
+
+try{ VAL.grupo = localStorage.getItem('voc:grupo') || ''; }catch(e){}
+let RESULTADOS = [];
+try{ RESULTADOS = JSON.parse(localStorage.getItem('voc:resultados') || '[]'); }catch(e){ RESULTADOS = []; }
+const guardaLista = () => { try{ localStorage.setItem('voc:resultados', JSON.stringify(RESULTADOS)); }catch(e){} };
+
+const fmtPts = x => { const v = Math.round(x*1000)/1000; let t = Math.abs(v).toFixed(3); if(t.endsWith('0')) t = t.slice(0,-1); return (v>0?'+':v<0?'−':'') + t.replace('.',','); };
+const ptsVal = () => (VAL.ok - VAL.ko) * PUNTO + VAL.okp * PUNTO/2;
 
 let actx = null;
 function sonar(tipo){
   if(!VAL.sonido) return;
   try{
     actx = actx || new (window.AudioContext||window.webkitAudioContext)();
-    const notas = tipo==='ok' ? [[660,0],[880,.12]] : tipo==='ko' ? [[220,0],[165,.18]] : [[523,0],[659,.15],[784,.3],[1047,.45]];
+    const notas = tipo==='ok' ? [[660,0],[880,.12]] : tipo==='ko' ? [[220,0],[165,.18]] : tipo==='pista' ? [[740,0]] : [[523,0],[659,.15],[784,.3],[1047,.45]];
     notas.forEach(([f,t]) => {
       const o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + t;
       o.type = tipo==='ko' ? 'sawtooth' : 'triangle'; o.frequency.value = f;
@@ -608,16 +638,76 @@ function elegirPalabras(n){
   sel.forEach(p => valUsadas.add(p.id));
   return sel;
 }
+
+/* ---- guardar y enviar resultados ---- */
+function enviarFormulario(r){
+  if(!FORM.url) return false;
+  const C = FORM.campos, datos = { fecha:r.fecha, grupo:r.grupo, alumno:r.alumno, palabras:r.n, aciertos:r.ok, conPista:r.okp, fallos:r.ko, puntos:r.valor, detalle:r.detalle };
+  const fr = document.createElement('iframe'); fr.name = 'envio'+Date.now(); fr.style.display='none'; document.body.appendChild(fr);
+  const fm = document.createElement('form'); fm.method='POST'; fm.target=fr.name; fm.action = FORM.url.replace(/\/viewform.*$/,'/formResponse');
+  Object.entries(C).forEach(([k,id]) => { if(!id) return; const i=document.createElement('input'); i.type='hidden'; i.name=id.startsWith('entry.')?id:'entry.'+id; i.value=datos[k]; fm.appendChild(i); });
+  document.body.appendChild(fm); fm.submit();
+  setTimeout(()=>{ fm.remove(); fr.remove(); }, 8000);
+  return true;
+}
+function registrarResultado(){
+  const d = new Date();
+  const r = {
+    fecha: d.toLocaleDateString('es-ES') + ' ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),
+    grupo: VAL.grupo, alumno: VAL.nombre || '(sin nombre)', n: VAL.n, ok: VAL.ok, okp: VAL.okp, ko: VAL.ko,
+    puntos: fmtPts(ptsVal()),
+    valor: String(Math.round(ptsVal()*1000)/1000).replace('.',','),   // número para Excel
+    detalle: VAL.res.map(x => (x.ok ? (x.pista ? '💡✅ ' : '✅ ') : (x.pista ? '💡❌ ' : '❌ ')) + x.p + (x.ok ? '' : ' (escribió: ' + (x.escrito||'') + ')')).join(' · ')
+  };
+  RESULTADOS.push(r); guardaLista();
+  r.enviado = enviarFormulario(r);
+  return r;
+}
+const csvCelda = v => '"' + String(v).replace(/"/g,'""') + '"';
+function descargarCSV(){
+  const cab = ['Fecha','Grupo','Alumno/a','Palabras','Aciertos','Aciertos con pista','Fallos','Puntos','Detalle'];
+  const filas = RESULTADOS.map(r => [r.fecha,r.grupo,r.alumno,r.n,r.ok,r.okp,r.ko,(r.valor ?? r.puntos),r.detalle]);
+  const txt = '﻿' + [cab,...filas].map(f => f.map(csvCelda).join(';')).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));
+  a.download = 'resultados_reto_individual_vocabulario.csv'; document.body.appendChild(a); a.click(); a.remove();
+}
+function verResultados(){
+  const ov = document.createElement('div'); ov.className = 'resov';
+  const pinta = () => {
+    ov.innerHTML = `<div class="resbox" role="dialog" aria-label="Resultados">
+      <button class="resx" aria-label="Cerrar">✕</button>
+      <h3>📋 Resultados del reto individual (${RESULTADOS.length})</h3>
+      ${RESULTADOS.length ? `<div class="restab"><table><thead><tr><th>Fecha</th><th>Grupo</th><th>Alumno/a</th><th>Palabras</th><th>✅</th><th>💡✅</th><th>❌</th><th>Puntos</th></tr></thead><tbody>
+        ${RESULTADOS.slice().reverse().map(r=>`<tr><td>${esc(r.fecha)}</td><td>${esc(r.grupo)}</td><td>${esc(r.alumno)}</td><td>${r.n}</td><td>${r.ok}</td><td>${r.okp}</td><td>${r.ko}</td><td><b>${esc(r.puntos)}</b></td></tr>`).join('')}
+      </tbody></table></div>` : '<p>Todavía no hay resultados guardados en este ordenador.</p>'}
+      <div class="resbtns">
+        ${RESULTADOS.length ? '<button class="big" id="rcsv" style="margin:0">⬇️ Descargar Excel (CSV)</button><button class="big alt" id="rdel" style="margin:0">🗑️ Borrar lista</button>' : ''}
+      </div>
+      <p class="resnota">${FORM.url ? 'Cada resultado se envía también al formulario de Google.' : 'Se guardan en este navegador y ordenador. Descarga el Excel antes de cambiar de ordenador o borrar el historial.'}</p>
+    </div>`;
+    ov.querySelector('.resx').onclick = cerrar;
+    const c = ov.querySelector('#rcsv'); if(c) c.onclick = descargarCSV;
+    const d = ov.querySelector('#rdel'); if(d) d.onclick = () => { if(confirm('¿Borrar todos los resultados guardados en este ordenador?')){ RESULTADOS = []; guardaLista(); pinta(); } };
+  };
+  const cerrar = () => { ov.remove(); document.removeEventListener('keydown', esc_, true); };
+  const esc_ = e => { if(e.key==='Escape'){ e.stopPropagation(); cerrar(); } };
+  ov.onclick = e => { if(e.target===ov) cerrar(); };
+  document.addEventListener('keydown', esc_, true);
+  pinta(); document.body.appendChild(ov);
+}
+
 function marcadorHTML(){
   const p = ptsVal();
   return `<div class="marcador">
-    ${VAL.nombre ? `<span>🦁 ${esc(VAL.nombre)}</span>` : '<span>🦁 Valiente</span>'}
+    <span>🦁 ${VAL.nombre ? esc(VAL.nombre) : 'Valiente'}</span>
     <span>Palabra ${Math.min(VAL.i+1,VAL.n)} de ${VAL.n}</span>
-    <span>✅ ${VAL.ok} · ❌ ${VAL.ko}</span>
+    <span>✅ ${VAL.ok + VAL.okp} · ❌ ${VAL.ko}</span>
     <button class="snd" id="snd" title="Sonido">${VAL.sonido?'🔊':'🔇'}</button>
     <span class="pts ${p>0?'pos':p<0?'neg':''}" id="pts">${fmtPts(p)}</span>
   </div>`;
 }
+const bindSnd = () => { const b = $('#snd'); if(b) b.onclick = () => { VAL.sonido = !VAL.sonido; b.textContent = VAL.sonido?'🔊':'🔇'; }; };
+
 function renderValientes(){
   const st = $('#stage');
   if(VAL.fase==='reglas'){
@@ -625,20 +715,26 @@ function renderValientes(){
       <h2 class="pauta">🦁 Reto individual: para valientes</h2>
       <ul class="reglas">
         <li>✅ Cada palabra bien escrita: <b>+0,05 puntos</b></li>
+        <li>💡 Puedes pedir <b>una pista</b> (un sinónimo), pero si aciertas solo sumas <b>+0,025</b></li>
         <li>❌ Cada fallo: <b>−0,05 puntos</b> (una tilde o una letra mal = fallo)</li>
-        <li>🎲 Las palabras salen al azar de <b>todas las vistas (${TODAS.length})</b>. Sin pistas.</li>
       </ul>
       <span class="aviso">⚠️ Escribe siempre en minúsculas.</span>
-      <input class="nombre" id="vnom" type="text" autocomplete="off" spellcheck="false" placeholder="Nombre del valiente (opcional)" value="${esc(VAL.nombre)}">
+      <div class="datos">
+        <input class="nombre" id="vnom" type="text" autocomplete="off" spellcheck="false" placeholder="Nombre del alumno/a" value="${esc(VAL.nombre)}">
+        <input class="nombre grupo" id="vgru" type="text" autocomplete="off" spellcheck="false" placeholder="Grupo (p. ej. 1.º A)" value="${esc(VAL.grupo)}">
+      </div>
       <div class="elige">¿Cuántas palabras te atreves a probar?
         ${[4,5,6,7,8].map(k=>`<button class="num" data-n="${k}">${k}<small>±${(k*PUNTO).toFixed(2).replace('.',',')}</small></button>`).join('')}
       </div>
+      <button class="ctl verres" id="vres">📋 Resultados (${RESULTADOS.length})</button>
     </section>`;
     st.querySelectorAll('.num').forEach(b => b.onclick = () => {
-      Object.assign(VAL, { nombre: $('#vnom').value.trim(), n:+b.dataset.n, i:0, ok:0, ko:0, resp:false, res:[], fase:'jugar' });
+      VAL.grupo = $('#vgru').value.trim(); try{ localStorage.setItem('voc:grupo', VAL.grupo); }catch(e){}
+      Object.assign(VAL, { nombre: $('#vnom').value.trim(), n:+b.dataset.n, i:0, ok:0, okp:0, ko:0, resp:false, pista:false, res:[], fase:'jugar' });
       VAL.pal = elegirPalabras(VAL.n);
       renderValientes();
     });
+    $('#vres').onclick = verResultados;
     return;
   }
   if(VAL.fase==='jugar'){
@@ -646,48 +742,61 @@ function renderValientes(){
     st.innerHTML = `<section class="slide quiz val">
       ${marcadorHTML()}
       <p class="q">${esc(w.significado)}</p>
+      <div class="hints" id="vhint"></div>
       <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí (en minúsculas)" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
-      <div class="opts" id="vbtn"><button class="opt" id="vcheck">Comprobar</button></div>
+      <div class="opts" id="vbtn"><button class="opt pistab" id="vpista">💡 Pista (el acierto vale la mitad)</button><button class="opt" id="vcheck">Comprobar</button></div>
       <p class="fb" id="vfb"></p>
       <div id="vnext" style="display:none"><button class="big" id="vsig" style="margin:0">${ultima?'Ver resultado':'Siguiente palabra'}</button></div>
     </section>`;
-    $('#snd').onclick = () => { VAL.sonido = !VAL.sonido; $('#snd').textContent = VAL.sonido?'🔊':'🔇'; };
+    bindSnd();
     const inp = $('#stage .resp'); inp.focus();
+    $('#vpista').onclick = () => {
+      if(VAL.pista || VAL.resp) return;
+      VAL.pista = true; sonar('pista');
+      $('#vhint').innerHTML = `<span>💡 Sinónimo: <b>${esc(w.sinonimos[0])}</b></span><span class="mitad">(si aciertas: +0,025)</span>`;
+      $('#vpista').remove(); inp.focus();
+    };
     const check = () => {
-      if(VAL.resp || !inp.value.trim()) { if(!inp.value.trim()) inp.focus(); return; }
+      if(VAL.resp) return;
+      if(!inp.value.trim()){ inp.focus(); return; }
       VAL.resp = true; inp.readOnly = true;
       const ok = normal(inp.value)===normal(plain(w.palabra));
       comprobar($('#stage .val'), w.palabra);
-      ok ? VAL.ok++ : VAL.ko++;
-      VAL.res.push({p:plain(w.palabra), ok});
+      if(ok){ VAL.pista ? VAL.okp++ : VAL.ok++; } else VAL.ko++;
+      VAL.res.push({p:plain(w.palabra), ok, pista:VAL.pista, escrito:inp.value.trim()});
       sonar(ok?'ok':'ko');
       $('#vbtn').remove();
       $('#vfb').className = 'fb';
-      $('#vfb').innerHTML = `<span class="veredicto ${ok?'ok':'ko'}">${ok?'¡Correcto! +0,05':'¡Fallo! −0,05'}</span><span class="sol pauta">${markup(w.palabra)}</span>`;
-      const m = st.querySelector('.marcador'); m.outerHTML = marcadorHTML();
-      $('#snd').onclick = () => { VAL.sonido = !VAL.sonido; $('#snd').textContent = VAL.sonido?'🔊':'🔇'; };
+      $('#vfb').innerHTML = `<span class="veredicto ${ok?'ok':'ko'}">${ok ? (VAL.pista ? '¡Correcto con pista! +0,025' : '¡Correcto! +0,05') : '¡Fallo! −0,05'}</span><span class="sol pauta">${markup(w.palabra)}</span>`;
+      st.querySelector('.marcador').outerHTML = marcadorHTML(); bindSnd();
       $('#pts').classList.add('salta');
       $('#vnext').style.display = '';
       $('#vsig').focus();
     };
-    const sig = () => { VAL.i++; VAL.resp=false; if(VAL.i>=VAL.n) VAL.fase='fin'; renderValientes(); };
+    const sig = () => { VAL.i++; VAL.resp=false; VAL.pista=false; if(VAL.i>=VAL.n){ VAL.fase='fin'; VAL.guardado = registrarResultado(); } renderValientes(); };
     $('#vcheck').onclick = check;
     $('#vsig').onclick = sig;
     inp.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); VAL.resp ? sig() : check(); } };
     return;
   }
   /* fin */
-  const p = ptsVal();
+  const p = ptsVal(), aciertos = VAL.ok + VAL.okp;
   const msg = VAL.ko===0 ? '¡Valiente y certero! 🏆' : p>0 ? '¡Buen reto! 💪' : p===0 ? 'Empate: ni ganas ni pierdes 🤝' : '¡Has sido valiente! Toca repasar 📚';
+  const g = VAL.guardado;
   st.innerHTML = `<section class="slide quiz val">
     <h2 class="pauta">${VAL.nombre ? esc(VAL.nombre) : 'Resultado'}</h2>
     <div class="final ${p>0?'pts pos':p<0?'pts neg':'pts'}">${fmtPts(p)}</div>
-    <p class="q">${VAL.ok} ${VAL.ok===1?'acierto':'aciertos'} y ${VAL.ko} ${VAL.ko===1?'fallo':'fallos'} de ${VAL.n} palabras · ${msg}</p>
-    <ul class="resumen">${VAL.res.map(r=>`<li class="${r.ok?'':'ko'}">${r.ok?'✅':'❌'} ${esc(r.p)}</li>`).join('')}</ul>
-    <div><button class="big" id="votro" style="margin:0">🦁 Siguiente valiente</button></div>
+    <p class="q">${aciertos} ${aciertos===1?'acierto':'aciertos'}${VAL.okp?` (${VAL.okp} con pista)`:''} y ${VAL.ko} ${VAL.ko===1?'fallo':'fallos'} de ${VAL.n} palabras · ${msg}</p>
+    <ul class="resumen">${VAL.res.map(r=>`<li class="${r.ok?'':'ko'}">${r.ok?'✅':'❌'}${r.pista?'💡':''} ${esc(r.p)}</li>`).join('')}</ul>
+    <div class="btns" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+      <button class="big" id="votro" style="margin:0">🦁 Siguiente valiente</button>
+      <button class="ctl verres" id="vres">📋 Resultados (${RESULTADOS.length})</button>
+      <span class="guardado">${g ? (g.enviado ? '✔ Guardado y enviado al formulario' : '✔ Guardado') : ''}</span>
+    </div>
   </section>`;
   if(p>0){ sonar('fin'); confeti(); }
-  $('#votro').onclick = () => { VAL.fase='reglas'; VAL.nombre=''; renderValientes(); };
+  $('#votro').onclick = () => { VAL.fase='reglas'; VAL.nombre=''; VAL.guardado=null; renderValientes(); };
+  $('#vres').onclick = verResultados;
   $('#votro').focus();
 }
 
