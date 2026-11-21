@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vocabulario (2)</title>
+<title>Vocabulario</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -11,6 +11,8 @@
 /* =====================================================================
    PALABRAS  —  AQUÍ SE AÑADEN LAS PALABRAS NUEVAS CADA SEMANA
    ---------------------------------------------------------------------
+   · semana:    número del vocabulario (1, 2, 3…). Al abrir el archivo
+                sale siempre el último; en el desplegable se eligen los demás.
    · palabra:   escribe entre [corchetes] las letras difíciles; saldrán
                 en rojo y más grandes. Ej.: "[h]ip[é]r[b]ole"
    · pista:     nota ortográfica breve (aparece a mano, en rojo).
@@ -19,7 +21,45 @@
    · Las diapositivas se generan solas, de tres en tres.
    ===================================================================== */
 const PALABRAS = [
-  // ---------- SEMANA 2 ----------
+  // ---------- VOCABULARIO 1 ----------
+  { semana: 1, palabra: "perspica[z]", pista: "z final → plural perspicaces",
+    significado: "Que tiene agudeza e ingenio para comprender las cosas con rapidez.",
+    sinonimos: ["agudo", "sagaz"], icono: "ojo" },
+  { semana: 1, palabra: "[h]ip[é]r[b]ole", pista: "h inicial, b y tilde (esdrújula)",
+    significado: "Figura retórica que consiste en exagerar aquello de lo que se habla.",
+    sinonimos: ["exageración", "ponderación"], icono: "megafono" },
+  { semana: 1, palabra: "desa[h]o[g]o", pista: "h intercalada: des + ahogo",
+    significado: "Alivio de una pena, un trabajo o una necesidad.",
+    sinonimos: ["alivio", "descanso"], icono: "suspiro" },
+  { semana: 1, palabra: "ad[v]er[b]io", pista: "primero v, después b",
+    significado: "Categoría gramatical que modifica el significado del verbo, del adjetivo o de otro adverbio.",
+    sinonimos: ["modificador", "partícula"], icono: "etiqueta" },
+  { semana: 1, palabra: "in[h][ó]spito", pista: "h intercalada y tilde (esdrújula)",
+    significado: "Que no ofrece condiciones agradables o de seguridad para vivir.",
+    sinonimos: ["hostil", "inhabitable"], icono: "desierto" },
+  { semana: 1, palabra: "[y]a[c]imiento", pista: "de yacer: y inicial, c ante i",
+    significado: "Lugar donde se hallan naturalmente minerales, rocas o restos arqueológicos.",
+    sinonimos: ["depósito", "filón"], icono: "yacimiento" },
+  { semana: 1, palabra: "es[b]elto", pista: "¡con b, no con v!",
+    significado: "Que tiene un cuerpo alto, delgado y de proporciones armoniosas.",
+    sinonimos: ["delgado", "estilizado"], icono: "cipres" },
+  { semana: 1, palabra: "ur[g]en[c]ia", pista: "ge con g; -encia con c",
+    significado: "Cualidad de urgente, es decir, que necesita atención o solución inmediata.",
+    sinonimos: ["emergencia", "premura"], icono: "sirena" },
+  { semana: 1, palabra: "apo[g]eo", pista: "ge con g, no con j",
+    significado: "Punto culminante o momento de mayor esplendor de algo.",
+    sinonimos: ["culminación", "esplendor"], icono: "cumbre" },
+  { semana: 1, palabra: "[v]a[ll]a", pista: "valla (cerca) ≠ vaya (ir) ≠ baya (fruto)",
+    significado: "Cercado de tablas, estacas u otro material que delimita un terreno.",
+    sinonimos: ["cercado", "vallado"], icono: "valla" },
+  { semana: 1, palabra: "[v]islum[b]rar", pista: "v inicial; tras m, siempre b",
+    significado: "Ver algo de forma confusa o a lo lejos, o intuirlo por indicios.",
+    sinonimos: ["entrever", "atisbar"], icono: "prismaticos" },
+  { semana: 1, palabra: "e[s]par[c]ir", pista: "s, no x; verbos en -cir: con c",
+    significado: "Extender o separar lo que estaba junto o amontonado.",
+    sinonimos: ["dispersar", "difundir"], icono: "semillas" },
+
+  // ---------- VOCABULARIO 2 ----------
   { semana: 2, palabra: "e[x]pl[í]cito", pista: "ex + pl → con x; esdrújula: tilde",
     significado: "Dicho con claridad.",
     sinonimos: ["claro", "expreso"], icono: "💬" },
@@ -57,8 +97,46 @@ const PALABRAS = [
     significado: "Dinero que se pone en un negocio para ganar más.",
     sinonimos: ["desembolso", "aportación"], icono: "💰" },
 
-  // ---------- SEMANA 3 ----------
-  // { semana: 3, palabra: "...", pista: "...", significado: "...", sinonimos: ["...", "..."], icono: "🦉" },
+  // ---------- VOCABULARIO 3 ----------
+  { semana: 3, palabra: "[h]onesto", pista: "h inicial, como honrado y honor",
+    significado: "Que actúa con rectitud y sinceridad.",
+    sinonimos: ["honrado", "íntegro"], icono: "🤝" },
+  { semana: 3, palabra: "[h]a[ll]a", pista: "halla (hallar) ≠ haya (haber) ≠ aya (niñera)",
+    significado: "Forma del verbo «hallar».",
+    sinonimos: ["encuentra", "descubre"], icono: "🔍" },
+  { semana: 3, palabra: "re[h]usar", pista: "h intercalada; sin tilde, pero rehúso",
+    significado: "No aceptar algo.",
+    sinonimos: ["rechazar", "declinar"], icono: "🙅" },
+  { semana: 3, palabra: "a[v]er[í]a", pista: "con v; tilde en la í (hiato)",
+    significado: "Daño que impide que una máquina funcione.",
+    sinonimos: ["fallo", "desperfecto"], icono: "🔧" },
+  { semana: 3, palabra: "e[s]qui[v]ar", pista: "es-, no ex-; después, v",
+    significado: "Evitar algo con habilidad.",
+    sinonimos: ["eludir", "sortear"], icono: "🏃" },
+  { semana: 3, palabra: "ra[y]ado", pista: "rayado (rayas) ≠ rallado (rallar queso)",
+    significado: "Con rayas.",
+    sinonimos: ["listado", "marcado"], icono: "🦓" },
+  { semana: 3, palabra: "o[b]stinado", pista: "obs- con b",
+    significado: "Que se mantiene firme en una idea.",
+    sinonimos: ["terco", "tenaz"], icono: "🐂" },
+  { semana: 3, palabra: "corre[g]ir", pista: "verbos en -gir con g; pero: corrijo, corrija",
+    significado: "Quitar los errores de algo.",
+    sinonimos: ["rectificar", "enmendar"], icono: "✏️" },
+  { semana: 3, palabra: "[v]i[g]ente", pista: "v, como vigor; -gente con g",
+    significado: "Que está en vigor.",
+    sinonimos: ["actual", "válido"], icono: "📜" },
+  { semana: 3, palabra: "a[ct]itud", pista: "actitud (postura) ≠ aptitud (capacidad)",
+    significado: "Postura o disposición de ánimo ante algo.",
+    sinonimos: ["postura", "talante"], icono: "😎" },
+  { semana: 3, palabra: "a[b]stenerse", pista: "abs- con b",
+    significado: "Privarse voluntariamente de hacer algo.",
+    sinonimos: ["privarse", "renunciar"], icono: "🚫" },
+  { semana: 3, palabra: "estr[é]s", pista: "aguda acabada en -s: lleva tilde",
+    significado: "Tensión nerviosa por exceso de trabajo o de preocupaciones.",
+    sinonimos: ["agobio", "tensión"], icono: "😫" },
+
+  // ---------- VOCABULARIO 4 ----------
+  // { semana: 4, palabra: "...", pista: "...", significado: "...", sinonimos: ["...", "..."], icono: "🦉" },
 ];
 </script>
 <style>
@@ -205,9 +283,9 @@ body.reto .pista:not(.shown){visibility:hidden}
 <body>
 
 <header class="top">
-  <div class="brand"><span class="pauta" style="display:inline-block">[V]OCA[B]ULARIO (2)</span></div>
+  <div class="brand"><span class="pauta" style="display:inline-block">[V]OCA[B]ULARIO</span></div>
   <label>
-    <select class="ctl" id="week" aria-label="Filtrar por semana"></select>
+    <select class="ctl" id="week" aria-label="Elegir vocabulario"></select>
   </label>
   <button class="ctl" id="btnAll">Mostrar todo</button>
   <button class="ctl" id="btnReto" aria-pressed="false" title="Oculta las palabras y muestra el significado">Modo reto</button>
@@ -257,11 +335,15 @@ let lista = [], slides = [], cur = 0;
 let quiz = null, score = {ok:0,total:0};
 
 const semanas = [...new Set(PALABRAS.map(p => p.semana))].sort((a,b)=>a-b);
-$('#week').innerHTML = `<option value="all">Todas las semanas</option>` +
-  semanas.map(s => `<option value="${s}">Semana ${s}</option>`).join('');
+$('#week').innerHTML = semanas.slice().reverse().map(s => `<option value="${s}">Vocabulario ${s}</option>`).join('') +
+  `<option value="all">Todos los vocabularios</option>`;
+$('#week').value = String(semanas[semanas.length-1]);   // al abrir: el último vocabulario
+const titulo = () => { const w = $('#week').value; return '[V]OCA[B]ULARIO' + (w==='all' ? '' : ` (${w})`); };
 
 function build(){
   const w = $('#week').value;
+  document.querySelectorAll('.brand .pauta').forEach(el => el.innerHTML = markup(titulo()));
+  document.title = plain(titulo()).charAt(0) + plain(titulo()).slice(1).toLowerCase();
   lista = PALABRAS.map((p,i)=>({...p,id:i})).filter(p => w==='all' || String(p.semana)===w);
   slides = [{type:'cover'}];
   for(let i=0;i<lista.length;i+=3) slides.push({type:'words', items:lista.slice(i,i+3)});
@@ -274,10 +356,10 @@ function render(){
   if(s.type==='cover'){
     const n = lista.length, w = $('#week').value;
     st.innerHTML = `<section class="slide cover">
-      <h1 class="pauta">${markup('[V]OCA[B]ULARIO (2)')}</h1>
+      <h1 class="pauta">${markup(titulo())}</h1>
       <p>Repaso colectivo de significados y sinónimos.</p>
       <span class="note">¡Ojo a las letras en rojo!</span>
-      ${n ? `<button class="big" id="go">Empezar</button>` : `<p class="empty">No hay palabras en esta semana.</p>`}
+      ${n ? `<button class="big" id="go">Empezar</button>` : `<p class="empty">No hay palabras en este vocabulario.</p>`}
     </section>`;
     const go = $('#go'); if(go) go.onclick = () => goTo(1);
   }

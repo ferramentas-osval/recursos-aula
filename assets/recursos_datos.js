@@ -103,12 +103,8 @@ window.RECURSOS=[
         "h": "01_ESO/1_Y_2/PRESENTACIONES/presentacion_genero_lirico.html"
        },
        {
-        "t": "Repaso vocabulario semana 1",
-        "h": "01_ESO/1_Y_2/PRESENTACIONES/vocabulario_1.html"
-       },
-       {
-        "t": "Repaso vocabulario semana 2",
-        "h": "01_ESO/1_Y_2/PRESENTACIONES/vocabulario_2.html"
+        "t": "Vocabulario",
+        "h": "01_ESO/1_Y_2/PRESENTACIONES/vocabulario.html"
        },
        {
         "t": "TEMA 4. TIPOS DE TEXTO. TEXTO NARRATIVO",
