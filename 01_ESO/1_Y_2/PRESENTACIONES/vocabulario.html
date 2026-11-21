@@ -303,6 +303,7 @@ body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;marg
 .val .nombre.grupo{width:min(100%,280px)}
 .val .verres{align-self:flex-start}
 .hints .mitad{color:var(--ink-soft);font-size:.8em}
+.val .q .nota{font-size:.7em;color:var(--ink-soft)}
 .guardado{color:var(--teal);font-weight:700;font-size:clamp(1rem,1.5vw,1.3rem)}
 .resov{position:fixed;inset:0;z-index:60;background:rgba(20,28,60,.55);display:grid;place-items:center;padding:2vh 2vw}
 .resbox{position:relative;background:#fff;border-radius:20px;padding:1.4rem 1.6rem;width:min(96vw,1400px);max-height:94vh;display:flex;flex-direction:column;gap:1rem;font-size:clamp(1rem,1.6vw,1.5rem)}
@@ -583,10 +584,10 @@ function renderQuiz(){
 }
 
 /* ---------- reto para valientes ---------- */
-/* Acierto +0,05 · acierto con pista (un sinónimo) +0,025 · fallo −0,05. Entre 4 y 8 palabras de todas las vistas. */
+/* Acierto +0,20 · acierto con pista (un sinónimo) +0,10 · fallo −0,20 (sobre la nota de clase de 10). Entre 4 y 8 palabras de todas las vistas. */
 const VAL = { fase:'reglas', nombre:'', grupo:'', n:0, pal:[], i:0, ok:0, okp:0, ko:0, resp:false, pista:false, res:[], sonido:true };
 let valUsadas = new Set();
-const PUNTO = 0.05;
+const PUNTO = 0.20;
 
 /* ===== FORMULARIO DE GOOGLE (opcional) =====
    Para que cada resultado llegue a un formulario, pega aquí la dirección del formulario
@@ -715,9 +716,10 @@ function renderValientes(){
     st.innerHTML = `<section class="slide quiz val">
       <h2 class="pauta">🦁 Reto individual: para valientes</h2>
       <ul class="reglas">
-        <li>✅ Cada palabra bien escrita: <b>+0,05 puntos</b></li>
-        <li>💡 Puedes pedir <b>una pista</b> (un sinónimo), pero si aciertas solo sumas <b>+0,025</b></li>
-        <li>❌ Cada fallo: <b>−0,05 puntos</b> (una tilde o una letra mal = fallo)</li>
+        <li>✅ Cada palabra bien escrita: <b>+0,20 puntos</b></li>
+        <li>💡 Puedes pedir <b>una pista</b> (un sinónimo), pero si aciertas solo sumas <b>+0,10</b></li>
+        <li>❌ Cada fallo: <b>−0,20 puntos</b> (una tilde o una letra mal = fallo)</li>
+        <li>📝 Los puntos se suman o se descuentan de tu <b>nota de clase (sobre 10)</b>.</li>
       </ul>
       <span class="aviso">⚠️ Escribe siempre en minúsculas.</span>
       <div class="datos">
@@ -754,7 +756,7 @@ function renderValientes(){
     $('#vpista').onclick = () => {
       if(VAL.pista || VAL.resp) return;
       VAL.pista = true; sonar('pista');
-      $('#vhint').innerHTML = `<span>💡 Sinónimo: <b>${esc(w.sinonimos[0])}</b></span><span class="mitad">(si aciertas: +0,025)</span>`;
+      $('#vhint').innerHTML = `<span>💡 Sinónimo: <b>${esc(w.sinonimos[0])}</b></span><span class="mitad">(si aciertas: +0,10)</span>`;
       $('#vpista').remove(); inp.focus();
     };
     const check = () => {
@@ -768,7 +770,7 @@ function renderValientes(){
       sonar(ok?'ok':'ko');
       $('#vbtn').remove();
       $('#vfb').className = 'fb';
-      $('#vfb').innerHTML = `<span class="veredicto ${ok?'ok':'ko'}">${ok ? (VAL.pista ? '¡Correcto con pista! +0,025' : '¡Correcto! +0,05') : '¡Fallo! −0,05'}</span><span class="sol pauta">${markup(w.palabra)}</span>`;
+      $('#vfb').innerHTML = `<span class="veredicto ${ok?'ok':'ko'}">${ok ? (VAL.pista ? '¡Correcto con pista! +0,10' : '¡Correcto! +0,20') : '¡Fallo! −0,20'}</span><span class="sol pauta">${markup(w.palabra)}</span>`;
       st.querySelector('.marcador').outerHTML = marcadorHTML(); bindSnd();
       $('#pts').classList.add('salta');
       $('#vnext').style.display = '';
@@ -787,7 +789,7 @@ function renderValientes(){
   st.innerHTML = `<section class="slide quiz val">
     <h2 class="pauta">${VAL.nombre ? esc(VAL.nombre) : 'Resultado'}</h2>
     <div class="final ${p>0?'pts pos':p<0?'pts neg':'pts'}">${fmtPts(p)}</div>
-    <p class="q">${aciertos} ${aciertos===1?'acierto':'aciertos'}${VAL.okp?` (${VAL.okp} con pista)`:''} y ${VAL.ko} ${VAL.ko===1?'fallo':'fallos'} de ${VAL.n} palabras · ${msg}</p>
+    <p class="q">${aciertos} ${aciertos===1?'acierto':'aciertos'}${VAL.okp?` (${VAL.okp} con pista)`:''} y ${VAL.ko} ${VAL.ko===1?'fallo':'fallos'} de ${VAL.n} palabras · ${msg}<br><small class="nota">📝 ${p===0 ? 'Tu nota de clase (sobre 10) no cambia.' : `${p<0?'Se descuentan':'Se suman'} ${fmtPts(Math.abs(p)).replace('+','')} puntos ${p<0?'de':'a'} tu nota de clase (sobre 10).`}</small></p>
     <ul class="resumen">${VAL.res.map(r=>`<li class="${r.ok?'':'ko'}">${r.ok?'✅':'❌'}${r.pista?'💡':''} ${esc(r.p)}</li>`).join('')}</ul>
     <div class="btns" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
       <button class="big" id="votro" style="margin:0">🦁 Siguiente valiente</button>
