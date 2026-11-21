@@ -273,6 +273,32 @@ body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;marg
 .opt.ko{border-color:var(--red);background:#FCE3E6;text-decoration:line-through}
 .fb{font-family:"Caveat",cursive;font-size:clamp(1.5rem,2.6vw,2.4rem);min-height:1.3em}
 .fb.ok{color:var(--teal)} .fb.ko{color:var(--red)}
+/* ---------- reto para valientes ---------- */
+.val{gap:1rem}
+.val h2{font-size:clamp(2rem,4.2vw,3.8rem);font-weight:800;line-height:1.1}
+.val .reglas{list-style:none;padding:0;display:grid;gap:.5rem;font-size:clamp(1.2rem,2.2vw,2rem);line-height:1.3}
+.val .reglas b{white-space:nowrap}
+.val .aviso{font-family:"Caveat",cursive;color:var(--red);font-size:clamp(1.5rem,2.6vw,2.4rem);transform:rotate(-1deg);transform-origin:left}
+.val .nombre{font:600 clamp(1.2rem,2vw,1.8rem) "Lexend",sans-serif;border:3px solid var(--ink);border-radius:12px;padding:.3em .6em;width:min(100%,520px);outline:none}
+.val .elige{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;font-size:clamp(1.1rem,1.9vw,1.7rem);font-weight:600}
+.val .num{width:clamp(3.4rem,6vw,5.2rem);height:clamp(3.4rem,6vw,5.2rem);border-radius:50%;border:4px solid var(--ink);background:#fff;
+  font:800 clamp(1.6rem,3vw,2.6rem) "Lexend",sans-serif;color:var(--ink);cursor:pointer;transition:transform .15s}
+.val .num:hover{transform:scale(1.1);background:var(--yellow)}
+.val .num small{display:block;font-size:.35em;font-weight:600;margin-top:-.2em}
+.marcador{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.4rem;font-size:clamp(1.1rem,1.9vw,1.7rem);font-weight:600;
+  background:#fff;border:3px solid var(--ink);border-radius:16px;padding:.4rem 1rem;align-self:stretch}
+.marcador .pts{margin-left:auto;font-size:1.5em;font-weight:800}
+.pts.pos{color:var(--teal)} .pts.neg{color:var(--red)}
+.marcador .snd{border:0;background:none;font-size:1.2em;cursor:pointer}
+.pts.salta{animation:salta .5s ease-out;transform-origin:right center}
+@keyframes salta{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
+.val .veredicto{font-size:clamp(2rem,4.5vw,4rem);font-weight:800;animation:pop .3s ease-out}
+.val .veredicto.ok{color:var(--teal)} .val .veredicto.ko{color:var(--red)}
+.val .final{font-size:clamp(4rem,11vw,9rem);font-weight:800;line-height:1;animation:salta .7s ease-out;transform-origin:left center}
+.val .resumen{display:flex;flex-wrap:wrap;gap:.4rem .7rem;list-style:none;padding:0;font-size:clamp(1.1rem,1.8vw,1.6rem);font-weight:600}
+.val .resumen li{padding:.1em .5em;border-radius:8px;background:#DDF5EC}
+.val .resumen li.ko{background:#FCE3E6;text-decoration:line-through;text-decoration-color:var(--red)}
+#confeti{position:fixed;inset:0;pointer-events:none;z-index:50}
 .hints{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:clamp(1.2rem,2.2vw,2rem);color:var(--ink)}
 .hints:empty{display:none}
 .hints b{padding:0 .3em;background:linear-gradient(100deg, transparent 2%, var(--yellow) 4%, var(--yellow) 94%, transparent 98%) 0 60% / 100% 70% no-repeat}
@@ -373,6 +399,7 @@ function build(){
   slides = [{type:'cover'}];
   for(let i=0;i<lista.length;i+=3) slides.push({type:'words', items:lista.slice(i,i+3)});
   if(lista.length) slides.push({type:'quiz'});
+  slides.push({type:'valientes'});
 }
 
 function render(){
@@ -384,16 +411,18 @@ function render(){
       <h1 class="pauta">${markup(titulo())}</h1>
       <p>Repaso colectivo de significados y sinónimos.</p>
       <span class="note">¡Ojo a las letras en rojo!</span>
-      ${n ? `<div class="btns"><button class="big" id="go">Empezar</button>${semanas.length>1 ? `<button class="big alt" id="goAll">🎯 Reto con todas las palabras vistas</button>` : ''}</div>` : `<p class="empty">No hay palabras en este vocabulario.</p>`}
+      ${n ? `<div class="btns"><button class="big" id="go">Empezar</button><button class="big alt" id="goCol">👥 Reto colectivo</button><button class="big alt" id="goAll">🦁 Reto individual</button></div>` : `<p class="empty">No hay palabras en este vocabulario.</p>`}
     </section>`;
     const go = $('#go'); if(go) go.onclick = () => goTo(1);
-    const ga = $('#goAll'); if(ga) ga.onclick = () => { alcance = $('#week').value==='all' ? 'actual' : 'todas'; quiz = null; goTo(slides.length-1); };
+    const ga = $('#goAll'); if(ga) ga.onclick = () => { VAL.fase = 'reglas'; goTo(slides.length-1); };
+    const gc = $('#goCol'); if(gc) gc.onclick = () => { alcance = ($('#week').value==='all' || semanas.length<2) ? 'actual' : 'todas'; quiz = null; goTo(slides.findIndex(x=>x.type==='quiz')); };
   }
   else if(s.type==='words'){
     st.innerHTML = `<section class="slide"><div class="grid">${s.items.map(card).join('')}</div></section>`;
     st.querySelectorAll('.card').forEach(bindCard);
     fitWords();
   }
+  else if(s.type==='valientes'){ renderValientes(); }
   else { renderQuiz(); }
   $('#count').textContent = `${cur+1} / ${slides.length}`;
   $('#prev').disabled = cur===0;
@@ -499,7 +528,7 @@ function renderQuiz(){
   const ultima = !mazo.length;
   $('#stage').innerHTML = `<section class="slide quiz">
     ${alcanceHTML()}
-    <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">¿Qué palabra es?</h2>
+    <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">👥 Reto colectivo: ¿qué palabra es?</h2>
     <p class="q">${esc(q.target.significado)}</p>
     <div class="hints" id="hints"></div>
     <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
@@ -534,6 +563,130 @@ function renderQuiz(){
   const qi = $('#stage .resp');
   if(qi) qi.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); if(!q.done) $('#reveal').click(); else $('#again').click(); } };
   bindAlcance();
+}
+
+/* ---------- reto para valientes ---------- */
+/* +0,05 por acierto, −0,05 por fallo; el alumno elige entre 4 y 8 palabras de todas las vistas; sin pistas */
+const VAL = { fase:'reglas', nombre:'', n:0, pal:[], i:0, ok:0, ko:0, resp:false, res:[], sonido:true };
+let valUsadas = new Set();
+const PUNTO = 0.05;
+const fmtPts = x => { const v = Math.round(x*100)/100; return (v>0?'+':v<0?'−':'') + Math.abs(v).toFixed(2).replace('.',','); };
+const ptsVal = () => (VAL.ok - VAL.ko) * PUNTO;
+
+let actx = null;
+function sonar(tipo){
+  if(!VAL.sonido) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const notas = tipo==='ok' ? [[660,0],[880,.12]] : tipo==='ko' ? [[220,0],[165,.18]] : [[523,0],[659,.15],[784,.3],[1047,.45]];
+    notas.forEach(([f,t]) => {
+      const o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + t;
+      o.type = tipo==='ko' ? 'sawtooth' : 'triangle'; o.frequency.value = f;
+      g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(.25,t0+.02); g.gain.exponentialRampToValueAtTime(.0001,t0+(tipo==='ko'?.35:.3));
+      o.connect(g).connect(actx.destination); o.start(t0); o.stop(t0+.4);
+    });
+  }catch(e){}
+}
+function confeti(){
+  const cv = document.createElement('canvas'); cv.id='confeti'; document.body.appendChild(cv);
+  const c = cv.getContext('2d'); cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ['#D62839','#FFE35A','#157A6E','#A8E6CF','#1F2A5A'];
+  const P = Array.from({length:160}, () => ({x:Math.random()*cv.width, y:-20-Math.random()*cv.height*.5, vx:(Math.random()-.5)*4, vy:2+Math.random()*4, r:Math.random()*6, w:6+Math.random()*8, col:cols[Math.random()*cols.length|0]}));
+  const t0 = performance.now();
+  (function paso(t){
+    c.clearRect(0,0,cv.width,cv.height);
+    P.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.vy+=.05; p.r+=.1; c.save(); c.translate(p.x,p.y); c.rotate(p.r); c.fillStyle=p.col; c.fillRect(-p.w/2,-3,p.w,6); c.restore(); });
+    if(t-t0 < 3200) requestAnimationFrame(paso); else cv.remove();
+  })(t0);
+}
+function elegirPalabras(n){
+  let libres = TODAS.filter(p => !valUsadas.has(p.id));
+  if(libres.length < n){ valUsadas = new Set(); libres = [...TODAS]; }
+  const sel = shuffle([...libres]).slice(0,n);
+  sel.forEach(p => valUsadas.add(p.id));
+  return sel;
+}
+function marcadorHTML(){
+  const p = ptsVal();
+  return `<div class="marcador">
+    ${VAL.nombre ? `<span>🦁 ${esc(VAL.nombre)}</span>` : '<span>🦁 Valiente</span>'}
+    <span>Palabra ${Math.min(VAL.i+1,VAL.n)} de ${VAL.n}</span>
+    <span>✅ ${VAL.ok} · ❌ ${VAL.ko}</span>
+    <button class="snd" id="snd" title="Sonido">${VAL.sonido?'🔊':'🔇'}</button>
+    <span class="pts ${p>0?'pos':p<0?'neg':''}" id="pts">${fmtPts(p)}</span>
+  </div>`;
+}
+function renderValientes(){
+  const st = $('#stage');
+  if(VAL.fase==='reglas'){
+    st.innerHTML = `<section class="slide quiz val">
+      <h2 class="pauta">🦁 Reto individual: para valientes</h2>
+      <ul class="reglas">
+        <li>✅ Cada palabra bien escrita: <b>+0,05 puntos</b></li>
+        <li>❌ Cada fallo: <b>−0,05 puntos</b> (una tilde o una letra mal = fallo)</li>
+        <li>🎲 Las palabras salen al azar de <b>todas las vistas (${TODAS.length})</b>. Sin pistas.</li>
+      </ul>
+      <span class="aviso">⚠️ Escribe siempre en minúsculas.</span>
+      <input class="nombre" id="vnom" type="text" autocomplete="off" spellcheck="false" placeholder="Nombre del valiente (opcional)" value="${esc(VAL.nombre)}">
+      <div class="elige">¿Cuántas palabras te atreves a probar?
+        ${[4,5,6,7,8].map(k=>`<button class="num" data-n="${k}">${k}<small>±${(k*PUNTO).toFixed(2).replace('.',',')}</small></button>`).join('')}
+      </div>
+    </section>`;
+    st.querySelectorAll('.num').forEach(b => b.onclick = () => {
+      Object.assign(VAL, { nombre: $('#vnom').value.trim(), n:+b.dataset.n, i:0, ok:0, ko:0, resp:false, res:[], fase:'jugar' });
+      VAL.pal = elegirPalabras(VAL.n);
+      renderValientes();
+    });
+    return;
+  }
+  if(VAL.fase==='jugar'){
+    const w = VAL.pal[VAL.i], ultima = VAL.i===VAL.n-1;
+    st.innerHTML = `<section class="slide quiz val">
+      ${marcadorHTML()}
+      <p class="q">${esc(w.significado)}</p>
+      <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí (en minúsculas)" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
+      <div class="opts" id="vbtn"><button class="opt" id="vcheck">Comprobar</button></div>
+      <p class="fb" id="vfb"></p>
+      <div id="vnext" style="display:none"><button class="big" id="vsig" style="margin:0">${ultima?'Ver resultado':'Siguiente palabra'}</button></div>
+    </section>`;
+    $('#snd').onclick = () => { VAL.sonido = !VAL.sonido; $('#snd').textContent = VAL.sonido?'🔊':'🔇'; };
+    const inp = $('#stage .resp'); inp.focus();
+    const check = () => {
+      if(VAL.resp || !inp.value.trim()) { if(!inp.value.trim()) inp.focus(); return; }
+      VAL.resp = true; inp.readOnly = true;
+      const ok = normal(inp.value)===normal(plain(w.palabra));
+      comprobar($('#stage .val'), w.palabra);
+      ok ? VAL.ok++ : VAL.ko++;
+      VAL.res.push({p:plain(w.palabra), ok});
+      sonar(ok?'ok':'ko');
+      $('#vbtn').remove();
+      $('#vfb').className = 'fb';
+      $('#vfb').innerHTML = `<span class="veredicto ${ok?'ok':'ko'}">${ok?'¡Correcto! +0,05':'¡Fallo! −0,05'}</span><span class="sol pauta">${markup(w.palabra)}</span>`;
+      const m = st.querySelector('.marcador'); m.outerHTML = marcadorHTML();
+      $('#snd').onclick = () => { VAL.sonido = !VAL.sonido; $('#snd').textContent = VAL.sonido?'🔊':'🔇'; };
+      $('#pts').classList.add('salta');
+      $('#vnext').style.display = '';
+      $('#vsig').focus();
+    };
+    const sig = () => { VAL.i++; VAL.resp=false; if(VAL.i>=VAL.n) VAL.fase='fin'; renderValientes(); };
+    $('#vcheck').onclick = check;
+    $('#vsig').onclick = sig;
+    inp.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); VAL.resp ? sig() : check(); } };
+    return;
+  }
+  /* fin */
+  const p = ptsVal();
+  const msg = VAL.ko===0 ? '¡Valiente y certero! 🏆' : p>0 ? '¡Buen reto! 💪' : p===0 ? 'Empate: ni ganas ni pierdes 🤝' : '¡Has sido valiente! Toca repasar 📚';
+  st.innerHTML = `<section class="slide quiz val">
+    <h2 class="pauta">${VAL.nombre ? esc(VAL.nombre) : 'Resultado'}</h2>
+    <div class="final ${p>0?'pts pos':p<0?'pts neg':'pts'}">${fmtPts(p)}</div>
+    <p class="q">${VAL.ok} ${VAL.ok===1?'acierto':'aciertos'} y ${VAL.ko} ${VAL.ko===1?'fallo':'fallos'} de ${VAL.n} palabras · ${msg}</p>
+    <ul class="resumen">${VAL.res.map(r=>`<li class="${r.ok?'':'ko'}">${r.ok?'✅':'❌'} ${esc(r.p)}</li>`).join('')}</ul>
+    <div><button class="big" id="votro" style="margin:0">🦁 Siguiente valiente</button></div>
+  </section>`;
+  if(p>0){ sonar('fin'); confeti(); }
+  $('#votro').onclick = () => { VAL.fase='reglas'; VAL.nombre=''; renderValientes(); };
+  $('#votro').focus();
 }
 
 /* ---------- comprobar lo escrito en el recuadro ---------- */
