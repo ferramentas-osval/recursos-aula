@@ -429,6 +429,7 @@ function render(){
   $('#prev').disabled = cur===0;
   $('#next').disabled = cur===slides.length-1;
   $('#btnAll').style.visibility = s.type==='words' ? 'visible' : 'hidden';
+  $('#btnReto').style.display = s.type==='words' ? '' : 'none';   // solo en las diapositivas de palabras
   $('#btnAll').textContent = 'Mostrar todo';
 }
 
