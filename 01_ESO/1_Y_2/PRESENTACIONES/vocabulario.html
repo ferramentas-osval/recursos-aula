@@ -246,14 +246,14 @@ body.reto .word:not(.shown) .hl::after{display:none}
 body.reto .pista:not(.shown){visibility:hidden}
 /* renglón para que un alumno escriba la palabra en la pizarra antes de destaparla */
 .escribe{display:none}
-body.reto .escribe{
+body.reto .escribe,.quiz .escribe{
   display:block;position:relative;margin-top:.4rem;
   height:clamp(80px,14vh,150px);background:#fff;border-radius:10px 10px 0 0;
   border-bottom:4px solid var(--ink);
   background-image:linear-gradient(to bottom,transparent calc(50% - 1px),#9fb3d9 calc(50% - 1px),#9fb3d9 calc(50% + 1px),transparent calc(50% + 1px));
   background-size:100% 100%;
 }
-body.reto .escribe::before{
+body.reto .escribe::before,.quiz .escribe::before{
   content:"✍️ Escribe aquí la palabra";position:absolute;left:.6rem;top:.35rem;
   font-family:"Caveat",cursive;font-size:clamp(1rem,1.5vw,1.4rem);color:var(--ink-soft);opacity:.75;
 }
@@ -270,6 +270,12 @@ body.reto .escribe::before{
 .opt.ko{border-color:var(--red);background:#FCE3E6;text-decoration:line-through}
 .fb{font-family:"Caveat",cursive;font-size:clamp(1.5rem,2.6vw,2.4rem);min-height:1.3em}
 .fb.ok{color:var(--teal)} .fb.ko{color:var(--red)}
+.quiz .escribe{width:min(100%,900px);height:clamp(80px,15vh,160px);margin-top:0}
+.alc{display:flex;gap:.6rem;flex-wrap:wrap;align-self:flex-start}
+.alc .tog{font-size:clamp(.95rem,1.3vw,1.15rem);padding:.45rem 1rem}
+.cover .btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.cover .big.alt{background:#fff;color:var(--ink);border:3px solid var(--ink)}
+.voc-tag{font-size:.85em;color:var(--ink-soft)}
 .fb{display:flex;flex-direction:column;align-items:flex-start;gap:.4rem;min-height:0}
 .fb:empty{display:none}
 .fb:not(:empty){margin-bottom:.6rem}
@@ -372,9 +378,10 @@ function render(){
       <h1 class="pauta">${markup(titulo())}</h1>
       <p>Repaso colectivo de significados y sinónimos.</p>
       <span class="note">¡Ojo a las letras en rojo!</span>
-      ${n ? `<button class="big" id="go">Empezar</button>` : `<p class="empty">No hay palabras en este vocabulario.</p>`}
+      ${n ? `<div class="btns"><button class="big" id="go">Empezar</button>${semanas.length>1 ? `<button class="big alt" id="goAll">🎯 Reto con todas las palabras vistas</button>` : ''}</div>` : `<p class="empty">No hay palabras en este vocabulario.</p>`}
     </section>`;
     const go = $('#go'); if(go) go.onclick = () => goTo(1);
+    const ga = $('#goAll'); if(ga) ga.onclick = () => { alcance = $('#week').value==='all' ? 'actual' : 'todas'; quiz = null; goTo(slides.length-1); };
   }
   else if(s.type==='words'){
     st.innerHTML = `<section class="slide"><div class="grid">${s.items.map(card).join('')}</div></section>`;
@@ -440,17 +447,36 @@ function showAll(){
 /* ---------- juego: ¿qué palabra es? ---------- */
 function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 let mazo = [], vistas = 0, fin = false;
-function nuevoMazo(){ mazo = shuffle([...lista]); vistas = 0; fin = false; }
+/* alcance del juego: 'actual' = el vocabulario elegido · 'todas' = todas las palabras vistas hasta ahora */
+let alcance = 'actual';
+const TODAS = PALABRAS.map((p,i)=>({...p,id:i}));
+const pool = () => alcance==='todas' ? TODAS : lista;
+function nuevoMazo(){ mazo = shuffle([...pool()]); vistas = 0; fin = false; }
+function alcanceHTML(){
+  const w = $('#week').value;
+  if(w==='all' || semanas.length<2) return '';
+  return `<div class="alc">
+    <button class="tog" data-a="actual" aria-expanded="${alcance==='actual'}">Solo vocabulario ${w}</button>
+    <button class="tog" data-a="todas" aria-expanded="${alcance==='todas'}">🎯 Todas las palabras vistas (${TODAS.length})</button>
+  </div>`;
+}
+function bindAlcance(){
+  document.querySelectorAll('.alc .tog').forEach(b => b.onclick = () => {
+    if(alcance===b.dataset.a) return;
+    alcance = b.dataset.a; nuevoMazo(); newQuiz(); renderQuiz();
+  });
+}
 function newQuiz(){
   if(!mazo.length){ fin = true; return; }
   quiz = { target: mazo.shift(), done:false };
   vistas++;
 }
 function renderQuiz(){
-  if(!quiz || !lista.some(p=>p.id===quiz.target.id)){ nuevoMazo(); newQuiz(); }
-  const total = lista.length;
+  if(!quiz || !pool().some(p=>p.id===quiz.target.id)){ nuevoMazo(); newQuiz(); }
+  const total = pool().length;
   if(fin){
     $('#stage').innerHTML = `<section class="slide quiz">
+      ${alcanceHTML()}
       <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">¡Fin del repaso!</h2>
       <p class="q">Ya habéis descubierto las ${total} palabras.</p>
       <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
@@ -458,18 +484,21 @@ function renderQuiz(){
       </div>
     </section>`;
     $('#restart').onclick = () => { nuevoMazo(); newQuiz(); renderQuiz(); };
+    bindAlcance();
     return;
   }
   const q = quiz;
   const ultima = !mazo.length;
   $('#stage').innerHTML = `<section class="slide quiz">
+    ${alcanceHTML()}
     <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">¿Qué palabra es?</h2>
     <p class="q">${esc(q.target.significado)}</p>
+    <div class="escribe" aria-hidden="true"></div>
     <div class="opts"><button class="opt" id="reveal">Descubrir la palabra</button></div>
     <p class="fb" id="fb"></p>
     <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
       <button class="big" id="again" style="margin:0">${ultima ? 'Finalizar' : 'Otra definición'}</button>
-      <span class="score">Palabra ${vistas} de ${total}</span>
+      <span class="score">Palabra ${vistas} de ${total}${alcance==='todas' ? ` <span class="voc-tag">· del vocabulario ${q.target.semana}</span>` : ''}</span>
     </div>
   </section>`;
   $('#reveal').onclick = () => {
@@ -482,6 +511,7 @@ function renderQuiz(){
       <span class="fb-syn">Sinónimos: <ul class="chips">${q.target.sinonimos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></span>`;
   };
   $('#again').onclick = () => { newQuiz(); renderQuiz(); };
+  bindAlcance();
 }
 
 /* ---------- navegación y controles ---------- */
@@ -489,7 +519,7 @@ function goTo(i){ cur = Math.max(0, Math.min(slides.length-1, i)); render(); }
 $('#prev').onclick = () => goTo(cur-1);
 $('#next').onclick = () => goTo(cur+1);
 $('#btnAll').onclick = showAll;
-$('#week').onchange = () => { build(); quiz=null; goTo(slides.length>1 ? 1 : 0); };
+$('#week').onchange = () => { build(); quiz=null; alcance='actual'; goTo(slides.length>1 ? 1 : 0); };
 $('#btnReto').onclick = e => {
   const on = document.body.classList.toggle('reto');
   e.currentTarget.setAttribute('aria-pressed', on);
