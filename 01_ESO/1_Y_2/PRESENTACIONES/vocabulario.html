@@ -182,6 +182,7 @@ select.ctl{padding-right:.6rem}
 /* ---------- escenario ---------- */
 main{flex:1;display:flex;align-items:stretch;padding:0 1.4rem 0 6.2rem;min-height:0}
 .slide{width:100%;display:flex;flex-direction:column;justify-content:center;padding:1rem 0 1.5rem}
+.slide>*{flex-shrink:0}
 
 /* ---------- pauta caligráfica y letras difíciles ---------- */
 .pauta{
@@ -272,6 +273,10 @@ body.reto .escribe,.quiz .escribe{display:flex;align-items:center;gap:.6rem;marg
 .opt.ko{border-color:var(--red);background:#FCE3E6;text-decoration:line-through}
 .fb{font-family:"Caveat",cursive;font-size:clamp(1.5rem,2.6vw,2.4rem);min-height:1.3em}
 .fb.ok{color:var(--teal)} .fb.ko{color:var(--red)}
+.hints{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:clamp(1.2rem,2.2vw,2rem);color:var(--ink)}
+.hints:empty{display:none}
+.hints b{padding:0 .3em;background:linear-gradient(100deg, transparent 2%, var(--yellow) 4%, var(--yellow) 94%, transparent 98%) 0 60% / 100% 70% no-repeat}
+.opt.pistab{background:#FFF6D6;border-color:#C9A227;font-size:clamp(1.1rem,2vw,1.9rem)}
 .alc{display:flex;gap:.6rem;flex-wrap:wrap;align-self:flex-start}
 .alc .tog{font-size:clamp(.95rem,1.3vw,1.15rem);padding:.45rem 1rem}
 .cover .btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
@@ -496,8 +501,9 @@ function renderQuiz(){
     ${alcanceHTML()}
     <h2 class="pauta" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;align-self:flex-start">¿Qué palabra es?</h2>
     <p class="q">${esc(q.target.significado)}</p>
+    <div class="hints" id="hints"></div>
     <div class="escribe"><input class="resp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="✍️ Escribe aquí" aria-label="Escribe la palabra"><span class="marca" aria-live="polite"></span></div>
-    <div class="opts"><button class="opt" id="reveal">Descubrir la palabra</button></div>
+    <div class="opts"><button class="opt pistab" id="hint">💡 Pista: un sinónimo</button><button class="opt" id="reveal">Descubrir la palabra</button></div>
     <p class="fb" id="fb"></p>
     <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
       <button class="big" id="again" style="margin:0">${ultima ? 'Finalizar' : 'Otra definición'}</button>
@@ -514,6 +520,15 @@ function renderQuiz(){
     fb.innerHTML = `<span class="sol pauta">${markup(q.target.palabra)}</span>
       <span class="fb-syn">Sinónimos: <ul class="chips">${q.target.sinonimos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></span>`;
   };
+  q.hints = q.hints || 0;
+  const pintaPistas = () => {
+    $('#hints').innerHTML = q.target.sinonimos.slice(0, q.hints).map(x => `<span>💡 Sinónimo: <b>${esc(x)}</b></span>`).join('');
+    const h = $('#hint'); if(!h) return;
+    if(q.hints >= q.target.sinonimos.length) h.remove();
+    else h.textContent = q.hints ? '💡 Otro sinónimo' : '💡 Pista: un sinónimo';
+  };
+  $('#hint').onclick = () => { q.hints++; pintaPistas(); $('#stage .resp')?.focus(); };
+  pintaPistas();
   $('#again').onclick = () => { newQuiz(); renderQuiz(); };
   const qi = $('#stage .resp');
   if(qi) qi.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); if(!q.done) $('#reveal').click(); else $('#again').click(); } };
@@ -555,8 +570,19 @@ document.addEventListener('keydown', e => {
   else if(e.key==='f' || e.key==='F') toggleFull();
   else if((e.key==='m' || e.key==='M') && slides[cur].type==='words') showAll();
 });
-window.addEventListener('resize', () => { if(slides[cur]?.type==='words') fitWords(); });
-document.fonts?.ready.then(() => { if(slides[cur]?.type==='words') fitWords(); });
+/* si el contenido no cabe en la pantalla, se reduce todo un poco (nunca se solapa) */
+function fitSlide(){
+  const sec = $('#stage .slide'), m = $('#stage'); if(!sec || !m) return;
+  sec.style.zoom = '';
+  const cabe = () => { const kids=[...sec.children]; if(!kids.length) return true;
+    const mb = m.getBoundingClientRect(), b = Math.max(...kids.map(k=>k.getBoundingClientRect().bottom)), t = Math.min(...kids.map(k=>k.getBoundingClientRect().top));
+    return b <= mb.bottom - 8 && t >= mb.top; };
+  let z = 1;
+  while(!cabe() && z > 0.5){ z -= 0.04; sec.style.zoom = z; }
+}
+new MutationObserver(() => requestAnimationFrame(fitSlide)).observe(document.getElementById('stage'), {childList:true, subtree:true});
+window.addEventListener('resize', () => { if(slides[cur]?.type==='words') fitWords(); fitSlide(); });
+document.fonts?.ready.then(() => { if(slides[cur]?.type==='words') fitWords(); fitSlide(); });
 
 build(); render();
 </script>
