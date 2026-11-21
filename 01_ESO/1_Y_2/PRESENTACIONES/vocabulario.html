@@ -244,6 +244,19 @@ main{flex:1;display:flex;align-items:stretch;padding:0 1.4rem 0 6.2rem;min-heigh
 body.reto .word:not(.shown){filter:blur(14px);cursor:pointer;user-select:none}
 body.reto .word:not(.shown) .hl::after{display:none}
 body.reto .pista:not(.shown){visibility:hidden}
+/* renglón para que un alumno escriba la palabra en la pizarra antes de destaparla */
+.escribe{display:none}
+body.reto .escribe{
+  display:block;position:relative;margin-top:.4rem;
+  height:clamp(80px,14vh,150px);background:#fff;border-radius:10px 10px 0 0;
+  border-bottom:4px solid var(--ink);
+  background-image:linear-gradient(to bottom,transparent calc(50% - 1px),#9fb3d9 calc(50% - 1px),#9fb3d9 calc(50% + 1px),transparent calc(50% + 1px));
+  background-size:100% 100%;
+}
+body.reto .escribe::before{
+  content:"✍️ Escribe aquí la palabra";position:absolute;left:.6rem;top:.35rem;
+  font-family:"Caveat",cursive;font-size:clamp(1rem,1.5vw,1.4rem);color:var(--ink-soft);opacity:.75;
+}
 
 /* ---------- juego ---------- */
 .quiz{gap:1.2rem}
@@ -288,7 +301,7 @@ body.reto .pista:not(.shown){visibility:hidden}
     <select class="ctl" id="week" aria-label="Elegir vocabulario"></select>
   </label>
   <button class="ctl" id="btnAll">Mostrar todo</button>
-  <button class="ctl" id="btnReto" aria-pressed="false" title="Oculta las palabras y muestra el significado">Modo reto</button>
+  <button class="ctl" id="btnReto" aria-pressed="false" title="Oculta las palabras, muestra el significado y deja un renglón para escribirlas en la pizarra">Modo reto</button>
   <button class="ctl" id="btnFull" title="Pantalla completa (F)">⛶ Pantalla completa</button>
 </header>
 
@@ -388,6 +401,7 @@ function card(p){
     </div>
     <div class="box sig ${reto?'open':''}">${esc(p.significado)}</div>
     <div class="box sin"><ul class="chips">${p.sinonimos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+    <div class="escribe" aria-hidden="true"></div>
   </article>`;
 }
 
