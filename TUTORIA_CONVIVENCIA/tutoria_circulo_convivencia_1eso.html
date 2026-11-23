@@ -308,7 +308,7 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
   <h2>¿Qué pregunta toca?</h2>
   <p class="big center">Elige un número del 1 al 7… o que decida el dado.</p>
   <div class="picker" id="picker"></div>
-  <button class="btn" id="dice">🎲 Al azar</button>
+  <button class="btn" id="dice">🎲 Al azar</button> <button class="btn" id="finPreg" style="background:var(--teal)">✅ Terminar preguntas ›</button>
 </div></div></section>
 
 <!-- 11-17 preguntas -->
@@ -319,6 +319,15 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
 <section class="slide" data-q="5" data-t="Pregunta 5 · Olor" data-nota="Contesta tú primero, breve y de verdad. No comentes cada respuesta: un «gracias» basta."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 5 DE 7</div><div class="q">¿Algún olor me trae recuerdos agradables? ¿Qué me recuerda?</div><div class="dots" data-n="5"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🌸</div></div></div></div></section>
 <section class="slide" data-q="6" data-t="Pregunta 6 · Selva o desierto" data-nota="Contesta tú primero, breve y de verdad. No comentes cada respuesta: un «gracias» basta."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 6 DE 7</div><div class="q">Si pudiera elegir entre selva o desierto, ¿cuál elegiría y por qué?</div><div class="dots" data-n="6"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🌴🏜️</div></div></div></div></section>
 <section class="slide" data-q="7" data-t="Pregunta 7 · Recreo" data-nota="Pregunta muy útil: fíjate en <b>dónde están a gusto</b> y en <b>quién no menciona a nadie</b> con quien estar. Coméntalo luego con la tutora."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 7 DE 7</div><div class="q">¿Qué es lo que más me gusta del recreo?</div><div class="dots" data-n="7"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🔔</div></div></div></div></section>
+
+<!-- 20 -->
+<section class="slide" id="despedida" data-t="Estoy para ayudaros" data-nota="Despídete recordando dónde encontrarte y que la tutora y tú formáis equipo (dale la palabra si quiere añadir algo). Después de la clase, comenta con la tutora lo que habéis observado (semáforos rojos, quién pasa siempre, quién está solo en el recreo)."><div class="area"><div class="fit center">
+  <h1>Estoy para ayudaros</h1>
+  <p class="big center">Búscame cuando quieras.</p>
+  <p class="center">📍 Sala de profesorado · pasillos · recreo</p>
+  <p class="note center">🤝 Vuestra tutora y yo formamos equipo: los dos estamos para apoyaros.</p>
+  <p class="center">Oswaldo · Tutor de convivencia de 1.º ESO</p>
+</div></div></section>
 
 <!-- reto en grupos (si da tiempo) -->
 <section class="slide" data-t="Reto en grupos · El Gran Reto Absurdo" data-nota="Solo si os sobra tiempo: unos <b>6-8 minutos</b> con 5 o 6 grupos. En la siguiente diapositiva eliges el número de grupos (de 4 a 8) con − y +. Grupos con los de al lado, sin mover mucho las sillas. Que cada grupo se invente un nombre absurdo (puedes decirlo en voz alta al darles los puntos). Es para reírse y soltar tensiones: todos sacan buena nota."><div class="area"><div class="fit">
@@ -342,26 +351,7 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
   </div>
 </div></div></section>
 
-<!-- 18 -->
-<section class="slide" data-t="Ronda de cierre" data-nota="Una sola palabra por persona, ronda rápida. Empieza tú."><div class="area"><div class="fit">
-  <div class="split">
-    <div class="emoji">🎒</div>
-    <div>
-      <h2>Ronda de cierre</h2>
-      <p class="big">Una palabra que te llevas de hoy.</p>
-      <p>Puede ser algo que has descubierto de un compañero, cómo te has sentido o lo que más te ha gustado.</p>
-    </div>
-  </div>
-</div></div></section>
 
-<!-- 20 -->
-<section class="slide" data-t="Estoy para ayudaros" data-nota="Despídete recordando dónde encontrarte y que la tutora y tú formáis equipo (dale la palabra si quiere añadir algo). Después de la clase, comenta con la tutora lo que habéis observado (semáforos rojos, quién pasa siempre, quién está solo en el recreo)."><div class="area"><div class="fit center">
-  <h1>Estoy para ayudaros</h1>
-  <p class="big center">Búscame cuando quieras.</p>
-  <p class="center">📍 Sala de profesorado · pasillos · recreo</p>
-  <p class="note center">🤝 Vuestra tutora y yo formamos equipo: los dos estamos para apoyaros.</p>
-  <p class="center">Oswaldo · Tutor de convivencia de 1.º ESO</p>
-</div></div></section>
 
 <button class="arrow" id="prev" aria-label="Anterior">‹</button>
 <button class="arrow" id="next" aria-label="Siguiente">›</button>
@@ -400,6 +390,7 @@ document.getElementById('dice').onclick=()=>{if(rolling)return;rolling=true;
   (function tick(){btns.forEach(b=>b.classList.remove('hl'));
     if(k<steps){last=Math.floor(Math.random()*7);btns[last].classList.add('hl');k++;setTimeout(tick,60+k*12)}
     else{btns[target-1].classList.add('hl');setTimeout(()=>{btns[target-1].classList.remove('hl');rolling=false;go(Q[target])},900)}})()};
+document.getElementById('finPreg').onclick=()=>go(S.indexOf(document.getElementById('despedida')));
 document.querySelectorAll('.back').forEach(b=>b.onclick=e=>{e.stopPropagation();go(SEL)});
 S.forEach((s,i)=>{const a=document.createElement('a');a.textContent=(i+1)+'. '+s.dataset.t;a.onclick=()=>{go(i);jump.classList.remove('show')};jl.appendChild(a)});
 function go(i){cur=Math.max(0,Math.min(N-1,i));S.forEach((s,k)=>s.classList.toggle('on',k===cur));cnt.textContent=(cur+1)+' / '+N;[...jl.children].forEach((a,k)=>a.classList.toggle('cur',k===cur));
