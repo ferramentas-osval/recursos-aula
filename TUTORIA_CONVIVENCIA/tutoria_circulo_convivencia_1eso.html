@@ -103,6 +103,32 @@ p{margin:.3em 0}
 #nota{position:fixed;left:50%;bottom:7vh;transform:translateX(-50%);width:min(900px,86vw);background:#23313af2;color:#fff;border-radius:14px;padding:14px 18px;z-index:15;display:none;font-size:clamp(14px,1.25vw,20px);line-height:1.35;text-align:justify;box-shadow:0 6px 30px rgba(0,0,0,.3)}
 #nota.show{display:block}
 #nota b{color:var(--sun)}
+/* reto en grupos */
+.reto{display:grid;grid-template-columns:2.3fr 1fr;gap:1em;align-items:start}
+.rsit{font-size:1.25em;font-weight:900;line-height:1.2;margin:.15em 0 .45em;text-align:left}
+.ropt{display:flex;align-items:flex-start;background:#fff;border-radius:.5em;padding:.35em .55em;margin:.3em 0;box-shadow:0 .08em .35em rgba(0,0,0,.08);transition:opacity .3s,background .3s}
+.ropt .num{background:var(--coral)}
+.ropt span:last-child{flex:1;text-align:justify}
+.reto.rev .ropt{opacity:.35}
+.reto.rev .ropt.ok{opacity:1;background:#e5f6ea;box-shadow:0 0 0 .12em #1f9a4a}
+.reto.rev .ropt.ok .num{background:#1f9a4a}
+.rexp{visibility:hidden;margin-top:.5em;background:var(--soft);border-radius:.5em;padding:.4em .7em;font-weight:800}
+.reto.rev .rexp{visibility:visible}
+.rbtns{display:flex;gap:.5em;margin-top:.6em;flex-wrap:wrap}
+.rbtns .btn{font-size:.8em}
+#rTimer{background:var(--sun);color:var(--ink);min-width:6.5em}
+#rTimer.run{background:var(--ink);color:#fff}
+#rVer{background:#1f9a4a}#rNext{background:var(--teal)}
+.rscore{background:#fff;border-radius:.6em;padding:.5em;box-shadow:0 .12em .5em rgba(0,0,0,.08)}
+.rscore h3{font-weight:900;color:var(--teal);text-align:center;margin-bottom:.3em}
+#rGroups{display:grid;grid-template-columns:1fr 1fr;gap:.35em}
+.rg{position:relative;background:var(--soft);border-radius:.45em;padding:.25em .2em;text-align:center;cursor:pointer;user-select:none;font-weight:800;font-size:.8em;line-height:1.1}
+.rg b{display:block;font-size:2em;color:var(--teal);line-height:1.1}
+.rg.top{background:#fff4d6;box-shadow:0 0 0 .12em var(--sun)}
+.rg .menos{position:absolute;bottom:.15em;right:.25em;opacity:.7;border:none;background:none;color:#9aa;font:900 1em Nunito,system-ui,sans-serif;cursor:pointer;padding:0 .2em}
+.rctrl{display:flex;justify-content:center;align-items:center;gap:.4em;margin-top:.4em;font-size:.65em;font-weight:800;color:#667}
+.rctrl button{border:none;background:var(--soft);color:var(--teal);font:900 1.2em Nunito,system-ui,sans-serif;width:1.6em;height:1.6em;border-radius:50%;cursor:pointer}
+.rhint{font-size:.6em;text-align:center;color:#778;font-weight:800;margin-top:.3em}
 /* mando a distancia con el móvil */
 #mandoBtn{opacity:.25}
 #qrm{position:fixed;inset:0;background:rgba(35,49,58,.75);z-index:40;display:none;align-items:center;justify-content:center}
@@ -265,6 +291,29 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
 <section class="slide" data-q="6" data-t="Pregunta 6 · Selva o desierto" data-nota="Contesta tú primero, breve y de verdad. No comentes cada respuesta: un «gracias» basta."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 6 DE 7</div><div class="q">Si pudiera elegir entre selva o desierto, ¿cuál elegiría y por qué?</div><div class="dots" data-n="6"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🌴🏜️</div></div></div></div></section>
 <section class="slide" data-q="7" data-t="Pregunta 7 · Recreo" data-nota="Pregunta muy útil: fíjate en <b>dónde están a gusto</b> y en <b>quién no menciona a nadie</b> con quien estar. Coméntalo luego con la tutora."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 7 DE 7</div><div class="q">¿Qué es lo que más me gusta del recreo?</div><div class="dots" data-n="7"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🔔</div></div></div></div></section>
 
+<!-- reto en grupos (si da tiempo) -->
+<section class="slide" data-t="Reto en grupos · Misión convivencia" data-nota="Solo si os sobran unos <b>10 minutos</b>. Que se agrupen de 4 sin mover mucho las sillas (con los de al lado). Pide a un alumno que lleve el marcador en la pizarra: pulsa el grupo para sumar un punto."><div class="area"><div class="fit">
+  <span class="kicker">⏱️ Si da tiempo</span>
+  <h2>Reto en grupos: Misión convivencia 🕵️</h2>
+  <div class="row"><span class="num">1</span><span>Formad <b>grupos de 4</b> y poneos un nombre divertido.</span></div>
+  <div class="row"><span class="num">2</span><span>Leeré una situación con tres opciones.</span></div>
+  <div class="row"><span class="num">3</span><span>Tenéis <b>20 segundos</b> para poneros de acuerdo.</span></div>
+  <div class="row"><span class="num">4</span><span>Cuando diga «¡Ya!», levantad la mano con <b>1, 2 o 3 dedos</b>.</span></div>
+  <div class="row"><span class="num">5</span><span>Cada acierto suma <b>un punto</b> para el grupo. 🏆</span></div>
+</div></div></section>
+<section class="slide" id="retoS" data-t="Misión convivencia · Situaciones" data-nota="Lee la situación en voz alta y pulsa <b>⏱️ 20 s</b>. Al «¡Ya!», todos levantan los dedos a la vez. Pulsa <b>Ver respuesta</b>, comenta la explicación en una frase y suma los puntos. Después, <b>Siguiente</b>."><div class="area"><div class="fit">
+  <div class="reto" id="reto">
+    <div>
+      <div class="qn" id="rNum"></div>
+      <div class="rsit" id="rSit"></div>
+      <div id="rOpts"></div>
+      <div class="rexp" id="rExp"></div>
+      <div class="rbtns"><button class="btn" id="rTimer">⏱️ 20 s</button><button class="btn" id="rVer">✅ Ver respuesta</button><button class="btn" id="rNext">Siguiente ›</button></div>
+    </div>
+    <div class="rscore"><h3>🏆 Marcador</h3><div id="rGroups"></div><div class="rctrl"><button id="rMenosG" aria-label="Menos grupos">−</button><span id="rNG"></span><button id="rMasG" aria-label="Más grupos">+</button></div><div class="rhint">Pulsa un grupo: +1</div></div>
+  </div>
+</div></div></section>
+
 <!-- 18 -->
 <section class="slide" data-t="Ronda de cierre" data-nota="Una sola palabra por persona, ronda rápida. Empieza tú."><div class="area"><div class="fit">
   <div class="split">
@@ -372,14 +421,48 @@ document.getElementById('rotOk').onclick=async()=>{try{await document.documentEl
 addEventListener('resize',()=>{fitAll();checkRot()});
 go(0);fitAll();checkRot();
 if(document.fonts)document.fonts.ready.then(fitAll);
+
+/* ===== reto en grupos ===== */
+const RETO=[
+ {s:'En el grupo de WhatsApp de clase, alguien se ríe de un compañero con un meme.',o:['Mando un emoji riéndome para no quedar mal.','No digo nada y me salgo del grupo.','Escribo «eso no mola» y, si sigue, aviso al tutor o la tutora.'],ok:2,e:'Reírse también hace daño. Parar la broma y pedir ayuda si sigue es ser valiente. 💪'},
+ {s:'En el recreo hay un compañero nuevo que siempre está solo.',o:['Le invitamos a estar con nosotros.','Esperamos a que se acerque él.','Comentamos entre nosotros que es un poco raro.'],ok:0,e:'Un gesto pequeño puede cambiarle el día (y el curso) a alguien. 😊'},
+ {s:'Dos amigos tuyos discuten y te piden que elijas bando.',o:['Me pongo del lado del que me cae mejor.','Les escucho a los dos y les propongo hablarlo con calma.','Se lo cuento a toda la clase.'],ok:1,e:'No hace falta elegir bando: escuchar y ayudar a que hablen es lo mejor. Y si no se arregla, para eso estoy yo. 🤝'},
+ {s:'Un compañero te coge el estuche sin permiso por tercera vez.',o:['Se lo quito de malas maneras.','Le escondo la mochila para que aprenda.','Le digo con calma que me molesta y que me lo pida antes.'],ok:2,e:'Decir lo que te molesta con calma funciona mejor que la venganza. 🧘'},
+ {s:'Ves que a un compañero le quitan el bocadillo casi todos los días.',o:['No es asunto mío.','Me río, total, es una broma.','Se lo cuento a Puyol o a nuestra tutora.'],ok:2,e:'Contarlo no es chivarse: es proteger a un compañero. Para eso estamos vuestra tutora y yo. 🛡️'}];
+const R={i:0,rev:false,timer:false,fin:false,ng:6,pts:[0,0,0,0,0,0,0,0]};let rT=null;
+const $r=id=>document.getElementById(id);
+function bip(f,d){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.connect(g);g.connect(a.destination);g.gain.value=.15;o.start();o.stop(a.currentTime+d)}catch(e){}}
+function retoPintar(){const el=$r('reto');el.classList.toggle('rev',R.rev||R.fin);
+  if(R.fin){$r('rNum').textContent='¡MISIÓN CUMPLIDA!';$r('rSit').textContent='🎉 ¡Enhorabuena a todos los grupos!';const m=Math.max(...R.pts.slice(0,R.ng));
+    const g=R.pts.slice(0,R.ng).map((p,k)=>p===m&&m>0?'Grupo '+(k+1):null).filter(Boolean);
+    $r('rOpts').innerHTML='<div class="ropt ok"><span class="num">🏆</span><span>'+(g.length?'Más puntos: '+g.join(', ')+'.':'¡Empate a cero! Lo importante es convivir bien.')+'</span></div>';
+    $r('rExp').textContent='La mejor convivencia se construye entre todos, cada día. 💛';$r('rVer').style.display='none';$r('rNext').textContent='↺ Empezar de nuevo';$r('rTimer').style.display='none'}
+  else{const q=RETO[R.i];$r('rNum').textContent='SITUACIÓN '+(R.i+1)+' DE '+RETO.length;$r('rSit').textContent=q.s;
+    $r('rOpts').innerHTML=q.o.map((t,k)=>'<div class="ropt'+(k===q.ok?' ok':'')+'"><span class="num">'+(k+1)+'</span><span>'+t+'</span></div>').join('');
+    $r('rExp').textContent=q.e;$r('rVer').style.display='';$r('rTimer').style.display='';$r('rNext').textContent=R.i<RETO.length-1?'Siguiente ›':'🏆 Resultado'}
+  const m=Math.max(...R.pts.slice(0,R.ng));
+  $r('rGroups').innerHTML=R.pts.slice(0,R.ng).map((p,k)=>'<div class="rg'+(p===m&&m>0?' top':'')+'" data-k="'+k+'"><button class="menos" aria-label="Restar">−</button>Grupo '+(k+1)+'<b>'+p+'</b></div>').join('');
+  $r('rNG').textContent=R.ng+' grupos';
+  if(typeof fitAll==='function')fitAll();if(typeof estado==='function')estado()}
+function retoTimer(){clearInterval(rT);R.timer=true;let t=20;const b=$r('rTimer');b.classList.add('run');b.textContent='⏱️ '+t;
+  rT=setInterval(()=>{t--;if(t>0){b.textContent='⏱️ '+t;if(t<=3)bip(660,.08)}else{clearInterval(rT);b.textContent='🙋 ¡Ya!';b.classList.remove('run');bip(990,.35)}},1000);estado()}
+function retoVer(){if(R.fin)return;R.rev=true;clearInterval(rT);$r('rTimer').classList.remove('run');$r('rTimer').textContent='⏱️ 20 s';retoPintar()}
+function retoNext(){clearInterval(rT);$r('rTimer').classList.remove('run');$r('rTimer').textContent='⏱️ 20 s';
+  if(R.fin){R.fin=false;R.i=0;R.pts=R.pts.map(()=>0)}else if(R.i<RETO.length-1)R.i++;else R.fin=true;R.rev=false;R.timer=false;retoPintar()}
+function retoAccion(){if(R.fin)return '';if(!R.rev&&!R.timer)return '⏱️ Empezar 20 s';if(!R.rev)return '✅ Ver respuesta';return R.i<RETO.length-1?'➡️ Siguiente situación':'🏆 Ver resultado'}
+function retoHacer(){const a=retoAccion();if(a.startsWith('⏱️'))retoTimer();else if(a.startsWith('✅'))retoVer();else if(a)retoNext()}
+$r('rTimer').onclick=retoTimer;$r('rVer').onclick=retoVer;$r('rNext').onclick=retoNext;
+$r('rGroups').onclick=e=>{const t=e.target.closest('.rg');if(!t)return;const k=+t.dataset.k;if(e.target.classList.contains('menos'))R.pts[k]=Math.max(0,R.pts[k]-1);else{R.pts[k]++;bip(880,.07)}retoPintar()};
+$r('rMasG').onclick=()=>{if(R.ng<8){R.ng++;retoPintar()}};$r('rMenosG').onclick=()=>{if(R.ng>2){R.ng--;retoPintar()}};
+retoPintar();
 /* ===== mando a distancia (presentador) ===== */
 const TOPIC=(()=>{let t=null;try{t=localStorage.getItem('circulo_conv_mando')}catch(e){}
   if(!t){const a='abcdefghijkmnpqrstuvwxyz23456789';t='circulo-'+Array.from(crypto.getRandomValues(new Uint8Array(12)),b=>a[b%32]).join('');try{localStorage.setItem('circulo_conv_mando',t)}catch(e){}}return t})();
 const qrm=document.getElementById('qrm'),qrEst=document.getElementById('qrEst'),badge=document.getElementById('conBadge');
 function siguiente(){const s=S[cur];const i=[...s.querySelectorAll('input[data-ans]')].find(x=>x.value.trim()!==x.dataset.ans);if(i)return i;
   return [...s.querySelectorAll('.flip:not(.open),.tv:not(.open)')].sort((a,b)=>(a.dataset.orden||9)-(b.dataset.orden||9))[0]||null}
-function pendiente(){const c=siguiente();if(c)return c.dataset.acc||'👆 Descubrir tarjeta';if(S[cur].id==='selector')return '🎲 Tirar el dado';return ''}
-function accion(){const c=siguiente();if(c){if(c.tagName==='INPUT')escribir(c);else{c.classList.add('open');estado()}}else if(S[cur].id==='selector')document.getElementById('dice').click()}
+function pendiente(){if(S[cur].id==='retoS')return retoAccion();const c=siguiente();if(c)return c.dataset.acc||'👆 Descubrir tarjeta';if(S[cur].id==='selector')return '🎲 Tirar el dado';return ''}
+function accion(){if(S[cur].id==='retoS'){retoHacer();return}const c=siguiente();if(c){if(c.tagName==='INPUT')escribir(c);else{c.classList.add('open');estado()}}else if(S[cur].id==='selector')document.getElementById('dice').click()}
 var stT=null;function estado(){clearTimeout(stT);stT=setTimeout(()=>{const s=S[cur];
   fetch(NTFY+TOPIC+'-e',{method:'POST',body:JSON.stringify({n:cur+1,N:N,t:s.dataset.t,nota:s.dataset.nota||'',acc:pendiente()})}).catch(()=>{})},250)}
 function conectado(){badge.classList.add('on');qrEst.textContent='✅ Móvil conectado';qrEst.classList.add('ok');setTimeout(()=>qrm.classList.remove('show'),1200)}
