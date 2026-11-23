@@ -54,7 +54,7 @@ p{margin:.3em 0}
 .center{text-align:center}.center h1,.center h2{text-align:center}
 /* tarjetas que se descubren al pulsar */
 .flip{cursor:pointer}
-.flip .cover{position:absolute;inset:-.22em 0 0 0;border-radius:.6em;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.3em;text-align:center;padding:.3em;transition:opacity .3s}
+.flip .cover{position:absolute;inset:-.22em 0 0 0;border-radius:.6em;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.3em;text-align:center;padding:.3em;transition:opacity .15s}
 .flip:nth-child(2) .cover{background:var(--coral)}.flip:nth-child(3) .cover{background:#d99a1c}.flip:nth-child(4) .cover{background:var(--violet)}
 .flip.open .cover{opacity:0;pointer-events:none}
 .hint{font-size:.7em;opacity:.65;font-weight:800;margin-top:.5em}
@@ -145,7 +145,8 @@ p{margin:.3em 0}
 .rkeys{display:grid;grid-template-columns:repeat(9,1fr);gap:.2em}
 .rkeys button{font:900 .95em Nunito,system-ui,sans-serif;width:1.9em;height:1.7em;border:none;border-radius:.25em;background:var(--soft);color:var(--teal);cursor:pointer}
 .rkeys button.si{background:#1f9a4a;color:#fff}.rkeys button.no{background:#f3c9c0;color:#a33;opacity:.6}
-.rhang .rslots span{width:1em;font-size:1.25em}
+.rhang .rslots{gap:.35em}
+.rhang .rslots span{width:1em;font-size:1.25em;background:none;border-radius:0;border-bottom:.14em solid var(--ink);line-height:1.3}
 .rscore{background:#fff;border-radius:.6em;padding:.5em;box-shadow:0 .12em .5em rgba(0,0,0,.08)}
 .rscore h3{font-weight:900;color:var(--teal);text-align:center;margin-bottom:.3em}
 #rGroups{display:flex;flex-direction:column;gap:.25em}
@@ -429,17 +430,18 @@ document.addEventListener('click',e=>{if(!jump.contains(e.target)&&e.target!==cn
 document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}if(['ArrowLeft','PageUp'].includes(e.key))go(cur-1);if(e.key==='Home')go(0);if(e.key==='End')go(N-1);if(e.key==='n'||e.key==='N')nota.classList.toggle('show');if(e.key==='Escape'){jump.classList.remove('show');nota.classList.remove('show')}});
 let tx=null;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));tx=null});
-document.querySelectorAll('.tv,.flip').forEach(c=>c.onclick=()=>{c.classList.toggle('open');fitAll()});
-document.getElementById('destapar').onclick=()=>{const c=document.querySelector('.tv:not(.open)');if(c){c.classList.add('open');if(typeof estado==='function')estado()}else document.querySelectorAll('.tv').forEach(x=>x.classList.remove('open'));fitAll()};
+document.querySelectorAll('.tv,.flip').forEach(c=>c.onclick=()=>{c.classList.toggle('open');fitCur()});
+document.getElementById('destapar').onclick=()=>{const c=document.querySelector('.tv:not(.open)');if(c){c.classList.add('open');if(typeof estado==='function')estado()}else document.querySelectorAll('.tv').forEach(x=>x.classList.remove('open'));fitCur()};
 /* nombre y apodo: al pulsar la pregunta, se escriben solos */
 function escribir(inp){const t=inp.dataset.ans;clearInterval(inp._t);inp.value='';let i=0;inp._t=setInterval(()=>{inp.value=t.slice(0,++i);if(i>=t.length){clearInterval(inp._t);if(typeof estado==='function')estado()}},110)}
 document.querySelectorAll('.nombre').forEach(n=>{const inp=n.querySelector('input[data-ans]');n.querySelector('label').onclick=()=>escribir(inp);inp.addEventListener('input',()=>{if(typeof estado==='function')estado()})});
 /* ajuste automático del tamaño de letra, con un máximo común */
-function fitAll(){const W=innerWidth,H=innerHeight;const MAX=Math.min(W/26,H/13.5);
-  S.forEach(s=>{const area=s.querySelector('.area'),f=s.querySelector('.fit');let lo=6,hi=MAX;
-    for(let k=0;k<18;k++){const m=(lo+hi)/2;f.style.fontSize=m+'px';
+function fitSlide(s){const MAX=Math.min(innerWidth/26,innerHeight/13.5);const area=s.querySelector('.area'),f=s.querySelector('.fit');let lo=6,hi=MAX;
+    for(let k=0;k<14;k++){const m=(lo+hi)/2;f.style.fontSize=m+'px';
       if(f.scrollHeight<=area.clientHeight+1&&f.scrollWidth<=area.clientWidth+1)lo=m;else hi=m}
-    f.style.fontSize=lo+'px'})}
+    f.style.fontSize=lo+'px'}
+function fitAll(){S.forEach(fitSlide)}
+function fitCur(){const s=document.querySelector('.slide.on');if(s)fitSlide(s)}
 /* aviso horizontal en móvil */
 const rot=document.getElementById('rot');let dismissed=false;
 function checkRot(){const mobile=matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<820;rot.style.display=(mobile&&innerHeight>innerWidth&&!dismissed)?'flex':'none'}
@@ -478,7 +480,7 @@ function retoPintar(){const z=$r('rZona'),R=RR(),main=$r('rMain');
   const m=Math.max(...G.pts.slice(0,G.ng)),solo=G.pts.slice(0,G.ng).filter(x=>x===m).length===1;
   $r('rGroups').innerHTML=G.pts.slice(0,G.ng).map((p,k)=>'<div class="rg'+(k===G.g&&G.f!=='fin'?' cur':'')+'" data-k="'+k+'"><span>'+(p===m&&m>0&&solo?'👑 ':'')+'Grupo '+(k+1)+'</span><b>'+p+'</b><button class="menos" aria-label="Restar">−</button></div>').join('');
   $r('rNG').textContent=G.ng+' grupos';
-  if(typeof fitAll==='function')fitAll();if(typeof estado==='function')estado()}
+  if(typeof fitSlide==='function')fitSlide($r('retoS'));if(typeof estado==='function')estado()}
 function parar(){clearInterval(gInt);cancelAnimationFrame(gRaf);clearTimeout(gTo)}
 function empezar(){parar();G.f='cuenta';retoPintar();let n=3;const z=$r('rZona');z.innerHTML='<div class="rcount">3</div>';bip(660,.1);
   gInt=setInterval(()=>{n--;if(n>0){z.firstChild.textContent=n;bip(660,.1)}else{clearInterval(gInt);bip(990,.2);jugar()}},800)}
@@ -504,7 +506,7 @@ function jugar(){G.f='juego';retoPintar();const z=$r('rZona'),id=G.act[G.r];G.t0
         if([...tiene].every(x=>vistas.has(x))){fin=true;gTo=setTimeout(()=>terminar(err<=1?10:err===2?9:err===3?8:err===4?7:6,'«'+w+'» con '+err+(err===1?' fallo.':' fallos.')),600)}}
       else{t.classList.add('no');ps[err].classList.add('on');err++;vd.textContent='❤️ Fallos: '+err+' / 6';bip(200,.12);
         if(err>=6){fin=true;W.forEach((x,k)=>{if(!sl[k].textContent){sl[k].textContent=x;sl[k].style.color='var(--coral)'}});gTo=setTimeout(()=>terminar(6,'¡Uy! Era «'+w+'». ¡Pero suman 6 puntos igual!'),1400)}}}}
-  if(typeof fitAll==='function')fitAll()}
+  if(typeof fitSlide==='function')fitSlide($r('retoS'))}
 function siguiente2(){parar();if(G.f==='intro')return empezar();
   if(G.f==='fin'){G.r=0;G.g=0;G.pts=G.pts.map(()=>0);G.f='intro';return retoPintar()}
   if(G.g<G.ng-1)G.g++;else if(G.r<nR()-1){G.r++;G.g=0}else{G.f='fin';return retoPintar()}
