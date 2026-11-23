@@ -103,29 +103,44 @@ p{margin:.3em 0}
 #nota{position:fixed;left:50%;bottom:7vh;transform:translateX(-50%);width:min(900px,86vw);background:#23313af2;color:#fff;border-radius:14px;padding:14px 18px;z-index:15;display:none;font-size:clamp(14px,1.25vw,20px);line-height:1.35;text-align:justify;box-shadow:0 6px 30px rgba(0,0,0,.3)}
 #nota.show{display:block}
 #nota b{color:var(--sun)}
-/* reto en grupos */
-.reto{display:grid;grid-template-columns:2.3fr 1fr;gap:1em;align-items:start}
-.rsit{font-size:1.25em;font-weight:900;line-height:1.2;margin:.15em 0 .45em;text-align:left}
-.ropt{display:flex;align-items:flex-start;background:#fff;border-radius:.5em;padding:.35em .55em;margin:.3em 0;box-shadow:0 .08em .35em rgba(0,0,0,.08);transition:opacity .3s,background .3s}
-.ropt .num{background:var(--coral)}
-.ropt span:last-child{flex:1;text-align:justify}
-.reto.rev .ropt{opacity:.35}
-.reto.rev .ropt.ok{opacity:1;background:#e5f6ea;box-shadow:0 0 0 .12em #1f9a4a}
-.reto.rev .ropt.ok .num{background:#1f9a4a}
-.rexp{visibility:hidden;margin-top:.5em;background:var(--soft);border-radius:.5em;padding:.4em .7em;font-weight:800}
-.reto.rev .rexp{visibility:visible}
-.rbtns{display:flex;gap:.5em;margin-top:.6em;flex-wrap:wrap}
-.rbtns .btn{font-size:.8em}
-#rTimer{background:var(--sun);color:var(--ink);min-width:6.5em}
-#rTimer.run{background:var(--ink);color:#fff}
-#rVer{background:#1f9a4a}#rNext{background:var(--teal)}
+/* reto en grupos: El Gran Reto Absurdo */
+.reto{display:grid;grid-template-columns:2.5fr 1fr;gap:1em;align-items:stretch}
+.rgame{display:flex;flex-direction:column}
+.rtop{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.rron{color:var(--coral);font-weight:900;font-size:.8em}
+.rturno{font-weight:900;background:var(--teal);color:#fff;border-radius:2em;padding:.1em .8em;font-size:.85em}
+.rtit{font-size:1.45em;font-weight:900;color:var(--teal);line-height:1.1;margin:.25em 0 .35em;text-align:left}
+.rzona{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4em;background:#fff;border-radius:.6em;box-shadow:0 .12em .5em rgba(0,0,0,.08);padding:.6em;min-height:9.5em;text-align:center}
+.rinst{font-size:1.05em;font-weight:800;text-align:center}
+.rsale{background:var(--soft);border-radius:2em;padding:.2em .9em;font-weight:900;color:var(--teal)}
+.rcount{font-size:5em;font-weight:900;color:var(--coral);line-height:1}
+.rgrid{display:grid;grid-template-columns:repeat(8,1fr);gap:.1em .35em}
+.rgrid button{font-size:1.55em;border:none;background:none;cursor:pointer;line-height:1.15;padding:0;font-family:inherit}
+.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-.15em)}75%{transform:translateX(.15em)}}
+.rpista{font-size:2.6em;line-height:1}
+.rslots{display:flex;gap:.2em}
+.rslots span{display:inline-block;width:1.2em;height:1.4em;border-radius:.25em;background:var(--soft);font-size:1.4em;font-weight:900;color:var(--teal);line-height:1.4}
+.rtiles{display:flex;flex-wrap:wrap;gap:.3em;justify-content:center}
+.rtiles button{font:900 1.4em Nunito,system-ui,sans-serif;width:1.6em;height:1.6em;border:none;border-radius:.3em;background:var(--sun);color:var(--ink);cursor:pointer;box-shadow:0 .08em 0 #c98f12}
+.rtiles button.used{visibility:hidden}
+.rchrono{font-size:4.2em;font-weight:900;font-variant-numeric:tabular-nums;line-height:1}
+.rstop{font:900 1.7em Nunito,system-ui,sans-serif;border:none;background:var(--coral);color:#fff;border-radius:.4em;padding:.15em 1.1em;cursor:pointer;box-shadow:0 .1em 0 #b4452f}
+.rres .quien{font-weight:900;font-size:1.1em}
+.rres .pts{font-size:3.6em;font-weight:900;color:#1f9a4a;line-height:1}
+.rres .msg{font-weight:900;font-size:1.2em}
+.rres .det{font-size:.85em;color:#556}
+.rrank{display:flex;flex-direction:column;gap:.2em;width:100%;max-width:16em}
+.rrank div{display:flex;justify-content:space-between;background:var(--soft);border-radius:.4em;padding:.15em .6em;font-weight:900}
+.rbtns{display:flex;gap:.5em;margin-top:.5em;flex-wrap:wrap;min-height:1.9em}
+.rbtns .btn{font-size:.85em}
+#rRep{background:var(--soft);color:var(--teal)}
 .rscore{background:#fff;border-radius:.6em;padding:.5em;box-shadow:0 .12em .5em rgba(0,0,0,.08)}
 .rscore h3{font-weight:900;color:var(--teal);text-align:center;margin-bottom:.3em}
-#rGroups{display:grid;grid-template-columns:1fr 1fr;gap:.35em}
-.rg{position:relative;background:var(--soft);border-radius:.45em;padding:.25em .2em;text-align:center;cursor:pointer;user-select:none;font-weight:800;font-size:.8em;line-height:1.1}
-.rg b{display:block;font-size:2em;color:var(--teal);line-height:1.1}
-.rg.top{background:#fff4d6;box-shadow:0 0 0 .12em var(--sun)}
-.rg .menos{position:absolute;bottom:.15em;right:.25em;opacity:.7;border:none;background:none;color:#9aa;font:900 1em Nunito,system-ui,sans-serif;cursor:pointer;padding:0 .2em}
+#rGroups{display:flex;flex-direction:column;gap:.25em}
+.rg{position:relative;display:flex;justify-content:space-between;align-items:center;background:var(--soft);border-radius:.4em;padding:.15em 1.4em .15em .5em;font-weight:800;cursor:pointer;user-select:none;font-size:.85em}
+.rg b{font-size:1.35em;color:var(--teal)}
+.rg.cur{background:#fff4d6;box-shadow:0 0 0 .12em var(--sun)}
+.rg .menos{position:absolute;right:.25em;top:50%;transform:translateY(-50%);border:none;background:none;color:#9aa;font:900 1em Nunito,system-ui,sans-serif;cursor:pointer}
 .rctrl{display:flex;justify-content:center;align-items:center;gap:.4em;margin-top:.4em;font-size:.65em;font-weight:800;color:#667}
 .rctrl button{border:none;background:var(--soft);color:var(--teal);font:900 1.2em Nunito,system-ui,sans-serif;width:1.6em;height:1.6em;border-radius:50%;cursor:pointer}
 .rhint{font-size:.6em;text-align:center;color:#778;font-weight:800;margin-top:.3em}
@@ -292,25 +307,24 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
 <section class="slide" data-q="7" data-t="Pregunta 7 · Recreo" data-nota="Pregunta muy útil: fíjate en <b>dónde están a gusto</b> y en <b>quién no menciona a nadie</b> con quien estar. Coméntalo luego con la tutora."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 7 DE 7</div><div class="q">¿Qué es lo que más me gusta del recreo?</div><div class="dots" data-n="7"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🔔</div></div></div></div></section>
 
 <!-- reto en grupos (si da tiempo) -->
-<section class="slide" data-t="Reto en grupos · Misión convivencia" data-nota="Solo si os sobran unos <b>10 minutos</b>. Que se agrupen de 4 sin mover mucho las sillas (con los de al lado). Pide a un alumno que lleve el marcador en la pizarra: pulsa el grupo para sumar un punto."><div class="area"><div class="fit">
+<section class="slide" data-t="Reto en grupos · El Gran Reto Absurdo" data-nota="Solo si os sobran unos <b>10 minutos</b>. Grupos de 4 o 5 con los de al lado, sin mover mucho las sillas. Que cada grupo se invente un nombre absurdo (puedes decirlo en voz alta al darles los puntos). Es para reírse y soltar tensiones: todos sacan buena nota."><div class="area"><div class="fit">
   <span class="kicker">⏱️ Si da tiempo</span>
-  <h2>Reto en grupos: Misión convivencia 🕵️</h2>
-  <div class="row"><span class="num">1</span><span>Formad <b>grupos de 4</b> y poneos un nombre divertido.</span></div>
-  <div class="row"><span class="num">2</span><span>Leeré una situación con tres opciones.</span></div>
-  <div class="row"><span class="num">3</span><span>Tenéis <b>20 segundos</b> para poneros de acuerdo.</span></div>
-  <div class="row"><span class="num">4</span><span>Cuando diga «¡Ya!», levantad la mano con <b>1, 2 o 3 dedos</b>.</span></div>
-  <div class="row"><span class="num">5</span><span>Cada acierto suma <b>un punto</b> para el grupo. 🏆</span></div>
+  <h2>Reto en grupos: El Gran Reto Absurdo 🤪</h2>
+  <div class="row"><span class="num">1</span><span>Formad <b>grupos de 4 o 5</b> y poneos un nombre divertido (cuanto más absurdo, mejor).</span></div>
+  <div class="row"><span class="num">2</span><span>Tres rondas: <b>🔍 ¿Dónde está el intruso?</b> · <b>🔤 Palabra revuelta</b> · <b>⏱️ Cronómetro ciego</b>.</span></div>
+  <div class="row"><span class="num">3</span><span>En cada ronda sale a la pizarra <b>una persona distinta</b> de cada grupo.</span></div>
+  <div class="row"><span class="num">4</span><span>El resto del grupo puede ayudar gritando… ¡pero sin tocar!</span></div>
+  <div class="row"><span class="num">5</span><span>Todos los grupos suman puntos. ¡Aquí nadie se va de vacío! 🏆</span></div>
 </div></div></section>
-<section class="slide" id="retoS" data-t="Misión convivencia · Situaciones" data-nota="Lee la situación en voz alta y pulsa <b>⏱️ 20 s</b>. Al «¡Ya!», todos levantan los dedos a la vez. Pulsa <b>Ver respuesta</b>, comenta la explicación en una frase y suma los puntos. Después, <b>Siguiente</b>."><div class="area"><div class="fit">
+<section class="slide" id="retoS" data-t="El Gran Reto Absurdo · Juego" data-nota="Pulsa <b>▶ ¡Empezar!</b> cuando la persona del grupo esté en la pizarra. Los puntos se suman solos (si quieres dar un punto extra por gracia, pulsa el grupo en el marcador). Si algo falla, <b>↺ Repetir turno</b>."><div class="area"><div class="fit">
   <div class="reto" id="reto">
-    <div>
-      <div class="qn" id="rNum"></div>
-      <div class="rsit" id="rSit"></div>
-      <div id="rOpts"></div>
-      <div class="rexp" id="rExp"></div>
-      <div class="rbtns"><button class="btn" id="rTimer">⏱️ 20 s</button><button class="btn" id="rVer">✅ Ver respuesta</button><button class="btn" id="rNext">Siguiente ›</button></div>
+    <div class="rgame">
+      <div class="rtop"><span class="rron" id="rRon"></span><span class="rturno" id="rTur"></span></div>
+      <div class="rtit" id="rTit"></div>
+      <div class="rzona" id="rZona"></div>
+      <div class="rbtns"><button class="btn" id="rMain"></button><button class="btn" id="rRep">↺ Repetir turno</button></div>
     </div>
-    <div class="rscore"><h3>🏆 Marcador</h3><div id="rGroups"></div><div class="rctrl"><button id="rMenosG" aria-label="Menos grupos">−</button><span id="rNG"></span><button id="rMasG" aria-label="Más grupos">+</button></div><div class="rhint">Pulsa un grupo: +1</div></div>
+    <div class="rscore"><h3>🏆 Marcador</h3><div id="rGroups"></div><div class="rctrl"><button id="rMenosG" aria-label="Menos grupos">−</button><span id="rNG"></span><button id="rMasG" aria-label="Más grupos">+</button></div><div class="rhint">Pulsa un grupo: +1 extra</div></div>
   </div>
 </div></div></section>
 
@@ -422,38 +436,61 @@ addEventListener('resize',()=>{fitAll();checkRot()});
 go(0);fitAll();checkRot();
 if(document.fonts)document.fonts.ready.then(fitAll);
 
-/* ===== reto en grupos ===== */
-const RETO=[
- {s:'En el grupo de WhatsApp de clase, alguien se ríe de un compañero con un meme.',o:['Mando un emoji riéndome para no quedar mal.','No digo nada y me salgo del grupo.','Escribo «eso no mola» y, si sigue, aviso al tutor o la tutora.'],ok:2,e:'Reírse también hace daño. Parar la broma y pedir ayuda si sigue es ser valiente. 💪'},
- {s:'En el recreo hay un compañero nuevo que siempre está solo.',o:['Le invitamos a estar con nosotros.','Esperamos a que se acerque él.','Comentamos entre nosotros que es un poco raro.'],ok:0,e:'Un gesto pequeño puede cambiarle el día (y el curso) a alguien. 😊'},
- {s:'Dos amigos tuyos discuten y te piden que elijas bando.',o:['Me pongo del lado del que me cae mejor.','Les escucho a los dos y les propongo hablarlo con calma.','Se lo cuento a toda la clase.'],ok:1,e:'No hace falta elegir bando: escuchar y ayudar a que hablen es lo mejor. Y si no se arregla, para eso estoy yo. 🤝'},
- {s:'Un compañero te coge el estuche sin permiso por tercera vez.',o:['Se lo quito de malas maneras.','Le escondo la mochila para que aprenda.','Le digo con calma que me molesta y que me lo pida antes.'],ok:2,e:'Decir lo que te molesta con calma funciona mejor que la venganza. 🧘'},
- {s:'Ves que a un compañero le quitan el bocadillo casi todos los días.',o:['No es asunto mío.','Me río, total, es una broma.','Se lo cuento a Puyol o a nuestra tutora.'],ok:2,e:'Contarlo no es chivarse: es proteger a un compañero. Para eso estamos vuestra tutora y yo. 🛡️'}];
-const R={i:0,rev:false,timer:false,fin:false,ng:6,pts:[0,0,0,0,0,0,0,0]};let rT=null;
+/* ===== reto en grupos: El Gran Reto Absurdo ===== */
+const RONDAS=[
+ {t:'🔍 ¿Dónde está el intruso?',i:'Toca el dibujo que es diferente a todos los demás.'},
+ {t:'🔤 Palabra revuelta',i:'Toca las letras en orden para formar la palabra. ¡La pista es el dibujo!'},
+ {t:'⏱️ Cronómetro ciego',i:'Para el cronómetro justo en <b>5,00 segundos</b>. ¡Ojo! A los 2 segundos se esconde. 🙈'}];
+const PARES=[['🍌','🍋'],['🐢','🐸'],['🍩','🍪'],['🦆','🐧'],['🍔','🍕'],['🐶','🐱'],['🍓','🍒'],['🐝','🐞']];
+const PALABRAS=[['PATATA','🥔'],['PULPO','🐙'],['CALABAZA','🎃'],['ZAPATILLA','👟'],['BOCADILLO','🥪'],['CALAMAR','🦑'],['GALLINA','🐔'],['ESPAGUETI','🍝']];
+const MSG={10:'¡Nivel leyenda! 🤩',9:'¡Crack total! 😎',8:'¡Muy bien! 👏',7:'¡Bien hecho! 🙌',6:'¡Lo importante es participar! 😅'};
+const G={ng:6,pts:[0,0,0,0,0,0,0,0],r:0,g:0,f:'intro',t0:0,last:0,det:''};let gInt=null,gRaf=null;
 const $r=id=>document.getElementById(id);
 function bip(f,d){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.connect(g);g.connect(a.destination);g.gain.value=.15;o.start();o.stop(a.currentTime+d)}catch(e){}}
-function retoPintar(){const el=$r('reto');el.classList.toggle('rev',R.rev||R.fin);
-  if(R.fin){$r('rNum').textContent='¡MISIÓN CUMPLIDA!';$r('rSit').textContent='🎉 ¡Enhorabuena a todos los grupos!';const m=Math.max(...R.pts.slice(0,R.ng));
-    const g=R.pts.slice(0,R.ng).map((p,k)=>p===m&&m>0?'Grupo '+(k+1):null).filter(Boolean);
-    $r('rOpts').innerHTML='<div class="ropt ok"><span class="num">🏆</span><span>'+(g.length?'Más puntos: '+g.join(', ')+'.':'¡Empate a cero! Lo importante es convivir bien.')+'</span></div>';
-    $r('rExp').textContent='La mejor convivencia se construye entre todos, cada día. 💛';$r('rVer').style.display='none';$r('rNext').textContent='↺ Empezar de nuevo';$r('rTimer').style.display='none'}
-  else{const q=RETO[R.i];$r('rNum').textContent='SITUACIÓN '+(R.i+1)+' DE '+RETO.length;$r('rSit').textContent=q.s;
-    $r('rOpts').innerHTML=q.o.map((t,k)=>'<div class="ropt'+(k===q.ok?' ok':'')+'"><span class="num">'+(k+1)+'</span><span>'+t+'</span></div>').join('');
-    $r('rExp').textContent=q.e;$r('rVer').style.display='';$r('rTimer').style.display='';$r('rNext').textContent=R.i<RETO.length-1?'Siguiente ›':'🏆 Resultado'}
-  const m=Math.max(...R.pts.slice(0,R.ng));
-  $r('rGroups').innerHTML=R.pts.slice(0,R.ng).map((p,k)=>'<div class="rg'+(p===m&&m>0?' top':'')+'" data-k="'+k+'"><button class="menos" aria-label="Restar">−</button>Grupo '+(k+1)+'<b>'+p+'</b></div>').join('');
-  $r('rNG').textContent=R.ng+' grupos';
+const fmt=x=>x.toFixed(2).replace('.',',');
+function retoPintar(){const z=$r('rZona'),R=RONDAS[G.r],main=$r('rMain');
+  $r('rRon').textContent=G.f==='fin'?'RESULTADO FINAL':'RONDA '+(G.r+1)+' DE 3';
+  $r('rTur').textContent=G.f==='fin'?'🏆 ¡Fin!':'Turno: Grupo '+(G.g+1);
+  $r('rTit').textContent=G.f==='fin'?'🎉 ¡Sois todos unos cracks!':R.t;
+  if(G.f==='intro')z.innerHTML='<div class="rinst">'+R.i+'</div><div class="rsale">🚶 Sale a la pizarra una persona del Grupo '+(G.g+1)+(G.r>0?' (¡que no haya salido antes!)':'')+'</div>';
+  else if(G.f==='res')z.innerHTML='<div class="rres"><div class="quien">Grupo '+(G.g+1)+'</div><div class="pts">+'+G.last+'</div><div class="msg">'+MSG[G.last]+'</div><div class="det">'+G.det+'</div></div>';
+  else if(G.f==='fin'){const o=G.pts.slice(0,G.ng).map((p,k)=>[k,p]).sort((a,b)=>b[1]-a[1]);const med=['🥇','🥈','🥉'];
+    const dif=[...new Set(o.map(x=>x[1]))];z.innerHTML='<div class="rrank">'+o.map(([k,p],i)=>'<div><span>'+(med[dif.indexOf(p)]||'⭐')+' Grupo '+(k+1)+'</span><span>'+p+' puntos</span></div>').join('')+'</div><div class="rinst">¡Gran trabajo en equipo! 💛</div>'}
+  main.style.display=(G.f==='cuenta'||G.f==='juego')?'none':'';
+  main.textContent=G.f==='intro'?'▶ ¡Empezar!':G.f==='fin'?'↺ Jugar otra vez':G.g<G.ng-1?'Siguiente grupo ›':G.r<2?'Siguiente ronda ›':'🏆 Ver resultado';
+  $r('rRep').style.display=(G.f==='juego'||G.f==='res')?'':'none';
+  const m=Math.max(...G.pts.slice(0,G.ng));
+  $r('rGroups').innerHTML=G.pts.slice(0,G.ng).map((p,k)=>'<div class="rg'+(k===G.g&&G.f!=='fin'?' cur':'')+'" data-k="'+k+'"><span>'+(p===m&&m>0&&G.pts.slice(0,G.ng).filter(x=>x===m).length===1?'👑 ':'')+'Grupo '+(k+1)+'</span><b>'+p+'</b><button class="menos" aria-label="Restar">−</button></div>').join('');
+  $r('rNG').textContent=G.ng+' grupos';
   if(typeof fitAll==='function')fitAll();if(typeof estado==='function')estado()}
-function retoTimer(){clearInterval(rT);R.timer=true;let t=20;const b=$r('rTimer');b.classList.add('run');b.textContent='⏱️ '+t;
-  rT=setInterval(()=>{t--;if(t>0){b.textContent='⏱️ '+t;if(t<=3)bip(660,.08)}else{clearInterval(rT);b.textContent='🙋 ¡Ya!';b.classList.remove('run');bip(990,.35)}},1000);estado()}
-function retoVer(){if(R.fin)return;R.rev=true;clearInterval(rT);$r('rTimer').classList.remove('run');$r('rTimer').textContent='⏱️ 20 s';retoPintar()}
-function retoNext(){clearInterval(rT);$r('rTimer').classList.remove('run');$r('rTimer').textContent='⏱️ 20 s';
-  if(R.fin){R.fin=false;R.i=0;R.pts=R.pts.map(()=>0)}else if(R.i<RETO.length-1)R.i++;else R.fin=true;R.rev=false;R.timer=false;retoPintar()}
-function retoAccion(){if(R.fin)return '';if(!R.rev&&!R.timer)return '⏱️ Empezar 20 s';if(!R.rev)return '✅ Ver respuesta';return R.i<RETO.length-1?'➡️ Siguiente situación':'🏆 Ver resultado'}
-function retoHacer(){const a=retoAccion();if(a.startsWith('⏱️'))retoTimer();else if(a.startsWith('✅'))retoVer();else if(a)retoNext()}
-$r('rTimer').onclick=retoTimer;$r('rVer').onclick=retoVer;$r('rNext').onclick=retoNext;
-$r('rGroups').onclick=e=>{const t=e.target.closest('.rg');if(!t)return;const k=+t.dataset.k;if(e.target.classList.contains('menos'))R.pts[k]=Math.max(0,R.pts[k]-1);else{R.pts[k]++;bip(880,.07)}retoPintar()};
-$r('rMasG').onclick=()=>{if(R.ng<8){R.ng++;retoPintar()}};$r('rMenosG').onclick=()=>{if(R.ng>2){R.ng--;retoPintar()}};
+function parar(){clearInterval(gInt);cancelAnimationFrame(gRaf)}
+function empezar(){parar();G.f='cuenta';retoPintar();let n=3;const z=$r('rZona');z.innerHTML='<div class="rcount">3</div>';bip(660,.1);
+  gInt=setInterval(()=>{n--;if(n>0){z.firstChild.textContent=n;bip(660,.1)}else{clearInterval(gInt);bip(990,.2);jugar()}},800)}
+function terminar(pts,det){parar();G.last=pts;G.det=det;G.pts[G.g]+=pts;G.f='res';bip(880,.12);setTimeout(()=>bip(1320,.2),130);retoPintar()}
+function puntos(x,lim){for(let k=0;k<lim.length;k++)if(x<=lim[k])return 10-k;return 6}
+function jugar(){G.f='juego';retoPintar();const z=$r('rZona');G.t0=performance.now();const seg=()=>(performance.now()-G.t0)/1000;
+  if(G.r===0){const [a,b]=PARES[G.g%PARES.length],N=32,x=Math.floor(Math.random()*N);
+    z.innerHTML='<div class="rgrid">'+Array.from({length:N},(_,k)=>'<button data-ok="'+(k===x?1:0)+'">'+(k===x?b:a)+'</button>').join('')+'</div>';
+    z.querySelector('.rgrid').onclick=e=>{const t=e.target.closest('button');if(!t)return;if(t.dataset.ok==='1'){const s=seg();terminar(puntos(s,[3,5,8,12]),'Lo ha encontrado en '+fmt(s)+' segundos.')}else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');bip(200,.08)}}}
+  else if(G.r===1){const [w,e]=PALABRAS[G.g%PALABRAS.length];let L=w.split(''),pos=0;do{L.sort(()=>Math.random()-.5)}while(L.join('')===w);
+    z.innerHTML='<div class="rpista">'+e+'</div><div class="rslots">'+w.split('').map(()=>'<span></span>').join('')+'</div><div class="rtiles">'+L.map(c=>'<button>'+c+'</button>').join('')+'</div>';
+    const sl=z.querySelectorAll('.rslots span');
+    z.querySelector('.rtiles').onclick=ev=>{const t=ev.target.closest('button');if(!t||t.classList.contains('used'))return;
+      if(t.textContent===w[pos]){t.classList.add('used');sl[pos].textContent=w[pos];pos++;bip(700+pos*40,.05);if(pos===w.length){const s=seg();setTimeout(()=>terminar(puntos(s,[8,12,17,25]),'«'+w+'» en '+fmt(s)+' segundos.'),400)}}
+      else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');bip(200,.08)}}}
+  else{z.innerHTML='<div class="rchrono">0,00</div><button class="rstop">✋ ¡PARA!</button>';const c=z.querySelector('.rchrono');
+    const tick=()=>{const s=seg();c.textContent=s<2?fmt(s):'🙈';gRaf=requestAnimationFrame(tick)};tick();
+    z.querySelector('.rstop').onclick=()=>{const s=seg(),d=Math.abs(s-5);c.textContent=fmt(s);terminar(puntos(d,[.15,.4,.8,1.5]),'Ha parado en '+fmt(s)+' s (a '+fmt(d)+' s del 5,00).')}}}
+function siguiente2(){parar();if(G.f==='intro')return empezar();
+  if(G.f==='fin'){G.r=0;G.g=0;G.pts=G.pts.map(()=>0);G.f='intro';return retoPintar()}
+  if(G.g<G.ng-1)G.g++;else if(G.r<2){G.r++;G.g=0}else{G.f='fin';return retoPintar()}
+  G.f='intro';retoPintar()}
+function repetir(){parar();if(G.f==='res')G.pts[G.g]-=G.last;G.f='intro';retoPintar()}
+function retoAccion(){return (G.f==='intro'||G.f==='res')?$r('rMain').textContent:''}
+function retoHacer(){if(G.f==='intro'||G.f==='res')siguiente2()}
+$r('rMain').onclick=siguiente2;$r('rRep').onclick=repetir;
+$r('rGroups').onclick=e=>{const t=e.target.closest('.rg');if(!t)return;const k=+t.dataset.k;if(e.target.classList.contains('menos'))G.pts[k]=Math.max(0,G.pts[k]-1);else{G.pts[k]++;bip(880,.07)}retoPintar()};
+$r('rMasG').onclick=()=>{if(G.ng<8){G.ng++;retoPintar()}};$r('rMenosG').onclick=()=>{if(G.ng>2){G.ng--;if(G.g>=G.ng)G.g=G.ng-1;retoPintar()}};
 retoPintar();
 /* ===== mando a distancia (presentador) ===== */
 const TOPIC=(()=>{let t=null;try{t=localStorage.getItem('circulo_conv_mando')}catch(e){}
