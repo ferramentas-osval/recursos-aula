@@ -305,7 +305,7 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
 </div></div></section>
 
 <!-- 10 selector -->
-<section class="slide" id="selector" data-t="¿Qué pregunta toca?" data-nota="Da tiempo para <b>2 o 3 rondas</b>. Pide a un alumno que elija un número o pulsa el dado. Las preguntas ya hechas quedan marcadas con ✓. Recomendadas: la 4 (animal) y la 7 (recreo)."><div class="area"><div class="fit center">
+<section class="slide" id="selector" data-t="¿Qué pregunta toca?" data-nota="Da tiempo para <b>2 o 3 rondas</b>. Pide a un alumno que elija un número o pulsa el dado. Las preguntas ya hechas quedan marcadas con ✓. El dado está «trucado»: sale primero la 7 (recreo), luego la 1 (tiempo libre), la 4 (animal), la 5 (olor)… Si eligen ellos un número, el dado sigue con las que falten."><div class="area"><div class="fit center">
   <h2>¿Qué pregunta toca?</h2>
   <p class="big center">Elige un número del 1 al 7… o que decida el dado.</p>
   <div class="picker" id="picker"></div>
@@ -386,8 +386,9 @@ for(let i=1;i<=7;i++){const b=document.createElement('button');b.textContent=i;b
 function paintPicker(){[...picker.children].forEach((b,k)=>b.classList.toggle('used',used.has(String(k+1))))}
 let rolling=false;
 document.getElementById('dice').onclick=()=>{if(rolling)return;rolling=true;
-  let pool=[1,2,3,4,5,6,7].filter(n=>!used.has(String(n)));if(!pool.length)pool=[1,2,3,4,5,6,7];
-  const target=pool[Math.floor(Math.random()*pool.length)];const btns=[...picker.children];let steps=14+Math.floor(Math.random()*6),k=0,last=0;
+  /* «dado trucado»: sale primero la pregunta que más dice del alumnado */
+  const PRIO=[7,1,4,5,6,2,3];let pool=PRIO.filter(n=>!used.has(String(n)));if(!pool.length)pool=PRIO;
+  const target=pool[0];const btns=[...picker.children];let steps=14+Math.floor(Math.random()*6),k=0,last=0;
   (function tick(){btns.forEach(b=>b.classList.remove('hl'));
     if(k<steps){last=Math.floor(Math.random()*7);btns[last].classList.add('hl');k++;setTimeout(tick,60+k*12)}
     else{btns[target-1].classList.add('hl');setTimeout(()=>{btns[target-1].classList.remove('hl');rolling=false;go(Q[target])},900)}})()};
