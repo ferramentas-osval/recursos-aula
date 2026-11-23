@@ -12,7 +12,7 @@ index.html                     ← portada (todos los cursos)
 02_BACH/index.html             ← página de Bachillerato
 03_FPB/index.html, 04_PDC/index.html, ACTIVIDADES_LUDICAS/index.html,
 ACTIVIDADES_PERSONAJES_HISTORICOS/index.html, PROYECTOS_COMPETENCIALES/index.html,
-TALLERES_Y_TECNICAS_DE_ESTUDIO/index.html   ← una página por curso o apartado
+TALLERES_Y_TECNICAS_DE_ESTUDIO/index.html, TUTORIA_CONVIVENCIA/index.html   ← una página por curso o apartado
 assets/recursos.css            ← diseño común (colores, tarjetas, cabeceras)
 assets/recursos.js             ← motor que dibuja las páginas
 assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
@@ -28,7 +28,7 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 - **Página de curso:** cabecera con el color e icono del curso, botón «← Todos los recursos», descripción, contadores, buscador propio, botones para saltar a cada bloque y tarjetas de recurso.
 - **Tarjeta de recurso:** icono según el tipo (🎞️ presentación, ✏️ actividad, 📘 unidad didáctica, 🛠️ taller, 🎲 juego, 🕵️ expediente, 💬 tutoría), etiqueta del tipo, título y barra lateral del color del curso. La etiqueta amarilla «NUEVO» marca lo reciente.
 - **Tipografías:** Bricolage Grotesque (títulos) y Atkinson Hyperlegible (texto). Texto justificado y a todo el ancho.
-- **Colores por curso** (en `recursos.css`): `--c1` ESO verde azulado, `--c2` Bachillerato morado, `--c3` FPB naranja, `--c4` PDC verde, `--c5` lúdicas rosa, `--c6` personajes marrón, `--c7` proyectos azul, `--c8` talleres mostaza.
+- **Colores por curso** (en `recursos.css`): `--c1` ESO verde azulado, `--c2` Bachillerato morado, `--c3` FPB naranja, `--c4` PDC verde, `--c5` lúdicas rosa, `--c6` personajes marrón, `--c7` proyectos azul, `--c8` talleres mostaza, `--c9` tutoría de convivencia coral.
 - Nombre, icono, color y descripción de cada curso: objeto `CATS` en `assets/recursos.js`.
 
 ## 3. Tareas habituales
@@ -60,6 +60,7 @@ assets/recursos_datos.js       ← LISTADO de recursos, novedades y ocultos
 - Bachillerato: `…/02_BACH/` · FP Básica: `…/03_FPB/` · PDC: `…/04_PDC/`
 - Actividades lúdicas: `…/ACTIVIDADES_LUDICAS/` · Personajes históricos: `…/ACTIVIDADES_PERSONAJES_HISTORICOS/`
 - Proyectos competenciales: `…/PROYECTOS_COMPETENCIALES/` · Talleres: `…/TALLERES_Y_TECNICAS_DE_ESTUDIO/`
+- Tutoría de convivencia (último apartado de la portada): `…/TUTORIA_CONVIVENCIA/`
 
 ## Contador «n / total» e ir a diapositiva (todas las presentaciones)
 
@@ -153,3 +154,9 @@ Solo las fichas (no las presentaciones) llevan arriba un botón para imprimirlas
 - Estilo: alumnado con dificultades; frases cortas y muchos ejemplos del taller y de los coches; raíz de color, ramas con conectores, ejemplos en letra manuscrita dentro de una etiqueta suave y «💡 Recuerda» al final. Terminología del profesor: «frase» (nunca «sintagma»), clases de palabras en minúscula, «f. nominal», «f. preposicional»…
 - Botón «🖨️ Imprimir» (todo, un bloque o «Solo este»); cada esquema en una sola hoja A4. Comprobar con Playwright que el PDF tiene tantas páginas como esquemas, sin errores en consola y sin desbordar a 390 px en el móvil.
 - **Norma fija:** cada vez que se suba una presentación nueva de FPB, se añade su esquema a este archivo, en el bloque que le corresponda y en el orden del panel; se renumeran los siguientes (el esquema general «Pautas de redacción» va siempre el último, en su propio apartado azul, después de Lengua y ortografía; se imprime con Comunicación y textos) y se actualizan el índice, la barra y el menú de impresión si el bloque es nuevo.
+
+## Tutoría de convivencia (1.º ESO)
+
+- Carpeta `TUTORIA_CONVIVENCIA/`, último apartado de la portada (🤝, color `--c9`). Primer recurso: `tutoria_circulo_convivencia_1eso.html` (presentación del tutor de convivencia y círculo de diálogo).
+- **Mando con el móvil (📱, tecla M):** la presentación muestra un QR; el móvil abre la misma página con `#mando=<canal>` y funciona como mando (flechas, «Descubrir»/«Escribir»/«Tirar el dado» y notas del profesor). Los mensajes van por ntfy.sh (canal aleatorio guardado en el navegador). Solo funciona desde GitHub Pages, no desde el archivo descargado.
+- Notas del profesor por diapositiva en `data-nota` (tecla N o 📝).

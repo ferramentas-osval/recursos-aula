@@ -53,7 +53,8 @@ const CATS={
  'ACTIVIDADES LÚDICAS':{name:'Actividades lúdicas',icon:'🎲',col:'--c5',desc:'Bingos, banderas, pasatiempos, ruletas y juegos de vocabulario para aprender jugando.'},
  'ACTIVIDADES PERSONAJES HISTÓRICOS':{name:'Personajes históricos',icon:'🕵️',col:'--c6',desc:'Expedientes interactivos para investigar la vida de grandes personajes de la historia.'},
  'PROYECTOS COMPETENCIALES':{name:'Proyectos competenciales',icon:'📻',col:'--c7',desc:'Proyectos para aprender haciendo: radio, entrevistas y mucho más.'},
- 'TALLERES Y TÉCNICAS DE ESTUDIO':{name:'Talleres y técnicas de estudio',icon:'🧠',col:'--c8',desc:'Talleres de resumen, comentario y técnicas de estudio.'}};
+ 'TALLERES Y TÉCNICAS DE ESTUDIO':{name:'Talleres y técnicas de estudio',icon:'🧠',col:'--c8',desc:'Talleres de resumen, comentario y técnicas de estudio.'},
+ 'TUTORÍA DE CONVIVENCIA':{name:'Tutoría de convivencia',icon:'🤝',col:'--c9',desc:'Presentaciones y dinámicas para la tutoría de convivencia de 1.º ESO: círculos de diálogo para conocernos y resolver conflictos.'}};
 const KEEP={BACH:'Bach.',PDC:'PDC',ESO:'ESO',LCL:'LCL',FPB:'FPB'};
 const nice=s=>s.split(' ').map((w,i)=>KEEP[w]||(i===0?w.charAt(0)+w.slice(1).toLowerCase():w.toLowerCase())).join(' ').replace(/\bY\b/g,'y');
 const folderOf=c=>{let h=null;(function f(n){if(h)return;if(n.h)h=n.h;else n.c.forEach(f)})(c);return h.split('/')[0]};

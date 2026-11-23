@@ -1,6 +1,6 @@
 
 :root{--bg:#f6f2ea;--paper:#fffdf8;--ink:#1f2633;--soft:#5d6677;--line:#e6dfd1;
---c1:#0f8b82;--c2:#6b5bd2;--c3:#e98a1c;--c4:#3f9b4b;--c5:#d9567a;--c6:#9a6a3b;--c7:#2e86c9;--c8:#d4a017}
+--c1:#0f8b82;--c2:#6b5bd2;--c3:#e98a1c;--c4:#3f9b4b;--c5:#d9567a;--c6:#9a6a3b;--c7:#2e86c9;--c8:#d4a017;--c9:#e8664f}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:17px;line-height:1.5}
 h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.1}
