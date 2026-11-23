@@ -104,7 +104,8 @@ p{margin:.3em 0}
 #nota.show{display:block}
 #nota b{color:var(--sun)}
 /* reto en grupos: El Gran Reto Absurdo */
-.reto{display:grid;grid-template-columns:2.5fr 1fr;gap:1em;align-items:stretch}
+.reto{display:grid;grid-template-columns:minmax(min-content,1fr) 9.5em;gap:1em;align-items:stretch}
+.rctrl span{white-space:nowrap}.rscore h3{white-space:nowrap}
 .rgame{display:flex;flex-direction:column}
 .rtop{display:flex;justify-content:space-between;align-items:center;gap:.5em}
 .rron{color:var(--coral);font-weight:900;font-size:.8em}
@@ -134,6 +135,23 @@ p{margin:.3em 0}
 .rbtns{display:flex;gap:.5em;margin-top:.5em;flex-wrap:wrap;min-height:1.9em}
 .rbtns .btn{font-size:.85em}
 #rRep{background:var(--soft);color:var(--teal)}
+.rsel{display:flex;flex-wrap:wrap;gap:.3em;justify-content:center;align-items:center;font-size:.75em;font-weight:800;margin-top:.2em}
+.rsel button{border:none;border-radius:2em;padding:.2em .7em;font:800 1em Nunito,system-ui,sans-serif;cursor:pointer;background:#e3e7e7;color:#889;text-decoration:line-through}
+.rsel button.on{background:var(--teal);color:#fff;text-decoration:none}
+.rmem{display:grid;grid-template-columns:repeat(5,1fr);gap:.35em}
+.rmem button{width:2.4em;height:2.4em;font-size:1.5em;border:none;border-radius:.3em;background:var(--violet);color:#fff;cursor:pointer;line-height:1;box-shadow:0 .08em 0 #5b40a8}
+.rmem button.up{background:#fff;box-shadow:0 0 0 .08em var(--violet)}
+.rmem button.ok{background:#e5f6ea;box-shadow:0 0 0 .08em #1f9a4a}
+.rhang{display:grid;grid-template-columns:auto 1fr;gap:.8em;align-items:center;width:100%}
+.rhang svg{width:5.5em;height:auto}
+.rhang svg .p{opacity:0;transition:opacity .3s}.rhang svg .p.on{opacity:1}
+.rhang .der{display:flex;flex-direction:column;align-items:center;gap:.4em}
+.rhang .pista{font-weight:800;font-size:.8em;color:#556;text-align:center}
+.rhang .vidas{font-weight:900;font-size:.8em;color:var(--coral)}
+.rkeys{display:grid;grid-template-columns:repeat(9,1fr);gap:.2em}
+.rkeys button{font:900 .95em Nunito,system-ui,sans-serif;width:1.9em;height:1.7em;border:none;border-radius:.25em;background:var(--soft);color:var(--teal);cursor:pointer}
+.rkeys button.si{background:#1f9a4a;color:#fff}.rkeys button.no{background:#f3c9c0;color:#a33;opacity:.6}
+.rhang .rslots span{width:1em;font-size:1.25em}
 .rscore{background:#fff;border-radius:.6em;padding:.5em;box-shadow:0 .12em .5em rgba(0,0,0,.08)}
 .rscore h3{font-weight:900;color:var(--teal);text-align:center;margin-bottom:.3em}
 #rGroups{display:flex;flex-direction:column;gap:.25em}
@@ -307,11 +325,11 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
 <section class="slide" data-q="7" data-t="Pregunta 7 · Recreo" data-nota="Pregunta muy útil: fíjate en <b>dónde están a gusto</b> y en <b>quién no menciona a nadie</b> con quien estar. Coméntalo luego con la tutora."><div class="area"><div class="fit"><div class="split r"><div><div class="qn">PREGUNTA 7 DE 7</div><div class="q">¿Qué es lo que más me gusta del recreo?</div><div class="dots" data-n="7"></div><button class="btn sec back">🎲 Elegir otra pregunta</button></div><div class="emoji">🔔</div></div></div></div></section>
 
 <!-- reto en grupos (si da tiempo) -->
-<section class="slide" data-t="Reto en grupos · El Gran Reto Absurdo" data-nota="Solo si os sobran unos <b>10 minutos</b>. Grupos de 4 o 5 con los de al lado, sin mover mucho las sillas. Que cada grupo se invente un nombre absurdo (puedes decirlo en voz alta al darles los puntos). Es para reírse y soltar tensiones: todos sacan buena nota."><div class="area"><div class="fit">
+<section class="slide" data-t="Reto en grupos · El Gran Reto Absurdo" data-nota="Solo si os sobra tiempo: cada ronda dura unos <b>3 minutos</b> con 6 grupos. Antes de empezar, en la siguiente diapositiva puedes quitar las rondas que no quieras (pulsando sus botones). Grupos de 4 o 5 con los de al lado, sin mover mucho las sillas. Que cada grupo se invente un nombre absurdo (puedes decirlo en voz alta al darles los puntos). Es para reírse y soltar tensiones: todos sacan buena nota."><div class="area"><div class="fit">
   <span class="kicker">⏱️ Si da tiempo</span>
   <h2>Reto en grupos: El Gran Reto Absurdo 🤪</h2>
   <div class="row"><span class="num">1</span><span>Formad <b>grupos de 4 o 5</b> y poneos un nombre divertido (cuanto más absurdo, mejor).</span></div>
-  <div class="row"><span class="num">2</span><span>Tres rondas: <b>🔍 ¿Dónde está el intruso?</b> · <b>🔤 Palabra revuelta</b> · <b>⏱️ Cronómetro ciego</b>.</span></div>
+  <div class="row"><span class="num">2</span><span>Rondas: <b>🔍 El intruso</b> · <b>🐾 Parejas de animales</b> · <b>🔤 Palabra revuelta</b> · <b>🪢 Ahorcado</b> · <b>⏱️ Cronómetro ciego</b>.</span></div>
   <div class="row"><span class="num">3</span><span>En cada ronda sale a la pizarra <b>una persona distinta</b> de cada grupo.</span></div>
   <div class="row"><span class="num">4</span><span>El resto del grupo puede ayudar gritando… ¡pero sin tocar!</span></div>
   <div class="row"><span class="num">5</span><span>Todos los grupos suman puntos. ¡Aquí nadie se va de vacío! 🏆</span></div>
@@ -437,53 +455,84 @@ go(0);fitAll();checkRot();
 if(document.fonts)document.fonts.ready.then(fitAll);
 
 /* ===== reto en grupos: El Gran Reto Absurdo ===== */
-const RONDAS=[
- {t:'🔍 ¿Dónde está el intruso?',i:'Toca el dibujo que es diferente a todos los demás.'},
- {t:'🔤 Palabra revuelta',i:'Toca las letras en orden para formar la palabra. ¡La pista es el dibujo!'},
- {t:'⏱️ Cronómetro ciego',i:'Para el cronómetro justo en <b>5,00 segundos</b>. ¡Ojo! A los 2 segundos se esconde. 🙈'}];
+const RONDAS={
+ intruso:{t:'🔍 ¿Dónde está el intruso?',c:'🔍 Intruso',i:'Toca el dibujo que es diferente a todos los demás.'},
+ parejas:{t:'🐾 Parejas de animales',c:'🐾 Parejas',i:'Destapa las cartas de dos en dos y encuentra las 5 parejas de animales.'},
+ palabra:{t:'🔤 Palabra revuelta',c:'🔤 Palabra',i:'Toca las letras en orden para formar la palabra. ¡La pista es el dibujo!'},
+ ahorcado:{t:'🪢 Ahorcado del buen rollo',c:'🪢 Ahorcado',i:'Adivina la palabra letra a letra. ¡Todas tienen que ver con la buena convivencia! Solo puedes fallar 6 veces.'},
+ crono:{t:'⏱️ Cronómetro ciego',c:'⏱️ Cronómetro',i:'Para el cronómetro justo en <b>5,00 segundos</b>. ¡Ojo! A los 2 segundos se esconde. 🙈'}};
+const ORDEN=['intruso','parejas','palabra','ahorcado','crono'];
 const PARES=[['🍌','🍋'],['🐢','🐸'],['🍩','🍪'],['🦆','🐧'],['🍔','🍕'],['🐶','🐱'],['🍓','🍒'],['🐝','🐞']];
 const PALABRAS=[['PATATA','🥔'],['PULPO','🐙'],['CALABAZA','🎃'],['ZAPATILLA','👟'],['BOCADILLO','🥪'],['CALAMAR','🦑'],['GALLINA','🐔'],['ESPAGUETI','🍝']];
+const ANIMALES=['🐶','🐱','🐸','🐵','🦁','🐷','🐮','🐰','🐼','🐨','🦊','🐯','🐙','🦒','🐧','🦉','🐢','🦄'];
+const AHORCADO=[['RESPETO','Tratar a los demás como te gusta que te traten.'],['AMISTAD','Lo que hay entre dos amigos.'],['EMPATÍA','Ponerse en el lugar del otro.'],['AYUDA','Lo que le das a quien lo necesita.'],['CONFIANZA','Saber que puedes contar con alguien.'],['DIÁLOGO','Hablar para entenderse.'],['COMPAÑERISMO','Llevarse bien y echarse una mano en clase.'],['SOLIDARIDAD','Apoyar a quien lo pasa mal.']];
 const MSG={10:'¡Nivel leyenda! 🤩',9:'¡Crack total! 😎',8:'¡Muy bien! 👏',7:'¡Bien hecho! 🙌',6:'¡Lo importante es participar! 😅'};
-const G={ng:6,pts:[0,0,0,0,0,0,0,0],r:0,g:0,f:'intro',t0:0,last:0,det:''};let gInt=null,gRaf=null;
+const G={ng:6,pts:[0,0,0,0,0,0,0,0],act:ORDEN.slice(),r:0,g:0,f:'intro',t0:0,last:0,det:''};let gInt=null,gRaf=null,gTo=null;
 const $r=id=>document.getElementById(id);
 function bip(f,d){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.connect(g);g.connect(a.destination);g.gain.value=.15;o.start();o.stop(a.currentTime+d)}catch(e){}}
 const fmt=x=>x.toFixed(2).replace('.',',');
-function retoPintar(){const z=$r('rZona'),R=RONDAS[G.r],main=$r('rMain');
-  $r('rRon').textContent=G.f==='fin'?'RESULTADO FINAL':'RONDA '+(G.r+1)+' DE 3';
+const base=c=>c.normalize('NFD').replace(/[́̈]/g,'').normalize('NFC');
+const nR=()=>G.act.length,RR=()=>RONDAS[G.act[G.r]];
+const inicio=()=>G.r===0&&G.g===0&&G.pts.every(x=>x===0);
+function retoPintar(){const z=$r('rZona'),R=RR(),main=$r('rMain');
+  $r('rRon').textContent=G.f==='fin'?'RESULTADO FINAL':'RONDA '+(G.r+1)+' DE '+nR();
   $r('rTur').textContent=G.f==='fin'?'🏆 ¡Fin!':'Turno: Grupo '+(G.g+1);
   $r('rTit').textContent=G.f==='fin'?'🎉 ¡Sois todos unos cracks!':R.t;
-  if(G.f==='intro')z.innerHTML='<div class="rinst">'+R.i+'</div><div class="rsale">🚶 Sale a la pizarra una persona del Grupo '+(G.g+1)+(G.r>0?' (¡que no haya salido antes!)':'')+'</div>';
+  if(G.f==='intro'){z.innerHTML='<div class="rinst">'+R.i+'</div><div class="rsale">🚶 Sale a la pizarra una persona del Grupo '+(G.g+1)+(G.r>0?' (¡que no haya salido antes!)':'')+'</div>'+
+    (inicio()?'<div class="rsel">Rondas de hoy: '+ORDEN.map(k=>'<button data-k="'+k+'" class="'+(G.act.includes(k)?'on':'')+'">'+RONDAS[k].c+'</button>').join('')+'</div>':'');
+    const sel=z.querySelector('.rsel');if(sel)sel.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;
+      if(G.act.includes(k)){if(G.act.length>1)G.act=G.act.filter(x=>x!==k)}else G.act=ORDEN.filter(x=>x===k||G.act.includes(x));retoPintar()}}
   else if(G.f==='res')z.innerHTML='<div class="rres"><div class="quien">Grupo '+(G.g+1)+'</div><div class="pts">+'+G.last+'</div><div class="msg">'+MSG[G.last]+'</div><div class="det">'+G.det+'</div></div>';
-  else if(G.f==='fin'){const o=G.pts.slice(0,G.ng).map((p,k)=>[k,p]).sort((a,b)=>b[1]-a[1]);const med=['🥇','🥈','🥉'];
-    const dif=[...new Set(o.map(x=>x[1]))];z.innerHTML='<div class="rrank">'+o.map(([k,p],i)=>'<div><span>'+(med[dif.indexOf(p)]||'⭐')+' Grupo '+(k+1)+'</span><span>'+p+' puntos</span></div>').join('')+'</div><div class="rinst">¡Gran trabajo en equipo! 💛</div>'}
+  else if(G.f==='fin'){const o=G.pts.slice(0,G.ng).map((p,k)=>[k,p]).sort((a,b)=>b[1]-a[1]);const med=['🥇','🥈','🥉'];const dif=[...new Set(o.map(x=>x[1]))];
+    z.innerHTML='<div class="rrank">'+o.map(([k,p])=>'<div><span>'+(med[dif.indexOf(p)]||'⭐')+' Grupo '+(k+1)+'</span><span>'+p+' puntos</span></div>').join('')+'</div><div class="rinst">¡Gran trabajo en equipo! 💛</div>'}
   main.style.display=(G.f==='cuenta'||G.f==='juego')?'none':'';
-  main.textContent=G.f==='intro'?'▶ ¡Empezar!':G.f==='fin'?'↺ Jugar otra vez':G.g<G.ng-1?'Siguiente grupo ›':G.r<2?'Siguiente ronda ›':'🏆 Ver resultado';
+  main.textContent=G.f==='intro'?'▶ ¡Empezar!':G.f==='fin'?'↺ Jugar otra vez':G.g<G.ng-1?'Siguiente grupo ›':G.r<nR()-1?'Siguiente ronda ›':'🏆 Ver resultado';
   $r('rRep').style.display=(G.f==='juego'||G.f==='res')?'':'none';
-  const m=Math.max(...G.pts.slice(0,G.ng));
-  $r('rGroups').innerHTML=G.pts.slice(0,G.ng).map((p,k)=>'<div class="rg'+(k===G.g&&G.f!=='fin'?' cur':'')+'" data-k="'+k+'"><span>'+(p===m&&m>0&&G.pts.slice(0,G.ng).filter(x=>x===m).length===1?'👑 ':'')+'Grupo '+(k+1)+'</span><b>'+p+'</b><button class="menos" aria-label="Restar">−</button></div>').join('');
+  const m=Math.max(...G.pts.slice(0,G.ng)),solo=G.pts.slice(0,G.ng).filter(x=>x===m).length===1;
+  $r('rGroups').innerHTML=G.pts.slice(0,G.ng).map((p,k)=>'<div class="rg'+(k===G.g&&G.f!=='fin'?' cur':'')+'" data-k="'+k+'"><span>'+(p===m&&m>0&&solo?'👑 ':'')+'Grupo '+(k+1)+'</span><b>'+p+'</b><button class="menos" aria-label="Restar">−</button></div>').join('');
   $r('rNG').textContent=G.ng+' grupos';
   if(typeof fitAll==='function')fitAll();if(typeof estado==='function')estado()}
-function parar(){clearInterval(gInt);cancelAnimationFrame(gRaf)}
+function parar(){clearInterval(gInt);cancelAnimationFrame(gRaf);clearTimeout(gTo)}
 function empezar(){parar();G.f='cuenta';retoPintar();let n=3;const z=$r('rZona');z.innerHTML='<div class="rcount">3</div>';bip(660,.1);
   gInt=setInterval(()=>{n--;if(n>0){z.firstChild.textContent=n;bip(660,.1)}else{clearInterval(gInt);bip(990,.2);jugar()}},800)}
 function terminar(pts,det){parar();G.last=pts;G.det=det;G.pts[G.g]+=pts;G.f='res';bip(880,.12);setTimeout(()=>bip(1320,.2),130);retoPintar()}
 function puntos(x,lim){for(let k=0;k<lim.length;k++)if(x<=lim[k])return 10-k;return 6}
-function jugar(){G.f='juego';retoPintar();const z=$r('rZona');G.t0=performance.now();const seg=()=>(performance.now()-G.t0)/1000;
-  if(G.r===0){const [a,b]=PARES[G.g%PARES.length],N=32,x=Math.floor(Math.random()*N);
+function sacudir(t){t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');bip(200,.08)}
+function mezclar(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function jugar(){G.f='juego';retoPintar();const z=$r('rZona'),id=G.act[G.r];G.t0=performance.now();const seg=()=>(performance.now()-G.t0)/1000;
+  if(id==='intruso'){const [a,b]=PARES[G.g%PARES.length],N=32,x=Math.floor(Math.random()*N);
     z.innerHTML='<div class="rgrid">'+Array.from({length:N},(_,k)=>'<button data-ok="'+(k===x?1:0)+'">'+(k===x?b:a)+'</button>').join('')+'</div>';
-    z.querySelector('.rgrid').onclick=e=>{const t=e.target.closest('button');if(!t)return;if(t.dataset.ok==='1'){const s=seg();terminar(puntos(s,[3,5,8,12]),'Lo ha encontrado en '+fmt(s)+' segundos.')}else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');bip(200,.08)}}}
-  else if(G.r===1){const [w,e]=PALABRAS[G.g%PALABRAS.length];let L=w.split(''),pos=0;do{L.sort(()=>Math.random()-.5)}while(L.join('')===w);
+    z.querySelector('.rgrid').onclick=e=>{const t=e.target.closest('button');if(!t)return;if(t.dataset.ok==='1'){const s=seg();terminar(puntos(s,[3,5,8,12]),'Lo ha encontrado en '+fmt(s)+' segundos.')}else sacudir(t)}}
+  else if(id==='parejas'){const an=mezclar(ANIMALES.slice()).slice(0,5),cs=mezclar(an.concat(an));let abiertas=[],hechas=0,bloq=false;
+    z.innerHTML='<div class="rmem">'+cs.map((c,k)=>'<button data-k="'+k+'">❓</button>').join('')+'</div>';
+    z.querySelector('.rmem').onclick=e=>{const t=e.target.closest('button');if(!t||bloq||t.classList.contains('up')||t.classList.contains('ok'))return;
+      t.classList.add('up');t.textContent=cs[+t.dataset.k];abiertas.push(t);bip(600,.04);
+      if(abiertas.length===2){const [a,b]=abiertas;abiertas=[];
+        if(a.textContent===b.textContent){a.classList.add('ok');b.classList.add('ok');hechas++;bip(990,.1);if(hechas===5){const s=seg();gTo=setTimeout(()=>terminar(puntos(s,[18,26,36,50]),'5 parejas en '+fmt(s)+' segundos.'),500)}}
+        else{bloq=true;gTo=setTimeout(()=>{[a,b].forEach(x=>{x.classList.remove('up');x.textContent='❓'});bloq=false},750)}}}}
+  else if(id==='palabra'){const [w,e]=PALABRAS[G.g%PALABRAS.length];let L=w.split(''),pos=0;do{mezclar(L)}while(L.join('')===w);
     z.innerHTML='<div class="rpista">'+e+'</div><div class="rslots">'+w.split('').map(()=>'<span></span>').join('')+'</div><div class="rtiles">'+L.map(c=>'<button>'+c+'</button>').join('')+'</div>';
     const sl=z.querySelectorAll('.rslots span');
     z.querySelector('.rtiles').onclick=ev=>{const t=ev.target.closest('button');if(!t||t.classList.contains('used'))return;
-      if(t.textContent===w[pos]){t.classList.add('used');sl[pos].textContent=w[pos];pos++;bip(700+pos*40,.05);if(pos===w.length){const s=seg();setTimeout(()=>terminar(puntos(s,[8,12,17,25]),'«'+w+'» en '+fmt(s)+' segundos.'),400)}}
-      else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');bip(200,.08)}}}
+      if(t.textContent===w[pos]){t.classList.add('used');sl[pos].textContent=w[pos];pos++;bip(700+pos*40,.05);if(pos===w.length){const s=seg();gTo=setTimeout(()=>terminar(puntos(s,[8,12,17,25]),'«'+w+'» en '+fmt(s)+' segundos.'),400)}}
+      else sacudir(t)}}
+  else if(id==='ahorcado'){const [w,pista]=AHORCADO[G.g%AHORCADO.length],W=w.split('');let err=0,fin=false;const tiene=new Set(W.map(base));const vistas=new Set();
+    const partes=['<circle class="p" cx="70" cy="38" r="10"/>','<line class="p" x1="70" y1="48" x2="70" y2="80"/>','<line class="p" x1="70" y1="56" x2="56" y2="68"/>','<line class="p" x1="70" y1="56" x2="84" y2="68"/>','<line class="p" x1="70" y1="80" x2="58" y2="98"/>','<line class="p" x1="70" y1="80" x2="82" y2="98"/>'];
+    z.innerHTML='<div class="rhang"><svg viewBox="0 0 110 120" fill="none" stroke="#23313a" stroke-width="4" stroke-linecap="round"><line x1="10" y1="115" x2="60" y2="115"/><line x1="25" y1="115" x2="25" y2="8"/><line x1="25" y1="8" x2="70" y2="8"/><line x1="70" y1="8" x2="70" y2="28"/>'+partes.join('')+'</svg>'+
+      '<div class="der"><div class="pista">💡 '+pista+'</div><div class="rslots">'+W.map(()=>'<span></span>').join('')+'</div><div class="vidas">❤️ Fallos: 0 / 6</div><div class="rkeys">'+'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('').map(c=>'<button>'+c+'</button>').join('')+'</div></div></div>';
+    const sl=z.querySelectorAll('.rslots span'),ps=z.querySelectorAll('svg .p'),vd=z.querySelector('.vidas');
+    z.querySelector('.rkeys').onclick=e=>{const t=e.target.closest('button');if(!t||fin||t.disabled)return;const c=t.textContent;t.disabled=true;
+      if(tiene.has(c)){t.classList.add('si');vistas.add(c);W.forEach((x,k)=>{if(base(x)===c)sl[k].textContent=x});bip(880,.06);
+        if([...tiene].every(x=>vistas.has(x))){fin=true;gTo=setTimeout(()=>terminar(err<=1?10:err===2?9:err===3?8:err===4?7:6,'«'+w+'» con '+err+(err===1?' fallo.':' fallos.')),600)}}
+      else{t.classList.add('no');ps[err].classList.add('on');err++;vd.textContent='❤️ Fallos: '+err+' / 6';bip(200,.12);
+        if(err>=6){fin=true;W.forEach((x,k)=>{if(!sl[k].textContent){sl[k].textContent=x;sl[k].style.color='var(--coral)'}});gTo=setTimeout(()=>terminar(6,'¡Uy! Era «'+w+'». ¡Pero suman 6 puntos igual!'),1400)}}}}
   else{z.innerHTML='<div class="rchrono">0,00</div><button class="rstop">✋ ¡PARA!</button>';const c=z.querySelector('.rchrono');
     const tick=()=>{const s=seg();c.textContent=s<2?fmt(s):'🙈';gRaf=requestAnimationFrame(tick)};tick();
-    z.querySelector('.rstop').onclick=()=>{const s=seg(),d=Math.abs(s-5);c.textContent=fmt(s);terminar(puntos(d,[.15,.4,.8,1.5]),'Ha parado en '+fmt(s)+' s (a '+fmt(d)+' s del 5,00).')}}}
+    z.querySelector('.rstop').onclick=()=>{const s=seg(),d=Math.abs(s-5);c.textContent=fmt(s);terminar(puntos(d,[.15,.4,.8,1.5]),'Ha parado en '+fmt(s)+' s (a '+fmt(d)+' s del 5,00).')}}
+  if(typeof fitAll==='function')fitAll()}
 function siguiente2(){parar();if(G.f==='intro')return empezar();
   if(G.f==='fin'){G.r=0;G.g=0;G.pts=G.pts.map(()=>0);G.f='intro';return retoPintar()}
-  if(G.g<G.ng-1)G.g++;else if(G.r<2){G.r++;G.g=0}else{G.f='fin';return retoPintar()}
+  if(G.g<G.ng-1)G.g++;else if(G.r<nR()-1){G.r++;G.g=0}else{G.f='fin';return retoPintar()}
   G.f='intro';retoPintar()}
 function repetir(){parar();if(G.f==='res')G.pts[G.g]-=G.last;G.f='intro';retoPintar()}
 function retoAccion(){return (G.f==='intro'||G.f==='res')?$r('rMain').textContent:''}
