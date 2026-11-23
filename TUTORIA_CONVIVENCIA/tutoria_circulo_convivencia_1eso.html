@@ -39,10 +39,12 @@ p{margin:.3em 0}
 .qn{color:var(--coral);font-weight:900;font-size:.8em;margin-bottom:.4em}
 .dots{display:flex;gap:.3em;margin-top:.7em}.dots i{width:.55em;height:.55em;border-radius:50%;background:#d6dcdc}.dots i.f{background:var(--coral)}
 .tv{cursor:pointer;position:relative;transition:transform .15s}
-.tv:hover{transform:translateY(-.08em)}
+.tv:hover{box-shadow:0 .15em .7em rgba(0,0,0,.16)}
 .tv{hyphens:auto}
-.tv .res{visibility:hidden;font-weight:900;margin-top:.3em;font-size:1.25em}
-.tv.open.v .res{color:#1f9a4a}.tv.open.m .res{color:#c8442c}
+.tv{display:flex;flex-direction:column}
+.tv .res{visibility:hidden;font-weight:900;padding:.2em .5em;font-size:1.2em;text-align:center;color:#fff;border-radius:.4em;margin-top:auto}
+.tv .txt{margin-bottom:.5em}
+.tv.open.v .res{background:#1f9a4a}.tv.open.m .res{background:#c8442c}
 .destapar{display:flex;align-items:center;gap:.7em;margin-top:.7em}.destapar .hint{margin-top:0}
 .tv.open .res{visibility:visible}
 .tv.open.v{background:#e5f6ea}.tv.open.m{background:#fde6e1}
@@ -158,9 +160,9 @@ body.mando{overflow:auto;background:var(--ink);color:#fff}
   <h2>¿Quién soy? Dos verdades y una mentira</h2>
   <p>Una de estas tres frases sobre mí es falsa. ¿Cuál creéis que es? Votad levantando la mano.</p>
   <div class="grid g3">
-    <div class="card tv v" data-acc="👆 Destapar la A"><span class="letter">A</span><br>Juego al fútbol los sábados en un equipo de veteranos.<div class="res">✔ Verdad</div></div>
-    <div class="card tv v" data-acc="👆 Destapar la B"><span class="letter">B</span><br>Antes de ser profe trabajé diez años haciendo rótulos y vinilos.<div class="res">✔ Verdad</div></div>
-    <div class="card tv m" data-acc="👆 Destapar la C"><span class="letter">C</span><br>Gané varios concursos literarios en Galicia.<div class="res">✘ ¡Mentira!</div></div>
+    <div class="card tv v" data-acc="👆 Destapar la A"><span class="letter" style="align-self:flex-start">A</span><span class="txt">Juego al fútbol los sábados en un equipo de veteranos.</span><div class="res">✔ Verdad</div></div>
+    <div class="card tv v" data-acc="👆 Destapar la B"><span class="letter" style="align-self:flex-start">B</span><span class="txt">Antes de ser profe trabajé diez años haciendo rótulos y vinilos.</span><div class="res">✔ Verdad</div></div>
+    <div class="card tv m" data-acc="👆 Destapar la C"><span class="letter" style="align-self:flex-start">C</span><span class="txt">Gané varios concursos literarios en Galicia.</span><div class="res">✘ ¡Mentira!</div></div>
   </div>
   <div class="destapar"><button class="btn" id="destapar">👆 Destapar una a una</button><span class="hint">o pulsa cada frase</span></div>
 </div></div></section>
@@ -351,8 +353,8 @@ document.addEventListener('click',e=>{if(!jump.contains(e.target)&&e.target!==cn
 document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}if(['ArrowLeft','PageUp'].includes(e.key))go(cur-1);if(e.key==='Home')go(0);if(e.key==='End')go(N-1);if(e.key==='n'||e.key==='N')nota.classList.toggle('show');if(e.key==='Escape'){jump.classList.remove('show');nota.classList.remove('show')}});
 let tx=null;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));tx=null});
-document.querySelectorAll('.tv,.flip').forEach(c=>c.onclick=()=>c.classList.toggle('open'));
-document.getElementById('destapar').onclick=()=>{const c=document.querySelector('.tv:not(.open)');if(c){c.classList.add('open');if(typeof estado==='function')estado()}else document.querySelectorAll('.tv').forEach(x=>x.classList.remove('open'))};
+document.querySelectorAll('.tv,.flip').forEach(c=>c.onclick=()=>{c.classList.toggle('open');fitAll()});
+document.getElementById('destapar').onclick=()=>{const c=document.querySelector('.tv:not(.open)');if(c){c.classList.add('open');if(typeof estado==='function')estado()}else document.querySelectorAll('.tv').forEach(x=>x.classList.remove('open'));fitAll()};
 /* nombre y apodo: al pulsar la pregunta, se escriben solos */
 function escribir(inp){const t=inp.dataset.ans;clearInterval(inp._t);inp.value='';let i=0;inp._t=setInterval(()=>{inp.value=t.slice(0,++i);if(i>=t.length){clearInterval(inp._t);if(typeof estado==='function')estado()}},110)}
 document.querySelectorAll('.nombre').forEach(n=>{const inp=n.querySelector('input[data-ans]');n.querySelector('label').onclick=()=>escribir(inp);inp.addEventListener('input',()=>{if(typeof estado==='function')estado()})});
