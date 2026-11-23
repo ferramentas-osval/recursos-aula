@@ -110,7 +110,9 @@ p{margin:.3em 0}
 .rctrl span{white-space:nowrap}.rscore h3{white-space:nowrap}
 .rgame{display:flex;flex-direction:column}
 .rtop{display:flex;justify-content:space-between;align-items:center;gap:.5em}
-.rron{color:var(--coral);font-weight:900;font-size:.8em}
+.rron{display:flex;gap:.3em;flex-wrap:nowrap}.rron button{white-space:nowrap}.rturno{white-space:nowrap}
+.rron button{border:none;border-radius:2em;padding:.15em .7em;font:900 .75em Nunito,system-ui,sans-serif;cursor:pointer;background:var(--soft);color:var(--teal)}
+.rron button.on{background:var(--coral);color:#fff}
 .rturno{font-weight:900;background:var(--teal);color:#fff;border-radius:2em;padding:.1em .8em;font-size:.85em}
 .rtit{font-size:1.45em;font-weight:900;color:var(--teal);line-height:1.1;margin:.25em 0 .35em;text-align:left}
 .rzona{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4em;background:#fff;border-radius:.6em;box-shadow:0 .12em .5em rgba(0,0,0,.08);padding:.6em;min-height:9.5em;text-align:center}
@@ -461,7 +463,7 @@ const base=c=>c.normalize('NFD').replace(/[́̈]/g,'').normalize('NFC');
 const nR=()=>G.act.length,RR=()=>RONDAS[G.act[G.r]];
 const inicio=()=>G.r===0&&G.g===0&&G.pts.every(x=>x===0);
 function retoPintar(){const z=$r('rZona'),R=RR(),main=$r('rMain');
-  $r('rRon').textContent=G.f==='fin'?'RESULTADO FINAL':'RONDA '+(G.r+1)+' DE '+nR();
+  $r('rRon').innerHTML=G.act.map((k,i)=>'<button data-i="'+i+'" class="'+(G.f!=='fin'&&G.r===i?'on':'')+'">'+(i+1)+'. '+RONDAS[k].c+'</button>').join('')+'<button data-i="fin" class="'+(G.f==='fin'?'on':'')+'">🏆 Resultado</button>';
   $r('rTur').textContent=G.f==='fin'?'🏆 ¡Fin!':'Turno: Grupo '+(G.g+1);
   $r('rTit').textContent=G.f==='fin'?'🎉 ¡Sois todos unos cracks!':R.t;
   if(G.f==='intro'){z.innerHTML='<div class="rinst">'+R.i+'</div><div class="rsale">🚶 Sale a la pizarra una persona del Grupo '+(G.g+1)+(G.r>0?' (¡que no haya salido antes!)':'')+'</div>';}
@@ -508,7 +510,8 @@ function siguiente2(){parar();if(G.f==='intro')return empezar();
 function repetir(){parar();if(G.f==='res')G.pts[G.g]-=G.last;G.f='intro';retoPintar()}
 function retoAccion(){return (G.f==='intro'||G.f==='res')?$r('rMain').textContent:''}
 function retoHacer(){if(G.f==='intro'||G.f==='res')siguiente2()}
-$r('rMain').onclick=siguiente2;$r('rRep').onclick=repetir;
+$r('rMain').onclick=siguiente2;
+$r('rRon').onclick=e=>{const b=e.target.closest('button');if(!b)return;parar();if(b.dataset.i==='fin')G.f='fin';else{const i=+b.dataset.i;if(i!==G.r||G.f==='fin'){G.r=i;G.g=0}G.f='intro'}retoPintar()};$r('rRep').onclick=repetir;
 $r('rGroups').onclick=e=>{const t=e.target.closest('.rg');if(!t)return;const k=+t.dataset.k;if(e.target.classList.contains('menos'))G.pts[k]=Math.max(0,G.pts[k]-1);else{G.pts[k]++;bip(880,.07)}retoPintar()};
 $r('rMasG').onclick=()=>{if(G.ng<8){G.ng++;retoPintar()}};$r('rMenosG').onclick=()=>{if(G.ng>4){G.ng--;if(G.g>=G.ng)G.g=G.ng-1;retoPintar()}};
 retoPintar();
