@@ -349,6 +349,14 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
 .marc .mg.yo span{padding:0 .5rem}
 .equipo .ctrl,.equipo .marc,.equipo #codigo,.equipo #radar,.equipo .panelbtn{display:none!important}
 .equipo select{border:1.5px solid var(--borde);border-radius:.5rem;background:#fff}
+.op.ok::after{content:" ✓"}
+.op.mal::after{content:" ✗"}
+.op.bien:not(.ok):not(.falta)::after{content:" ← era esta";font-weight:400}
+.op.falta::after{content:" ← faltaba";font-weight:400}
+.narq2 .qrow .ops{flex:1 1 auto;flex-wrap:wrap;min-width:0}
+.narq2 .op.falta::after{content:" ✚";font-weight:700}
+.narq2 .op.bien:not(.ok):not(.falta)::after{content:""}
+.op.falta{outline:3px dashed var(--verde)!important;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -488,18 +496,18 @@ var POR_QUE_MOD=['Cuenta cómo es algo o alguien (rasgos, colores, olores…).',
 
 /* Narrador y elementos: [[texto|P/A/E/T]] */
 var MICRO=[
- {n:'i',t:'[[Aquella noche de tormenta|T]], [[me escondí|A]] debajo de la cama porque oí pasos [[en el desván|E]]. Al rato, mi hermana [[apareció|A]] con una linterna y se echó a reír.'},
+ {n:'i',t:'[[Aquella noche de tormenta|T]], [[me escondí debajo de la cama|AE]] porque oí pasos [[en el desván|E]]. Al rato, [[apareció mi hermana con una linterna|AP]] y se echó a reír.'},
  {n:'e',t:'[[El viejo farero|P]] subía cada tarde los doscientos escalones [[de la torre|E]]. [[Un invierno|T]], [[una niña desconocida|P]] llamó a su puerta pidiendo refugio.'},
- {n:'i',t:'[[El primer día de instituto|T]] llegué tarde. [[Entré corriendo|A]] en el aula, [[tropecé con una mochila|A]] y [[la profesora de Lengua|P]] me miró por encima de las gafas.'},
- {n:'e',t:'[[En un pequeño puerto de pescadores|E]] vivía [[una niña llamada Nora|P]], [[en una casa azul junto al muelle|E]]. Cada amanecer, [[buscaba|A]] en la playa los objetos que traía el mar.'},
+ {n:'i',t:'[[El primer día de instituto|T]] llegué tarde. [[Entré corriendo en el aula|AE]], [[tropecé con una mochila|A]] y [[la profesora de Lengua|P]] me miró por encima de las gafas.'},
+ {n:'e',t:'[[En un pequeño puerto de pescadores|E]] vivía [[una niña llamada Nora|P]], [[en una casa azul junto al muelle|E]]. [[Cada amanecer, recorría la playa|TAE]] buscando lo que traía el mar.'},
  {n:'i',t:'[[Hace dos años|T]], [[mis padres|P]] me regalaron una bici. [[Al día siguiente|T]] me caí en la primera curva [[del parque del río|E]].'},
  {n:'e',t:'[[El dragón|P]] dormía [[en lo alto de la montaña|E]]. [[Una mañana de invierno|T]], [[un joven pastor|P]] trepó hasta su cueva para robarle un huevo.'},
- {n:'i',t:'[[Mi abuelo|P]] y yo pescábamos [[en el embalse|E]] todos los domingos. Una vez, [[sacamos una bota vieja|A]] y [[la vaciamos|A]] sobre la hierba: estaba llena de monedas.'},
+ {n:'i',t:'[[Mi abuelo|P]] y yo pescábamos [[en el embalse|E]] todos los domingos. Una vez, [[sacamos una bota vieja|A]] y [[la vaciamos sobre la hierba|AE]]: estaba llena de monedas.'},
  {n:'e',t:'[[Durante la Edad Media|T]], [[en un castillo de Castilla|E]] vivía [[una princesa que odiaba bordar|P]]. [[Por las noches|T]], se escapaba para aprender esgrima.'},
- {n:'i',t:'[[Ayer por la tarde|T]] [[encontré|A]] una cartera en el autobús. Dentro había una foto [[de un niño|P]] y una dirección. [[Fui|A]] hasta allí para devolverla.'},
+ {n:'i',t:'[[Ayer por la tarde|T]] [[encontré una cartera en el autobús|AE]]. Dentro había una foto [[de un niño|P]] y una dirección. [[Fui hasta allí|AE]] para devolverla.'},
  {n:'e',t:'[[El inspector Ruiz|P]] llegó [[a la estación|E]] [[a medianoche|T]]. [[En el andén|E]] solo quedaba una maleta abandonada.'},
  {n:'i',t:'[[En las vacaciones de Navidad|T]], [[mi mejor amiga|P]] y yo [[construimos una cabaña|A]] en el bosque. [[Al día siguiente|T]], alguien la había destrozado.'},
- {n:'e',t:'[[Un robot de limpieza|P]] [[recorría|A]] cada noche los pasillos del museo. [[En la sala de los dinosaurios|E]], [[se detuvo|A]] de repente: uno de los esqueletos había movido la cabeza.'}
+ {n:'e',t:'[[Un robot de limpieza|P]] [[recorría cada noche los pasillos del museo|ATE]]. [[En la sala de los dinosaurios|E]], [[se detuvo de repente|A]]: uno de los esqueletos había movido la cabeza.'}
 ];
 var ELEM={P:'🧍 Personaje',A:'⚡ Acción',E:'📍 Espacio',T:'🕰️ Tiempo'};
 
@@ -853,22 +861,25 @@ function burst(ico,col){var p=[],n=14;for(var i=0;i<2*n;i++){var a=Math.PI*i/n+.
 
 /* ------------ RETOS ------------ */
 function opciones(cont,lista,onSel){var w=h('div',{class:'ops'});lista.forEach(function(t,i){var b=h('button',{class:'op','data-i':i},t);b.onclick=function(){$$('.op',w).forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');w.dataset.v=i;onSel&&onSel(i)};w.appendChild(b)});cont.appendChild(w);return w}
+function multi(cont,lista){var w=h('div',{class:'ops'});w.sel={};lista.forEach(function(t,i){var b=h('button',{class:'op','data-i':i},t);b.onclick=function(){w.sel[i]=!w.sel[i];b.classList.toggle('sel',w.sel[i])};w.appendChild(b)});cont.appendChild(w);return w}
+function corrigeMulti(w,bien){var todo=true;$$('.op',w).forEach(function(b,i){var s=!!w.sel[i],c=bien.indexOf(i)>=0;b.classList.remove('sel');
+    if(s&&c)b.classList.add('ok');else if(s&&!c){b.classList.add('mal');todo=false}else if(c){b.classList.add('bien','falta');todo=false}});return todo}
 function corrigeOps(w,bien){var v=w.dataset.v==null?-1:+w.dataset.v;var b=$$('.op',w);b[bien].classList.add('bien');if(v>=0)b[v].classList.add(v===bien?'ok':'mal');return v===bien}
 var RET={};
 
 /* 1. Narrador y elementos */
 RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
-  var txt=M.t.replace(/\[\[(.+?)\|(\w)\]\]/g,function(_,a,c){k++;cats.push(c);return '<span class="fr"><sup>'+k+'</sup>'+a+'</span>'});
-  z.insertAdjacentHTML('beforeend','<div class="enun">¿Qué narrador tiene este microrrelato? ¿Qué elemento de la narración es cada fragmento marcado?</div>');
+  var txt=M.t.replace(/\[\[(.+?)\|(\w+)\]\]/g,function(_,a,c){k++;cats.push(c);return '<span class="fr"><sup>'+k+'</sup>'+a+'</span>'});
+  z.insertAdjacentHTML('beforeend','<div class="enun">¿Qué narrador tiene este microrrelato? ¿Qué elementos de la narración hay en cada fragmento marcado? Puede haber más de uno: marcadlos todos.</div>');
   var col=h('div',{class:'col grow',style:'gap:.8rem;padding-bottom:5rem;justify-content:center'});
   col.appendChild(h('div',{class:'texto'},txt));
   var der=h('div',{class:'narq'});
   var q0=h('div',{class:'qrow q0'},'<span class="qt nh">TIPO DE NARRADOR</span>');
   var on=opciones(q0,['🙋 Interno · 1.ª persona (es un personaje)','📢 Externo · 3.ª persona (no es un personaje)']);der.appendChild(q0);
   var caja=h('div',{class:'cajael'},'<div class="nh">ELEMENTOS DE LA NARRACIÓN</div>'),rej=h('div',{class:'narq2'});caja.appendChild(rej);
-  var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=opciones(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);rej.appendChild(q);return w});
+  var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=multi(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);rej.appendChild(q);return w});
   col.appendChild(der);col.appendChild(caja);z.appendChild(col);
-  return{grade:function(){var ok=0;if(corrigeOps(on,M.n==='i'?0:1))ok++;ws.forEach(function(w,i){if(corrigeOps(w,'PAET'.indexOf(cats[i])))ok++});return{ok:ok,n:5}}}};
+  return{grade:function(){var ok=0;if(corrigeOps(on,M.n==='i'?0:1))ok++;ws.forEach(function(w,i){if(corrigeMulti(w,cats[i].split('').map(function(c){return 'PAET'.indexOf(c)})))ok++});return{ok:ok,n:5}}}};
 
 /* 2. Puzzle del resumen */
 function deTema(t){return t.replace(/^El /,'del ').replace(/^La /,'de la ').replace(/^Los /,'de los ').replace(/^Las /,'de las ')}
