@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reto: narración, resumen y ortografía · 1.º ESO</title>
+<title>El gran reto de las historias y otras cosistas · 1.º ESO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Kalam:wght@400;700&display=swap">
 <style>
@@ -231,6 +231,7 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
 .chip{background:var(--am2);border:2px solid var(--ink);border-radius:2rem;padding:.12rem .6rem;font-weight:700;font-size:1.1rem;cursor:grab;touch-action:none;user-select:none;white-space:nowrap}
 .chip.cog{background:var(--azul);color:#fff}
 .gcard.dest,.pool.dest{outline:4px solid var(--azul);outline-offset:2px}
+.cosis{font-size:.5em;letter-spacing:.04em;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -242,14 +243,13 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
     <svg viewBox="0 0 420 420" aria-hidden="true"><polygon points="407.0,229.8 353.5,253.8 384.4,303.7 325.8,305.4 335.3,363.3 280.5,342.4 267.1,399.6 224.4,359.3 190.2,407.0 166.2,353.5 116.3,384.4 114.6,325.8 56.7,335.3 77.6,280.5 20.4,267.1 60.7,224.4 13.0,190.2 66.5,166.2 35.6,116.3 94.2,114.6 84.7,56.7 139.5,77.6 152.9,20.4 195.6,60.7 229.8,13.0 253.8,66.5 303.7,35.6 305.4,94.2 363.3,84.7 342.4,139.5 399.6,152.9 359.3,195.6" fill="#ffd23f" stroke="#1c1b33" stroke-width="7" stroke-linejoin="round"/><circle cx="210" cy="210" r="120" fill="#ff4f7b" stroke="#1c1b33" stroke-width="7"/><circle cx="210" cy="210" r="98" fill="#fffaf0" stroke="#1c1b33" stroke-width="5"/><text x="210" y="250" text-anchor="middle" font-size="115">🏆</text></svg>
     <div class="col" style="gap:.5rem;flex:1">
       <span class="tag" style="align-self:flex-start;font-size:1rem">1.º ESO · Lengua castellana y literatura · Tema 4</span>
-      <h1>El gran <span class="hl">reto</span> de las historias</h1>
-      <p class="intro">La narración, el taller del resumen y las palabras más difíciles de los repasos de ortografía. Cada grupo sale al proyector en su turno; todas las rondas son iguales para todos los grupos (mismo tipo de prueba, mismo número de preguntas, mismo tiempo), pero con un ejercicio distinto para cada grupo. Si otro grupo sabe corregir un fallo, ¡puede robar el punto!</p>
+      <h1>El gran <span class="hl">reto</span> de las historias <span class="cosis">y otras cosistas</span></h1>
+      <p class="intro">La narración, los tipos de texto, el taller del resumen y las palabras más difíciles de los repasos de ortografía. Cada grupo sale al proyector en su turno; todas las rondas son iguales para todos los grupos (mismo tipo de prueba, mismo número de preguntas, mismo tiempo), pero con un ejercicio distinto para cada grupo. Si otro grupo sabe corregir un fallo, ¡puede robar el punto!</p>
     </div>
   </div>
   <div class="panel col grow">
     <div class="row" style="align-items:center;flex-wrap:wrap;flex:none"><h2 style="flex:1">1 · Los <span class="hl">grupos</span></h2>
-      <button class="btn" id="hacer3">🎲 Grupos de 4</button>
-      <button class="btn blanco" id="hacer2">🎲 Grupos de 5</button>
+      <button class="btn blanco" id="otraVez" title="Volver a repartir al azar">🎲 Repartir otra vez</button>
       <span style="font-weight:700">Grupos:</span>
       <button class="btn blanco" id="menosG" style="padding:.1rem .7rem">−</button><b id="nG" style="font-family:var(--f-tit);font-size:2rem">5</b><button class="btn blanco" id="masG" style="padding:.1rem .7rem">+</button>
       <button class="btn big rosa" id="aRondas" style="margin-left:.6rem">Elegir las rondas ▶</button>
@@ -258,7 +258,7 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
       <div class="col" style="flex:0 0 15rem"><div class="row" style="align-items:center;flex:none"><b style="flex:1;font-size:1.15rem">Sin grupo <span id="nSin"></span></b><button class="btn blanco" id="editLista" style="padding:.1rem .5rem;font-size:.85rem">✏️ Lista</button></div>
         <div class="pool grow" id="pool" data-g="-1"></div>
         <textarea class="lista grow" id="lista" placeholder="Un nombre por línea…" style="display:none"></textarea>
-        <p class="small muted" style="flex:none">Arrastra los nombres a los grupos (o toca un nombre y después el grupo).</p></div>
+        <p class="small muted" style="flex:none">Para cambiar a alguien de grupo, arrástralo (o tócalo y toca el grupo). Si falta alguien, déjalo en «Sin grupo».</p></div>
       <div class="grupos grow" id="grupos"></div>
     </div>
   </div>
@@ -567,16 +567,17 @@ function mueve(n,g){S.grupos.forEach(function(G){G.al=G.al.filter(function(a){re
   raiz.addEventListener('click',function(e){if(!sel||e.target.closest('.chip,input,button'))return;var z=e.target.closest('.gcard,.pool');if(z){var n=sel;sel=null;mueve(n,+z.dataset.g)}});
 })();
 $('#lista').oninput=function(){ls(KLISTA,$('#lista').value)};
-function hacer(tam){var nom=listaClase();
-  if(nom.length<2){toast('Pega primero la lista de la clase');return}
+function hacer(ng){var nom=listaClase();
+  if(nom.length<2){toast('Escribe primero la lista de la clase (botón «Lista»)');return}
   nom=mezcla(nom,Date.now()%100000+7);
-  var ng=Math.max(2,Math.min(12,Math.floor(nom.length/tam)));
-  S.grupos=[];for(var i=0;i<ng;i++)S.grupos.push({nom:'Grupo '+(i+1),al:[],pts:{},robos:0,aj:0});
+  ng=Math.max(2,Math.min(12,ng));var noms=S.grupos.map(function(G){return G.nom});
+  S.grupos=[];for(var i=0;i<ng;i++)S.grupos.push({nom:noms[i]||('Grupo '+(i+1)),al:[],pts:{},robos:0,aj:0});
   nom.forEach(function(n,i){S.grupos[i%ng].al.push(n)});
-  autoRondas();guarda();pintaInicio();toast(ng+' grupos hechos al azar')}
-$('#hacer3').onclick=function(){hacer(4)};$('#hacer2').onclick=function(){hacer(5)};
-$('#menosG').onclick=function(){ponGrupos(S.grupos.length-1);autoRondas();guarda();pintaInicio()};
-$('#masG').onclick=function(){ponGrupos(S.grupos.length+1);autoRondas();guarda();pintaInicio()};
+  autoRondas();guarda();pintaInicio();toast(ng+' grupos repartidos al azar')}
+$('#otraVez').onclick=function(){hacer(S.grupos.length)};
+$('#menosG').onclick=function(){hacer(S.grupos.length-1)};
+$('#masG').onclick=function(){hacer(S.grupos.length+1)};
+if(S.fase==='inicio'&&S.grupos.every(function(G){return !G.al.filter(Boolean).length})&&listaClase().length)hacer(S.grupos.length);
 function ojo(b,i){b.onclick=function(){var x=$(i);x.type=x.type==='password'?'text':'password';b.textContent=x.type==='password'?'👁':'🙈'}}
 ojo($('#ojo'),'#pin');ojo($('#ojo2'),'#pin2');
 $('#pin').value=ss('solpin')||'';$('#pin2').value=ss('solpin')||'';
@@ -918,7 +919,7 @@ function hoy(){var d=new Date(S.fin||Date.now());return d.getFullYear()+'-'+Stri
 function hora(){var d=new Date(S.fin||Date.now());return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
 function csv(){var rs=rondasJugadas(),L=[['Alumno/a','Grupo'].concat(rs.map(function(id){return R[id].nom+' (/'+(R[id].n+1)+')'}),['Robos','Ajuste','Puntos','Máximo','Nota (/10)'])];
   filas().forEach(function(f){L.push([f.al,f.g].concat(f.pts,[f.robos,f.aj,f.tot,f.max,fmt(f.nota)]))});
-  return '﻿'+'Reto narración, resumen y ortografía · 1.º ESO · '+hoy()+' '+hora()+'\n'+L.map(function(r){return r.map(function(c){c=String(c);return /[;"\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(';')}).join('\n')}
+  return '﻿'+'El gran reto de las historias y otras cosistas · 1.º ESO · '+hoy()+' '+hora()+'\n'+L.map(function(r){return r.map(function(c){c=String(c);return /[;"\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(';')}).join('\n')}
 function descarga(){var b=new Blob([csv()],{type:'text/csv;charset=utf-8'}),a=h('a',{href:URL.createObjectURL(b),download:'reto_narracion_resumen_ortografia_notas_'+hoy()+'.csv'});document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
 function estadoG(cl,t){var e=$('#estadoG');e.className='guardado '+cl;e.innerHTML=t}
 function enviar(auto){var pin=$('#pin2').value.trim();
