@@ -337,6 +337,12 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
 #paso1 .gcard .chip{font-size:1.45rem;padding:.15rem .8rem}
 .nh,.qrow .qt.nh{font-family:var(--f-tit);font-weight:400;font-size:1.7rem;letter-spacing:.05em;line-height:1}
 .narq .qrow .qn{background:var(--nar);color:#fff;border-radius:.3em;min-width:0;width:auto;height:auto;padding:.05em .4em;font-family:var(--f-tit);font-size:1.5rem;line-height:1.1}
+.cajael{margin-top:.5rem;background:#fff;border:1.5px solid var(--borde);border-radius:.9rem;padding:.5rem .7rem;display:flex;flex-direction:column;gap:.4rem}
+.narq2{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.2rem}
+.narq2 .qrow{border:none!important;background:transparent;padding:.1rem 0}
+.narq2 .qrow .op{font-size:1.4rem;padding:.3rem 1rem}
+.narq2 .qrow .qn{background:var(--nar);color:#fff;border-radius:.3em;min-width:0;width:auto;height:auto;padding:.05em .4em;font-family:var(--f-tit);font-size:1.5rem;line-height:1.1}
+.narq2 .qrow.ok,.narq2 .qrow.mal{background:transparent!important}
 </style>
 </head>
 <body>
@@ -841,9 +847,9 @@ RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
   var der=h('div',{class:'narq'});
   var q0=h('div',{class:'qrow q0'},'<span class="qt nh">TIPO DE NARRADOR</span>');
   var on=opciones(q0,['🙋 Interno · 1.ª persona (es un personaje)','📢 Externo · 3.ª persona (no es un personaje)']);der.appendChild(q0);
-  der.appendChild(h('div',{class:'nh q0',style:'margin-top:.3rem'},'ELEMENTOS DE LA NARRACIÓN'));
-  var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=opciones(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);der.appendChild(q);return w});
-  col.appendChild(der);z.appendChild(col);
+  var caja=h('div',{class:'cajael'},'<div class="nh">ELEMENTOS DE LA NARRACIÓN</div>'),rej=h('div',{class:'narq2'});caja.appendChild(rej);
+  var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=opciones(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);rej.appendChild(q);return w});
+  col.appendChild(der);col.appendChild(caja);z.appendChild(col);
   return{grade:function(){var ok=0;if(corrigeOps(on,M.n==='i'?0:1))ok++;ws.forEach(function(w,i){if(corrigeOps(w,'PAET'.indexOf(cats[i])))ok++});return{ok:ok,n:5}}}};
 
 /* 2. Puzzle del resumen */
