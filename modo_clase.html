@@ -52,6 +52,7 @@ html,body{height:100%;overflow:hidden;background:#11181f;font-family:system-ui,A
   var $=function(s){return document.querySelector(s)};
   if(!P||!B){$('#err').style.display='block';$('#err').textContent='Faltan a presentación (p) ou o boletín (b) no enderezo.';return}
   if(T){$('#tit').textContent=T;document.title='Modo clase · '+T}
+  if(/(^|\/)ficha_[^\/]*$/.test(B)){var bb=document.querySelector('#bar [data-m="b"]');bb.textContent='▭ Ficha';bb.title='Só a ficha';document.querySelector('#bar [data-m="s"]').title='Presentación e ficha, unha ao lado da outra';document.getElementById('fB').title='Ficha'}
   var k='modoclase:'+P,st={r:.6,m:'s',sw:0};try{var o=JSON.parse(localStorage.getItem(k)||'{}');for(var x in o)st[x]=o[x]}catch(e){}
   function save(){try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}}
   var fP=$('#fP'),fB=$('#fB'),pP=$('#pP'),pB=$('#pB'),wrap=$('#wrap'),sp=$('#split'),sh=$('#shield');
