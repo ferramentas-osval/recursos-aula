@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>El gran reto de las historias y otras cosistas · 1.º ESO</title>
+<title>El gran reto de las historias y otras cositas · 1.º ESO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Kalam:wght@400;700&display=swap">
 <style>
@@ -243,7 +243,7 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
     <svg viewBox="0 0 420 420" aria-hidden="true"><polygon points="407.0,229.8 353.5,253.8 384.4,303.7 325.8,305.4 335.3,363.3 280.5,342.4 267.1,399.6 224.4,359.3 190.2,407.0 166.2,353.5 116.3,384.4 114.6,325.8 56.7,335.3 77.6,280.5 20.4,267.1 60.7,224.4 13.0,190.2 66.5,166.2 35.6,116.3 94.2,114.6 84.7,56.7 139.5,77.6 152.9,20.4 195.6,60.7 229.8,13.0 253.8,66.5 303.7,35.6 305.4,94.2 363.3,84.7 342.4,139.5 399.6,152.9 359.3,195.6" fill="#ffd23f" stroke="#1c1b33" stroke-width="7" stroke-linejoin="round"/><circle cx="210" cy="210" r="120" fill="#ff4f7b" stroke="#1c1b33" stroke-width="7"/><circle cx="210" cy="210" r="98" fill="#fffaf0" stroke="#1c1b33" stroke-width="5"/><text x="210" y="250" text-anchor="middle" font-size="115">🏆</text></svg>
     <div class="col" style="gap:.5rem;flex:1">
       <span class="tag" style="align-self:flex-start;font-size:1rem">1.º ESO · Lengua castellana y literatura · Tema 4</span>
-      <h1>El gran <span class="hl">reto</span> de las historias <span class="cosis">y otras cosistas</span></h1>
+      <h1>El gran <span class="hl">reto</span> de las historias <span class="cosis">y otras cositas</span></h1>
       <p class="intro">La narración, los tipos de texto, el taller del resumen y las palabras más difíciles de los repasos de ortografía. Cada grupo sale al proyector en su turno; todas las rondas son iguales para todos los grupos (mismo tipo de prueba, mismo número de preguntas, mismo tiempo), pero con un ejercicio distinto para cada grupo. Si otro grupo sabe corregir un fallo, ¡puede robar el punto!</p>
     </div>
   </div>
@@ -919,7 +919,7 @@ function hoy(){var d=new Date(S.fin||Date.now());return d.getFullYear()+'-'+Stri
 function hora(){var d=new Date(S.fin||Date.now());return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
 function csv(){var rs=rondasJugadas(),L=[['Alumno/a','Grupo'].concat(rs.map(function(id){return R[id].nom+' (/'+(R[id].n+1)+')'}),['Robos','Ajuste','Puntos','Máximo','Nota (/10)'])];
   filas().forEach(function(f){L.push([f.al,f.g].concat(f.pts,[f.robos,f.aj,f.tot,f.max,fmt(f.nota)]))});
-  return '﻿'+'El gran reto de las historias y otras cosistas · 1.º ESO · '+hoy()+' '+hora()+'\n'+L.map(function(r){return r.map(function(c){c=String(c);return /[;"\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(';')}).join('\n')}
+  return '﻿'+'El gran reto de las historias y otras cositas · 1.º ESO · '+hoy()+' '+hora()+'\n'+L.map(function(r){return r.map(function(c){c=String(c);return /[;"\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(';')}).join('\n')}
 function descarga(){var b=new Blob([csv()],{type:'text/csv;charset=utf-8'}),a=h('a',{href:URL.createObjectURL(b),download:'reto_narracion_resumen_ortografia_notas_'+hoy()+'.csv'});document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
 function estadoG(cl,t){var e=$('#estadoG');e.className='guardado '+cl;e.innerHTML=t}
 function enviar(auto){var pin=$('#pin2').value.trim();
