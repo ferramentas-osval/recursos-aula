@@ -14,7 +14,7 @@ const CATS={
      {h:'01_ESO/1_Y_2/PRESENTACIONES/vocabulario.html',titulo:'Vocabulario y ortografía',sub:'⭐ Repaso de cada semana · se abre en el último; los anteriores, en el desplegable',icon:'🔤',tipo:'horario',grande:true,chip:'⭐ Vocabulario y ortografía'}],
     apartados:[
     {titulo:'Presentaciones temas lengua',icon:'🎞️',archivos:[{titulo:'TEMA 1. LENGUAS DEL MUNDO Y LENGUAS DE ESPAÑA',icon:'🌍',ancho:true,sub:'Presentaciones',labels:['🌍 Lenguas del mundo','🗺️ Lenguas de España'],par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html']},'01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_narracion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_descripcion.html']},
-    {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/taller_resumen_garcia_marquez.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html']},
+    {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/taller_resumen_garcia_marquez.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/reto_narracion_resumen_ortografia_1eso.html']},
     {titulo:'Ejercicios de ortografía',icon:'✍️',archivos:[{titulo:'Ortografía 1',icon:'🔤',par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_ortografia_1.html','01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html']}]},
     {titulo:'Apuntes y modelos de exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
     {titulo:'Obras de lectura',icon:'📚',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html','01_ESO/1_Y_2/OBRAS_LECTURA/prueba_lectura_por_que_tiene_que_ser_todo_tan_dificil.html']},
@@ -24,7 +24,7 @@ const CATS={
     partes:[
      {titulo:'Primera parte',sub:'Primeros exámenes (ya realizados)',icon:'✅',archivos:[
       '01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html',
-      '01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html',
+      '01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/reto_narracion_resumen_ortografia_1eso.html',
       '01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html',
       '01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html','01_ESO/1_Y_2/OBRAS_LECTURA/prueba_lectura_por_que_tiene_que_ser_todo_tan_dificil.html',
       '01_ESO/1_Y_2/ESQUEMAS/esquemas_1a_evaluacion_primera_parte_1eso.html']},
