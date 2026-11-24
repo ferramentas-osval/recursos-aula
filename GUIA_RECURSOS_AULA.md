@@ -92,6 +92,13 @@ Las soluciones y respuestas modelo de las presentaciones aparecen **debajo de ca
 - **Presentaciones antiguas con ventana:** se adaptan con el bloque común `tools/soluciones_debajo.html` (entre `<!--soldebajo:inicio-->` y `<!--soldebajo:fin-->`, antes de «Ir a diapositiva»). El motor llama a `SolDebajo.mostrar(diapositiva, html, opciones)` en lugar de abrir la ventana y a `SolDebajo.ocultar(diapositiva)` al cambiar de diapositiva. El bloque reparte la solución: si una lista (o los elementos indicados en `reglas`) tiene tantas piezas como la solución (`li`, filas de tabla o el selector `piezas`), pone cada una debajo de su pregunta; lo demás va al final. Opciones por diapositiva en `window.SD_REGLAS={"8":{"reglas":[{"q":".rtx","donde":"despues"}]}}`; `caja` indica el contenedor que se desplaza si no es `.inner`.
 - Ya adaptadas (1.º ESO): narración, ortografía 1 y propiedades textuales. Comunicación y lenguas de España ya las mostraban debajo sin reducir la letra. Lenguas del mundo tiene diapositivas de soluciones aparte (diseño de lienzo fijo) y queda pendiente. PDC y FPB, pendientes.
 
+## Modo clase (presentación + boletín)
+
+`modo_clase.html` (en la raíz) abre una presentación y su boletín uno al lado del otro: `modo_clase.html?p=<presentación>&b=<boletín>&t=<título>&m=p|s|b&s=<diapositiva>`.
+
+- En el panel, toda presentación que tenga boletín abre el modo clase solo con la presentación (`m=p`), con icono 🖥️; arriba, «◧ Modo clase» muestra también el boletín. Para ello, añadir el par en `window.MODO_CLASE` (al final de `assets/recursos_datos.js`): `"ruta/presentacion_x.html": "ruta/boletin_x.html"`. No se crean tarjetas aparte.
+- Si la presentación se abre sola (aula virtual), lleva el botón «◧ Modo clase» arriba a la derecha (bloque de `tools/boton_modo_clase.html`, entre `<!--modoclase:inicio-->` y `<!--modoclase:fin-->`), que abre el modo clase en la misma diapositiva.
+
 ## Botón «⌂ Panel»
 
 Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) con `href` a la página de su apartado (`../…/0X_APARTADO/index.html`). **Copiar el bloque entero, con su `onclick`, de cualquier recurso existente (p. ej. `04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html`); no escribirlo a mano.**
