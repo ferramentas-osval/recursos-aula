@@ -335,6 +335,8 @@ table.notas th,table.notas td{border-bottom:1px solid var(--borde)}
 table.notas th{border-bottom:1.5px solid var(--suave)}
 #paso1 .gcard .chips{flex-direction:column;align-items:flex-start;flex-wrap:nowrap;gap:.35rem}
 #paso1 .gcard .chip{font-size:1.45rem;padding:.15rem .8rem}
+.nh,.qrow .qt.nh{font-family:var(--f-tit);font-weight:400;font-size:1.7rem;letter-spacing:.05em;line-height:1}
+.narq .qrow .qn{background:var(--nar);color:#fff;border-radius:.3em;min-width:0;width:auto;height:auto;padding:.05em .4em;font-family:var(--f-tit);font-size:1.5rem;line-height:1.1}
 </style>
 </head>
 <body>
@@ -837,8 +839,9 @@ RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
   var col=h('div',{class:'col grow',style:'gap:.8rem;padding-bottom:5rem;justify-content:center'});
   col.appendChild(h('div',{class:'texto'},txt));
   var der=h('div',{class:'narq'});
-  var q0=h('div',{class:'qrow q0'},'<span class="qt">¿Qué tipo de narrador es?</span>');
+  var q0=h('div',{class:'qrow q0'},'<span class="qt nh">TIPO DE NARRADOR</span>');
   var on=opciones(q0,['🙋 Interno · 1.ª persona (es un personaje)','📢 Externo · 3.ª persona (no es un personaje)']);der.appendChild(q0);
+  der.appendChild(h('div',{class:'nh q0',style:'margin-top:.3rem'},'ELEMENTOS DE LA NARRACIÓN'));
   var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=opciones(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);der.appendChild(q);return w});
   col.appendChild(der);z.appendChild(col);
   return{grade:function(){var ok=0;if(corrigeOps(on,M.n==='i'?0:1))ok++;ws.forEach(function(w,i){if(corrigeOps(w,'PAET'.indexOf(cats[i])))ok++});return{ok:ok,n:5}}}};
