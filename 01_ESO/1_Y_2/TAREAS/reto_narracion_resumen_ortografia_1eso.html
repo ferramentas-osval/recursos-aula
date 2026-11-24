@@ -359,6 +359,7 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
 .op.falta{outline:3px dashed var(--verde)!important;outline-offset:2px}
 .op.tambien{outline:2px dotted var(--verde)!important;outline-offset:2px}
 .narq2 .op.bien.tambien:not(.ok):not(.falta)::after{content:" (también)";font-weight:400;font-size:.8em}
+.masuno{background:var(--am);border-radius:.4rem;padding:.05rem .6rem;font-weight:700;font-size:1.25rem}
 </style>
 </head>
 <body>
@@ -881,7 +882,7 @@ RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
   var der=h('div',{class:'narq'});
   var q0=h('div',{class:'qrow q0'},'<span class="qt nh">TIPO DE NARRADOR</span>');
   var on=opciones(q0,['🙋 Interno · 1.ª persona (es un personaje)','📢 Externo · 3.ª persona (no es un personaje)']);der.appendChild(q0);
-  var caja=h('div',{class:'cajael'},'<div class="nh">ELEMENTOS DE LA NARRACIÓN</div>'),rej=h('div',{class:'narq2'});caja.appendChild(rej);
+  var caja=h('div',{class:'cajael'},'<div class="row" style="align-items:baseline;gap:.8rem;flex-wrap:wrap"><span class="nh">ELEMENTOS DE LA NARRACIÓN</span><span class="masuno">☝️ En un fragmento puede haber más de uno: marcadlos todos</span></div>'),rej=h('div',{class:'narq2'});caja.appendChild(rej);
   var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=multi(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);rej.appendChild(q);return w});
   col.appendChild(der);col.appendChild(caja);z.appendChild(col);
   return{grade:function(){var ok=0;if(corrigeOps(on,M.n==='i'?0:1))ok++;ws.forEach(function(w,i){if(corrigeAccion(w,cats[i].split('').map(function(c){return 'PAET'.indexOf(c)})))ok++});return{ok:ok,n:5}}}};
