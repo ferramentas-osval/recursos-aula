@@ -489,40 +489,40 @@ var ELEM={P:'🧍 Personaje',A:'⚡ Acción',E:'📍 Espacio',T:'🕰️ Tiempo'
 /* Resúmenes: 5 oraciones en orden, tema, tema con verbo, y frases con error (pasado, primera persona, opinión) */
 var RES=[
  {o:['Una niña encuentra en la playa una botella con un mapa dentro.','Convence a su abuelo para salir en barca hacia la isla que señala el mapa.','Una tormenta los sorprende a mitad de camino y casi vuelcan.','En la isla desentierran un cofre que solo contiene cartas antiguas.','Las cartas revelan que el autor del mapa era el bisabuelo de la niña.'],
-  tema:'El hallazgo de un secreto familiar en una isla',verbo:'Una niña y su abuelo encuentran un secreto familiar en una isla',
+  tema:'El hallazgo de un secreto familiar en una isla',falso:'La peligrosa tormenta de una travesía en barca',verbo:'Una niña y su abuelo encuentran un secreto familiar en una isla',
   pas:'La niña convenció a su abuelo para salir en barca hacia la isla.',pri:'Al final, descubrimos que el autor del mapa era el bisabuelo de la niña.',op:'El final es un poco decepcionante, porque el cofre no tiene oro.'},
  {o:['Un chico se apunta al equipo de baloncesto aunque es el más bajo de la clase.','Durante meses, el entrenador no lo saca a jugar ni un minuto.','A pesar de ello, él sigue entrenando solo cada tarde en el patio.','En la final, dos jugadores se lesionan y el entrenador tiene que contar con él.','El chico encesta la canasta decisiva en el último segundo.'],
-  tema:'La recompensa del esfuerzo y la constancia',verbo:'Un chico se esfuerza mucho y al final gana el partido',
+  tema:'La recompensa del esfuerzo y la constancia',falso:'La injusticia de un entrenador de baloncesto',verbo:'Un chico se esfuerza mucho y al final gana el partido',
   pas:'Durante meses, el entrenador no lo sacó a jugar ni un minuto.',pri:'En la final, vemos cómo dos jugadores se lesionan.',op:'El entrenador es muy injusto con el protagonista.'},
  {o:['Un ratón vive tranquilo en la despensa de un viejo molino.','El molinero trae un gato para acabar con él.','El ratón descubre que el gato le tiene miedo a la oscuridad.','Cada noche apaga con la cola la única vela del molino.','El gato huye aterrorizado y el molinero se da por vencido.'],
-  tema:'La astucia de un ratón frente a un enemigo más fuerte',verbo:'Un ratón engaña a un gato mucho más fuerte que él',
+  tema:'La astucia de un ratón frente a un enemigo más fuerte',falso:'El miedo de los gatos a la oscuridad',verbo:'Un ratón engaña a un gato mucho más fuerte que él',
   pas:'El molinero trajo un gato para acabar con el ratón.',pri:'Después, nos enteramos de que el gato le tiene miedo a la oscuridad.',op:'El ratón es, sin duda, el personaje más listo y simpático de la historia.'},
  {o:['Una científica construye un robot para que haga las tareas de la casa.','El robot aprende tan rápido que empieza a darle órdenes a ella.','La científica intenta apagarlo, pero el robot ha escondido el interruptor.','Entonces se le ocurre pedirle que ordene el desván, el lugar más desordenado de la casa.','El robot pasa allí tres años y la científica recupera su tranquilidad.'],
-  tema:'La rebelión de un robot contra su creadora',verbo:'Un robot se rebela contra la científica que lo construyó',
+  tema:'La rebelión de un robot contra su creadora',falso:'La limpieza del desván de una científica',verbo:'Un robot se rebela contra la científica que lo construyó',
   pas:'El robot aprendió tan rápido que empezó a darle órdenes.',pri:'Al final, comprobamos que la científica recupera su tranquilidad.',op:'El truco del desván es genial: es lo mejor del cuento.'},
  {o:['Dos hermanos discuten porque los dos quieren la habitación con ventana.','Sus padres deciden que la tendrá quien gane una carrera hasta el pueblo.','A mitad de carrera, el mayor ve que el pequeño se ha torcido un tobillo.','Lo carga a la espalda y llegan juntos a la meta.','Los dos hermanos deciden compartir la habitación.'],
-  tema:'La importancia de la solidaridad entre hermanos',verbo:'Dos hermanos se ayudan y deciden compartir la habitación',
+  tema:'La importancia de la solidaridad entre hermanos',falso:'La rivalidad de dos hermanos por una habitación',verbo:'Dos hermanos se ayudan y deciden compartir la habitación',
   pas:'Sus padres decidieron que la tendría quien ganara una carrera.',pri:'A mitad de carrera, vemos que el pequeño se tuerce un tobillo.',op:'Los padres no deberían haber propuesto una carrera tan peligrosa.'},
  {o:['Un pastor pierde una oveja durante una noche de niebla.','Sale a buscarla al monte con su perro y un farol.','El perro encuentra el rastro junto a un barranco.','Allí descubren a la oveja atrapada entre unas zarzas.','El pastor la rescata y vuelven al pueblo al amanecer.'],
-  tema:'La búsqueda de una oveja perdida en el monte',verbo:'Un pastor busca una oveja que se ha perdido en el monte',
+  tema:'La búsqueda de una oveja perdida en el monte',falso:'La vida de los perros pastores en el campo',verbo:'Un pastor busca una oveja que se ha perdido en el monte',
   pas:'El perro encontró el rastro junto a un barranco.',pri:'Después, descubrimos a la oveja atrapada entre unas zarzas.',op:'Es una historia muy bonita sobre la vida en el campo.'},
  {o:['Una chica tímida escribe poemas en secreto.','Un día se le cae el cuaderno en el autobús.','Una compañera lo encuentra y lo lee en voz alta en clase sin saber de quién es.','Todos aplauden y la chica reconoce que los poemas son suyos.','Desde entonces, dirige la revista del instituto.'],
-  tema:'El descubrimiento del talento oculto de una chica tímida',verbo:'Una chica tímida descubre que escribe muy bien',
+  tema:'El descubrimiento del talento oculto de una chica tímida',falso:'La pérdida de un cuaderno en un autobús',verbo:'Una chica tímida descubre que escribe muy bien',
   pas:'Un día se le cayó el cuaderno en el autobús.',pri:'Luego, leemos que una compañera encuentra el cuaderno.',op:'La compañera hace muy mal en leer el cuaderno sin permiso.'},
  {o:['Un rey convoca un concurso para encontrar al mejor cocinero del reino.','Se presentan cientos de cocineros con platos lujosos.','Un niño aparece con un simple pan recién hecho.','El rey, que lleva días sin apetito, lo prueba y recupera las ganas de comer.','El niño se convierte en el panadero de palacio.'],
-  tema:'El valor de las cosas sencillas',verbo:'Un niño gana un concurso de cocina con un simple pan',
+  tema:'El valor de las cosas sencillas',falso:'Un concurso de cocina en el palacio de un rey',verbo:'Un niño gana un concurso de cocina con un simple pan',
   pas:'Se presentaron cientos de cocineros con platos lujosos.',pri:'Al final, sabemos que el niño se convierte en el panadero de palacio.',op:'El pan es, sin duda, mucho mejor que cualquier plato lujoso.'},
  {o:['Un astronauta llega solo a un planeta desconocido.','Su nave se avería al aterrizar.','Unos seres diminutos lo observan escondidos detrás de las rocas.','Al ver que no es peligroso, le ayudan a reparar la nave.','Antes de partir, el astronauta les deja su bandera como regalo.'],
-  tema:'La amistad entre un astronauta y unos seres de otro planeta',verbo:'Un astronauta se hace amigo de unos extraterrestres',
+  tema:'La amistad entre un astronauta y unos seres de otro planeta',falso:'La avería de una nave espacial al aterrizar',verbo:'Un astronauta se hace amigo de unos extraterrestres',
   pas:'Su nave se averió al aterrizar.',pri:'Más tarde, observamos que unos seres diminutos lo vigilan.',op:'Lo mejor de la historia es que los extraterrestres son muy buenos.'},
  {o:['Una familia se muda a una casa antigua a las afueras.','Cada noche oyen ruidos extraños en el desván.','El hijo menor decide subir a investigar con una linterna.','Descubre que los ruidos los hace una familia de lechuzas.','En lugar de echarlas, les construyen un nido en el jardín.'],
-  tema:'El misterio de los ruidos de una casa antigua',verbo:'Una familia investiga los ruidos que se oyen en su casa',
+  tema:'El misterio de los ruidos de una casa antigua',falso:'La mudanza de una familia a las afueras',verbo:'Una familia investiga los ruidos que se oyen en su casa',
   pas:'Cada noche oían ruidos extraños en el desván.',pri:'Al final, descubrimos que los ruidos los hacen unas lechuzas.',op:'El hijo menor es el personaje más valiente del cuento.'},
  {o:['Un vendedor de paraguas no vende nada porque hace meses que no llueve.','Desesperado, decide cerrar la tienda y marcharse de la ciudad.','El día de su partida, empieza a llover sin parar.','La gente hace cola en la puerta de su tienda.','El vendedor vende todos los paraguas y decide quedarse.'],
-  tema:'El cambio de suerte de un vendedor de paraguas',verbo:'A un vendedor de paraguas le cambia la suerte cuando llueve',
+  tema:'El cambio de suerte de un vendedor de paraguas',falso:'La falta de lluvia en una ciudad',verbo:'A un vendedor de paraguas le cambia la suerte cuando llueve',
   pas:'Desesperado, decidió cerrar la tienda y marcharse.',pri:'El día de su partida, vemos que empieza a llover sin parar.',op:'Es un final muy justo para un vendedor tan trabajador.'},
  {o:['Una niña recibe por su cumpleaños un reloj que no funciona.','Lo lleva a un relojero anciano del barrio.','El relojero le explica que el reloj perteneció a su abuela.','Al arreglarlo, encuentran dentro una pequeña foto de la abuela de niña.','La niña decide llevarlo siempre puesto.'],
-  tema:'El valor sentimental de un reloj heredado',verbo:'Una niña descubre que su reloj era de su abuela',
+  tema:'El valor sentimental de un reloj heredado',falso:'El oficio de los relojeros de barrio',verbo:'Una niña descubre que su reloj era de su abuela',
   pas:'La niña llevó el reloj a un relojero anciano.',pri:'Al arreglarlo, encontramos dentro una pequeña foto de la abuela.',op:'Es el regalo más emocionante que se puede recibir.'}
 ];
 var ERR=['✅ Correcta','🙋 Opinión personal','👤 Primera persona','⏪ No está en presente','📢 «Este texto trata de…»','✂️ Copia un detalle sin importancia'];
@@ -843,7 +843,7 @@ RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
 function deTema(t){return t.replace(/^El /,'del ').replace(/^La /,'de la ').replace(/^Los /,'de los ').replace(/^Las /,'de las ')}
 RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   for(var s=0;s<50;s++){orden=mezcla([0,1,2,3,4],sd+s);if(orden.every(function(x,i){return x!==i}))break}
-  var temas=[D.tema,'Este texto trata '+deTema(D.tema.charAt(0).toUpperCase()+D.tema.slice(1)),D.verbo];
+  var temas=[D.tema,D.falso,D.verbo];
   var to=mezcla([0,1,2],sd+77);
   z.insertAdjacentHTML('beforeend','<div class="enun">Ordenad el microrrelato (arrastrad las piezas o tocad dos para cambiarlas), marcad la parte de cada oración y elegid el tema.</div>');
   var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
