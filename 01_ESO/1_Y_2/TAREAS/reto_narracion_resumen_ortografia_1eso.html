@@ -316,6 +316,8 @@ body{background:#fbf6ea;background-image:none}
 table.notas{background:transparent}
 table.notas th{background:transparent;color:var(--suave);border-bottom:2px solid var(--ink)}
 .chip{background:#f4eedd}
+.pz .partes{flex:none;flex-wrap:nowrap;gap:.25rem;margin-left:auto}.pz .partes .op{font-size:1.1rem;padding:.2rem .6rem}
+.pz .tx{flex:1}
 </style>
 </head>
 <body>
@@ -560,8 +562,8 @@ var R={
    ins:'Leed el microrrelato. Decid qué tipo de narrador tiene y qué elemento de la narración es cada fragmento marcado.'},
  cru:{ico:'✏️',nom:'Minicrucigrama ortográfico',desc:'Cinco palabras difíciles de los repasos, con sus tildes.',t:100,n:5,col:'#2f6fed',
    ins:'Cinco palabras de los repasos de ortografía. Una sola letra o una tilde mal y la palabra no cuenta.'},
- puz:{ico:'🧩',nom:'Puzzle del microrrelato',desc:'Ordenar las cinco oraciones de un microrrelato y elegir su tema.',t:75,n:6,col:'#2fae6a',
-   ins:'Ordenad las cinco oraciones del microrrelato para que la historia tenga sentido y elegid cuál es el tema bien formulado.'},
+ puz:{ico:'🧩',nom:'Puzzle del microrrelato',desc:'Ordenar las cinco oraciones de un microrrelato, marcar planteamiento, nudo y desenlace y elegir su tema.',t:100,n:6,col:'#2fae6a',
+   ins:'Ordenad las cinco oraciones del microrrelato, marcad en cada una si es planteamiento, nudo o desenlace y elegid el tema bien formulado. Cada oración solo puntúa si está en su sitio y con su parte bien marcada.'},
  orto:{ico:'🔤',nom:'¿Cuál está bien escrita?',desc:'Cinco palabras difíciles de los repasos (distintas de las del crucigrama), tres formas cada una.',t:60,n:5,col:'#7b4dde',
    ins:'Cinco palabras difíciles de los repasos de ortografía. De cada una hay tres formas: solo una está bien escrita.'},
  mod:{ico:'🎭',nom:'DEP ADN: ¿qué modalidad es?',desc:'Cuatro fragmentos y seis modalidades textuales.',t:60,n:4,col:'#ff4f7b',
@@ -828,10 +830,12 @@ RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   for(var s=0;s<50;s++){orden=mezcla([0,1,2,3,4],sd+s);if(orden.every(function(x,i){return x!==i}))break}
   var temas=[D.tema,'Este texto trata '+deTema(D.tema.charAt(0).toUpperCase()+D.tema.slice(1)),D.verbo];
   var to=mezcla([0,1,2],sd+77);
-  z.insertAdjacentHTML('beforeend','<div class="enun">Ordenad el microrrelato: arrastrad las piezas o tocad dos para cambiarlas de sitio. Después, elegid el tema bien formulado.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">Ordenad el microrrelato (arrastrad las piezas o tocad dos para cambiarlas), marcad la parte de cada oración y elegid el tema.</div>');
   var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
-  var izq=h('div',{class:'piezas',style:'flex:1.9 1 0;justify-content:center'});
-  orden.forEach(function(i){var p=h('button',{class:'pz','data-i':i},'<span class="num"></span><span class="tx">'+D.o[i]+'</span>');izq.appendChild(p)});
+  var izq=h('div',{class:'piezas',style:'flex:2.6 1 0;justify-content:center'});
+  var PARTES=['Planteamiento','Nudo','Desenlace'],pw={};
+  function parteDe(i){return i===0?0:i===4?2:1}
+  orden.forEach(function(i){var p=h('div',{class:'pz','data-i':i},'<span class="num"></span><span class="tx">'+D.o[i]+'</span>');pw[i]=opciones(p,PARTES);pw[i].classList.add('partes');izq.appendChild(p)});
   row.appendChild(izq);
   var der=h('div',{class:'col',style:'flex:1 1 0;justify-content:center'});
   var q=h('div',{class:'qrow',style:'flex-direction:column;align-items:stretch'},'<span class="qt">🎯 ¿Cuál es el tema de este microrrelato?</span>');
@@ -839,11 +843,11 @@ RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   der.appendChild(q);row.appendChild(der);z.appendChild(row);
   function nums(){$$('.pz',izq).forEach(function(p,i){p.querySelector('.num').textContent=i+1})}nums();
   ordenable(izq,'.pz',nums);
-  return{grade:function(){var ok=0;$$('.pz',izq).forEach(function(p,i){var c=+p.dataset.i===i;if(c)ok++;p.classList.add(c?'ok':'mal');if(!c)p.insertAdjacentHTML('beforeend','<span class="pos">→ va '+(+p.dataset.i+1)+'.º</span>')});
+  return{grade:function(){var ok=0;$$('.pz',izq).forEach(function(p,i){var k=+p.dataset.i,enSitio=k===i,parteOk=corrigeOps(pw[k],parteDe(k)),c=enSitio&&parteOk;if(c)ok++;p.classList.add(c?'ok':'mal');if(!enSitio)p.insertAdjacentHTML('beforeend','<span class="pos">→ va '+(k+1)+'.º</span>')});
     if(corrigeOps(tw,to.indexOf(0)))ok++;return{ok:ok,n:6}}}};
 /* arrastrar para ordenar + tocar dos para intercambiar */
 function ordenable(cont,sel,cb){var sel1=null,drag=null;
-  cont.addEventListener('pointerdown',function(e){var p=e.target.closest(sel);if(!p||S.paso!=='jugando')return;e.preventDefault();
+  cont.addEventListener('pointerdown',function(e){if(e.target.closest('.op'))return;var p=e.target.closest(sel);if(!p||S.paso!=='jugando')return;e.preventDefault();
     drag={p:p,x:e.clientX,y:e.clientY,mov:false,g:null}});
   window.addEventListener('pointermove',function(e){if(!drag)return;var d=drag;
     if(!d.mov&&Math.hypot(e.clientX-d.x,e.clientY-d.y)>8){d.mov=true;var r=d.p.getBoundingClientRect();d.g=d.p.cloneNode(true);d.g.classList.add('fant');d.g.style.width=r.width+'px';d.g.style.left=r.left+'px';d.g.style.top=r.top+'px';d.dx=e.clientX-r.left;d.dy=e.clientY-r.top;document.body.appendChild(d.g);d.p.classList.add('hueco');if(sel1){sel1.classList.remove('cog');sel1=null}}
