@@ -35,7 +35,8 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 .paso{display:none;flex-direction:column;gap:.8rem;flex:1;min-height:0}.paso.on{display:flex}
 .intro{font-size:1.3rem;line-height:1.35}
 #paso1 .cab svg{height:10rem}
-#paso1 .grupos{grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.7rem}
+#paso1 .grupos{grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.7rem;align-content:stretch;grid-auto-rows:minmax(9rem,1fr)}
+#paso1 .chip{font-size:1.25rem}
 #paso1 .gcard .gn{font-size:1.6rem}#paso1 .gcard input.al{font-size:1.05rem;padding:.18rem .45rem}
 #paso1 .lista{height:auto;font-size:1rem}
 #paso2 .rondas{gap:.5rem;overflow:auto}
@@ -225,6 +226,11 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
 .tj{background:#fff;border:3px solid var(--ink);border-radius:.8rem;padding:.45rem .7rem;font-size:1.4rem;font-weight:700;line-height:1.25;box-shadow:.2rem .2rem 0 var(--ink);text-align:left;touch-action:none;user-select:none;cursor:grab}
 .tj.cog{outline:4px dashed var(--azul);outline-offset:2px;background:var(--azul2)}
 .tj .solu{display:block;font-size:1.05rem}
+.pool{border:3px dashed var(--ink);border-radius:.8rem;background:#fff;padding:.4rem;display:flex;flex-wrap:wrap;align-content:flex-start;gap:.3rem;overflow:auto}
+.chips{display:flex;flex-wrap:wrap;gap:.3rem;align-content:flex-start;flex:1;min-height:3rem}
+.chip{background:var(--am2);border:2px solid var(--ink);border-radius:2rem;padding:.12rem .6rem;font-weight:700;font-size:1.1rem;cursor:grab;touch-action:none;user-select:none;white-space:nowrap}
+.chip.cog{background:var(--azul);color:#fff}
+.gcard.dest,.pool.dest{outline:4px solid var(--azul);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -249,7 +255,10 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
       <button class="btn big rosa" id="aRondas" style="margin-left:.6rem">Elegir las rondas ▶</button>
     </div>
     <div class="row grow">
-      <div class="col" style="flex:0 0 13rem"><p class="small">Pega la lista de la clase (un nombre por línea) y haz los grupos al azar, o escribe los nombres en cada tarjeta.</p><textarea class="lista grow" id="lista" placeholder="Un nombre por línea…"></textarea></div>
+      <div class="col" style="flex:0 0 15rem"><div class="row" style="align-items:center;flex:none"><b style="flex:1;font-size:1.15rem">Sin grupo <span id="nSin"></span></b><button class="btn blanco" id="editLista" style="padding:.1rem .5rem;font-size:.85rem">✏️ Lista</button></div>
+        <div class="pool grow" id="pool" data-g="-1"></div>
+        <textarea class="lista grow" id="lista" placeholder="Un nombre por línea…" style="display:none"></textarea>
+        <p class="small muted" style="flex:none">Arrastra los nombres a los grupos (o toca un nombre y después el grupo).</p></div>
       <div class="grupos grow" id="grupos"></div>
     </div>
   </div>
@@ -451,6 +460,8 @@ var SINO=[
  ['Escribirlo en primera persona («vemos», «descubrimos»…).','Copiar frases enteras del texto original.','Poner las fechas exactas y todos los datos numéricos.','Empezar con «Este texto trata de…».','Dar tu opinión sobre lo que pasa.','Enumerar todos los hechos uno a uno, sin sintetizar.','Que ocupe más de la mitad del texto original.','Contar los hechos en pretérito («encontró», «llegó»…).','Dividirlo en muchos párrafos, uno para cada hecho.','Escribir la idea principal con un verbo conjugado («La niña encuentra…»).','Desordenar los hechos para que resulte más interesante.']
 ];
 
+var CLASE=["Javier A.","Telmo","André","Rafael","Lara","Luz","Alexandre","Lía","Érik","Andrea","Irene G.","Angus Sergio","Thiago","Irene L.","Javier L.","Lucía","Aroa","Olaf","Martín","Pelayo","Yasmín","David","Martina"];
+
 var CRUCI={"defs": {"PERSPICAZ": "Que se da cuenta enseguida de lo que no es evidente; muy listo y observador.", "HIPÉRBOLE": "Figura literaria que consiste en exagerar mucho la realidad.", "DESAHOGO": "Alivio que se siente al contar una pena o soltar lo que se lleva dentro.", "ADVERBIO": "Clase de palabra invariable, como «aquí», «mañana» o «rápidamente».", "INHÓSPITO": "Dicho de un lugar: poco acogedor, incómodo o difícil para vivir.", "YACIMIENTO": "Lugar donde se encuentran restos arqueológicos, fósiles o minerales.", "ESBELTO": "Alto, delgado y de figura elegante.", "URGENCIA": "Necesidad de hacer algo con mucha prisa, sin poder esperar.", "APOGEO": "Momento de mayor esplendor o intensidad de algo.", "VALLA": "Cerca de madera o metal que rodea un terreno (no es una exclamación ni un fruto).", "VISLUMBRAR": "Ver algo de forma confusa, a lo lejos o con poca luz.", "ESPARCIR": "Separar y extender por un lugar lo que estaba junto.", "EXPLÍCITO": "Que se dice de forma clara y directa, sin dar nada por supuesto.", "PSICÓLOGO": "Profesional que estudia la mente y la conducta y ayuda con los problemas emocionales.", "YACER": "Estar tendido o enterrado.", "CONSERJE": "Persona que cuida un edificio, abre y cierra las puertas y atiende a quien llega.", "EXTRAESCOLAR": "Dicho de una actividad: que se hace fuera del horario de clase.", "OBSTRUCCIÓN": "Acción de atascar o bloquear un conducto o un paso.", "EXIGIR": "Pedir algo con firmeza, como si fuera un derecho.", "COHESIÓN": "Propiedad del texto: sus partes están bien unidas con conectores, sinónimos, pronombres…", "OQUEDAD": "Espacio vacío en el interior de un cuerpo sólido; un hueco.", "BUHARDILLA": "Habitación bajo el tejado de una casa, con el techo inclinado.", "ATRAYENTE": "Que atrae o resulta interesante.", "INVERSIÓN": "Acción de poner dinero en algo para obtener beneficios."}, "grids": [{"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "YACIMIENTO", "x": 0, "y": 7, "d": 0}, {"w": "PERSPICAZ", "x": 1, "y": 0, "d": 1}, {"w": "ADVERBIO", "x": 3, "y": 1, "d": 1}, {"w": "YACER", "x": 6, "y": 4, "d": 1}, {"w": "INHÓSPITO", "x": 8, "y": 0, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "EXPLÍCITO", "x": 0, "y": 4, "d": 0}, {"w": "CONSERJE", "x": 0, "y": 0, "d": 1}, {"w": "OBSTRUCCIÓN", "x": 0, "y": 1, "d": 0}, {"w": "EXTRAESCOLAR", "x": 0, "y": 7, "d": 0}, {"w": "EXIGIR", "x": 11, "y": 2, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "ESBELTO", "x": 0, "y": 3, "d": 0}, {"w": "OQUEDAD", "x": 0, "y": 0, "d": 1}, {"w": "URGENCIA", "x": 3, "y": 0, "d": 1}, {"w": "BUHARDILLA", "x": 2, "y": 0, "d": 0}, {"w": "INVERSIÓN", "x": 3, "y": 6, "d": 0}]}, {"s": 90.25, "w": 11, "h": 8, "p": [{"w": "VISLUMBRAR", "x": 1, "y": 6, "d": 0}, {"w": "ESPARCIR", "x": 2, "y": 0, "d": 1}, {"w": "DESAHOGO", "x": 1, "y": 0, "d": 0}, {"w": "PSICÓLOGO", "x": 2, "y": 2, "d": 0}, {"w": "ATRAYENTE", "x": 0, "y": 4, "d": 0}]}, {"s": 83.5, "w": 10, "h": 8, "p": [{"w": "APOGEO", "x": 0, "y": 1, "d": 0}, {"w": "COHESIÓN", "x": 2, "y": 0, "d": 1}, {"w": "HIPÉRBOLE", "x": 1, "y": 5, "d": 0}, {"w": "PERSPICAZ", "x": 1, "y": 3, "d": 0}, {"w": "VALLA", "x": 8, "y": 2, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "EXTRAESCOLAR", "x": 0, "y": 0, "d": 0}, {"w": "ESPARCIR", "x": 0, "y": 0, "d": 1}, {"w": "CONSERJE", "x": 7, "y": 0, "d": 1}, {"w": "INHÓSPITO", "x": 3, "y": 3, "d": 0}, {"w": "COHESIÓN", "x": 4, "y": 7, "d": 0}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "OBSTRUCCIÓN", "x": 1, "y": 7, "d": 0}, {"w": "YACER", "x": 5, "y": 3, "d": 1}, {"w": "OQUEDAD", "x": 0, "y": 4, "d": 0}, {"w": "APOGEO", "x": 3, "y": 0, "d": 1}, {"w": "HIPÉRBOLE", "x": 1, "y": 1, "d": 0}]}, {"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "VISLUMBRAR", "x": 0, "y": 2, "d": 0}, {"w": "INVERSIÓN", "x": 0, "y": 0, "d": 1}, {"w": "VALLA", "x": 3, "y": 0, "d": 1}, {"w": "URGENCIA", "x": 7, "y": 1, "d": 1}, {"w": "ATRAYENTE", "x": 9, "y": 0, "d": 1}]}, {"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "ADVERBIO", "x": 2, "y": 0, "d": 0}, {"w": "EXPLÍCITO", "x": 5, "y": 0, "d": 1}, {"w": "EXIGIR", "x": 3, "y": 6, "d": 0}, {"w": "DESAHOGO", "x": 0, "y": 8, "d": 0}, {"w": "PSICÓLOGO", "x": 0, "y": 3, "d": 0}]}, {"s": 106, "w": 10, "h": 10, "p": [{"w": "ESBELTO", "x": 1, "y": 0, "d": 0}, {"w": "BUHARDILLA", "x": 3, "y": 0, "d": 1}, {"w": "YACIMIENTO", "x": 0, "y": 6, "d": 0}, {"w": "INHÓSPITO", "x": 1, "y": 2, "d": 0}, {"w": "DESAHOGO", "x": 0, "y": 9, "d": 0}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "URGENCIA", "x": 3, "y": 4, "d": 0}, {"w": "ADVERBIO", "x": 4, "y": 0, "d": 1}, {"w": "EXTRAESCOLAR", "x": 0, "y": 0, "d": 0}, {"w": "HIPÉRBOLE", "x": 3, "y": 6, "d": 0}, {"w": "EXIGIR", "x": 0, "y": 0, "d": 1}]}, {"s": 102.77777777777777, "w": 11, "h": 9, "p": [{"w": "ESBELTO", "x": 3, "y": 5, "d": 0}, {"w": "ATRAYENTE", "x": 3, "y": 0, "d": 1}, {"w": "PERSPICAZ", "x": 1, "y": 2, "d": 0}, {"w": "BUHARDILLA", "x": 0, "y": 0, "d": 0}, {"w": "OBSTRUCCIÓN", "x": 0, "y": 7, "d": 0}]}]};
 (function(){
 'use strict';
@@ -495,7 +506,7 @@ for(var _k in S.activas)if(!R[_k])delete S.activas[_k];
 S.grupos.forEach(function(G){for(var k in G.pts)if(!R[k])delete G.pts[k]});
 ORDEN0.forEach(function(id){if(S.tiempos[id]==null)S.tiempos[id]=R[id].t});
 if(!S.grupos.length)ponGrupos(5);
-function ponGrupos(n){n=Math.max(2,Math.min(12,n));while(S.grupos.length<n)S.grupos.push({nom:'Grupo '+(S.grupos.length+1),al:['','',''],pts:{},robos:0,aj:0});S.grupos.length=n}
+function ponGrupos(n){n=Math.max(2,Math.min(12,n));while(S.grupos.length<n)S.grupos.push({nom:'Grupo '+(S.grupos.length+1),al:[],pts:{},robos:0,aj:0});S.grupos.length=n}
 function rondasJuego(){return S.orden.filter(function(id){return S.activas[id]})}
 function ordenSalida(ri){var o=S.grupos.map(function(_,i){return i});return ri%2?o.reverse():o}
 function totalG(g){var G=S.grupos[g],t=0;for(var k in G.pts)t+=G.pts[k];return t+(G.robos||0)+(G.aj||0)}
@@ -511,8 +522,10 @@ function pintaInicio(){
   var cont=$('#grupos');cont.innerHTML='';
   S.grupos.forEach(function(G,i){var c=h('div',{class:'gcard'});
     var nm=h('input',{class:'gn',value:G.nom,'aria-label':'Nombre del grupo '+(i+1)});nm.oninput=function(){G.nom=nm.value||('Grupo '+(i+1));guarda()};c.appendChild(nm);
-    var n=Math.max(5,G.al.length);for(var k=0;k<n;k++)(function(k){var a=h('input',{class:'al',placeholder:'Alumno/a '+(k+1),value:G.al[k]||''});a.oninput=function(){G.al[k]=a.value;guarda()};c.appendChild(a)})(k);
+    c.dataset.g=i;var ch=h('div',{class:'chips'});G.al=G.al.filter(Boolean);G.al.forEach(function(a){ch.appendChild(h('span',{class:'chip','data-n':a},esc(a)))});c.appendChild(ch);
     cont.appendChild(c)});
+  var pool=$('#pool');pool.innerHTML='';var sin=sinGrupo();sin.forEach(function(a){pool.appendChild(h('span',{class:'chip','data-n':a},esc(a)))});
+  $('#nSin').textContent='('+sin.length+')';
   var rc=$('#rondas');rc.innerHTML='';
   S.orden.forEach(function(id,i){var d=R[id],row=h('div',{class:'rd'+(S.activas[id]?'':' off')});
     row.dataset.id=id;row.innerHTML='<span class="asa" title="Arrastra para cambiar el orden">⠿</span><span class="pos">'+(S.activas[id]?(rondasJuego().indexOf(id)+1):'')+'</span><input type="checkbox" '+(S.activas[id]?'checked':'')+' aria-label="Jugar esta ronda"><span class="ri">'+d.ico+'</span><span class="rn">'+d.nom+'<small>'+d.desc+' · '+d.n+' preguntas + 1 punto por pleno</small></span><input type="number" min="20" max="300" step="5" value="'+S.tiempos[id]+'" aria-label="Segundos"><span class="small">s</span><button class="mv" aria-label="Subir">▲</button><button class="mv" aria-label="Bajar">▼</button>';
@@ -536,9 +549,25 @@ function pintaEst(){var n=S.grupos.length,rs=rondasJuego(),seg=0;rs.forEach(func
   e.className='est'+(m>41?' mal':'');
   e.textContent=rs.length?('⏱️ '+rs.length+' ronda'+(rs.length>1?'s':'')+' × '+n+' grupos ≈ '+m+' min'+(m>41?' · Más de 40 min: quita una ronda o baja los tiempos':' (con los cambios de grupo)')):'Marca al menos una ronda.';
   $('#empezar').disabled=!rs.length}
+if(!ls(KLISTA))ls(KLISTA,CLASE.join('\n'));
 $('#lista').value=ls(KLISTA)||'';
+function listaClase(){return $('#lista').value.split(/\n|;/).map(function(x){return x.trim()}).filter(Boolean)}
+function sinGrupo(){var dentro={};S.grupos.forEach(function(G){G.al.forEach(function(a){dentro[a]=1})});return listaClase().filter(function(a){return !dentro[a]})}
+$('#editLista').onclick=function(){var t=$('#lista'),v=t.style.display==='none';t.style.display=v?'':'none';$('#pool').style.display=v?'none':'';this.textContent=v?'✔ Hecho':'✏️ Lista';if(!v)pintaInicio()};
+function mueve(n,g){S.grupos.forEach(function(G){G.al=G.al.filter(function(a){return a!==n})});if(g>=0)S.grupos[g].al.push(n);guarda();pintaInicio()}
+(function(){var drag=null,sel=null,raiz=$('#paso1');
+  raiz.addEventListener('pointerdown',function(e){var c=e.target.closest('.chip');if(!c)return;e.preventDefault();drag={c:c,x:e.clientX,y:e.clientY,mov:false}});
+  window.addEventListener('pointermove',function(e){if(!drag)return;var d=drag;
+    if(!d.mov&&Math.hypot(e.clientX-d.x,e.clientY-d.y)>6){d.mov=true;d.g=d.c.cloneNode(true);d.g.style.cssText='position:fixed;z-index:60;pointer-events:none;transform:rotate(-3deg)';document.body.appendChild(d.g);d.c.style.opacity='.3'}
+    if(d.mov){d.g.style.left=(e.clientX-20)+'px';d.g.style.top=(e.clientY-15)+'px';var o=document.elementFromPoint(e.clientX,e.clientY),z=o&&o.closest('.gcard,.pool');$$('.gcard,.pool').forEach(function(x){x.classList.toggle('dest',x===z)})}});
+  window.addEventListener('pointerup',function(e){if(!drag)return;var d=drag;drag=null;
+    if(d.mov){d.g.remove();d.c.style.opacity='';$$('.dest').forEach(function(x){x.classList.remove('dest')});var o=document.elementFromPoint(e.clientX,e.clientY),z=o&&o.closest('.gcard,.pool');if(z)mueve(d.c.dataset.n,+z.dataset.g);return}
+    $$('.chip.cog').forEach(function(x){if(x!==d.c)x.classList.remove('cog')});
+    if(sel===d.c.dataset.n){sel=null;d.c.classList.remove('cog')}else{sel=d.c.dataset.n;d.c.classList.add('cog')}});
+  raiz.addEventListener('click',function(e){if(!sel||e.target.closest('.chip,input,button'))return;var z=e.target.closest('.gcard,.pool');if(z){var n=sel;sel=null;mueve(n,+z.dataset.g)}});
+})();
 $('#lista').oninput=function(){ls(KLISTA,$('#lista').value)};
-function hacer(tam){var nom=$('#lista').value.split(/\n|;/).map(function(s){return s.trim()}).filter(Boolean);
+function hacer(tam){var nom=listaClase();
   if(nom.length<2){toast('Pega primero la lista de la clase');return}
   nom=mezcla(nom,Date.now()%100000+7);
   var ng=Math.max(2,Math.min(12,Math.floor(nom.length/tam)));
