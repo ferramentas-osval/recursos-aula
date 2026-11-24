@@ -278,6 +278,44 @@ table.notas th{background:var(--ink)}
 .guardado{border-radius:.8rem}
 .cel.l{border-color:#2a2945}
 table.notas .aj{border:none;background:#f1ebdc}
+
+/* ===== MINIMALISTA ===== */
+body{background:#fbf6ea;background-image:none}
+.meta{font-size:1rem;font-weight:700;color:var(--suave);letter-spacing:.02em}
+.intro{color:var(--suave)}
+.panel,.pie,.gcard,.qrow,.er,.cq,.rd,.fg,.tj,.mod,.pz,.texto,.zona,.pool,#nav .box{box-shadow:none!important}
+#paso1>.panel{background:transparent;padding:0}
+.pie{background:transparent;padding:.2rem 0}
+.gcard{background:#fff;border-radius:1rem;padding:.7rem .8rem}
+.texto{box-shadow:none!important;background:#fff}
+.btn{border:none!important;box-shadow:none!important;border-radius:2rem;padding:.45rem 1.1rem}
+.btn.big{box-shadow:.22rem .22rem 0 var(--ink)!important}
+.btn.blanco{background:#fff}
+.ctrl{flex-direction:row;gap:.3rem}
+.ctrl .btn{background:transparent;color:var(--suave);font-size:.95rem;padding:.2rem .5rem}
+.reloj{border:none;box-shadow:none;width:5.6rem;height:5.6rem;font-size:2.3rem}
+.reloj span{border:none;width:4.6rem;height:4.6rem;background:#fbf6ea}
+.top .ronda .ico{font-size:2rem}
+.top .grupo .gal{font-size:.95rem}
+.marc{gap:1.2rem;justify-content:center}
+.marc .mg{flex:0 1 auto;background:transparent!important;padding:0;gap:.4rem;color:var(--suave);font-weight:700}
+.marc .mg b{color:var(--ink)}
+.marc .mg.yo{color:var(--ink);background:transparent!important}.marc .mg.yo span{background:var(--am);padding:0 .35rem;border-radius:.3rem}
+.marc .mg.hecho{background:transparent!important}
+.rd{background:#fff}
+.rd .asa{opacity:.35}
+.rd .mv{background:transparent;color:var(--suave)}
+#paso2 .rd{max-height:5rem}
+.qrow,.er,.cq,.fg,.tj,.pz{background:#fff}
+.mod{background:#fff}.mod .l{color:var(--rosa)}
+.qrow .qn{background:var(--ink);color:#fff}
+.est{background:transparent!important;color:var(--verde);padding:0}.est.mal{color:var(--rosa)}
+.fr{background:transparent;border-bottom-width:3px}
+.fr sup{background:var(--nar)}
+.resul{box-shadow:none;border-radius:1.2rem}
+table.notas{background:transparent}
+table.notas th{background:transparent;color:var(--suave);border-bottom:2px solid var(--ink)}
+.chip{background:#f4eedd}
 </style>
 </head>
 <body>
@@ -288,15 +326,15 @@ table.notas .aj{border:none;background:#f1ebdc}
   <div class="cab">
     <svg viewBox="0 0 420 420" aria-hidden="true"><polygon points="407.0,229.8 353.5,253.8 384.4,303.7 325.8,305.4 335.3,363.3 280.5,342.4 267.1,399.6 224.4,359.3 190.2,407.0 166.2,353.5 116.3,384.4 114.6,325.8 56.7,335.3 77.6,280.5 20.4,267.1 60.7,224.4 13.0,190.2 66.5,166.2 35.6,116.3 94.2,114.6 84.7,56.7 139.5,77.6 152.9,20.4 195.6,60.7 229.8,13.0 253.8,66.5 303.7,35.6 305.4,94.2 363.3,84.7 342.4,139.5 399.6,152.9 359.3,195.6" fill="#ffd23f" stroke="#1c1b33" stroke-width="7" stroke-linejoin="round"/><circle cx="210" cy="210" r="120" fill="#ff4f7b" stroke="#1c1b33" stroke-width="7"/><circle cx="210" cy="210" r="98" fill="#fffaf0" stroke="#1c1b33" stroke-width="5"/><text x="210" y="250" text-anchor="middle" font-size="115">🏆</text></svg>
     <div class="col" style="gap:.5rem;flex:1">
-      <span class="tag" style="align-self:flex-start;font-size:1rem">1.º ESO · Lengua castellana y literatura · Tema 4</span>
+      <span class="meta">1.º ESO · Lengua castellana y literatura</span>
       <h1>El gran <span class="hl">reto</span> de las historias <span class="cosis">y otras cositas</span></h1>
-      <p class="intro">La narración, los tipos de texto, el taller del resumen y las palabras más difíciles de los repasos de ortografía. Cada grupo sale al proyector en su turno; todas las rondas son iguales para todos los grupos (mismo tipo de prueba, mismo número de preguntas, mismo tiempo), pero con un ejercicio distinto para cada grupo. Si otro grupo sabe corregir un fallo, ¡puede robar el punto!</p>
+      <p class="intro">Narración, tipos de texto, resumen y ortografía. Cada grupo sale al proyector en su turno.</p>
     </div>
   </div>
   <div class="panel col grow">
     <div class="row" style="align-items:center;flex-wrap:wrap;flex:none"><h2 style="flex:1">1 · Los <span class="hl">grupos</span></h2>
       <button class="btn blanco" id="editLista" title="Quitar o añadir alumnos">✏️ Lista</button>
-      <button class="btn blanco" id="otraVez" title="Volver a repartir al azar">🎲 Repartir otra vez</button>
+      <button class="btn" id="otraVez" title="Repartir al alumnado al azar">🎲 Repartir grupos</button>
       <span style="font-weight:700">Grupos:</span>
       <button class="btn blanco" id="menosG" style="padding:.1rem .7rem">−</button><b id="nG" style="font-family:var(--f-tit);font-size:2rem">5</b><button class="btn blanco" id="masG" style="padding:.1rem .7rem">+</button>
       <button class="btn big rosa" id="aRondas" style="margin-left:.6rem">Elegir las rondas ▶</button>
@@ -313,11 +351,11 @@ table.notas .aj{border:none;background:#f1ebdc}
  </div>
  <div id="paso2" class="paso">
   <div class="row" style="align-items:center;flex:none"><h1 style="flex:1;font-size:3.6rem">2 · Las <span class="hl">rondas</span></h1><div class="est" id="estim"></div></div>
-  <p class="intro" style="flex:none">Marca las rondas que vais a jugar y ponlas en el orden que quieras: arrastra ⠿ o usa ▲ ▼. Cada grupo sale una vez por ronda y en cada ronda el orden de salida se invierte.</p>
+  <p class="intro" style="flex:none">Marca las que vais a jugar y arrástralas para ordenarlas.</p>
   <div class="rondas grow" id="rondas"></div>
   <div class="pie">
     <button class="btn big blanco" id="aGrupos">◀ Grupos</button>
-    <div class="col" style="gap:.1rem;flex:1;min-width:0"><b class="tit" style="font-size:1.5rem">3 · Guardar las notas</b><span class="small">Escribe tu clave para empezar. Al terminar, las notas se guardan en este navegador, en un CSV y en tu hoja de Google.</span></div>
+    <span style="flex:1"></span>
     <div class="pinbox"><span class="small" style="font-weight:700">🔒 Clave</span><input type="password" id="pin" autocomplete="off" placeholder="Clave del profe"><button class="ojo" id="ojo" type="button" aria-label="Mostrar u ocultar el código">👁</button></div>
     <button class="btn big rosa" id="empezar">¡Empezar el reto! ▶</button>
   </div>
@@ -327,7 +365,7 @@ table.notas .aj{border:none;background:#f1ebdc}
 <!-- ================= JUEGO ================= -->
 <section class="scr" id="juego">
   <div class="top">
-    <div class="ronda"><span class="ico" id="rIco"></span><div class="col" style="gap:.1rem"><span class="tag" id="rNum"></span><h3 id="rNom"></h3></div></div>
+    <div class="ronda"><span class="ico" id="rIco"></span><div class="col" style="gap:.1rem"><span class="meta" id="rNum"></span><h3 id="rNom"></h3></div></div>
     <div class="grupo"><div class="gnom" id="gNom"></div><div class="gal" id="gAl"></div></div>
     <div class="ctrl"><button class="btn" id="navBtn" title="Ir a otra ronda, otro grupo, al inicio o cancelar el reto">🧭 Ir a… / Cancelar</button><button class="btn blanco" id="pausa" title="Pausar el reloj">⏸ Pausa</button><button class="btn blanco" id="mas15" title="Añadir 15 segundos">+15 s</button></div>
     <div class="reloj" id="reloj"><span id="seg">60</span></div>
@@ -573,10 +611,10 @@ function pintaInicio(){
     c.dataset.g=i;var ch=h('div',{class:'chips'});G.al=G.al.filter(Boolean);G.al.forEach(function(a){ch.appendChild(h('span',{class:'chip','data-n':a},esc(a)))});c.appendChild(ch);
     cont.appendChild(c)});
   var pool=$('#pool');pool.innerHTML='';var sin=sinGrupo();sin.forEach(function(a){pool.appendChild(h('span',{class:'chip','data-n':a},esc(a)))});
-  var ed=$('#lista').style.display!=='none';$('#izq').style.display=(ed||sin.length)?'':'none';$('#tSin').textContent=ed?'Lista de la clase':'Sin grupo ('+sin.length+')';
+  var ed=$('#lista').style.display!=='none';$('#izq').style.display=ed?'':'none';$('#tSin').textContent=ed?'Lista de la clase':'Sin grupo ('+sin.length+')';
   var rc=$('#rondas');rc.innerHTML='';
   S.orden.forEach(function(id,i){var d=R[id],row=h('div',{class:'rd'+(S.activas[id]?'':' off')});
-    row.dataset.id=id;row.innerHTML='<span class="asa" title="Arrastra para cambiar el orden">⠿</span><span class="pos">'+(S.activas[id]?(rondasJuego().indexOf(id)+1):'')+'</span><input type="checkbox" '+(S.activas[id]?'checked':'')+' aria-label="Jugar esta ronda"><span class="ri">'+d.ico+'</span><span class="rn">'+d.nom+'<small>'+d.desc+' · '+d.n+' preguntas + 1 punto por pleno</small></span><input type="number" min="20" max="300" step="5" value="'+S.tiempos[id]+'" aria-label="Segundos"><span class="small">s</span><button class="mv" aria-label="Subir">▲</button><button class="mv" aria-label="Bajar">▼</button>';
+    row.dataset.id=id;row.innerHTML='<span class="asa" title="Arrastra para cambiar el orden">⠿</span><span class="pos">'+(S.activas[id]?(rondasJuego().indexOf(id)+1):'')+'</span><input type="checkbox" '+(S.activas[id]?'checked':'')+' aria-label="Jugar esta ronda"><span class="ri">'+d.ico+'</span><span class="rn">'+d.nom+'<small>'+d.desc+'</small></span><input type="number" min="20" max="300" step="5" value="'+S.tiempos[id]+'" aria-label="Segundos"><span class="small">s</span><button class="mv" aria-label="Subir">▲</button><button class="mv" aria-label="Bajar">▼</button>';
     var ins=row.querySelectorAll('input'),mv=row.querySelectorAll('.mv');
     ins[0].onchange=function(){S.tocado=true;S.activas[id]=ins[0].checked;guarda();pintaInicio()};
     ins[1].onchange=function(){S.tiempos[id]=Math.max(20,Math.min(300,+ins[1].value||R[id].t));guarda();pintaEst()};
@@ -601,7 +639,7 @@ if(!ls(KLISTA))ls(KLISTA,CLASE.join('\n'));
 $('#lista').value=ls(KLISTA)||'';
 function listaClase(){return $('#lista').value.split(/\n|;/).map(function(x){return x.trim()}).filter(Boolean)}
 function sinGrupo(){var dentro={};S.grupos.forEach(function(G){G.al.forEach(function(a){dentro[a]=1})});return listaClase().filter(function(a){return !dentro[a]})}
-$('#editLista').onclick=function(){var t=$('#lista'),v=t.style.display==='none';t.style.display=v?'':'none';$('#pool').style.display=v?'none':'';$('#ayLista').style.display=v?'':'none';this.textContent=v?'✔ Hecho':'✏️ Lista';if(v)pintaInicio();else hacer(S.grupos.length)};
+$('#editLista').onclick=function(){var t=$('#lista'),v=t.style.display==='none';t.style.display=v?'':'none';$('#pool').style.display=v?'none':'';$('#ayLista').style.display=v?'':'none';this.textContent=v?'✔ Hecho':'✏️ Lista';if(v)pintaInicio();else if(repartidos())hacer(S.grupos.length);else pintaInicio()};
 function mueve(n,g){S.grupos.forEach(function(G){G.al=G.al.filter(function(a){return a!==n})});if(g>=0)S.grupos[g].al.push(n);guarda();pintaInicio()}
 (function(){var drag=null,sel=null,raiz=$('#paso1');
   raiz.addEventListener('pointerdown',function(e){var c=e.target.closest('.chip');if(!c)return;e.preventDefault();drag={c:c,x:e.clientX,y:e.clientY,mov:false}});
@@ -622,10 +660,12 @@ function hacer(ng){var nom=listaClase();
   S.grupos=[];for(var i=0;i<ng;i++)S.grupos.push({nom:noms[i]||('Grupo '+(i+1)),al:[],pts:{},robos:0,aj:0});
   nom.forEach(function(n,i){S.grupos[i%ng].al.push(n)});
   autoRondas();guarda();pintaInicio();toast(ng+' grupos repartidos al azar')}
+function repartidos(){return S.grupos.some(function(G){return G.al.length})}
+function cambiaN(n){if(repartidos())hacer(n);else{ponGrupos(n);autoRondas();guarda();pintaInicio()}}
 $('#otraVez').onclick=function(){hacer(S.grupos.length)};
-$('#menosG').onclick=function(){hacer(S.grupos.length-1)};
-$('#masG').onclick=function(){hacer(S.grupos.length+1)};
-if(S.fase==='inicio'&&S.grupos.every(function(G){return !G.al.filter(Boolean).length})&&listaClase().length)hacer(S.grupos.length);
+$('#menosG').onclick=function(){cambiaN(S.grupos.length-1)};
+$('#masG').onclick=function(){cambiaN(S.grupos.length+1)};
+if(S.fase==='inicio'&&!hayPuntos()){S.grupos.forEach(function(G){G.al=[]});guarda()}
 function ojo(b,i){b.onclick=function(){var x=$(i);x.type=x.type==='password'?'text':'password';b.textContent=x.type==='password'?'👁':'🙈'}}
 ojo($('#ojo'),'#pin');ojo($('#ojo2'),'#pin2');
 $('#pin').value=ss('solpin')||'';$('#pin2').value=ss('solpin')||'';
@@ -640,6 +680,7 @@ function pinOk(pin){if(!(window.crypto&&crypto.subtle))return Promise.resolve(fa
 $('#empezar').onclick=function(){empezarReto()};
 function empezarReto(){pinOk($('#pin').value).then(function(ok){if(!ok){toast('🔒 Escribe la clave para empezar el reto');$('#pin').focus();$('#pin').classList.add('malpin');setTimeout(function(){$('#pin').classList.remove('malpin')},900);return}empezar()})};
 function empezar(){
+  if(!repartidos()){toast('🎲 Reparte primero los grupos');paso(1);return}
   if(hayPuntos()&&Date.now()-empArm>4000){empArm=Date.now();toast('Hay un reto con puntos. Pulsa otra vez para empezar de cero (o usa «Continuar el reto»)');return}
   S.grupos.forEach(function(G){G.pts={};G.robos=0;G.aj=0;G.al=G.al.map(function(a){return a.trim()}).filter(Boolean)});
   S.fase='juego';S.ri=0;S.ti=0;S.paso='sale';S.fin=null;S.auto=false;S.inicio=Date.now();guarda();muestra()}
@@ -670,7 +711,7 @@ function pintaTurno(){
   if(S.paso==='clas'){cabecera();return pintaClas()}
   cabecera();
   var w=h('div',{class:'sale'});
-  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="tag" style="align-self:flex-start;font-size:1.1rem">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+S.tiempos[id]+' segundos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
+  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+S.tiempos[id]+' segundos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
   z.appendChild(w);$('#go').onclick=empiezaTurno;
 }
 function empiezaTurno(){S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
@@ -771,7 +812,7 @@ var RET={};
 /* 1. Narrador y elementos */
 RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
   var txt=M.t.replace(/\[\[(.+?)\|(\w)\]\]/g,function(_,a,c){k++;cats.push(c);return '<span class="fr"><sup>'+k+'</sup>'+a+'</span>'});
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.nar.ico+'</span>¿Qué narrador tiene este microrrelato? ¿Qué elemento de la narración es cada fragmento marcado?</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">¿Qué narrador tiene este microrrelato? ¿Qué elemento de la narración es cada fragmento marcado?</div>');
   var col=h('div',{class:'col grow',style:'gap:.8rem;padding-bottom:5rem;justify-content:center'});
   col.appendChild(h('div',{class:'texto'},txt));
   var der=h('div',{class:'narq'});
@@ -787,7 +828,7 @@ RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   for(var s=0;s<50;s++){orden=mezcla([0,1,2,3,4],sd+s);if(orden.every(function(x,i){return x!==i}))break}
   var temas=[D.tema,'Este texto trata '+deTema(D.tema.charAt(0).toUpperCase()+D.tema.slice(1)),D.verbo];
   var to=mezcla([0,1,2],sd+77);
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.puz.ico+'</span>Ordenad el microrrelato: arrastrad las piezas o tocad dos para cambiarlas de sitio. Después, elegid el tema bien formulado.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">Ordenad el microrrelato: arrastrad las piezas o tocad dos para cambiarlas de sitio. Después, elegid el tema bien formulado.</div>');
   var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
   var izq=h('div',{class:'piezas',style:'flex:1.9 1 0;justify-content:center'});
   orden.forEach(function(i){var p=h('button',{class:'pz','data-i':i},'<span class="num"></span><span class="tx">'+D.o[i]+'</span>');izq.appendChild(p)});
@@ -821,7 +862,7 @@ var USO=null;
 function fragsDe(v){if(!USO){USO={};var cnt=[0,0,0,0,0,0];for(var g=0;g<12;g++){USO[g]=[g%6,(g+1)%6,(g+3)%6,(g+4)%6].map(function(m){return[m,cnt[m]++%8]})}}
   return mezcla(USO[v],seedDe('mod',v))}
 RET.mod=function(z,v){var F=fragsDe(v),asig=[-1,-1,-1,-1],selF=-1,selM=-1;
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.mod.ico+'</span>¿Qué modalidad textual es cada fragmento? Tocad un fragmento y después su modalidad (o arrastrad la modalidad hasta el fragmento). Sobran dos.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">¿Qué modalidad textual es cada fragmento? Tocad un fragmento y después su modalidad (o arrastrad la modalidad hasta el fragmento). Sobran dos.</div>');
   var mods=h('div',{class:'mods'});
   MODS.forEach(function(m,i){var b=h('button',{class:'mod','data-m':i},'<span class="l">'+'DEPADN'.charAt(i)+'</span>'+m);mods.appendChild(b)});
   z.appendChild(mods);
@@ -848,7 +889,7 @@ RET.mod=function(z,v){var F=fragsDe(v),asig=[-1,-1,-1,-1],selF=-1,selM=-1;
 RET.err=function(z,v){var D=RES[(v+5)%12];
   var it=[[D.o[2],0],[D.op,1],[D.pri,2],[D.pas,3],['Este texto trata '+deTema(D.tema)+'.',4]];
   it=mezcla(it,seedDe('err',v));
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.err.ico+'</span>Cinco frases del resumen de un relato. ¿Cuál está bien escrita? ¿Qué fallo tiene cada una de las otras?</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">Cinco frases del resumen de un relato. ¿Cuál está bien escrita? ¿Qué fallo tiene cada una de las otras?</div>');
   var c=h('div',{class:'errs',style:'padding-bottom:4.6rem'}),ws=[];
   it.forEach(function(x,i){var e=h('div',{class:'er'},'<span class="fs">'+(i+1)+'. '+x[0]+'</span>');ws.push(opciones(e,ERR));c.appendChild(e)});
   z.appendChild(c);
@@ -857,7 +898,7 @@ RET.err=function(z,v){var D=RES[(v+5)%12];
 /* 5. Cálculos */
 RET.cal=function(z,v){var N=420+40*v,L=LINEAS[v],tipo=v%3,Rw=Math.round(N*[0.2,0.35,0.275][tipo]);
   var mn=N*25/100,mx=N*30/100,ult=Math.floor(L/5)*5,cuantos=Math.floor(L/5),val=Rw<mn?0:Rw>mx?2:1;
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.cal.ico+'</span>Las cuentas del resumen. Podéis usar papel y boli, pero no calculadora.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">Las cuentas del resumen. Podéis usar papel y boli, pero no calculadora.</div>');
   var c=h('div',{class:'calc',style:'padding-bottom:5rem'});
   var izq=h('div',{class:'panel col datos',style:'justify-content:center'},
    '<p>📄 Tenéis que resumir un texto de <span class="big3">'+N+'</span> palabras que ocupa <span class="big3">'+L+'</span> líneas.</p>'+
@@ -880,7 +921,7 @@ RET.cal=function(z,v){var N=420+40*v,L=LINEAS[v],tipo=v%3,Rw=Math.round(N*[0.2,0
 RET.orto=function(z,v){var usadas=CRUCI.grids[v].p.map(function(w){return w.w});
   var libres=Object.keys(ORTO).filter(function(k){return usadas.indexOf(k)<0});
   var it=mezcla(libres,seedDe('orto',v)).slice(0,5);
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.orto.ico+'</span>¿Cuál está bien escrita? Fijaos en cada letra y en las tildes.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">¿Cuál está bien escrita? Fijaos en cada letra y en las tildes.</div>');
   var c=h('div',{class:'errs',style:'padding-bottom:4.6rem;justify-content:center'}),ws=[],sol=[];
   it.forEach(function(k,i){var O=ORTO[k],ord=mezcla([0,1,2],seedDe('orto',v)+i*7);
     var e=h('div',{class:'er'},'<span class="fs">'+(i+1)+'. '+(O.p||CRUCI.defs[k])+'</span>');
@@ -892,7 +933,7 @@ RET.orto=function(z,v){var usadas=CRUCI.grids[v].p.map(function(w){return w.w});
 /* 4b. Resumen: ¿sí o no? */
 RET.sino=function(z,v){var sd=seedDe('sino',v),si=mezcla(SINO[0].map(function(_,i){return i}),sd).slice(0,3),no=mezcla(SINO[1].map(function(_,i){return i}),sd+5).slice(0,3);
   var T=mezcla(si.map(function(i){return[SINO[0][i],1]}).concat(no.map(function(i){return[SINO[1][i],0]})),sd+9),pos=T.map(function(){return -1}),sel=-1;
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.sino.ico+'</span>¿Se hace así un resumen? Arrastrad cada tarjeta a «SÍ» o a «NO» (o tocad la tarjeta y después la caja).</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">¿Se hace así un resumen? Arrastrad cada tarjeta a «SÍ» o a «NO» (o tocad la tarjeta y después la caja).</div>');
   var banco=h('div',{class:'banco'});
   T.forEach(function(t,i){banco.appendChild(h('div',{class:'tj','data-t':i},t[0]))});
   z.appendChild(banco);
@@ -925,7 +966,7 @@ RET.cru=function(z,v){var G=CRUCI.grids[v],W=G.p,cel={},nums={};
   var starts=W.map(function(w,i){return{i:i,x:w.x,y:w.y}}).sort(function(a,b){return a.y-b.y||a.x-b.x}),n=0,key={};
   starts.forEach(function(s){var k=s.x+','+s.y;if(!key[k])key[k]=++n;W[s.i].num=key[k]});
   W.forEach(function(w,i){for(var j=0;j<w.w.length;j++){var x=w.d?w.x:w.x+j,y=w.d?w.y+j:w.y,k=x+','+y;cel[k]=cel[k]||{sol:w.w[j],ws:[],v:''};cel[k].ws.push(i)}});
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.cru.ico+'</span>Tocad una casilla y escribid con el teclado. Las mayúsculas también llevan tilde: ¡usad Á, É, Í, Ó, Ú!</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">Tocad una casilla y escribid con el teclado. Las mayúsculas también llevan tilde: ¡usad Á, É, Í, Ó, Ú!</div>');
   var c=h('div',{class:'cru',style:'padding-bottom:5rem'});
   var rej=h('div',{class:'rej',style:'grid-template-columns:repeat('+G.w+',var(--c));grid-template-rows:repeat('+G.h+',var(--c))'});
   for(var y=0;y<G.h;y++)for(var x=0;x<G.w;x++){var k=x+','+y,d=cel[k],e=h('div',{class:'cel'+(d?' l':''),'data-k':k});
