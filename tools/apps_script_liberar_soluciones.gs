@@ -23,6 +23,7 @@ function doPost(e) {
   try {
     var d = JSON.parse(e.postData.contents);
     var P = PropertiesService.getScriptProperties();
+    if (d && d.accion === 'practica') return salida_(practica_(d));
     if (!d || d.codigo !== P.getProperty('CODIGO')) return salida_({ ok: false, error: 'Código incorrecto' });
     if (d.accion === 'notas') return salida_(notas_(d));
     if (d.accion === 'estado') {
@@ -87,7 +88,24 @@ function notas_(d) {
 }
 /* Ejecutar UNA vez desde el editor para dar permiso y crear la hoja; en el registro aparece su enlace. */
 function prepararHojaNotas() { Logger.log(notas_({ hoja: 'Prueba de conexión', cabecera: ['Fecha', 'Mensaje'], filas: [[new Date(), 'Conexión correcta']] }).url); }
+/* Plenos de práctica de los ordenadores de los grupos (modo equipo): sin código, solo números, caché de 6 h. */
+function practica_(d) {
+  var n = String(d.n || '').replace(/\D/g, '').slice(0, 15), g = parseInt(d.g, 10);
+  if (!n || !(g >= 0 && g < 12)) return { ok: false, error: 'Datos no válidos' };
+  var lock = LockService.getScriptLock(); lock.waitLock(10000);
+  try {
+    var c = CacheService.getScriptCache(), k = 'practica_' + n, l = JSON.parse(c.get(k) || '[]');
+    if (l.indexOf(g) < 0) l.push(g);
+    c.put(k, JSON.stringify(l), 21600);
+    return { ok: true };
+  } finally { lock.releaseLock(); }
+}
 function doGet(e) {
+  if (e && e.parameter && e.parameter.practica) {
+    var c = CacheService.getScriptCache(), o = {};
+    String(e.parameter.practica).split(',').slice(0, 5).forEach(function (n) { n = n.replace(/\D/g, ''); if (n) o[n] = JSON.parse(c.get('practica_' + n) || '[]'); });
+    return salida_({ ok: true, plenos: o });
+  }
   if (e && e.parameter && e.parameter.estado) {
     var c = CacheService.getScriptCache().get('estado_reto'), o = c ? JSON.parse(c) : { e: null, t: Date.now() };
     return salida_({ ok: true, estado: o.e, edad: (Date.now() - o.t) / 1000 });
