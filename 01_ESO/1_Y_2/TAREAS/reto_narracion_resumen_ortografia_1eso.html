@@ -41,7 +41,7 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 #paso2 .rondas{gap:.5rem;overflow:auto}
 #paso2 .rd{padding:.35rem .8rem;gap:.8rem;flex:1 1 0;max-height:6rem}
 #paso2 .rd .ri{font-size:2.4rem;width:3rem}
-#paso2 .rd .rn{font-size:1.45rem}#paso2 .rd .rn small{font-size:1rem;white-space:normal}
+#paso2 .rd .rn{font-size:1.45rem}#paso2 .rd .rn small{font-size:1.2rem;white-space:normal;line-height:1.2}
 #paso2 .rd .pos{font-size:2.2rem;width:2rem}
 #paso2 .rd input[type=checkbox]{width:1.6rem;height:1.6rem}
 #paso2 .rd input[type=number]{width:4.5rem;font-size:1.3rem}
@@ -98,13 +98,13 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 /* pantalla «sale el grupo» */
 .sale{flex:1;display:flex;align-items:center;justify-content:center;gap:2.5rem}
 .sale svg{height:min(26rem,52vh)}
-.sale .txt{display:flex;flex-direction:column;gap:.8rem;max-width:44rem}
+.sale .txt{display:flex;flex-direction:column;gap:.9rem;max-width:58rem}
 .sale .txt h1{font-size:5rem}
-.sale .ins{font-size:1.3rem}
+.sale .ins{font-size:1.75rem;line-height:1.35}
 .sale .alum{font-size:1.5rem;font-weight:700}
 /* retos */
-.enun{font-size:1.25rem;font-weight:700;flex:none}
-.enun .tag{font-size:1rem;margin-right:.4rem;vertical-align:.1em}
+.enun{font-size:1.6rem;font-weight:700;flex:none;line-height:1.25}
+.enun .tag{font-size:1.3rem;margin-right:.4rem;vertical-align:.1em}
 .ok{background:var(--verde2)!important;border-color:var(--verde)!important}
 .mal{background:var(--rosa2)!important;border-color:var(--rosa)!important}
 .solu{font-family:var(--f-mano);color:#1546c4;font-weight:700}
@@ -115,16 +115,16 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 .op.bien{outline:4px solid var(--verde);outline-offset:1px}
 .bloq .op{pointer-events:none}
 /* narrador */
-.texto{font-size:1.75rem;line-height:1.75;background:#fff;border:3px solid var(--ink);border-radius:1rem;padding:1rem 1.3rem;box-shadow:.3rem .3rem 0 var(--ink);text-align:justify}
+.texto{font-size:2.25rem;line-height:1.7;background:#fff;border:3px solid var(--ink);border-radius:1rem;padding:1rem 1.3rem;box-shadow:.3rem .3rem 0 var(--ink);text-align:justify}
 .fr{border-bottom:4px solid var(--nar);background:var(--nar2);padding:0 .15em;border-radius:.2em;white-space:normal}
 .fr sup{font-family:var(--f-tit);font-size:.7em;background:var(--ink);color:#fff;border-radius:.3em;padding:0 .25em;margin-right:.15em;vertical-align:.35em}
 .qrow{display:flex;align-items:center;gap:.6rem;background:#fff;border:2px solid var(--ink);border-radius:.7rem;padding:.35rem .6rem}
 .qrow .qn{font-family:var(--f-tit);font-size:1.5rem;background:var(--ink);color:#fff;border-radius:.4rem;min-width:2rem;text-align:center;flex:none}
-.qrow .qt{flex:1;font-size:1.05rem;font-weight:700;line-height:1.2}
+.qrow .qt{flex:1;font-size:1.5rem;font-weight:700;line-height:1.2}
 .qrow .ops{flex:none}
 /* puzzle */
 .piezas{display:flex;flex-direction:column;gap:.45rem}
-.pz{display:flex;align-items:center;gap:.7rem;background:#fff;border:3px solid var(--ink);border-radius:.8rem;padding:.45rem .8rem;font-size:1.3rem;box-shadow:.2rem .2rem 0 var(--ink);cursor:grab;touch-action:none;user-select:none;text-align:left;width:100%}
+.pz{display:flex;align-items:center;gap:.7rem;background:#fff;border:3px solid var(--ink);border-radius:.8rem;padding:.45rem .8rem;font-size:1.55rem;box-shadow:.2rem .2rem 0 var(--ink);cursor:grab;touch-action:none;user-select:none;text-align:left;width:100%}
 .pz .num{font-family:var(--f-tit);font-size:1.9rem;width:2.3rem;height:2.3rem;border-radius:50%;background:var(--am);border:3px solid var(--ink);display:grid;place-items:center;flex:none}
 .pz.cog{outline:4px dashed var(--azul);outline-offset:2px;background:var(--azul2)}
 .pz.fant{position:fixed;pointer-events:none;z-index:50;opacity:.9;transform:rotate(-1.5deg)}
@@ -132,11 +132,11 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 .pz .pos{margin-left:auto;font-family:var(--f-mano);color:#1546c4;font-weight:700;font-size:1.2rem;white-space:nowrap}
 /* modalidades */
 .mods{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;flex:none}
-.mod{background:#fff;border:3px solid var(--ink);border-radius:.8rem;padding:.35rem .2rem;text-align:center;font-weight:700;font-size:1rem;display:flex;flex-direction:column;align-items:center;gap:.1rem;box-shadow:.18rem .18rem 0 var(--ink)}
+.mod{background:#fff;border:3px solid var(--ink);border-radius:.8rem;padding:.35rem .2rem;text-align:center;font-weight:700;font-size:1.15rem;display:flex;flex-direction:column;align-items:center;gap:.1rem;box-shadow:.18rem .18rem 0 var(--ink)}
 .mod .l{font-family:var(--f-tit);font-size:2.2rem;line-height:1}
 .mod.dest{background:var(--am)}
 .frags{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;flex:1;min-height:0}
-.fg{background:#fff;border:3px solid var(--ink);border-radius:.9rem;padding:.6rem .8rem;font-size:1.3rem;line-height:1.35;display:flex;flex-direction:column;gap:.4rem;text-align:left;box-shadow:.2rem .2rem 0 var(--ink);touch-action:none;user-select:none}
+.fg{background:#fff;border:3px solid var(--ink);border-radius:.9rem;padding:.6rem .8rem;font-size:1.55rem;line-height:1.35;display:flex;flex-direction:column;gap:.4rem;text-align:left;box-shadow:.2rem .2rem 0 var(--ink);touch-action:none;user-select:none}
 .fg .tx{text-align:justify;flex:1}
 .fg .asig{align-self:flex-start;border:2px dashed var(--ink);border-radius:2rem;padding:.1rem .7rem;font-weight:700;font-size:1rem;background:var(--papel)}
 .fg .asig.lleno{border-style:solid;background:var(--azul);color:#fff}
@@ -144,8 +144,8 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 /* errores */
 .errs{display:flex;flex-direction:column;gap:.45rem;flex:1;min-height:0}
 .er{background:#fff;border:2px solid var(--ink);border-radius:.8rem;padding:.4rem .7rem;display:flex;flex-direction:column;gap:.3rem}
-.er .fs{font-size:1.25rem;font-weight:700}
-.er .ops .op{font-size:.88rem;padding:.12rem .5rem}
+.er .fs{font-size:1.6rem;font-weight:700}
+.er .ops .op{font-size:1.12rem;padding:.15rem .6rem}
 /* cálculos */
 .calc{display:grid;grid-template-columns:1.25fr 1fr;gap:1rem;flex:1;min-height:0}
 .datos{font-size:1.45rem;line-height:1.45}
@@ -168,7 +168,7 @@ h1{font-size:4.2rem}h2{font-size:2.6rem}h3{font-size:1.7rem}
 .cel.l.bien{background:var(--verde2)}.cel.l.malo{background:var(--rosa2)}
 .cel.l .sl{font-family:var(--f-mano);color:#1546c4}
 .pistas{display:flex;flex-direction:column;gap:.25rem;overflow:hidden;min-height:0}
-.pista{display:flex;gap:.4rem;font-size:1.02rem;line-height:1.22;padding:.2rem .45rem;border-radius:.5rem;border:2px solid transparent;cursor:pointer}
+.pista{display:flex;gap:.4rem;font-size:1.2rem;line-height:1.22;padding:.2rem .45rem;border-radius:.5rem;border:2px solid transparent;cursor:pointer}
 .pista b{flex:none}
 .pista.act{background:var(--am2);border-color:var(--ink)}
 .pista .pw{font-family:var(--f-mano);color:#1546c4;font-weight:700;white-space:nowrap}
@@ -213,6 +213,9 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
 #toast.on{opacity:1}
 .jugando .panelbtn{display:none}
 .panelbtn{position:fixed;left:.5rem;bottom:.4rem;font-size:.75rem;color:var(--suave);text-decoration:none;opacity:.6;z-index:5}
+.narq{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.narq .qrow .op{font-size:1.4rem;padding:.3rem 1rem}
+.narq .q0{grid-column:1/-1}
 </style>
 </head>
 <body>
@@ -445,8 +448,8 @@ var R={
    ins:'Leed el microrrelato. Decid qué tipo de narrador tiene y qué elemento de la narración es cada fragmento marcado.'},
  cru:{ico:'✏️',nom:'Minicrucigrama ortográfico',desc:'Cinco palabras difíciles de los repasos, con sus tildes.',t:100,n:5,col:'#2f6fed',
    ins:'Cinco palabras de los repasos de ortografía. Una sola letra o una tilde mal y la palabra no cuenta.'},
- puz:{ico:'🧩',nom:'Puzzle del resumen',desc:'Ordenar las cinco oraciones de un resumen y elegir su tema.',t:75,n:6,col:'#2fae6a',
-   ins:'Ordenad las cinco oraciones del resumen y elegid cuál es el tema bien formulado.'},
+ puz:{ico:'🧩',nom:'Puzzle del microrrelato',desc:'Ordenar las cinco oraciones de un microrrelato y elegir su tema.',t:75,n:6,col:'#2fae6a',
+   ins:'Ordenad las cinco oraciones del microrrelato para que la historia tenga sentido y elegid cuál es el tema bien formulado.'},
  orto:{ico:'🔤',nom:'¿Cuál está bien escrita?',desc:'Cinco palabras difíciles de los repasos (distintas de las del crucigrama), tres formas cada una.',t:60,n:5,col:'#7b4dde',
    ins:'Cinco palabras difíciles de los repasos de ortografía. De cada una hay tres formas: solo una está bien escrita.'},
  mod:{ico:'🎭',nom:'DEP ADN: ¿qué modalidad es?',desc:'Cuatro fragmentos y seis modalidades textuales.',t:60,n:4,col:'#ff4f7b',
@@ -672,13 +675,13 @@ var RET={};
 RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
   var txt=M.t.replace(/\[\[(.+?)\|(\w)\]\]/g,function(_,a,c){k++;cats.push(c);return '<span class="fr"><sup>'+k+'</sup>'+a+'</span>'});
   z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.nar.ico+'</span>¿Qué narrador tiene este microrrelato? ¿Qué elemento de la narración es cada fragmento marcado?</div>');
-  var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
-  var izq=h('div',{class:'col',style:'flex:1.15 1 0;justify-content:center'});izq.appendChild(h('div',{class:'texto'},txt));row.appendChild(izq);
-  var der=h('div',{class:'col',style:'flex:1 1 0;justify-content:center'});
-  var q0=h('div',{class:'qrow',style:'flex-direction:column;align-items:stretch'},'<span class="qt">¿Qué tipo de narrador es?</span>');
-  var on=opciones(q0,['🙋 Interno · 1.ª persona (es un personaje)','📢 Externo · 3.ª persona (no es un personaje)']);on.style.flexDirection='column';der.appendChild(q0);
+  var col=h('div',{class:'col grow',style:'gap:.8rem;padding-bottom:5rem;justify-content:center'});
+  col.appendChild(h('div',{class:'texto'},txt));
+  var der=h('div',{class:'narq'});
+  var q0=h('div',{class:'qrow q0'},'<span class="qt">¿Qué tipo de narrador es?</span>');
+  var on=opciones(q0,['🙋 Interno · 1.ª persona (es un personaje)','📢 Externo · 3.ª persona (no es un personaje)']);der.appendChild(q0);
   var ws=cats.map(function(c,i){var q=h('div',{class:'qrow'},'<span class="qn">'+(i+1)+'</span>');var w=opciones(q,['🧍 Personaje','⚡ Acción','📍 Espacio','🕰️ Tiempo']);der.appendChild(q);return w});
-  row.appendChild(der);z.appendChild(row);
+  col.appendChild(der);z.appendChild(col);
   return{grade:function(){var ok=0;if(corrigeOps(on,M.n==='i'?0:1))ok++;ws.forEach(function(w,i){if(corrigeOps(w,'PAET'.indexOf(cats[i])))ok++});return{ok:ok,n:5}}}};
 
 /* 2. Puzzle del resumen */
@@ -687,14 +690,14 @@ RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   for(var s=0;s<50;s++){orden=mezcla([0,1,2,3,4],sd+s);if(orden.every(function(x,i){return x!==i}))break}
   var temas=[D.tema,'Este texto trata '+deTema(D.tema.charAt(0).toUpperCase()+D.tema.slice(1)),D.verbo];
   var to=mezcla([0,1,2],sd+77);
-  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.puz.ico+'</span>Ordenad el resumen: arrastrad las piezas o tocad dos para cambiarlas de sitio. Después, elegid el tema bien formulado.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.puz.ico+'</span>Ordenad el microrrelato: arrastrad las piezas o tocad dos para cambiarlas de sitio. Después, elegid el tema bien formulado.</div>');
   var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
   var izq=h('div',{class:'piezas',style:'flex:1.9 1 0;justify-content:center'});
   orden.forEach(function(i){var p=h('button',{class:'pz','data-i':i},'<span class="num"></span><span class="tx">'+D.o[i]+'</span>');izq.appendChild(p)});
   row.appendChild(izq);
   var der=h('div',{class:'col',style:'flex:1 1 0;justify-content:center'});
-  var q=h('div',{class:'qrow',style:'flex-direction:column;align-items:stretch'},'<span class="qt">🎯 ¿Cuál es el tema de este relato?</span>');
-  var tw=opciones(q,to.map(function(i){return temas[i]}));tw.style.flexDirection='column';$$('.op',tw).forEach(function(b){b.style.borderRadius='.7rem';b.style.textAlign='left';b.style.fontSize='1.12rem'});
+  var q=h('div',{class:'qrow',style:'flex-direction:column;align-items:stretch'},'<span class="qt">🎯 ¿Cuál es el tema de este microrrelato?</span>');
+  var tw=opciones(q,to.map(function(i){return temas[i]}));tw.style.flexDirection='column';$$('.op',tw).forEach(function(b){b.style.borderRadius='.7rem';b.style.textAlign='left';b.style.fontSize='1.4rem'});
   der.appendChild(q);row.appendChild(der);z.appendChild(row);
   function nums(){$$('.pz',izq).forEach(function(p,i){p.querySelector('.num').textContent=i+1})}nums();
   ordenable(izq,'.pz',nums);
@@ -784,7 +787,7 @@ RET.orto=function(z,v){var usadas=CRUCI.grids[v].p.map(function(w){return w.w});
   var c=h('div',{class:'errs',style:'padding-bottom:4.6rem;justify-content:center'}),ws=[],sol=[];
   it.forEach(function(k,i){var O=ORTO[k],ord=mezcla([0,1,2],seedDe('orto',v)+i*7);
     var e=h('div',{class:'er'},'<span class="fs">'+(i+1)+'. '+(O.p||CRUCI.defs[k])+'</span>');
-    var w=opciones(e,ord.map(function(j){return O.o[j]}));$$('.op',w).forEach(function(b){b.style.fontSize='1.35rem';b.style.padding='.2rem 1.1rem'});
+    var w=opciones(e,ord.map(function(j){return O.o[j]}));$$('.op',w).forEach(function(b){b.style.fontSize='1.7rem';b.style.padding='.2rem 1.3rem'});
     ws.push(w);sol.push(ord.indexOf(0));c.appendChild(e)});
   z.appendChild(c);
   return{grade:function(){var ok=0;ws.forEach(function(w,i){if(corrigeOps(w,sol[i]))ok++});return{ok:ok,n:5}}}};
