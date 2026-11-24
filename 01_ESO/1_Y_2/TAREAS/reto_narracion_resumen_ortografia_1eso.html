@@ -216,6 +216,15 @@ table.notas .aj{border:2px solid var(--ink);background:#fff;border-radius:.3rem;
 .narq{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 .narq .qrow .op{font-size:1.4rem;padding:.3rem 1rem}
 .narq .q0{grid-column:1/-1}
+.sino{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;flex:1;min-height:0}
+.banco{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;flex:none}
+.zona{border:4px dashed var(--ink);border-radius:1rem;padding:.6rem;display:flex;flex-direction:column;gap:.45rem;min-height:0}
+.zona h3{font-size:1.9rem;flex:none}
+.zona.si{background:var(--verde2)}.zona.no{background:var(--rosa2)}
+.zona.dest{outline:5px solid var(--azul);outline-offset:2px}
+.tj{background:#fff;border:3px solid var(--ink);border-radius:.8rem;padding:.45rem .7rem;font-size:1.4rem;font-weight:700;line-height:1.25;box-shadow:.2rem .2rem 0 var(--ink);text-align:left;touch-action:none;user-select:none;cursor:grab}
+.tj.cog{outline:4px dashed var(--azul);outline-offset:2px;background:var(--azul2)}
+.tj .solu{display:block;font-size:1.05rem}
 </style>
 </head>
 <body>
@@ -436,6 +445,12 @@ var ORTO={
  'INVERSIÓN':{o:['inversión','imversión','inbersión']}
 };
 
+/* Resumen: ¿sí o no? */
+var SINO=[
+ ['Escribirlo en tercera persona.','Usar el presente de indicativo.','Usar sinónimos en lugar de repetir las palabras del texto.','Agrupar varios hechos bajo una idea general.','Respetar el orden cronológico de los hechos.','Unir las ideas con conectores («A continuación», «Sin embargo»…).','Redactarlo en un único párrafo.','Que tenga entre el 25 % y el 30 % de las palabras del texto original.','Leer el texto dos veces antes de empezar a resumir.','Escribir la idea principal como una frase nominal, sin verbos conjugados.','Numerar las líneas del texto de 5 en 5.'],
+ ['Escribirlo en primera persona («vemos», «descubrimos»…).','Copiar frases enteras del texto original.','Poner las fechas exactas y todos los datos numéricos.','Empezar con «Este texto trata de…».','Dar tu opinión sobre lo que pasa.','Enumerar todos los hechos uno a uno, sin sintetizar.','Que ocupe más de la mitad del texto original.','Contar los hechos en pretérito («encontró», «llegó»…).','Dividirlo en muchos párrafos, uno para cada hecho.','Escribir la idea principal con un verbo conjugado («La niña encuentra…»).','Desordenar los hechos para que resulte más interesante.']
+];
+
 var CRUCI={"defs": {"PERSPICAZ": "Que se da cuenta enseguida de lo que no es evidente; muy listo y observador.", "HIPÉRBOLE": "Figura literaria que consiste en exagerar mucho la realidad.", "DESAHOGO": "Alivio que se siente al contar una pena o soltar lo que se lleva dentro.", "ADVERBIO": "Clase de palabra invariable, como «aquí», «mañana» o «rápidamente».", "INHÓSPITO": "Dicho de un lugar: poco acogedor, incómodo o difícil para vivir.", "YACIMIENTO": "Lugar donde se encuentran restos arqueológicos, fósiles o minerales.", "ESBELTO": "Alto, delgado y de figura elegante.", "URGENCIA": "Necesidad de hacer algo con mucha prisa, sin poder esperar.", "APOGEO": "Momento de mayor esplendor o intensidad de algo.", "VALLA": "Cerca de madera o metal que rodea un terreno (no es una exclamación ni un fruto).", "VISLUMBRAR": "Ver algo de forma confusa, a lo lejos o con poca luz.", "ESPARCIR": "Separar y extender por un lugar lo que estaba junto.", "EXPLÍCITO": "Que se dice de forma clara y directa, sin dar nada por supuesto.", "PSICÓLOGO": "Profesional que estudia la mente y la conducta y ayuda con los problemas emocionales.", "YACER": "Estar tendido o enterrado.", "CONSERJE": "Persona que cuida un edificio, abre y cierra las puertas y atiende a quien llega.", "EXTRAESCOLAR": "Dicho de una actividad: que se hace fuera del horario de clase.", "OBSTRUCCIÓN": "Acción de atascar o bloquear un conducto o un paso.", "EXIGIR": "Pedir algo con firmeza, como si fuera un derecho.", "COHESIÓN": "Propiedad del texto: sus partes están bien unidas con conectores, sinónimos, pronombres…", "OQUEDAD": "Espacio vacío en el interior de un cuerpo sólido; un hueco.", "BUHARDILLA": "Habitación bajo el tejado de una casa, con el techo inclinado.", "ATRAYENTE": "Que atrae o resulta interesante.", "INVERSIÓN": "Acción de poner dinero en algo para obtener beneficios."}, "grids": [{"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "YACIMIENTO", "x": 0, "y": 7, "d": 0}, {"w": "PERSPICAZ", "x": 1, "y": 0, "d": 1}, {"w": "ADVERBIO", "x": 3, "y": 1, "d": 1}, {"w": "YACER", "x": 6, "y": 4, "d": 1}, {"w": "INHÓSPITO", "x": 8, "y": 0, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "EXPLÍCITO", "x": 0, "y": 4, "d": 0}, {"w": "CONSERJE", "x": 0, "y": 0, "d": 1}, {"w": "OBSTRUCCIÓN", "x": 0, "y": 1, "d": 0}, {"w": "EXTRAESCOLAR", "x": 0, "y": 7, "d": 0}, {"w": "EXIGIR", "x": 11, "y": 2, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "ESBELTO", "x": 0, "y": 3, "d": 0}, {"w": "OQUEDAD", "x": 0, "y": 0, "d": 1}, {"w": "URGENCIA", "x": 3, "y": 0, "d": 1}, {"w": "BUHARDILLA", "x": 2, "y": 0, "d": 0}, {"w": "INVERSIÓN", "x": 3, "y": 6, "d": 0}]}, {"s": 90.25, "w": 11, "h": 8, "p": [{"w": "VISLUMBRAR", "x": 1, "y": 6, "d": 0}, {"w": "ESPARCIR", "x": 2, "y": 0, "d": 1}, {"w": "DESAHOGO", "x": 1, "y": 0, "d": 0}, {"w": "PSICÓLOGO", "x": 2, "y": 2, "d": 0}, {"w": "ATRAYENTE", "x": 0, "y": 4, "d": 0}]}, {"s": 83.5, "w": 10, "h": 8, "p": [{"w": "APOGEO", "x": 0, "y": 1, "d": 0}, {"w": "COHESIÓN", "x": 2, "y": 0, "d": 1}, {"w": "HIPÉRBOLE", "x": 1, "y": 5, "d": 0}, {"w": "PERSPICAZ", "x": 1, "y": 3, "d": 0}, {"w": "VALLA", "x": 8, "y": 2, "d": 1}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "EXTRAESCOLAR", "x": 0, "y": 0, "d": 0}, {"w": "ESPARCIR", "x": 0, "y": 0, "d": 1}, {"w": "CONSERJE", "x": 7, "y": 0, "d": 1}, {"w": "INHÓSPITO", "x": 3, "y": 3, "d": 0}, {"w": "COHESIÓN", "x": 4, "y": 7, "d": 0}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "OBSTRUCCIÓN", "x": 1, "y": 7, "d": 0}, {"w": "YACER", "x": 5, "y": 3, "d": 1}, {"w": "OQUEDAD", "x": 0, "y": 4, "d": 0}, {"w": "APOGEO", "x": 3, "y": 0, "d": 1}, {"w": "HIPÉRBOLE", "x": 1, "y": 1, "d": 0}]}, {"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "VISLUMBRAR", "x": 0, "y": 2, "d": 0}, {"w": "INVERSIÓN", "x": 0, "y": 0, "d": 1}, {"w": "VALLA", "x": 3, "y": 0, "d": 1}, {"w": "URGENCIA", "x": 7, "y": 1, "d": 1}, {"w": "ATRAYENTE", "x": 9, "y": 0, "d": 1}]}, {"s": 94.88888888888889, "w": 10, "h": 9, "p": [{"w": "ADVERBIO", "x": 2, "y": 0, "d": 0}, {"w": "EXPLÍCITO", "x": 5, "y": 0, "d": 1}, {"w": "EXIGIR", "x": 3, "y": 6, "d": 0}, {"w": "DESAHOGO", "x": 0, "y": 8, "d": 0}, {"w": "PSICÓLOGO", "x": 0, "y": 3, "d": 0}]}, {"s": 106, "w": 10, "h": 10, "p": [{"w": "ESBELTO", "x": 1, "y": 0, "d": 0}, {"w": "BUHARDILLA", "x": 3, "y": 0, "d": 1}, {"w": "YACIMIENTO", "x": 0, "y": 6, "d": 0}, {"w": "INHÓSPITO", "x": 1, "y": 2, "d": 0}, {"w": "DESAHOGO", "x": 0, "y": 9, "d": 0}]}, {"s": 97, "w": 12, "h": 8, "p": [{"w": "URGENCIA", "x": 3, "y": 4, "d": 0}, {"w": "ADVERBIO", "x": 4, "y": 0, "d": 1}, {"w": "EXTRAESCOLAR", "x": 0, "y": 0, "d": 0}, {"w": "HIPÉRBOLE", "x": 3, "y": 6, "d": 0}, {"w": "EXIGIR", "x": 0, "y": 0, "d": 1}]}, {"s": 102.77777777777777, "w": 11, "h": 9, "p": [{"w": "ESBELTO", "x": 3, "y": 5, "d": 0}, {"w": "ATRAYENTE", "x": 3, "y": 0, "d": 1}, {"w": "PERSPICAZ", "x": 1, "y": 2, "d": 0}, {"w": "BUHARDILLA", "x": 0, "y": 0, "d": 0}, {"w": "OBSTRUCCIÓN", "x": 0, "y": 7, "d": 0}]}]};
 (function(){
 'use strict';
@@ -454,10 +469,10 @@ var R={
    ins:'Cinco palabras difíciles de los repasos de ortografía. De cada una hay tres formas: solo una está bien escrita.'},
  mod:{ico:'🎭',nom:'DEP ADN: ¿qué modalidad es?',desc:'Cuatro fragmentos y seis modalidades textuales.',t:60,n:4,col:'#ff4f7b',
    ins:'Cuatro fragmentos y seis modalidades. ¡Ojo, que sobran dos!'},
- err:{ico:'🔍',nom:'Caza el error del resumen',desc:'Cinco frases de un resumen: ¿cuál está bien y qué fallo tiene cada una?',t:70,n:5,col:'#1c1b33',
-   ins:'Cinco frases de un resumen. Solo una está bien escrita: decid qué fallo tiene cada una de las demás.'}
+ sino:{ico:'📝',nom:'Resumen: ¿sí o no?',desc:'Seis tarjetas con normas: ¿se hace así un resumen o no?',t:60,n:6,col:'#2fae6a',
+   ins:'Seis tarjetas sobre cómo se hace un resumen. Colocad cada una en «SÍ» (así se hace) o en «NO» (eso no se hace en un resumen).'},
 };
-var ORDEN0=['nar','cru','puz','orto','mod','err'];
+var ORDEN0=['nar','cru','puz','orto','mod','sino'];
 var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
 function h(t,a,html){var e=document.createElement(t);if(a)for(var k in a)e.setAttribute(k,a[k]);if(html!=null)e.innerHTML=html;return e}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -791,6 +806,35 @@ RET.orto=function(z,v){var usadas=CRUCI.grids[v].p.map(function(w){return w.w});
     ws.push(w);sol.push(ord.indexOf(0));c.appendChild(e)});
   z.appendChild(c);
   return{grade:function(){var ok=0;ws.forEach(function(w,i){if(corrigeOps(w,sol[i]))ok++});return{ok:ok,n:5}}}};
+
+/* 4b. Resumen: ¿sí o no? */
+RET.sino=function(z,v){var sd=seedDe('sino',v),si=mezcla(SINO[0].map(function(_,i){return i}),sd).slice(0,3),no=mezcla(SINO[1].map(function(_,i){return i}),sd+5).slice(0,3);
+  var T=mezcla(si.map(function(i){return[SINO[0][i],1]}).concat(no.map(function(i){return[SINO[1][i],0]})),sd+9),pos=T.map(function(){return -1}),sel=-1;
+  z.insertAdjacentHTML('beforeend','<div class="enun"><span class="tag">'+R.sino.ico+'</span>¿Se hace así un resumen? Arrastrad cada tarjeta a «SÍ» o a «NO» (o tocad la tarjeta y después la caja).</div>');
+  var banco=h('div',{class:'banco'});
+  T.forEach(function(t,i){banco.appendChild(h('div',{class:'tj','data-t':i},t[0]))});
+  z.appendChild(banco);
+  var cajas=h('div',{class:'sino',style:'padding-bottom:5rem'});
+  var zs=[h('div',{class:'zona no','data-z':0},'<h3>❌ NO se hace en un resumen</h3>'),h('div',{class:'zona si','data-z':1},'<h3>✅ SÍ, así se hace un resumen</h3>')];
+  cajas.appendChild(zs[1]);cajas.appendChild(zs[0]);z.appendChild(cajas);
+  function tarj(i){return z.querySelector('.tj[data-t="'+i+'"]')}
+  function pon(i,k){pos[i]=k;var e=tarj(i);e.classList.remove('cog');(k<0?banco:zs[k]).appendChild(e);sel=-1;zs.forEach(function(x){x.classList.remove('dest')})}
+  var drag=null;
+  z.addEventListener('pointerdown',function(e){var t=e.target.closest('.tj');if(!t||S.paso!=='jugando')return;e.preventDefault();drag={t:t,x:e.clientX,y:e.clientY,mov:false}});
+  function mv(e){if(!drag)return;var d=drag;
+    if(!d.mov&&Math.hypot(e.clientX-d.x,e.clientY-d.y)>8){d.mov=true;var r=d.t.getBoundingClientRect();d.g=d.t.cloneNode(true);d.g.style.cssText='position:fixed;z-index:50;pointer-events:none;opacity:.92;transform:rotate(-2deg);width:'+r.width+'px';d.dx=e.clientX-r.left;d.dy=e.clientY-r.top;document.body.appendChild(d.g);d.t.style.opacity='.3'}
+    if(d.mov){d.g.style.left=(e.clientX-d.dx)+'px';d.g.style.top=(e.clientY-d.dy)+'px';var o=document.elementFromPoint(e.clientX,e.clientY),zz=o&&o.closest('.zona');zs.forEach(function(x){x.classList.toggle('dest',x===zz)})}}
+  function up(e){if(!drag)return;var d=drag;drag=null;var i=+d.t.dataset.t;
+    if(d.mov){d.g.remove();d.t.style.opacity='';var o=document.elementFromPoint(e.clientX,e.clientY),zz=o&&o.closest('.zona,.banco');
+      if(zz&&z.contains(zz))pon(i,zz.classList.contains('banco')?-1:+zz.dataset.z);else zs.forEach(function(x){x.classList.remove('dest')});return}
+    if(S.paso!=='jugando')return;z.querySelectorAll('.tj').forEach(function(x){if(x!==d.t)x.classList.remove('cog')});
+    if(sel===i){sel=-1;d.t.classList.remove('cog')}else{sel=i;d.t.classList.add('cog')}}
+  window.addEventListener('pointermove',mv);window.addEventListener('pointerup',up);
+  zs.forEach(function(x){x.addEventListener('click',function(e){if(e.target.closest('.tj')||sel<0||S.paso!=='jugando')return;pon(sel,+x.dataset.z)})});
+  return{grade:function(){window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);var ok=0;
+    T.forEach(function(t,i){var e=tarj(i),c=pos[i]===t[1];if(c)ok++;e.classList.add(c?'ok':'mal');
+      if(!c)e.insertAdjacentHTML('beforeend','<span class="solu">→ '+(t[1]?'SÍ, así se hace':'NO se hace')+'</span>')});
+    return{ok:ok,n:6}}}};
 
 /* 6. Minicrucigrama */
 var teclaCru=null;
