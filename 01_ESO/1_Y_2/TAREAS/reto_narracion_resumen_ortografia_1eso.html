@@ -877,7 +877,7 @@ var RET={};
 RET.nar=function(z,v){var M=MICRO[v],k=0,cats=[];
   var txt=M.t.replace(/\[\[(.+?)\|(\w+)\]\]/g,function(_,a,c){k++;cats.push(c);return '<span class="fr"><sup>'+k+'</sup>'+a+'</span>'});
   z.insertAdjacentHTML('beforeend','<div class="enun">¿Qué narrador tiene este microrrelato? ¿Qué elementos de la narración hay en cada fragmento marcado? Puede haber más de uno: marcadlos todos.</div>');
-  var col=h('div',{class:'col grow',style:'gap:.8rem;padding-bottom:5rem;justify-content:center'});
+  var col=h('div',{class:'col grow',style:'gap:.8rem;padding-bottom:5rem;justify-content:safe center'});
   col.appendChild(h('div',{class:'texto'},txt));
   var der=h('div',{class:'narq'});
   var q0=h('div',{class:'qrow q0'},'<span class="qt nh">TIPO DE NARRADOR</span>');
@@ -895,12 +895,12 @@ RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   var to=mezcla([0,1,2],sd+77);
   z.insertAdjacentHTML('beforeend','<div class="enun">1.º Ordenad el microrrelato arrastrando las piezas. 2.º Marcad a qué parte corresponde cada oración. 3.º Elegid el tema.</div>');
   var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
-  var izq=h('div',{class:'piezas',style:'flex:2.6 1 0;justify-content:center'});
+  var izq=h('div',{class:'piezas',style:'flex:2.6 1 0;justify-content:safe center'});
   var PARTES=['Planteamiento','Nudo','Desenlace'],pw={};
   function parteDe(i){return i===0?0:i===4?2:1}
   orden.forEach(function(i){var p=h('div',{class:'pz','data-i':i},'<span class="num"></span><span class="tx">'+D.o[i]+'</span>');pw[i]=opciones(p,PARTES);pw[i].classList.add('partes');izq.appendChild(p)});
   row.appendChild(izq);
-  var der=h('div',{class:'col',style:'flex:1 1 0;justify-content:center'});
+  var der=h('div',{class:'col',style:'flex:1 1 0;justify-content:safe center'});
   var q=h('div',{class:'qrow',style:'flex-direction:column;align-items:stretch'},'<span class="qt">🎯 ¿Cuál es el tema de este microrrelato?</span>');
   var tw=opciones(q,to.map(function(i){return temas[i]}));tw.style.flexDirection='column';$$('.op',tw).forEach(function(b){b.style.borderRadius='.7rem';b.style.textAlign='left';b.style.fontSize='1.4rem'});
   der.appendChild(q);row.appendChild(der);z.appendChild(row);
@@ -964,12 +964,12 @@ RET.cal=function(z,v){var N=420+40*v,L=LINEAS[v],tipo=v%3,Rw=Math.round(N*[0.2,0
   var mn=N*25/100,mx=N*30/100,ult=Math.floor(L/5)*5,cuantos=Math.floor(L/5),val=Rw<mn?0:Rw>mx?2:1;
   z.insertAdjacentHTML('beforeend','<div class="enun">Las cuentas del resumen. Podéis usar papel y boli, pero no calculadora.</div>');
   var c=h('div',{class:'calc',style:'padding-bottom:5rem'});
-  var izq=h('div',{class:'panel col datos',style:'justify-content:center'},
+  var izq=h('div',{class:'panel col datos',style:'justify-content:safe center'},
    '<p>📄 Tenéis que resumir un texto de <span class="big3">'+N+'</span> palabras que ocupa <span class="big3">'+L+'</span> líneas.</p>'+
    '<p>📝 Un compañero ha entregado un resumen de ese texto con <span class="big3">'+Rw+'</span> palabras.</p>'+
    '<p class="small muted" style="font-size:1rem">Recordad la regla del taller: el resumen debe tener entre el 25 % y el 30 % de las palabras del texto original. Las líneas se numeran de 5 en 5 en el margen.</p>');
   c.appendChild(izq);
-  var der=h('div',{class:'col',style:'justify-content:center'});
+  var der=h('div',{class:'col',style:'justify-content:safe center'});
   var qs=[['Mínimo de palabras del resumen (25 %)',mn],['Máximo de palabras del resumen (30 %)',mx],['Último número que escribís en el margen',ult],['¿Cuántos números escribís en el margen?',cuantos]];
   var ins=qs.map(function(q){var e=h('div',{class:'cq'},'<span class="qt">'+q[0]+'</span><input inputmode="numeric" maxlength="4" autocomplete="off">');der.appendChild(e);return e.querySelector('input')});
   var qv=h('div',{class:'cq',style:'flex-direction:column;align-items:stretch'},'<span class="qt">El resumen de '+Rw+' palabras es…</span>');var vw=opciones(qv,['📉 Demasiado corto','✅ Correcto','📈 Demasiado largo']);der.appendChild(qv);
@@ -986,7 +986,7 @@ RET.orto=function(z,v){var usadas=CRUCI.grids[v].p.map(function(w){return w.w});
   var libres=Object.keys(ORTO).filter(function(k){return usadas.indexOf(k)<0});
   var it=mezcla(libres,seedDe('orto',v)).slice(0,5);
   z.insertAdjacentHTML('beforeend','<div class="enun">¿Cuál está bien escrita? Fijaos en cada letra y en las tildes.</div>');
-  var c=h('div',{class:'errs',style:'padding-bottom:4.6rem;justify-content:center'}),ws=[],sol=[];
+  var c=h('div',{class:'errs',style:'padding-bottom:4.6rem;justify-content:safe center'}),ws=[],sol=[];
   it.forEach(function(k,i){var O=ORTO[k],ord=mezcla([0,1,2],seedDe('orto',v)+i*7);
     var e=h('div',{class:'er'},'<span class="fs">'+(i+1)+'. '+(O.p||CRUCI.defs[k])+'</span>');
     var w=opciones(e,ord.map(function(j){return O.o[j]}));$$('.op',w).forEach(function(b){b.style.fontSize='1.7rem';b.style.padding='.2rem 1.3rem'});
