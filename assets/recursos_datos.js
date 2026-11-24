@@ -480,6 +480,10 @@ window.RECURSOS=[
        {
         "t": "Presentación a actividade económica",
         "h": "04_PDC/PRESENTACIONES/XEOGRAFÍA/presentacion_actividade_economica.html"
+       },
+       {
+        "t": "🖥️ Modo clase: presentación + boletín (a actividade económica)",
+        "h": "modo_clase.html?p=04_PDC/PRESENTACIONES/XEOGRAF%C3%8DA/presentacion_actividade_economica.html&b=04_PDC/ACTIVIDADES/boletin_actividade_economica.html&t=A%20actividade%20econ%C3%B3mica"
        }
       ]
      },

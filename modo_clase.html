@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modo clase</title>
+<style>
+:root{--ink:#1d2b36;--bar:#1d2b36;--acc:#f2c230}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#11181f;font-family:system-ui,Arial,sans-serif}
+#bar{height:38px;display:flex;align-items:center;gap:6px;padding:0 8px;background:var(--bar);color:#fff}
+#bar .t{font-weight:800;font-size:14px;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar button,#bar a{font:600 13px/1 system-ui,Arial,sans-serif;border:none;border-radius:8px;padding:7px 10px;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;text-decoration:none;white-space:nowrap}
+#bar button.on{background:var(--acc);color:#3a2d00}
+#bar button:hover,#bar a:hover{background:rgba(255,255,255,.25)}
+#bar button.on:hover{background:var(--acc)}
+#wrap{position:absolute;top:38px;left:0;right:0;bottom:0;display:flex}
+.pane{position:relative;height:100%;min-width:0;background:#fff}
+.pane iframe{border:none;width:100%;height:100%;display:block}
+#split{flex:none;width:12px;cursor:col-resize;background:#2b3a46;display:flex;align-items:center;justify-content:center;touch-action:none}
+#split::after{content:"";width:4px;height:60px;border-radius:4px;background:#8fa3b3}
+#split:hover::after,#split.drag::after{background:var(--acc)}
+#shield{position:absolute;inset:0;display:none;z-index:5;cursor:col-resize}
+#shield.on{display:block}
+.mode-p #pB,.mode-p #split{display:none}.mode-p #pP{flex:1 1 auto!important}
+.mode-b #pP,.mode-b #split{display:none}.mode-b #pB{flex:1 1 auto!important}
+.swap #wrap{flex-direction:row-reverse}
+#err{display:none;position:absolute;inset:38px 0 0 0;color:#fff;padding:30px;font-size:18px;text-align:center}
+@media (max-width:700px){#bar .t{display:none}#bar button,#bar a{padding:7px 7px;font-size:12px}}
+</style>
+</head>
+<body>
+<div id="bar">
+  <span class="t" id="tit">Modo clase</span>
+  <button type="button" data-m="p" title="Só a presentación">▭ Presentación</button>
+  <button type="button" data-m="s" class="on" title="As dúas, unha ao lado da outra">◧ As dúas</button>
+  <button type="button" data-m="b" title="Só o boletín">▭ Boletín</button>
+  <button type="button" id="swap" title="Cambiar de lado">⇄</button>
+  <button type="button" id="fs" title="Pantalla completa">⛶</button>
+  <a id="back" href="04_PDC/index.html" title="Volver ao panel">⌂ Panel</a>
+</div>
+<div id="wrap">
+  <div class="pane" id="pP"><iframe id="fP" title="Presentación" allow="fullscreen; autoplay"></iframe></div>
+  <div id="split" title="Arrastra para cambiar o tamaño"></div>
+  <div class="pane" id="pB"><iframe id="fB" title="Boletín" allow="fullscreen"></iframe></div>
+  <div id="shield"></div>
+</div>
+<div id="err"></div>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search),P=q.get('p'),B=q.get('b'),T=q.get('t');
+  var $=function(s){return document.querySelector(s)};
+  if(!P||!B){$('#err').style.display='block';$('#err').textContent='Faltan a presentación (p) ou o boletín (b) no enderezo.';return}
+  if(T){$('#tit').textContent=T;document.title='Modo clase · '+T}
+  var k='modoclase:'+P,st={r:.6,m:'s',sw:0};try{var o=JSON.parse(localStorage.getItem(k)||'{}');for(var x in o)st[x]=o[x]}catch(e){}
+  function save(){try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}}
+  var fP=$('#fP'),fB=$('#fB'),pP=$('#pP'),pB=$('#pB'),wrap=$('#wrap'),sp=$('#split'),sh=$('#shield');
+  fP.src=P;fB.src=B;
+  /* oculta dentro dos marcos os botóns que sacarían da páxina e axusta o boletín ao ancho */
+  function tidy(f,isB){try{var d=f.contentDocument;if(!d)return;
+    if(!d.getElementById('mcCss')){var s=d.createElement('style');s.id='mcCss';s.textContent='#volverPanel,#girar{display:none!important}'+(isB?'.bar{position:sticky}':'');d.head.appendChild(s)}
+    if(isB&&!f._pr){f._pr=1;var w=f.contentWindow;w.addEventListener('beforeprint',function(){d.body.style.zoom=''});w.addEventListener('afterprint',fitB)}
+    if(isB)fitB();}catch(e){}}
+  function fitB(){try{var d=fB.contentDocument;if(!d||!d.body)return;var pg=d.querySelector('.page');if(!pg)return;
+    d.body.style.zoom='';var need=pg.offsetWidth+30,w=fB.clientWidth;var z=Math.min(1.6,w/need);d.body.style.zoom=z>0?z:1}catch(e){}}
+  fP.addEventListener('load',function(){tidy(fP,false)});fB.addEventListener('load',function(){tidy(fB,true)});
+  function layout(){pP.style.flex='0 0 '+(st.r*100)+'%';pB.style.flex='1 1 0';document.body.className=(st.m==='s'?'':'mode-'+st.m)+(st.sw?' swap':'');
+    document.querySelectorAll('#bar [data-m]').forEach(function(b){b.classList.toggle('on',b.dataset.m===st.m)});
+    setTimeout(fitB,60);}
+  document.querySelectorAll('#bar [data-m]').forEach(function(b){b.onclick=function(){st.m=b.dataset.m;save();layout()}});
+  $('#swap').onclick=function(){st.sw=st.sw?0:1;save();layout()};
+  $('#fs').onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(function(){})};
+  /* barra arrastrable */
+  var drag=false;
+  sp.addEventListener('pointerdown',function(e){drag=true;sp.classList.add('drag');sh.classList.add('on');e.preventDefault()});
+  window.addEventListener('pointermove',function(e){if(!drag)return;var r=wrap.getBoundingClientRect(),x=(e.clientX-r.left)/r.width;if(st.sw)x=1-x;st.r=Math.max(.25,Math.min(.8,x));layout()});
+  window.addEventListener('pointerup',function(){if(!drag)return;drag=false;sp.classList.remove('drag');sh.classList.remove('on');save();fitB()});
+  sp.addEventListener('dblclick',function(){st.r=.6;save();layout()});
+  window.addEventListener('resize',function(){setTimeout(fitB,80)});
+  setInterval(fitB,1500);
+  /* volver ao panel do que se veu */
+  try{if(document.referrer&&new URL(document.referrer).origin===location.origin)$('#back').href=document.referrer}catch(e){}
+  layout();
+})();
+</script>
+</body>
+</html>
