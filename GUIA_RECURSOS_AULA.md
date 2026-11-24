@@ -84,6 +84,14 @@ En la última diapositiva de cada bloque de teoría aparece abajo un aviso amari
 - Para añadirlo o actualizarlo: copiar el bloque entero de `tools/`; si ya existe, sustituirlo (no duplicarlo).
 - **Norma fija:** toda presentación nueva con esquema final lo lleva. No lo llevan las que no tienen esquema ni resumen final.
 
+## Soluciones debajo de cada elemento (todas las presentaciones)
+
+Las soluciones y respuestas modelo de las presentaciones aparecen **debajo de cada elemento que resuelven** (pregunta, apartado o texto), nunca en una ventana superpuesta. Se muestran y se ocultan con el botón «Ver solución» de cada ejercicio. Al mostrarlas, **la letra no se reduce**: si el contenido ya no cabe, la diapositiva se alarga y aparece una barra para bajar y subir; al ocultarlas o cambiar de diapositiva, vuelve a su tamaño y arriba. Las ventanas grandes solo se usan para ampliar imágenes.
+
+- **Presentaciones nuevas:** cada solución va en su propio elemento cifrado (`div.sol`) justo debajo de su pregunta, y el botón añade a la diapositiva una clase que la muestra; el ajuste de letra se calcula siempre como si las soluciones estuvieran ocultas (modelo: `01_ESO/1_Y_2/PRESENTACIONES/presentacion_descripcion.html`).
+- **Presentaciones antiguas con ventana:** se adaptan con el bloque común `tools/soluciones_debajo.html` (entre `<!--soldebajo:inicio-->` y `<!--soldebajo:fin-->`, antes de «Ir a diapositiva»). El motor llama a `SolDebajo.mostrar(diapositiva, html, opciones)` en lugar de abrir la ventana y a `SolDebajo.ocultar(diapositiva)` al cambiar de diapositiva. El bloque reparte la solución: si una lista (o los elementos indicados en `reglas`) tiene tantas piezas como la solución (`li`, filas de tabla o el selector `piezas`), pone cada una debajo de su pregunta; lo demás va al final. Opciones por diapositiva en `window.SD_REGLAS={"8":{"reglas":[{"q":".rtx","donde":"despues"}]}}`; `caja` indica el contenedor que se desplaza si no es `.inner`.
+- Ya adaptadas (1.º ESO): narración, ortografía 1 y propiedades textuales. Comunicación y lenguas de España ya las mostraban debajo sin reducir la letra. Lenguas del mundo tiene diapositivas de soluciones aparte (diseño de lienzo fijo) y queda pendiente. PDC y FPB, pendientes.
+
 ## Botón «⌂ Panel»
 
 Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) con `href` a la página de su apartado (`../…/0X_APARTADO/index.html`). **Copiar el bloque entero, con su `onclick`, de cualquier recurso existente (p. ej. `04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html`); no escribirlo a mano.**

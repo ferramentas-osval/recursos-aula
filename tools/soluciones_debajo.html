@@ -1,0 +1,101 @@
+<!--soldebajo:inicio-->
+<!-- Soluciones debajo de cada elemento (sin ventana superpuesta, sin reducir la letra).
+     Uso desde el motor de la presentación:
+       SolDebajo.mostrar(diapositiva, htmlSolucion, {reglas:[{q:'selector preguntas',p:'selector piezas',donde:'dentro'|'despues'}], destino:'selector'})
+       SolDebajo.ocultar(diapositiva)   SolDebajo.abierta(diapositiva)
+     Reparte la solución: si una lista de la diapositiva tiene tantos elementos como piezas tiene la solución
+     (li de su lista o filas de su tabla), pone cada pieza debajo de su elemento; lo que sobra va al final.
+     Mientras se ven las soluciones, la diapositiva no reduce la letra: se alarga y se puede desplazar. -->
+<style>
+.sd-caja{overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:auto;scrollbar-color:#2f7d74 rgba(0,0,0,.08)}
+.sd-caja::-webkit-scrollbar{width:16px}
+.sd-caja::-webkit-scrollbar-thumb{background:#2f7d74;border-radius:8px;border:3px solid #fff}
+.sd-caja::-webkit-scrollbar-track{background:rgba(0,0,0,.06)}
+.sd-caja>*,.sd-on .grow,.sd-on .row,.sd-on .col,.sd-on .panel{flex-shrink:0!important;max-height:none!important}
+.sd-caja>*{flex-basis:auto!important}
+.sd-on .grow{flex-grow:0!important;flex-basis:auto!important}
+.sd-on .row,.sd-on .col,.sd-on .panel,.sd-on .grow{height:auto!important;overflow:visible!important}
+.sd{display:block;font-family:'Caveat','Patrick Hand','Segoe Print',cursive;color:#1f4fbf;font-size:1em;line-height:1.2;text-align:left;
+  border-left:.16em dashed #1f4fbf;background:rgba(31,79,191,.06);border-radius:0 .5em .5em 0;padding:.12em .55em;margin:.25em 0 .15em;animation:sdEntra .3s ease;flex:none;width:auto;height:auto;max-height:none}
+.sd *{color:inherit}
+.sd b,.sd strong{color:#0b2f80}
+.sd .hand{font-family:inherit;color:inherit}
+.sd p,.sd li{text-align:left;margin:.1em 0}
+.sd ul,.sd ol{padding-left:1.1em;margin:.1em 0}
+.sd table{border-collapse:collapse;margin:.2em 0;width:100%;font-size:.9em}
+.sd td,.sd th{border:1px solid rgba(31,79,191,.35);padding:.15em .4em;text-align:left;vertical-align:top}
+.sd-fin{margin-top:.5em}
+@keyframes sdEntra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media print{.sd{display:none!important}}
+</style>
+<script>
+(function(){
+  function piezas(d,sel){
+    if(sel){var it=[].slice.call(d.querySelectorAll(sel));if(it.length)return {tipo:'el',lista:null,items:it}}
+    var l=d.querySelector(':scope > ul, :scope > ol');
+    if(l&&l.children.length>1)return {tipo:'li',lista:l,items:[].slice.call(l.children)};
+    var t=d.querySelector(':scope > table');
+    if(t){var f=[].slice.call(t.querySelectorAll('tr')).filter(function(r){return !r.querySelector('th')});
+      if(f.length>1)return {tipo:'tr',lista:t,items:f}}
+    return null;
+  }
+  function htmlPieza(x,tipo){
+    if(tipo==='li')return x.innerHTML;
+    if(tipo==='el')return x.outerHTML;
+    var c=[].slice.call(x.children);
+    if(c.length>1&&c[0].classList.contains('k'))c=c.slice(1);
+    return c.map(function(td){return td.innerHTML}).join(' · ');
+  }
+  var ultimo=null;
+  function poner(ref,html,donde){
+    var e=document.createElement('div');ultimo=e;e.className='sd';e.innerHTML=html;
+    if(donde==='dentro'){var cs=getComputedStyle(ref);if((cs.display==='flex'||cs.display==='inline-flex')&&cs.flexDirection.indexOf('row')===0&&cs.flexWrap==='nowrap')donde='despues'}
+    if(donde==='dentro')ref.appendChild(e);else ref.parentNode.insertBefore(e,ref.nextSibling);
+  }
+  function mostrar(s,html,op){
+    op=op||{};ocultar(s);
+    [].slice.call(s.querySelectorAll('img,video,iframe,canvas,.vid,.fr,.media,.mapa')).forEach(function(m){if(m.closest('.sd'))return;var r=m.getBoundingClientRect();if(!r.height)return;m.dataset.sdH=m.style.height||'-';m.dataset.sdW=m.style.width||'-';m.style.height=r.height+'px';m.style.width=r.width+'px'});
+    var d=document.createElement('div');d.innerHTML=html;
+    [].slice.call(d.querySelectorAll(':scope > h1, :scope > h2')).forEach(function(h){h.remove()});
+    var inner=(op.caja&&s.querySelector(op.caja))||s.querySelector('.inner')||s;inner.classList.add('sd-caja');
+    if(inner.dataset.sdSt===undefined){inner.dataset.sdSt=inner.getAttribute('style')||'';if(/flex|grid/.test(getComputedStyle(inner).display)){inner.style.setProperty('justify-content','flex-start','important')}}
+    var pz=piezas(d,op.piezas),hecho=false;ultimo=null;
+    if(pz){
+      var reglas=op.reglas||[];
+      for(var r=0;r<reglas.length&&!hecho;r++){
+        var qs=[].slice.call(inner.querySelectorAll(reglas[r].q)).filter(function(q){return !q.closest('.sd,template')});
+        if(qs.length===pz.items.length){qs.forEach(function(q,i){poner(q,htmlPieza(pz.items[i],pz.tipo),reglas[r].donde||'despues')});hecho=true}
+      }
+      if(!hecho&&!op.sinAuto){
+        var listas=[].slice.call(inner.querySelectorAll('ul,ol')).filter(function(l){return !l.closest('.sd,template')&&l.children.length===pz.items.length});
+        if(listas.length===1){[].slice.call(listas[0].children).forEach(function(q,i){poner(q,htmlPieza(pz.items[i],pz.tipo),'dentro')});hecho=true}
+      }
+      if(hecho){if(pz.lista)pz.lista.remove();else pz.items.forEach(function(x){x.remove()})}
+    }
+    if(d.textContent.trim()||d.querySelector('img,svg,table')){
+      var e=document.createElement('div');e.className='sd sd-fin';
+      while(d.firstChild)e.appendChild(d.firstChild);
+      if(op.destino&&inner.querySelector(op.destino))inner.querySelector(op.destino).appendChild(e);
+      else if(hecho&&ultimo)ultimo.parentNode.insertBefore(e,ultimo.nextSibling);
+      else inner.appendChild(e);
+    }
+    [].slice.call(s.querySelectorAll('.sd')).forEach(function(e){
+      for(var a=e.parentNode;a&&a!==inner&&a!==s;a=a.parentNode){
+        if(a.dataset.sdSt!==undefined)continue;a.dataset.sdSt=a.getAttribute('style')||'';
+        a.style.setProperty('height','auto','important');a.style.setProperty('max-height','none','important');
+        a.style.setProperty('overflow','visible','important');a.style.setProperty('flex-shrink','0','important');if(/flex|grid/.test(getComputedStyle(a).display)){a.style.setProperty('justify-content','flex-start','important');a.style.setProperty('align-content','flex-start','important')}
+        if(getComputedStyle(a).position==='absolute'){a.style.setProperty('position','relative','important')}
+      }});
+    s.classList.add('sd-on');
+    var p=s.querySelector('.sd');if(p)setTimeout(function(){try{p.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(_){}} ,60);
+  }
+  function ocultar(s){
+    if(!s)return;[].slice.call(s.querySelectorAll('.sd')).forEach(function(e){e.remove()});
+    [].slice.call(s.querySelectorAll('[data-sd-st]')).concat(s.dataset.sdSt!==undefined?[s]:[]).forEach(function(a){if(a.dataset.sdSt)a.setAttribute('style',a.dataset.sdSt);else a.removeAttribute('style');delete a.dataset.sdSt});
+    [].slice.call(s.querySelectorAll('[data-sd-h]')).forEach(function(m){m.style.height=m.dataset.sdH==='-'?'':m.dataset.sdH;m.style.width=m.dataset.sdW==='-'?'':m.dataset.sdW;delete m.dataset.sdH;delete m.dataset.sdW});
+    s.classList.remove('sd-on');[].slice.call(s.querySelectorAll('.sd-caja')).concat(s.classList.contains('sd-caja')?[s]:[]).forEach(function(c){c.scrollTop=0;c.classList.remove('sd-caja')});s.scrollTop=0;
+  }
+  window.SolDebajo={mostrar:mostrar,ocultar:ocultar,abierta:function(s){return !!(s&&s.classList.contains('sd-on'))}};
+})();
+</script>
+<!--soldebajo:fin-->
