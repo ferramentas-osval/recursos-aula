@@ -347,6 +347,8 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
 .marc .mg{font-size:1.35rem;gap:.6rem}
 .marc .mg b{font-size:2rem}
 .marc .mg.yo span{padding:0 .5rem}
+.equipo .ctrl,.equipo .marc,.equipo #codigo,.equipo #radar,.equipo .panelbtn{display:none!important}
+.equipo select{border:1.5px solid var(--borde);border-radius:.5rem;background:#fff}
 </style>
 </head>
 <body>
@@ -364,6 +366,7 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
   </div>
   <div class="panel col grow">
     <div class="row" style="align-items:center;flex-wrap:wrap;flex:none"><h2 style="flex:1">1 · Los <span class="hl">grupos</span></h2>
+      <a class="btn blanco" href="#equipo" title="Para los ordenadores de los grupos: practican la misma prueba que el grupo del proyector" style="text-decoration:none">💻 Modo equipo</a>
       <button class="btn blanco" id="editLista" title="Quitar o añadir alumnos">✏️ Lista</button>
       <button class="btn" id="otraVez" title="Repartir al alumnado al azar">🎲 Repartir grupos</button>
       <span style="font-weight:700">Grupos:</span>
@@ -397,7 +400,7 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
 <section class="scr" id="juego">
   <div class="top">
     <div class="ronda"><span class="ico" id="rIco"></span><div class="col" style="gap:.1rem"><span class="meta" id="rNum"></span><h3 id="rNom"></h3></div></div>
-    <div class="grupo"><div class="gnom" id="gNom"></div><div class="gal" id="gAl"></div></div>
+    <div class="grupo"><div class="gnom" id="gNom"></div><div class="gal" id="gAl"></div><div class="meta" id="codigo" style="margin-top:.15rem"></div><div class="meta small" id="radar"></div></div>
     <div class="ctrl"><button class="btn" id="navBtn" title="Ir a otra ronda, otro grupo, al inicio o cancelar el reto">🧭 Ir a… / Cancelar</button><button class="btn blanco" id="pausa" title="Pausar el reloj">⏸ Pausa</button><button class="btn blanco" id="mas15" title="Añadir 15 segundos">+15 s</button></div>
     <div class="reloj" id="reloj"><span id="seg">60</span></div>
   </div>
@@ -615,7 +618,9 @@ function seedDe(rid,g){return 1000+ORDEN0.indexOf(rid)*97+g*13}
 /* ------------ ESTADO ------------ */
 var S;
 function nuevoEstado(){return{v:1,fase:'inicio',grupos:[],orden:ORDEN0.slice(),activas:{},tiempos:{},tocado:false,ri:0,ti:0,paso:'sale',fin:null}}
-function guarda(){ls(KEY,JSON.stringify(S))}
+var EQUIPO=/equipo/.test(location.hash);
+window.addEventListener('hashchange',function(){location.reload()});
+function guarda(){if(EQUIPO)return;ls(KEY,JSON.stringify(S))}
 try{S=JSON.parse(ls(KEY)||'null')}catch(e){S=null}
 if(!S||S.v!==1)S=nuevoEstado();
 S.orden=S.orden.filter(function(id){return R[id]});ORDEN0.forEach(function(id){if(S.orden.indexOf(id)<0)S.orden.push(id)});
@@ -736,7 +741,7 @@ function cabecera(){var id=rid(),d=R[id],rs=rondasJuego(),g=gAct(),G=S.grupos[g]
   pintaMarc();}
 function pintaMarc(){var m=$('#marc');m.innerHTML='';var ord=ordenSalida(S.ri),g=S.paso==='clas'?-1:gAct();
   S.grupos.forEach(function(G,i){var hecho=G.pts[rid()]!=null;var e=h('div',{class:'mg'+(i===g?' yo':hecho?' hecho':'')},'<span>'+esc(G.nom)+'</span><b>'+totalG(i)+'</b>');m.appendChild(e)})}
-function pintaTurno(){
+function pintaTurno(){$('#codigo').textContent='';
   var z=$('#zona');z.innerHTML='';z.className='';paraReloj();
   var id=rid(),d=R[id],g=gAct();
   setReloj(S.tiempos[id],S.tiempos[id]);
@@ -746,14 +751,20 @@ function pintaTurno(){
   w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+mmss(S.tiempos[id])+' minutos</b>.</p><div class="row" style="align-items:center;gap:1rem"><button class="btn big rosa" id="go">▶ ¡Empezar!</button>'+(S.ti===0?'<button class="btn blanco" id="demo">👀 Demostración (no puntúa)</button>':'')+'</div></div>';
   z.appendChild(w);$('#go').onclick=function(){empiezaTurno(false)};if($('#demo'))$('#demo').onclick=function(){empiezaTurno(true)};
 }
-var DEMO=false;
+var DEMO=false,CUR=null,SEQ=0;
+function publica(){if(EQUIPO||!CUR)return;var pin=($('#pin').value||ss('solpin')||'').trim();if(!pin)return;
+  var e={};for(var k in CUR)e[k]=CUR[k];if(e.activo)e.rest=T.pausa?T.resto:Math.max(0,(T.fin-Date.now())/1000);e.pausa=!!T.pausa;
+  fetch(URL_NOTAS,{method:'POST',body:JSON.stringify({accion:'estado',codigo:pin,estado:e})}).then(function(r){return r.json()}).then(function(j){radar(j&&j.ok)}).catch(function(){radar(false)})}
+function radar(ok){var e=$('#radar');if(e){e.textContent=ok?'📡 Ordenadores conectados':'📡 Sin conexión con los ordenadores (usad el código)';e.style.color=ok?'var(--verde)':'var(--rosa)'}}
 function empiezaTurno(demo){DEMO=!!demo;S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
   var var_=DEMO?(S.grupos.length<12?11:0):g; JUEGO=RET[id](z,var_,g);
   if(DEMO){$('#gNom').textContent='Demostración';$('#gAl').textContent='Esta prueba no puntúa'}
   var b=h('button',{class:'btn big verde',style:'position:absolute;right:0;bottom:0;z-index:5'},'✔ ¡Hemos terminado!');b.id='listo';b.onclick=function(){fin()};z.appendChild(b);
-  arrancaReloj(S.tiempos[id],fin)}
+  arrancaReloj(S.tiempos[id],fin);
+  SEQ=Date.now();CUR={n:SEQ,id:id,v:var_,g:g+1,demo:DEMO,activo:true};publica();
+  $('#codigo').textContent='💻 Ordenadores: '+R[id].ico+' '+(DEMO?'Ejemplo':'G'+(g+1))}
 var JUEGO=null,ROBOS=0;
-function fin(){if(S.paso!=='jugando')return;paraReloj();S.paso='corr';var z=$('#zona'),id=rid(),g=gAct();
+function fin(){if(EQUIPO)return finP();if(S.paso!=='jugando')return;paraReloj();if(CUR){CUR.activo=false;publica()}S.paso='corr';var z=$('#zona'),id=rid(),g=gAct();
   var r=JUEGO.grade();z.classList.add('bloq');var bl=$('#listo');if(bl)bl.remove();
   if(DEMO){DEMO=false;var bx=h('div',{class:'resul'},'<div class="col" style="gap:0;align-items:center"><span class="pts">'+r.ok+' / '+r.n+'</span><span class="small">Demostración: no puntúa</span></div><button class="btn big" id="sig">Volver al turno ▶</button>');z.appendChild(bx);
     $('#sig').onclick=function(){S.paso='sale';pintaTurno()};return}
@@ -775,8 +786,10 @@ function pintaClas(){var z=$('#zona'),rs=rondasJuego();
   z.appendChild(c);
   var bt=h('div',{class:'row',style:'justify-content:flex-end;flex:none'});
   if(S.ri<rs.length-1){bt.innerHTML='<button class="btn blanco" id="acabar">🏁 Terminar aquí</button><button class="btn big rosa" id="sigR">Ronda '+(S.ri+2)+': '+R[rs[S.ri+1]].ico+' '+R[rs[S.ri+1]].nom+' ▶</button>'}
-  else bt.innerHTML='<button class="btn big rosa" id="acabar">🏆 Ver resultados finales</button>';
+  else{var otras=S.orden.filter(function(id){return !S.activas[id]});
+    bt.innerHTML=(otras.length?'<span class="meta" style="align-self:center">¿Queda tiempo? Añadid otra ronda para todos:</span>'+otras.map(function(id){return'<button class="btn blanco mas" data-id="'+id+'">➕ '+R[id].ico+' '+R[id].nom+'</button>'}).join(''):'')+'<button class="btn big rosa" id="acabar">🏆 Ver resultados finales</button>';bt.style.flexWrap='wrap'}
   z.appendChild(bt);
+  $$('.mas',bt).forEach(function(b){b.onclick=function(){var id=b.dataset.id,ult=rs[rs.length-1];S.activas[id]=true;S.orden.splice(S.orden.indexOf(id),1);S.orden.splice(S.orden.indexOf(ult)+1,0,id);S.ri++;S.ti=0;S.paso='sale';guarda();pintaTurno()}});
   if($('#sigR'))$('#sigR').onclick=function(){S.ri++;S.ti=0;S.paso='sale';guarda();pintaTurno()};
   $('#acabar').onclick=function(){S.fase='final';guarda();muestra()};
 }
@@ -827,8 +840,8 @@ function arrancaReloj(s,cb){T.total=s;T.resto=s;T.fin=Date.now()+s*1000;T.cb=cb;
     if(c!==T.last){T.last=c;if(c<=10&&c>0)sonido('tic')}
     if(r<=0){paraReloj();sonido('fin');T.cb&&T.cb()}},200)}
 function paraReloj(){clearInterval(T.iv);T.iv=null;$('#reloj').classList.remove('aviso10')}
-$('#pausa').onclick=function(){if(!T.iv)return;if(!T.pausa){T.pausa=true;T.resto=(T.fin-Date.now())/1000;this.textContent='▶ Seguir'}else{T.pausa=false;T.fin=Date.now()+T.resto*1000;this.textContent='⏸ Pausa'}};
-$('#mas15').onclick=function(){if(!T.iv)return;if(T.pausa)T.resto+=15;else T.fin+=15000;T.total+=15};
+$('#pausa').onclick=function(){if(!T.iv)return;if(!T.pausa){T.pausa=true;T.resto=(T.fin-Date.now())/1000;this.textContent='▶ Seguir'}else{T.pausa=false;T.fin=Date.now()+T.resto*1000;this.textContent='⏸ Pausa'}if(!navPausa)publica()};
+$('#mas15').onclick=function(){if(!T.iv)return;if(T.pausa)T.resto+=15;else T.fin+=15000;T.total+=15;publica()};
 var AC=null;function sonido(t){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.connect(g);g.connect(AC.destination);var n=AC.currentTime;
   if(t==='tic'){o.frequency.value=880;g.gain.setValueAtTime(.08,n);g.gain.exponentialRampToValueAtTime(.001,n+.12);o.start(n);o.stop(n+.13)}
   else if(t==='fin'){o.type='square';o.frequency.setValueAtTime(330,n);o.frequency.setValueAtTime(220,n+.25);g.gain.setValueAtTime(.08,n);g.gain.exponentialRampToValueAtTime(.001,n+.6);o.start(n);o.stop(n+.6)}
@@ -1083,7 +1096,38 @@ try{fetch('https://ferramentas-osval.github.io/recursos-aula/assets/candado_conf
 
 /* arranque */
 if(!Object.keys(S.activas).length)autoRondas();
-muestra();
+/* ------------ MODO EQUIPO (ordenadores de los grupos, solo práctica) ------------ */
+var CURN=null;
+function finP(){if(S.paso!=='jugando')return;paraReloj();S.paso='corr';var z=$('#zona');var r=JUEGO.grade();z.classList.add('bloq');var bl=$('#listo');if(bl)bl.remove();
+  sonido(r.ok===r.n?'pleno':'fin');
+  z.appendChild(h('div',{class:'resul'},'<div class="col" style="gap:0;align-items:center"><span class="pts">'+r.ok+' / '+r.n+'</span><span class="small">Práctica: no puntúa</span></div><span class="small" style="max-width:16rem">Revisad la corrección. La siguiente prueba empezará sola.</span><button class="btn" id="volverEq">↩ Volver</button>'));$('#volverEq').onclick=espera}
+function practica(id,v,rest,g,demo){S.paso='jugando';var z=$('#zona');z.innerHTML='';z.className='';paraReloj();
+  $('#rIco').textContent=R[id].ico;$('#rNum').textContent='Práctica en equipo';$('#rNom').textContent=R[id].nom;
+  $('#gNom').textContent='Práctica';$('#gAl').textContent=demo?'Ejercicio de ejemplo':'El mismo ejercicio que el Grupo '+g;
+  JUEGO=RET[id](z,v,0);
+  var b=h('button',{class:'btn big verde',style:'position:absolute;right:0;bottom:0;z-index:5'},'✔ ¡Hemos terminado!');b.id='listo';b.onclick=function(){finP()};z.appendChild(b);
+  setReloj(rest,R[id].t);arrancaReloj(Math.max(3,rest),finP)}
+function espera(){S.paso='espera';paraReloj();var z=$('#zona');z.innerHTML='';z.className='';
+  $('#rIco').textContent='💻';$('#rNum').textContent='Modo equipo';$('#rNom').textContent='Práctica';$('#gNom').textContent='Esperando…';$('#gAl').textContent='';
+  var w=h('div',{class:'sale'});
+  w.innerHTML=burst('💻','#2f6fed')+'<div class="txt"><h1>Modo <span class="hl">equipo</span></h1><p class="ins">Cuando salga un grupo al proyector, aquí aparecerá sola la misma prueba para que la practiquéis a la vez. No puntúa.</p><p class="ins" id="estEq">Conectando con el proyector…</p>'+
+   '<div class="panel col" style="gap:.5rem"><b>¿No aparece sola? Elegidla con el código del proyector:</b><div class="row" style="flex-wrap:wrap;align-items:center">'+
+   '<select id="selR" style="font-size:1.2rem;padding:.2rem">'+ORDEN0.map(function(id){return'<option value="'+id+'">'+R[id].ico+' '+R[id].nom+'</option>'}).join('')+'</select>'+
+   '<select id="selG" style="font-size:1.2rem;padding:.2rem">'+[1,2,3,4,5,6,7,8,9,10,11,12].map(function(i){return'<option value="'+(i-1)+'">G'+i+'</option>'}).join('')+'<option value="11">Ejemplo</option></select>'+
+   '<button class="btn rosa" id="manual">▶ Empezar</button></div></div></div>';
+  z.appendChild(w);
+  $('#manual').onclick=function(){var id=$('#selR').value,v=+$('#selG').value;CURN='manual';practica(id,v,R[id].t,v+1,$('#selG').selectedIndex===12)}}
+function sondeo(){fetch(URL_NOTAS+'?estado=1&t='+Date.now()).then(function(r){return r.json()}).then(function(j){
+    var e=$('#estEq');if(e)e.textContent=j&&j.ok?'🟢 Conectado con el proyector. Esperando la siguiente prueba…':'🔴 Sin conexión con el proyector: usad el código.';
+    var st=j&&j.estado;if(!st)return;var rest=(st.rest||0)-(j.edad||0)*(st.pausa?0:1);
+    if(st.activo&&st.n!==CURN&&rest>3){CURN=st.n;practica(st.id,st.v,rest,st.g,st.demo);if(st.pausa){T.pausa=true;T.resto=rest}return}
+    if(st.n===CURN&&S.paso==='jugando'){
+      if(!st.activo){finP();return}
+      if(st.pausa){if(!T.pausa){T.pausa=true;T.resto=rest}}else{var f=Date.now()+rest*1000;if(T.pausa){T.pausa=false;T.fin=f}else if(Math.abs(T.fin-f)>2500)T.fin=f}}
+  }).catch(function(){var e=$('#estEq');if(e)e.textContent='🔴 Sin conexión con el proyector: usad el código.'})}
+function modoEquipo(){document.body.classList.add('equipo');$$('.scr').forEach(function(x){x.classList.remove('on')});$('#juego').classList.add('on');espera();
+  setTimeout(function(){sondeo();setInterval(sondeo,2000)},600)}
+if(EQUIPO)modoEquipo();else muestra();
 window.__RETO={S:function(){return S},R:R,RET:RET};
 })();
 

@@ -11,6 +11,8 @@
  *   Ejecutar como: Yo (ferramentas.osval@gmail.com) · Quién tiene acceso: Cualquier usuario
  * La URL /exec que se obtiene va en assets/candado_config.json → "liberar_url".
  *
+ * MODO EQUIPO (accion: 'estado' + GET ?estado=1): el proyector publica la prueba en curso y los ordenadores de los grupos la siguen (caché de 6 h, sin datos personales).
+ *
  * NOTAS DE LOS RETOS (accion: 'notas'): los retos por grupos (p. ej. reto_narracion_resumen_ortografia_1eso.html)
  * envían al terminar las notas a una hoja de cálculo PRIVADA de esta cuenta (nunca al repositorio público).
  * La hoja «Notas de los retos · recursos-aula» se crea sola la primera vez y su id se guarda en la propiedad HOJA_NOTAS.
@@ -23,6 +25,10 @@ function doPost(e) {
     var P = PropertiesService.getScriptProperties();
     if (!d || d.codigo !== P.getProperty('CODIGO')) return salida_({ ok: false, error: 'Código incorrecto' });
     if (d.accion === 'notas') return salida_(notas_(d));
+    if (d.accion === 'estado') {
+      CacheService.getScriptCache().put('estado_reto', JSON.stringify({ e: d.estado || null, t: Date.now() }), 21600);
+      return salida_({ ok: true });
+    }
     var id = String(d.id || '');
     if (!/\.html$/.test(id) || id.indexOf('..') >= 0 || id.charAt(0) === '/') return salida_({ ok: false, error: 'Recurso no válido' });
     if (d.accion !== 'liberar' && d.accion !== 'ocultar') return salida_({ ok: false, error: 'Acción no válida' });
@@ -81,5 +87,11 @@ function notas_(d) {
 }
 /* Ejecutar UNA vez desde el editor para dar permiso y crear la hoja; en el registro aparece su enlace. */
 function prepararHojaNotas() { Logger.log(notas_({ hoja: 'Prueba de conexión', cabecera: ['Fecha', 'Mensaje'], filas: [[new Date(), 'Conexión correcta']] }).url); }
-function doGet() { return salida_({ ok: true, servicio: 'liberar soluciones recursos-aula' }); }
+function doGet(e) {
+  if (e && e.parameter && e.parameter.estado) {
+    var c = CacheService.getScriptCache().get('estado_reto'), o = c ? JSON.parse(c) : { e: null, t: Date.now() };
+    return salida_({ ok: true, estado: o.e, edad: (Date.now() - o.t) / 1000 });
+  }
+  return salida_({ ok: true, servicio: 'liberar soluciones recursos-aula' });
+}
 function salida_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
