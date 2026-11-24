@@ -417,6 +417,10 @@ window.RECURSOS=[
        {
         "t": "Presentación arte renacentista",
         "h": "04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html"
+       },
+       {
+        "t": "🖥️ Modo clase: presentación + boletín (a arte renacentista)",
+        "h": "modo_clase.html?p=04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html&b=04_PDC/ACTIVIDADES/boletin_arte_renacentista.html&t=A%20arte%20renacentista"
        }
       ]
      },
