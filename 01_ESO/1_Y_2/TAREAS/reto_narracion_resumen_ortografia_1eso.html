@@ -343,6 +343,10 @@ table.notas th{border-bottom:1.5px solid var(--suave)}
 .narq2 .qrow .op{font-size:1.4rem;padding:.3rem 1rem}
 .narq2 .qrow .qn{background:var(--nar);color:#fff;border-radius:.3em;min-width:0;width:auto;height:auto;padding:.05em .4em;font-family:var(--f-tit);font-size:1.5rem;line-height:1.1}
 .narq2 .qrow.ok,.narq2 .qrow.mal{background:transparent!important}
+.marc{gap:2.2rem}
+.marc .mg{font-size:1.35rem;gap:.6rem}
+.marc .mg b{font-size:2rem}
+.marc .mg.yo span{padding:0 .5rem}
 </style>
 </head>
 <body>
@@ -739,7 +743,7 @@ function pintaTurno(){
   if(S.paso==='clas'){cabecera();return pintaClas()}
   cabecera();
   var w=h('div',{class:'sale'});
-  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+mmss(S.tiempos[id])+' minutos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
+  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+mmss(S.tiempos[id])+' minutos</b>.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
   z.appendChild(w);$('#go').onclick=empiezaTurno;
 }
 function empiezaTurno(){S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
@@ -754,11 +758,8 @@ function fin(){if(S.paso!=='jugando')return;paraReloj();S.paso='corr';var z=$('#
   var box=h('div',{class:'resul'});
   var otros=S.grupos.map(function(G,i){return i===g?'':'<button data-g="'+i+'">+1 '+esc(G.nom)+'</button>'}).join('');
   box.innerHTML='<div class="col" style="gap:0;align-items:center"><span class="pts">'+pts+' / '+(r.n+1)+'</span><span class="small">'+(r.ok===r.n?'¡PLENO! +1':r.ok+' de '+r.n+' bien')+'</span></div>'+
-   (fallos?'<div class="col" style="gap:.2rem"><span class="small"><b>🦊 Robo</b> (hasta '+fallos+'): otro grupo corrige un fallo</span><div class="robo">'+otros+'</div></div>':'')+
    '<button class="btn big" id="sig">'+(S.ti<S.grupos.length-1?'Siguiente grupo ▶':'Ver clasificación ▶')+'</button>';
   z.appendChild(box);
-  $$('.robo button',box).forEach(function(b){b.onclick=function(){if(ROBOS>=fallos){toast('Ya no quedan fallos que robar');return}
-    var k=+b.dataset.g;S.grupos[k].robos=(S.grupos[k].robos||0)+1;ROBOS++;guarda();pintaMarc();toast('🦊 +1 para '+S.grupos[k].nom)}});
   $('#sig').onclick=function(){if(S.ti<S.grupos.length-1){S.ti++;S.paso='sale'}else S.paso='clas';guarda();pintaTurno()};
 }
 function pintaClas(){var z=$('#zona'),rs=rondasJuego();
@@ -1033,14 +1034,14 @@ RET.cru=function(z,v){var G=CRUCI.grids[v],W=G.p,cel={},nums={};
 
 /* ------------ FINAL Y GUARDADO ------------ */
 function filas(){var rs=rondasJugadas(),out=[];
-  S.grupos.forEach(function(G,g){var det=rs.map(function(id){return R[id].nom+' '+(G.pts[id]||0)+'/'+(R[id].n+1)}).join(' · ')+(G.robos?' · Robos +'+G.robos:'')+(G.aj?' · Ajuste '+(G.aj>0?'+':'')+G.aj:'');
+  S.grupos.forEach(function(G,g){var det=rs.map(function(id){return R[id].nom+' '+(G.pts[id]||0)+'/'+(R[id].n+1)}).join(' · ')+(G.aj?' · Ajuste '+(G.aj>0?'+':'')+G.aj:'');
     (G.al.length?G.al:['']).forEach(function(a){out.push({al:a,g:G.nom,gi:g,pts:rs.map(function(id){return G.pts[id]||0}),robos:G.robos||0,aj:G.aj||0,tot:totalG(g),max:maxG(g),nota:nota(g),det:det})})});
   return out}
 function rondasJugadas(){return rondasJuego().filter(function(id){return S.grupos.some(function(G){return G.pts[id]!=null})})}
 function hoy(){var d=new Date(S.fin||Date.now());return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function hora(){var d=new Date(S.fin||Date.now());return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
-function csv(){var rs=rondasJugadas(),L=[['Alumno/a','Grupo'].concat(rs.map(function(id){return R[id].nom+' (/'+(R[id].n+1)+')'}),['Robos','Ajuste','Puntos','Máximo','Nota (/10)'])];
-  filas().forEach(function(f){L.push([f.al,f.g].concat(f.pts,[f.robos,f.aj,f.tot,f.max,fmt(f.nota)]))});
+function csv(){var rs=rondasJugadas(),L=[['Alumno/a','Grupo'].concat(rs.map(function(id){return R[id].nom+' (/'+(R[id].n+1)+')'}),['Ajuste','Puntos','Máximo','Nota (/10)'])];
+  filas().forEach(function(f){L.push([f.al,f.g].concat(f.pts,[f.aj,f.tot,f.max,fmt(f.nota)]))});
   return '﻿'+'El gran reto de las historias y otras cositas · 1.º ESO · '+hoy()+' '+hora()+'\n'+L.map(function(r){return r.map(function(c){c=String(c);return /[;"\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(';')}).join('\n')}
 function descarga(){var b=new Blob([csv()],{type:'text/csv;charset=utf-8'}),a=h('a',{href:URL.createObjectURL(b),download:'reto_narracion_resumen_ortografia_notas_'+hoy()+'.csv'});document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
 function estadoG(cl,t){var e=$('#estadoG');e.className='guardado '+cl;e.innerHTML=t}
@@ -1057,9 +1058,9 @@ function pintaFinal(){var ord=S.grupos.map(function(_,i){return i}).sort(functio
   var pod=$('#podio');pod.innerHTML='';[1,0,2].forEach(function(p){var g=ord[p];if(g==null)return;var G=S.grupos[g];
     pod.insertAdjacentHTML('beforeend','<div class="pd"><span style="font-size:2.4rem">'+['🥇','🥈','🥉'][p]+'</span><span class="nm">'+esc(G.nom)+'</span><span class="al">'+esc(G.al.join(', '))+'</span><div class="caja" style="height:'+[7,5,3.6][p]+'rem;background:'+['var(--am)','#dfe3ee','var(--nar2)'][p]+'">'+totalG(g)+'</div></div>')});
   var rs=rondasJugadas(),t=$('#tabla');
-  var th='<tr><th>Grupo</th><th>Alumnado</th>'+rs.map(function(id){return'<th title="'+R[id].nom+'">'+R[id].ico+' /'+(R[id].n+1)+'</th>'}).join('')+'<th>🦊</th><th>Ajuste</th><th>Puntos</th><th>Nota</th></tr>';
+  var th='<tr><th>Grupo</th><th>Alumnado</th>'+rs.map(function(id){return'<th title="'+R[id].nom+'">'+R[id].ico+' /'+(R[id].n+1)+'</th>'}).join('')+'<th>Ajuste</th><th>Puntos</th><th>Nota</th></tr>';
   t.innerHTML=th+ord.map(function(g){var G=S.grupos[g];return'<tr><td class="izq"><b>'+esc(G.nom)+'</b></td><td class="izq">'+esc(G.al.join(', '))+'</td>'+rs.map(function(id){return'<td>'+(G.pts[id]!=null?G.pts[id]:'—')+'</td>'}).join('')+
-    '<td>'+(G.robos||0)+'</td><td><button class="aj" data-g="'+g+'" data-d="-1">−</button> '+(G.aj||0)+' <button class="aj" data-g="'+g+'" data-d="1">+</button></td><td><b>'+totalG(g)+'</b> / '+maxG(g)+'</td><td><b>'+fmt(nota(g))+'</b></td></tr>'}).join('');
+    '<td><button class="aj" data-g="'+g+'" data-d="-1">−</button> '+(G.aj||0)+' <button class="aj" data-g="'+g+'" data-d="1">+</button></td><td><b>'+totalG(g)+'</b> / '+maxG(g)+'</td><td><b>'+fmt(nota(g))+'</b></td></tr>'}).join('');
   $$('.aj',t).forEach(function(b){b.onclick=function(){var G=S.grupos[+b.dataset.g];G.aj=(G.aj||0)+(+b.dataset.d);guarda();pintaFinal();estadoG('esp','💾 Cambio guardado en este navegador. Pulsa «Enviar» para actualizar tu hoja de Google y «Descargar CSV» si quieres el archivo nuevo.')}});
   if(!S.auto){S.auto=true;S.fin=S.fin||Date.now();guarda();
     try{var H=JSON.parse(ls(KHIST)||'[]');H.unshift({fecha:hoy()+' '+hora(),csv:csv()});ls(KHIST,JSON.stringify(H.slice(0,15)))}catch(e){}
