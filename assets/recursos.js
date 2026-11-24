@@ -11,11 +11,11 @@ const CATS={
  '01. ESO':{name:'1.º ESO',icon:'🎒',col:'--c1',desc:'Presentaciones y actividades de Lengua Castellana y Literatura para 1.º de ESO.',
    layout:{
     destacados:[
-     {h:'01_ESO/1_Y_2/PRESENTACIONES/vocabulario.html',titulo:'Vocabulario',sub:'Todos los repasos · se abre en el último; los anteriores, en el desplegable',icon:'🔤',tipo:'horario'}],
+     {h:'01_ESO/1_Y_2/PRESENTACIONES/vocabulario.html',titulo:'Vocabulario y ortografía',sub:'⭐ Repaso de cada semana · se abre en el último; los anteriores, en el desplegable',icon:'🔤',tipo:'horario',grande:true,chip:'⭐ Vocabulario y ortografía'}],
     apartados:[
     {titulo:'Presentaciones temas lengua',icon:'🎞️',archivos:[{titulo:'TEMA 1. LENGUAS DEL MUNDO Y LENGUAS DE ESPAÑA',icon:'🌍',ancho:true,sub:'Presentaciones',labels:['🌍 Lenguas del mundo','🗺️ Lenguas de España'],par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html']},'01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_narracion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_descripcion.html']},
     {titulo:'Tareas',icon:'✏️',archivos:['01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/taller_resumen_garcia_marquez.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html']},
-    {titulo:'Ortografía y vocabulario',icon:'🔤',archivos:[{titulo:'Ortografía 1',icon:'🔤',par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_ortografia_1.html','01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html']}]},
+    {titulo:'Ejercicios de ortografía',icon:'✍️',archivos:[{titulo:'Ortografía 1',icon:'🔤',par:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_ortografia_1.html','01_ESO/1_Y_2/ACTIVIDADES/ficha_ortografia_1.html']}]},
     {titulo:'Apuntes y modelos de exámenes',icon:'📒',archivos:['01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html']},
     {titulo:'Obras de lectura',icon:'📚',archivos:['01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html','01_ESO/1_Y_2/OBRAS_LECTURA/prueba_lectura_por_que_tiene_que_ser_todo_tan_dificil.html']},
     {titulo:'Esquemas',icon:'🗺️',archivos:['01_ESO/1_Y_2/ESQUEMAS/esquemas_1a_evaluacion_primera_parte_1eso.html','01_ESO/1_Y_2/ESQUEMAS/esquemas_1a_evaluacion_segunda_parte_1eso.html']}],
@@ -121,10 +121,10 @@ if(PAGE.mode==='course'){
  // destacados: horario (un recurso) y tutoría (una carpeta) arriba del todo
  (L.destacados||[]).forEach((d,k)=>{
   if(d.h){let f=null;gs.forEach(g=>{const i=g.files.findIndex(x=>x.h===d.h);if(i>-1){f=g.files.splice(i,1)[0]}});gs=gs.filter(g=>g.files.length);
-   if(!f)return;top+=`<a class="feature f-${d.tipo}" id="d${k}" href="${ROOT+f.h}" target="_blank" rel="noopener"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span><span class="fgo">Abrir →</span></a>`}
+   if(!f)return;top+=`<a class="feature f-${d.tipo}${d.grande?' f-grande':''}" id="d${k}" href="${ROOT+f.h}" target="_blank" rel="noopener"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span><span class="fgo">Abrir →</span></a>`}
   else{const sel=gs.filter(g=>g.path[0]===d.carpeta);gs=gs.filter(g=>g.path[0]!==d.carpeta);const fs=[].concat(...sel.map(g=>g.files));if(!fs.length)return;
    top+=`<div class="feature f-${d.tipo}" id="d${k}"><div class="fhead"><span class="fic">${d.icon}</span><span><b>${d.titulo}</b><small>${d.sub||''}</small></span></div><div class="grid">${fs.map(f=>card(f,'',I.name+' '+d.titulo)).join('')}</div></div>`}
-  topChips.push(`<a class="chip" style="--cc:var(${I.col})" href="#d${k}">${d.titulo.split(' ')[0]}</a>`)});
+  topChips.push(`<a class="chip" style="--cc:var(${I.col})" href="#d${k}">${d.chip||d.titulo.split(' ')[0]}</a>`)});
  const PARTS=L.partes?L.partes.map(pt=>({pt,gs:[]})):null;
  if(PARTS){const rest=PARTS.find(x=>x.pt.resto)||PARTS[PARTS.length-1];
   gs.forEach(g=>g.files.forEach(f=>{const d=PARTS.find(x=>x.pt.archivos&&x.pt.archivos.includes(f.h))||rest;let t=d.gs.find(y=>y.path.join('|')===g.path.join('|'));if(!t){t={path:g.path,files:[]};d.gs.push(t)}t.files.push(f)}));
