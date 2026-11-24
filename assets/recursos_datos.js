@@ -442,6 +442,10 @@ window.RECURSOS=[
        {
         "t": "Presentación relaciones semánticas",
         "h": "04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_relaciones_semanticas.html"
+       },
+       {
+        "t": "🖥️ Modo clase: presentación + boletín (relaciones semánticas)",
+        "h": "modo_clase.html?p=04_PDC/PRESENTACIONES/LENGUA_LITERATURA_CASTELLANAS/presentacion_relaciones_semanticas.html&b=04_PDC/ACTIVIDADES/boletin_relaciones_semanticas.html&t=Relaciones%20sem%C3%A1nticas"
        }
       ]
      },
@@ -457,8 +461,16 @@ window.RECURSOS=[
         "h": "04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_galicia_idade_media_lirica_medieval.html"
        },
        {
+        "t": "🖥️ Modo clase: presentación + boletín (Galicia na Idade Media e lírica medieval)",
+        "h": "modo_clase.html?p=04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_galicia_idade_media_lirica_medieval.html&b=04_PDC/ACTIVIDADES/boletin_galicia_idade_media_lirica_medieval.html&t=Galicia%20na%20Idade%20Media%20e%20l%C3%ADrica%20medieval"
+       },
+       {
         "t": "Presentación formación de palabras",
         "h": "04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_formacion_palabras.html"
+       },
+       {
+        "t": "🖥️ Modo clase: presentación + boletín (formación de palabras)",
+        "h": "modo_clase.html?p=04_PDC/PRESENTACIONES/LINGUA_LITERATURA_GALEGAS/presentacion_formacion_palabras.html&b=04_PDC/ACTIVIDADES/boletin_formacion_palabras.html&t=Formaci%C3%B3n%20de%20palabras"
        }
       ]
      },
