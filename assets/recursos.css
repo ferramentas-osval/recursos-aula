@@ -98,15 +98,15 @@ div.feature.f-tutoria{--tc:#d4a017;background:var(--paper);border:3px dashed var
 .group.materia h3 .mic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--cc)}
 .group.materia h3::after{height:3px;background:linear-gradient(90deg,var(--cc),transparent)}
 /* destacado grande (Vocabulario y ortografía de 1.º ESO) */
-a.feature.f-grande{gap:28px;padding:40px 40px;margin:26px 0 34px;border:4px solid #ffd75e;background:linear-gradient(135deg,#ff7a45,#e8406a 50%,#7b3fd1);box-shadow:0 18px 40px rgba(232,64,106,.38);animation:fglow 2.6s ease-in-out infinite}
+a.feature.f-grande{gap:22px;padding:22px 30px;margin:22px 0 30px;border:4px solid #ffd75e;background:linear-gradient(135deg,#ff7a45,#e8406a 50%,#7b3fd1);box-shadow:0 18px 40px rgba(232,64,106,.38);animation:fglow 2.6s ease-in-out infinite}
 a.feature.f-grande:hover{transform:translateY(-5px) scale(1.01)}
-a.feature.f-grande>.fic{width:104px;height:104px;border-radius:28px;font-size:60px;background:rgba(255,255,255,.22)}
-a.feature.f-grande>span>b{font-size:clamp(30px,4.6vw,56px)}
-a.feature.f-grande>span>small{font-size:clamp(15px,1.6vw,20px);opacity:.95}
+a.feature.f-grande>.fic{width:76px;height:76px;border-radius:22px;font-size:44px;background:rgba(255,255,255,.22)}
+a.feature.f-grande>span>b{font-size:clamp(22px,3vw,42px);white-space:nowrap}
+a.feature.f-grande>span>small{font-size:clamp(14px,1.3vw,18px);opacity:.95}
 a.feature.f-grande .fgo{font-size:clamp(17px,1.7vw,22px);padding:.65em 1.5em;box-shadow:0 6px 14px rgba(0,0,0,.18)}
 @keyframes fglow{0%,100%{box-shadow:0 18px 40px rgba(232,64,106,.38)}50%{box-shadow:0 18px 52px rgba(255,215,94,.7)}}
 @media (prefers-reduced-motion:reduce){a.feature.f-grande{animation:none}}
-@media (max-width:600px){a.feature.f-grande{padding:26px 22px;gap:18px}a.feature.f-grande>.fic{width:76px;height:76px;font-size:44px}}
+@media (max-width:600px){a.feature.f-grande{padding:20px 18px;gap:14px}a.feature.f-grande>.fic{width:60px;height:60px;font-size:34px}a.feature.f-grande>span>b{white-space:normal}}
 @media (max-width:600px){a.feature.f-horario{flex-wrap:wrap}.f-horario .fgo{margin-left:0}}
 
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;align-items:start}
