@@ -24,7 +24,7 @@ const CATS={
     partes:[
      {titulo:'Primera parte',sub:'Primeros exámenes (ya realizados)',icon:'✅',archivos:[
       '01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_mundo.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_lenguas_espana.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_comunicacion.html','01_ESO/1_Y_2/PRESENTACIONES/presentacion_propiedades_textuales_cca.html',
-      '01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/reto_narracion_resumen_ortografia_1eso.html',
+      '01_ESO/1_Y_2/TAREAS/taller_resumen_earhart.html','01_ESO/1_Y_2/TAREAS/reto_comunicacion_1eso.html','01_ESO/1_Y_2/TAREAS/practica_comunicacion_1eso.html',
       '01_ESO/1_Y_2/APUNTES_EXAMENES/apuntes_repaso_primer_examen.html','01_ESO/1_Y_2/MODELOS_EXAMENES/modelo_examen_primer_parcial_1a_evaluacion_1eso.html',
       '01_ESO/1_Y_2/PRESENTACIONES/presentacion_nando_lopez_libro.html','01_ESO/1_Y_2/OBRAS_LECTURA/prueba_lectura_por_que_tiene_que_ser_todo_tan_dificil.html',
       '01_ESO/1_Y_2/ESQUEMAS/esquemas_1a_evaluacion_primera_parte_1eso.html']},
