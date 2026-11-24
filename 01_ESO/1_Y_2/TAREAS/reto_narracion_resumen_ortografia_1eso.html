@@ -333,6 +333,8 @@ table.notas th{background:transparent;color:var(--suave);border-bottom:2px solid
 .cel.l{border:1.5px solid #8f8a7a!important}
 table.notas th,table.notas td{border-bottom:1px solid var(--borde)}
 table.notas th{border-bottom:1.5px solid var(--suave)}
+#paso1 .gcard .chips{flex-direction:column;align-items:flex-start;flex-wrap:nowrap;gap:.35rem}
+#paso1 .gcard .chip{font-size:1.45rem;padding:.15rem .8rem}
 </style>
 </head>
 <body>
@@ -577,7 +579,7 @@ var R={
    ins:'Leed el microrrelato. Decid qué tipo de narrador tiene y qué elemento de la narración es cada fragmento marcado.'},
  cru:{ico:'✏️',nom:'Minicrucigrama ortográfico',desc:'Cinco palabras difíciles de los repasos, con sus tildes.',t:100,n:5,col:'#2f6fed',
    ins:'Cinco palabras de los repasos de ortografía. Una sola letra o una tilde mal y la palabra no cuenta.'},
- puz:{ico:'🧩',nom:'Puzzle del microrrelato',desc:'Ordenar las cinco oraciones de un microrrelato, marcar planteamiento, nudo y desenlace y elegir su tema.',t:100,n:6,col:'#2fae6a',
+ puz:{ico:'🧩',nom:'Puzzle del microrrelato',desc:'Ordenar las cinco oraciones de un microrrelato, marcar planteamiento, nudo y desenlace y elegir su tema.',t:90,n:6,col:'#2fae6a',
    ins:'Ordenad las cinco oraciones del microrrelato, marcad en cada una si es planteamiento, nudo o desenlace y elegid el tema bien formulado. Cada oración solo puntúa si está en su sitio y con su parte bien marcada.'},
  orto:{ico:'🔤',nom:'¿Cuál está bien escrita?',desc:'Cinco palabras difíciles de los repasos (distintas de las del crucigrama), tres formas cada una.',t:60,n:5,col:'#7b4dde',
    ins:'Cinco palabras difíciles de los repasos de ortografía. De cada una hay tres formas: solo una está bien escrita.'},
@@ -608,6 +610,7 @@ S.orden=S.orden.filter(function(id){return R[id]});ORDEN0.forEach(function(id){i
 for(var _k in S.activas)if(!R[_k])delete S.activas[_k];
 S.grupos.forEach(function(G){for(var k in G.pts)if(!R[k])delete G.pts[k]});
 ORDEN0.forEach(function(id){if(S.tiempos[id]==null)S.tiempos[id]=R[id].t});
+if(!S.tv){S.tiempos.puz=90;S.tv=1}
 if(!S.grupos.length)ponGrupos(5);
 function ponGrupos(n){n=Math.max(2,Math.min(12,n));while(S.grupos.length<n)S.grupos.push({nom:'Grupo '+(S.grupos.length+1),al:[],pts:{},robos:0,aj:0});S.grupos.length=n}
 function rondasJuego(){return S.orden.filter(function(id){return S.activas[id]})}
@@ -728,7 +731,7 @@ function pintaTurno(){
   if(S.paso==='clas'){cabecera();return pintaClas()}
   cabecera();
   var w=h('div',{class:'sale'});
-  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+S.tiempos[id]+' segundos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
+  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+mmss(S.tiempos[id])+' minutos</b>. Si otro grupo sabe corregir un fallo, puede robar el punto.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
   z.appendChild(w);$('#go').onclick=empiezaTurno;
 }
 function empiezaTurno(){S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
@@ -804,7 +807,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#nav').c
 
 /* ------------ RELOJ Y SONIDO ------------ */
 var T={fin:0,resto:0,total:60,iv:null,pausa:false,cb:null};
-function setReloj(s,tot){var r=$('#reloj');$('#seg').textContent=Math.ceil(s);r.style.setProperty('--p',Math.max(0,s/tot));r.classList.toggle('aviso10',s<=10&&s>0&&S.paso==='jugando')}
+function mmss(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function setReloj(s,tot){var r=$('#reloj');$('#seg').textContent=mmss(s);r.style.setProperty('--p',Math.max(0,s/tot));r.classList.toggle('aviso10',s<=10&&s>0&&S.paso==='jugando')}
 function arrancaReloj(s,cb){T.total=s;T.resto=s;T.fin=Date.now()+s*1000;T.cb=cb;T.pausa=false;$('#pausa').textContent='⏸ Pausa';T.last=Math.ceil(s);
   T.iv=setInterval(function(){if(T.pausa)return;var r=(T.fin-Date.now())/1000;setReloj(Math.max(0,r),T.total);var c=Math.ceil(r);
     if(c!==T.last){T.last=c;if(c<=10&&c>0)sonido('tic')}
@@ -845,7 +849,7 @@ RET.puz=function(z,v){var D=RES[v],sd=seedDe('puz',v),orden;
   for(var s=0;s<50;s++){orden=mezcla([0,1,2,3,4],sd+s);if(orden.every(function(x,i){return x!==i}))break}
   var temas=[D.tema,D.falso,D.verbo];
   var to=mezcla([0,1,2],sd+77);
-  z.insertAdjacentHTML('beforeend','<div class="enun">Ordenad el microrrelato (arrastrad las piezas o tocad dos para cambiarlas), marcad la parte de cada oración y elegid el tema.</div>');
+  z.insertAdjacentHTML('beforeend','<div class="enun">1.º Ordenad el microrrelato arrastrando las piezas. 2.º Marcad a qué parte corresponde cada oración. 3.º Elegid el tema.</div>');
   var row=h('div',{class:'row grow',style:'gap:1.2rem;padding-bottom:5rem'});
   var izq=h('div',{class:'piezas',style:'flex:2.6 1 0;justify-content:center'});
   var PARTES=['Planteamiento','Nudo','Desenlace'],pw={};
@@ -871,10 +875,7 @@ function ordenable(cont,sel,cb){var sel1=null,drag=null;
       if(o&&o!==d.p&&o.parentNode===cont){var r2=o.getBoundingClientRect(),antes=e.clientY<r2.top+r2.height/2;cont.insertBefore(d.p,antes?o:o.nextSibling);cb()}}});
   window.addEventListener('pointerup',function(){if(!drag)return;var d=drag;drag=null;
     if(d.mov){d.g.remove();d.p.classList.remove('hueco');cb();return}
-    if(S.paso!=='jugando')return;
-    if(!sel1){sel1=d.p;d.p.classList.add('cog')}
-    else if(sel1===d.p){d.p.classList.remove('cog');sel1=null}
-    else{var a=sel1,b=d.p,na=a.nextSibling===b?a:a.nextSibling;cont.insertBefore(a,b);cont.insertBefore(b,na);a.classList.remove('cog');sel1=null;cb()}})}
+  })}
 
 /* 3. Modalidades DEP ADN */
 var USO=null;
