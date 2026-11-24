@@ -33,7 +33,7 @@ html,body{height:100%;overflow:hidden;background:#11181f;font-family:system-ui,A
 <div id="bar">
   <span class="t" id="tit">Modo clase</span>
   <button type="button" data-m="p" title="Só a presentación">▭ Presentación</button>
-  <button type="button" data-m="s" class="on" title="As dúas, unha ao lado da outra">◧ As dúas</button>
+  <button type="button" data-m="s" class="on" title="Presentación e boletín, un ao lado do outro">◧ Modo clase</button>
   <button type="button" data-m="b" title="Só o boletín">▭ Boletín</button>
   <button type="button" id="swap" title="Cambiar de lado">⇄</button>
   <button type="button" id="fs" title="Pantalla completa">⛶</button>
@@ -55,7 +55,9 @@ html,body{height:100%;overflow:hidden;background:#11181f;font-family:system-ui,A
   var k='modoclase:'+P,st={r:.6,m:'s',sw:0};try{var o=JSON.parse(localStorage.getItem(k)||'{}');for(var x in o)st[x]=o[x]}catch(e){}
   function save(){try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}}
   var fP=$('#fP'),fB=$('#fB'),pP=$('#pP'),pB=$('#pB'),wrap=$('#wrap'),sp=$('#split'),sh=$('#shield');
+  var M=q.get('m'),SL=parseInt(q.get('s')||'0',10);if(M==='s'||M==='p'||M==='b'){st.m=M}
   fP.src=P;fB.src=B;
+  if(SL>1)fP.addEventListener('load',function(){var k=0,t=setInterval(function(){k++;try{var w=fP.contentWindow;if(w.irADiapositiva&&w.document.getElementById('irdLbl')&&w.document.getElementById('irdLbl').textContent){w.irADiapositiva(SL);clearInterval(t)}}catch(e){}if(k>40)clearInterval(t)},150)});
   /* oculta dentro dos marcos os botóns que sacarían da páxina e axusta o boletín ao ancho */
   function tidy(f,isB){try{var d=f.contentDocument;if(!d)return;
     if(!d.getElementById('mcCss')){var s=d.createElement('style');s.id='mcCss';s.textContent='#volverPanel,#girar{display:none!important}'+(isB?'.bar{position:sticky}':'');d.head.appendChild(s)}
@@ -79,7 +81,7 @@ html,body{height:100%;overflow:hidden;background:#11181f;font-family:system-ui,A
   window.addEventListener('resize',function(){setTimeout(fitB,80)});
   setInterval(fitB,1500);
   /* volver ao panel do que se veu */
-  try{if(document.referrer&&new URL(document.referrer).origin===location.origin)$('#back').href=document.referrer}catch(e){}
+  try{var rf=document.referrer?new URL(document.referrer):null;if(rf&&rf.origin===location.origin&&/index\.html$|\/$/.test(rf.pathname))$('#back').href=document.referrer}catch(e){}
   layout();
 })();
 </script>
