@@ -585,7 +585,7 @@ var CRUCI={"defs": {"PERSPICAZ": "Que se da cuenta enseguida de lo que no es evi
 var KEY='reto_narracion_1eso_v1',KLISTA='reto_lista_clase_1eso',KHIST='reto_narracion_1eso_historial';
 var HOJA='Reto narración 1.º ESO';
 var URL_NOTAS='https://script.google.com/macros/s/AKfycbwAjNEPn9db4EEHs6SOfITnhDAsB1PhSZyBcxMY0vWmk0IZHWIVRIfceUfmFZVF5JyU/exec';
-var CAMBIO=15; /* segundos estimados para cambiar de grupo */
+var CAMBIO=45; /* segundos estimados para cambiar de grupo */
 var R={
  nar:{ico:'🎙️',nom:'Narrador y elementos',desc:'Un microrrelato: tipo de narrador y cuatro fragmentos marcados.',t:60,n:5,col:'#ff8c42',
    ins:'Leed el microrrelato. Decid qué tipo de narrador tiene y qué elemento de la narración es cada fragmento marcado.'},
@@ -743,16 +743,20 @@ function pintaTurno(){
   if(S.paso==='clas'){cabecera();return pintaClas()}
   cabecera();
   var w=h('div',{class:'sale'});
-  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+mmss(S.tiempos[id])+' minutos</b>.</p><div><button class="btn big rosa" id="go">▶ ¡Empezar!</button></div></div>';
-  z.appendChild(w);$('#go').onclick=empiezaTurno;
+  w.innerHTML=burst(d.ico,d.col)+'<div class="txt"><span class="meta">Turno '+(S.ti+1)+' de '+S.grupos.length+'</span>'+(S.grupos[g].pts[id]!=null?'<span class="aviso" style="align-self:flex-start">⚠️ Este grupo ya hizo esta prueba ('+S.grupos[g].pts[id]+' puntos). Si la repite, cuenta la nueva puntuación.</span>':'')+'<h1>¡Sale el <span class="hl">'+esc(S.grupos[g].nom)+'</span>!</h1><div class="alum">'+esc(S.grupos[g].al.join(' · ')||'')+'</div><p class="ins">'+d.ins+'</p><p class="ins"><b>'+d.n+' puntos</b> + <b>1 punto extra</b> si lo hacéis todo bien. Tenéis <b>'+mmss(S.tiempos[id])+' minutos</b>.</p><div class="row" style="align-items:center;gap:1rem"><button class="btn big rosa" id="go">▶ ¡Empezar!</button>'+(S.ti===0?'<button class="btn blanco" id="demo">👀 Demostración (no puntúa)</button>':'')+'</div></div>';
+  z.appendChild(w);$('#go').onclick=function(){empiezaTurno(false)};if($('#demo'))$('#demo').onclick=function(){empiezaTurno(true)};
 }
-function empiezaTurno(){S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
-  var var_=g; JUEGO=RET[id](z,var_,g);
+var DEMO=false;
+function empiezaTurno(demo){DEMO=!!demo;S.paso='jugando';var id=rid(),g=gAct(),z=$('#zona');z.innerHTML='';
+  var var_=DEMO?(S.grupos.length<12?11:0):g; JUEGO=RET[id](z,var_,g);
+  if(DEMO){$('#gNom').textContent='Demostración';$('#gAl').textContent='Esta prueba no puntúa'}
   var b=h('button',{class:'btn big verde',style:'position:absolute;right:0;bottom:0;z-index:5'},'✔ ¡Hemos terminado!');b.id='listo';b.onclick=function(){fin()};z.appendChild(b);
   arrancaReloj(S.tiempos[id],fin)}
 var JUEGO=null,ROBOS=0;
 function fin(){if(S.paso!=='jugando')return;paraReloj();S.paso='corr';var z=$('#zona'),id=rid(),g=gAct();
   var r=JUEGO.grade();z.classList.add('bloq');var bl=$('#listo');if(bl)bl.remove();
+  if(DEMO){DEMO=false;var bx=h('div',{class:'resul'},'<div class="col" style="gap:0;align-items:center"><span class="pts">'+r.ok+' / '+r.n+'</span><span class="small">Demostración: no puntúa</span></div><button class="btn big" id="sig">Volver al turno ▶</button>');z.appendChild(bx);
+    $('#sig').onclick=function(){S.paso='sale';pintaTurno()};return}
   var pts=r.ok+(r.ok===r.n?1:0);S.grupos[g].pts[id]=pts;guarda();pintaMarc();sonido(r.ok===r.n?'pleno':'fin');
   ROBOS=0;var fallos=r.n-r.ok;
   var box=h('div',{class:'resul'});
