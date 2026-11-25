@@ -60,6 +60,21 @@ td.cel .gap{display:block;width:100%;height:auto}
 .bt.alt{background:var(--azul)}
 .bt.lk{background:transparent;color:var(--suave);font-size:13pt;padding:1mm 2mm;opacity:.55}
 .solbtn{float:right;font:inherit;font-size:8.5pt;font-weight:700;border:none;border-radius:1.5mm;padding:.8mm 2.5mm;background:var(--azul);color:#fff;cursor:pointer;margin-left:2mm}
+.teobtn{font:inherit;font-size:8.5pt;font-weight:700;border:1.5px solid var(--cobre);background:#fff7ea;color:var(--cobre);border-radius:1.5mm;padding:.6mm 2.4mm;cursor:pointer;flex:none}
+.teobtn:hover{background:var(--cobre);color:#fff}
+#teo{position:fixed;inset:0;background:rgba(17,18,58,.62);display:none;place-items:center;z-index:55;padding:3vh 3vw}
+#teo.on{display:grid}
+#teo .in{background:#fff;border-radius:12px;width:min(980px,96vw);max-height:92vh;overflow:auto;padding:26px 34px 28px;position:relative;font-size:19px;line-height:1.45;color:var(--tinta);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#teo h3{font-family:"Special Elite",monospace;font-weight:400;color:var(--noche);font-size:30px;margin:0 40px 12px 0}
+#teo h4{color:var(--noche);font-size:21px;margin:16px 0 6px}
+#teo p,#teo li{text-align:justify;margin:0 0 6px}
+#teo ul{margin:0 0 6px;padding-left:24px}
+#teo table{border-collapse:collapse;width:100%;margin:4px 0 8px}
+#teo th,#teo td{border:1px solid var(--linea);padding:7px 10px;vertical-align:top;text-align:left;font-size:18px}
+#teo th{background:#f3efe5;color:var(--noche)}
+#teo .ej-t{color:var(--cobre);font-style:italic}
+#teo .truco{background:#f7f3ea;border-left:4px solid var(--oro);padding:8px 12px;margin-top:10px}
+#teo .x{position:absolute;top:12px;right:16px;border:none;background:none;font-size:30px;line-height:1;cursor:pointer;color:var(--noche)}
 .dict{font:inherit;font-size:8.5pt;font-weight:700;border:1px solid var(--noche);background:#fff;color:var(--noche);border-radius:1.5mm;padding:.6mm 2mm;cursor:pointer;margin-right:1.5mm}
 #proy{position:fixed;inset:0;background:var(--noche);color:#fff;display:none;place-items:center;z-index:50;font:700 4.2vw/1.35 "Courier New",monospace;text-align:center;padding:6vw;transition:opacity 1.2s}
 #proy.on{display:grid}
@@ -75,7 +90,7 @@ td.cel .gap{display:block;width:100%;height:auto}
   .page>div:first-child{height:auto!important}
   .page .pie{position:static;margin-top:2mm}
   body{zoom:1!important}
-  .noprint,.barra,.solbtn,.dict,#proy,#pinbox{display:none!important}
+  .noprint,.barra,.solbtn,.dict,#proy,#pinbox,.teobtn,#teo{display:none!important}
 }
 @media (max-width:820px){.page{margin:4mm auto}}
 </style>
@@ -100,7 +115,7 @@ td.cel .gap{display:block;width:100%;height:auto}
     <li>difícil → <span class="gap"></span></li><li>cómodo → <span class="gap"></span></li><li>irónico → <span class="gap"></span></li>
     <li>tímido → <span class="gap"></span></li><li>único → <span class="gap"></span></li><li>suave → <span class="gap"></span></li>
   </ol>
-</section><section class="ej"><h2><span class="n">2</span><span class="t">Detectives de tildes</span></h2>
+</section><section class="ej"><h2><span class="n">2</span><span class="t">Detectives de tildes</span><button class="teobtn noprint" type="button" data-teo="acent" title="Repasa la teoría">📘 Teoría</button></h2>
   <p>Estas palabras de los capítulos 6-9 han perdido todas sus tildes. <b>Escribe la tilde</b> en las que la necesiten.</p>
   <div class="palabras cuerpo">
     <span class="w">dificil</span><span class="w">publico</span><span class="w">musica</span><span class="w">Socrates</span><span class="w">movil</span><span class="w">balon</span>
@@ -121,7 +136,7 @@ td.cel .gap{display:block;width:100%;height:auto}
     <li>cuenta + nos + lo → <span class="gap"></span></li><li>pregunta + se + lo → <span class="gap"></span></li>
     <li>di + me → <span class="gap"></span></li><li>da + le → <span class="gap"></span></li>
   </ol>
-</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">1 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">4</span><span class="t">¿Juntas o separadas? Diptongos y hiatos</span></h2>
+</section></div><div class="pie"><span>Ficha de ortografía 1 · Lengua Castellana y Literatura · 1.º ESO</span><span class="pn">1 / 6</span></div></div><div class="page"><div style="height: 100%; overflow: hidden;"><section class="ej"><h2><span class="n">4</span><span class="t">¿Juntas o separadas? Diptongos y hiatos</span><button class="teobtn noprint" type="button" data-teo="dipt" title="Repasa la teoría">📘 Teoría</button></h2>
   <p>Separa en sílabas y clasifica: <b>diptongo</b> (las vocales van en la misma sílaba), <b>hiato con tilde</b> (se separan y la tilde lo marca) o <b>trampa</b> (la <i>u</i> no suena: no hay diptongo).</p>
   <p style="text-align:center;font-weight:700;letter-spacing:.02em">tío · miedo · oídos · audio · Guille · juicio · había · negocio · pretendía · fiebre · guitarra · antigua · oímos · paciencia · aún · auriculares · quería · suavidad · sigue · cuela</p>
   <table class="cuerpo"><tbody><tr><th style="width:42%">Diptongo</th><th style="width:36%">Hiato con tilde</th><th>Trampa (u muda)</th></tr>
@@ -260,6 +275,28 @@ td.cel .gap{display:block;width:100%;height:auto}
 </div>
 
 <div id="proy"></div>
+<div id="teo"><div class="in"><button class="x" type="button" title="Cerrar (Esc)">✕</button><div id="teoin"></div></div></div>
+<template id="teo-acent"><h3>Reglas de acentuación</h3>
+<p>Primero busca la <b>sílaba tónica</b>, la que suena más fuerte. Truco: di la palabra como si llamaras a alguien desde lejos: <i>¡mú-si-ca!</i></p>
+<table><tr><th style="width:21%">Tipo</th><th style="width:27%">Sílaba tónica</th><th style="width:30%">¿Cuándo lleva tilde?</th><th>Ejemplos</th></tr>
+<tr><td><b>Agudas</b></td><td>la última</td><td>si acaban en <b>vocal, -n o -s</b></td><td>ba<b>lón</b>, so<b>fá</b>, com<b>pás</b><br><span class="ej-t">sin tilde: re<b>loj</b>, pa<b>pel</b>, ciu<b>dad</b></span></td></tr>
+<tr><td><b>Llanas</b></td><td>la penúltima</td><td>si <b>no</b> acaban en vocal, -n ni -s</td><td><b>di</b>fícil, <b>mó</b>vil, <b>lá</b>piz<br><span class="ej-t">sin tilde: gui<b>ta</b>rra, e<b>xa</b>men, vo<b>lu</b>men</span></td></tr>
+<tr><td><b>Esdrújulas</b></td><td>la antepenúltima</td><td><b>siempre</b></td><td><b>mú</b>sica, <b>rá</b>pido, <b>Só</b>crates</td></tr>
+<tr><td><b>Sobresdrújulas</b> (o sobreesdrújulas)</td><td>antes de la antepenúltima</td><td><b>siempre</b></td><td><b>cuén</b>tanoslo, pre<b>gún</b>taselo</td></tr></table>
+<div class="truco"><b>Ojo:</b> los monosílabos no llevan tilde (<i>fue, dio, vio, pie</i>), salvo la tilde diacrítica (<i>tú, él, sí, sé…</i>). Y si hay hiato con <i>i</i> o <i>u</i> tónicas, la tilde va siempre: <i>pi-car-<b>dí</b>-a</i> (mira la teoría de la actividad 4).</div>
+</template>
+<template id="teo-dipt"><h3>Diptongos, triptongos e hiatos</h3>
+<p>Vocales <b>abiertas</b>: <b>a, e, o</b>. Vocales <b>cerradas</b>: <b>i, u</b>.</p>
+<h4>Diptongo: dos vocales en la misma sílaba</h4>
+<ul><li>abierta + cerrada sin acento: <i>au-dio, pei-ne</i></li><li>cerrada sin acento + abierta: <i>mie-do, cue-la, fie-bre</i></li><li>dos cerradas distintas: <i>jui-cio, ciu-dad</i></li></ul>
+<p>Siguen las reglas generales. Si llevan tilde, va en la abierta (<i>can-<b>ción</b>, des-<b>pués</b></i>) o, en <i>ui / iu</i>, en la segunda (<i>cuí-da-te</i>).</p>
+<h4>Triptongo: tres vocales en la misma sílaba</h4>
+<p>Cerrada + abierta + cerrada: <i>buey, U-ru-guay, es-tu-diáis</i>. La tilde, si la lleva, va en la abierta.</p>
+<h4>Hiato: dos vocales en sílabas distintas</h4>
+<ul><li>Dos abiertas: <i>le-ón, po-e-ma, a-é-re-o</i>. Siguen las reglas generales.</li><li>Cerrada <b>tónica</b> + abierta, o al revés: <b>siempre llevan tilde</b>, aunque rompan las reglas: <i>tí-o, o-í-dos, ha-bí-a, a-ún, re-ír</i>.</li></ul>
+<div class="truco"><b>Trampa:</b> en <i>gue, gui, que, qui</i> la <i>u</i> no suena, así que no hay diptongo: <i>gui-ta-rra, si-gue, Gui-lle</i>. Si lleva diéresis, sí suena: <i>pin-güi-no</i>.</div>
+</template>
+
 <div id="pinbox"><div class="in">
   <p style="font-size:14pt;font-weight:700;color:var(--noche)">🔒 Soluciones del profesor</p>
   <p>Escribe el PIN para mostrar los botones de solución.</p>
@@ -344,7 +381,11 @@ document.getElementById('pincancel').onclick=cerrarPin;PB.addEventListener('clic
 document.getElementById('ojo').onclick=()=>{pi.type=pi.type==='password'?'text':'password';pi.focus()};
 const tryit=async()=>{msg.textContent='Comprobando…';try{const a=await dec(pi.value);try{sessionStorage.setItem('solpin',pi.value)}catch(e){}cerrarPin();unlock(a)}catch(e){msg.textContent='PIN incorrecto';pi.select()}};
 document.getElementById('pinok').onclick=tryit;pi.addEventListener('keydown',e=>{if(e.key==='Enter')tryit()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarP();cerrarPin()}});
+/* teoría */
+const TEO=document.getElementById('teo'),cerrarTeo=()=>TEO.classList.remove('on');
+document.addEventListener('click',e=>{const b=e.target.closest('.teobtn');if(!b)return;document.getElementById('teoin').innerHTML=document.getElementById('teo-'+b.dataset.teo).innerHTML;TEO.classList.add('on');TEO.querySelector('.in').scrollTop=0});
+TEO.addEventListener('click',e=>{if(e.target===TEO||e.target.closest('.x'))cerrarTeo()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarP();cerrarPin();cerrarTeo()}});
 if(ENC){
   window.__cdAbrir=pin=>dec(pin).then(unlock);window.__cdCerrar=()=>relock();window.__cdLiberado=k=>decK(k).then(unlock);
 }
