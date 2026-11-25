@@ -666,6 +666,7 @@ window.NUEVOS=["01_ESO/1_Y_2/TAREAS/reto_narracion_resumen_ortografia_1eso.html"
    Para volver a mostrarlo, basta con borrar su línea.
    Para verlo todo como profesor, añade ?ver=todo al final de la dirección. */
 window.OCULTOS=[
+ '03_FPB/ACTIVIDADES/ficha_practicas_de_lengua.html',
  '03_FPB/ACTIVIDADES/rock_and_road_dream_cars.html',
  '01_ESO/1_Y_2/ACTIVIDADES/SINTAXIS/',
  '01_ESO/1_Y_2/PRESENTACIONES/presentacion_genero_lirico.html',
