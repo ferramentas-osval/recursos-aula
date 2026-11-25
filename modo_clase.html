@@ -64,7 +64,11 @@ html,body{height:100%;overflow:hidden;background:#11181f;font-family:system-ui,A
     if(!d.getElementById('mcCss')){var s=d.createElement('style');s.id='mcCss';s.textContent='#volverPanel,#girar{display:none!important}'+(isB?'.bar{position:sticky}':'');d.head.appendChild(s)}
     if(isB&&!f._pr){f._pr=1;var w=f.contentWindow;w.addEventListener('beforeprint',function(){d.body.style.zoom=''});w.addEventListener('afterprint',fitB)}
     if(isB)fitB();}catch(e){}}
-  function fitB(){try{var d=fB.contentDocument;if(!d||!d.body)return;var pg=d.querySelector('.page');if(!pg)return;
+  /* se a ficha se cargou oculta (modo só presentación), paxinouse sen medidas: volver paxinar ao vela */
+  function repag(){try{var w=fB.contentWindow,d=fB.contentDocument;if(!w||!w.__paginate||!pB.offsetWidth)return;
+    var mal=[].some.call(d.querySelectorAll('.page>div:first-child'),function(b){return b.clientHeight>0&&b.children.length>1&&b.scrollHeight>b.clientHeight+1});
+    if(mal)w.__paginate()}catch(e){}}
+  function fitB(){repag();try{var d=fB.contentDocument;if(!d||!d.body)return;var pg=d.querySelector('.page');if(!pg)return;
     d.body.style.zoom='';var need=pg.offsetWidth+30,w=fB.clientWidth;var z=Math.min(1.6,w/need);d.body.style.zoom=z>0?z:1}catch(e){}}
   fP.addEventListener('load',function(){tidy(fP,false)});fB.addEventListener('load',function(){tidy(fB,true)});
   function layout(){pP.style.flex='0 0 '+(st.r*100)+'%';pB.style.flex='1 1 0';document.body.className=(st.m==='s'?'':'mode-'+st.m)+(st.sw?' swap':'');
