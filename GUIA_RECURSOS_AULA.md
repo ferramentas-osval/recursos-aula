@@ -99,6 +99,10 @@ Las soluciones y respuestas modelo de las presentaciones aparecen **debajo de ca
 - En el panel, toda presentación que tenga boletín abre el modo clase solo con la presentación (`m=p`), con icono 🖥️; arriba, «◧ Modo clase» muestra también el boletín. Para ello, añadir el par en `window.MODO_CLASE` (al final de `assets/recursos_datos.js`): `"ruta/presentacion_x.html": "ruta/boletin_x.html"`. No se crean tarjetas aparte.
 - Si la presentación se abre sola (aula virtual), lleva el botón «◧ Modo clase» arriba a la derecha (bloque de `tools/boton_modo_clase.html`, entre `<!--modoclase:inicio-->` y `<!--modoclase:fin-->`), que abre el modo clase en la misma diapositiva.
 
+## Candado de entrada (recurso que solo abre el profesor)
+
+`python3 tools/candado_entrada.py ruta.html` cifra la página entera (AES-GCM con clave PBKDF2 a partir del código, por defecto `eclipse`) y la sustituye por una portada que pide el código, con botón 👁. Al acertar se escribe la página original tal cual (scripts incluidos); el código se recuerda solo durante la sesión del navegador. Se aplica **al final**, después de `tools/candado.py`; para volver a editar el recurso hay que regenerarlo desde su fuente, porque el archivo publicado ya está cifrado. Lo usa: `01_ESO/1_Y_2/PRESENTACIONES/presentacion_descripcion.html`.
+
 ## Botón «⌂ Panel»
 
 Todo recurso nuevo (actividad, presentación, apuntes…) debe llevar antes de `</body>` el enlace `#volverPanel` (esquina inferior izquierda) con `href` a la página de su apartado (`../…/0X_APARTADO/index.html`). **Copiar el bloque entero, con su `onclick`, de cualquier recurso existente (p. ej. `04_PDC/PRESENTACIONES/HISTORIA/presentacion_arte_renacentista.html`); no escribirlo a mano.**
